@@ -12,5 +12,4 @@ provider "kafka" {
     "kafka-shared-1.kafka-shared-headless.pubsub.svc.cluster.merit:9092",
     "kafka-shared-2.kafka-shared-headless.pubsub.svc.cluster.merit:9092",
   ]
-  skip_tls_verify = true
 }
