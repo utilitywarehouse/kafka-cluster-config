@@ -4,7 +4,7 @@ resource "kafka_topic" "otlp_spans" {
   partitions         = 20
   config = {
     # retain 5GB on each partition
-    "retention.bytes" = "625000000"
+    "retention.bytes" = "5368709120"
     # keep data for 2 days
     "retention.ms"     = "172800000"
     "compression.type" = "snappy"
