@@ -12,7 +12,7 @@ resource "kafka_topic" "otlp_spans" {
   }
 }
 
-resource "kafka_acl" "otel_exporter" {
+resource "kafka_acl" "otel_collector" {
   resource_name       = "otlp_spans"
   resource_type       = "Topic"
   acl_principal       = "User:CN=otel/collector"
