@@ -18,7 +18,7 @@ resource "kafka_topic" "otlp_spans" {
   }
 }
 
-resource "kafka_acl" "otel_collector" {
+resource "kafka_acl" "otel_collector_topic_otlp_spans_access" {
   resource_name       = "otlp_spans"
   resource_type       = "Topic"
   acl_principal       = "User:CN=otel/collector"
@@ -27,9 +27,18 @@ resource "kafka_acl" "otel_collector" {
   acl_permission_type = "Allow"
 }
 
-resource "kafka_acl" "tempo_distributor" {
+resource "kafka_acl" "tempo_distributor_topic_otlp_spans_access" {
   resource_name       = "otlp_spans"
   resource_type       = "Topic"
+  acl_principal       = "User:CN=otel/tempo-distributor"
+  acl_host            = "*"
+  acl_operation       = "Read"
+  acl_permission_type = "Allow"
+}
+
+resource "kafka_acl" "tempo_distributor_group_processor_tempo_access" {
+  resource_name       = "processor-tempo"
+  resource_type       = "Group"
   acl_principal       = "User:CN=otel/tempo-distributor"
   acl_host            = "*"
   acl_operation       = "Read"
