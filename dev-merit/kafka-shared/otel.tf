@@ -7,7 +7,7 @@ resource "kafka_topic" "otlp_spans" {
     "retention.bytes" = "5368709120"
     # keep data for 2 days
     "retention.ms"     = "172800000"
-    "compression.type" = "snappy"
+    "compression.type" = "zstd"
     "cleanup.policy"   = "delete"
   }
 }
