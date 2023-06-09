@@ -27,6 +27,17 @@ resource "kafka_acl" "otel_collector_topic_otlp_spans_access" {
   acl_permission_type = "Allow"
 }
 
+resource "kafka_quota" "otel_collector_producer_quota" {
+  entity_name               = "User:CN=otel/collector"
+  entity_type               = "user"
+  config = {
+    # limit producing to 5 MB/s
+    "producer_byte_rate" = "5242880"
+    # Allow 100% of CPU. More on this here: https://docs.confluent.io/kafka/design/quotas.html#request-rate-quotas
+    "request_percentage" = "100"
+  }
+}
+
 resource "kafka_acl" "tempo_distributor_topic_otlp_spans_access" {
   resource_name       = "otlp_spans"
   resource_type       = "Topic"
@@ -43,4 +54,15 @@ resource "kafka_acl" "tempo_distributor_group_processor_tempo_access" {
   acl_host            = "*"
   acl_operation       = "Read"
   acl_permission_type = "Allow"
+}
+
+resource "kafka_quota" "tempo_distributor_consumer_quota" {
+  entity_name               = "User:CN=otel/tempo-distributor"
+  entity_type               = "user"
+  config = {
+    # limit consuming to 5 MB/s
+    "consumer_byte_rate" = "5242880"
+    # Allow 100% of CPU. More on this here: https://docs.confluent.io/kafka/design/quotas.html#request-rate-quotas
+    "request_percentage" = "100"
+  }
 }
