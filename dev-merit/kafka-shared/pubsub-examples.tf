@@ -43,7 +43,7 @@ resource "kafka_acl" "example-consume-process-individually_topic_access" {
   acl_permission_type = "Allow"
 }
 
-resource "kafka_acl" "example-consume-process-individually_consumer_access" {
+resource "kafka_acl" "example-consume-process-individually_group_access" {
   resource_name       = "example-consume-process-individually"
   resource_type       = "Group"
   acl_principal       = "User:CN=dev-enablement/example-consume-process-individually"
