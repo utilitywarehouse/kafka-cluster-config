@@ -1,4 +1,4 @@
-resource "kafka_acl" "kafka_ui" {
+resource "kafka_acl" "kafka_ui_describe" {
   resource_name       = "*"
   resource_type       = "*"
   acl_principal       = "User:CN=pubsub/kafka-ui"
