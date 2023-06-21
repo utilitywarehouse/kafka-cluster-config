@@ -1,4 +1,4 @@
-resource "kafka_topic" "pubsub-examples" {
+resource "kafka_topic" "pubsub_examples" {
   name               = "pubsub-examples"
   replication_factor = 3
   partitions         = 10
@@ -14,7 +14,7 @@ resource "kafka_topic" "pubsub-examples" {
   }
 }
 
-resource "kafka_acl" "example-producer_topic_access" {
+resource "kafka_acl" "example_producer_topic_access" {
   resource_name       = "pubsub-examples"
   resource_type       = "Topic"
   acl_principal       = "User:CN=dev-enablement/example-producer"
@@ -23,7 +23,7 @@ resource "kafka_acl" "example-producer_topic_access" {
   acl_permission_type = "Allow"
 }
 
-resource "kafka_quota" "example-producer_quota" {
+resource "kafka_quota" "example_producer_quota" {
   entity_name               = "User:CN=dev-enablement/example-producer"
   entity_type               = "user"
   config = {
@@ -34,7 +34,7 @@ resource "kafka_quota" "example-producer_quota" {
   }
 }
 
-resource "kafka_acl" "example-consume-process-individually_topic_access" {
+resource "kafka_acl" "example_consume_process_individually_topic_access" {
   resource_name       = "pubsub-examples"
   resource_type       = "Topic"
   acl_principal       = "User:CN=dev-enablement/example-consume-process-individually"
@@ -43,7 +43,7 @@ resource "kafka_acl" "example-consume-process-individually_topic_access" {
   acl_permission_type = "Allow"
 }
 
-resource "kafka_acl" "example-consume-process-individually_group_access" {
+resource "kafka_acl" "example_consume_process_individually_group_access" {
   resource_name       = "example-consume-process-individually"
   resource_type       = "Group"
   acl_principal       = "User:CN=dev-enablement/example-consume-process-individually"
@@ -52,7 +52,7 @@ resource "kafka_acl" "example-consume-process-individually_group_access" {
   acl_permission_type = "Allow"
 }
 
-resource "kafka_quota" "example-consume-process-individually_quota" {
+resource "kafka_quota" "example_consume_process_individually_quota" {
   entity_name               = "User:CN=dev-enablement/example-consume-process-individually"
   entity_type               = "user"
   config = {
