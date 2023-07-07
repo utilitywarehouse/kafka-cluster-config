@@ -33,3 +33,12 @@ resource "kafka_quota" "iam_cerbos_audit_v1_quota" {
     "request_percentage" = "100"
   }
 }
+
+resource "kafka_acl" "indexer_iam_cerbos_audit_v1_access" {
+  resource_name       = "iam-cerbos-audit-v1"
+  resource_type       = "Topic"
+  acl_principal       = "User:CN=auth/iam-cerbos-audit-v1-indexer"
+  acl_host            = "*"
+  acl_operation       = "Read"
+  acl_permission_type = "Allow"
+}
