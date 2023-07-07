@@ -34,9 +34,18 @@ resource "kafka_quota" "iam_cerbos_audit_v1_quota" {
   }
 }
 
-resource "kafka_acl" "indexer_iam_cerbos_audit_v1_access" {
+resource "kafka_acl" "indexer_iam_cerbos_audit_v1_topic_access" {
   resource_name       = "iam-cerbos-audit-v1"
   resource_type       = "Topic"
+  acl_principal       = "User:CN=auth/iam-cerbos-audit-v1-indexer"
+  acl_host            = "*"
+  acl_operation       = "Read"
+  acl_permission_type = "Allow"
+}
+
+resource "kafka_acl" "indexer_iam_cerbos_audit_v1_group_access" {
+  resource_name       = "indexer-iam-cerbos-audit-v1"
+  resource_type       = "Group"
   acl_principal       = "User:CN=auth/iam-cerbos-audit-v1-indexer"
   acl_host            = "*"
   acl_operation       = "Read"
