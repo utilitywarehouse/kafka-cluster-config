@@ -17,14 +17,14 @@ resource "kafka_topic" "iam_cerbos_audit_v1" {
 resource "kafka_acl" "iam_cerbos_audit_v1_access" {
   resource_name       = "iam-cerbos-audit-v1"
   resource_type       = "Topic"
-  acl_principal       = "User:CN=iam/policy-decision-point"
+  acl_principal       = "User:CN=auth/policy-decision-point"
   acl_host            = "*"
   acl_operation       = "Write"
   acl_permission_type = "Allow"
 }
 
 resource "kafka_quota" "iam_cerbos_audit_v1_quota" {
-  entity_name               = "User:CN=iam/policy-decision-point"
+  entity_name               = "User:CN=auth/policy-decision-point"
   entity_type               = "user"
   config = {
     # limit producing to 5 MB/s
