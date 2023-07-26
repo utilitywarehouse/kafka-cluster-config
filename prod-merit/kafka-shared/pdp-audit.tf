@@ -62,3 +62,32 @@ resource "kafka_quota" "indexer_iam_cerbos_audit_v1_quota" {
     "request_percentage" = "100"
   }
 }
+
+resource "kafka_acl" "exporter_iam_cerbos_audit_v1_topic_access" {
+  resource_name       = "iam-cerbos-audit-v1"
+  resource_type       = "Topic"
+  acl_principal       = "User:CN=auth/iam-cerbos-audit-v1-exporter"
+  acl_host            = "*"
+  acl_operation       = "Read"
+  acl_permission_type = "Allow"
+}
+
+resource "kafka_acl" "exporter_iam_cerbos_audit_v1_group_access" {
+  resource_name       = "exporter-iam-cerbos-audit-v1"
+  resource_type       = "Group"
+  acl_principal       = "User:CN=auth/iam-cerbos-audit-v1-exporter"
+  acl_host            = "*"
+  acl_operation       = "Read"
+  acl_permission_type = "Allow"
+}
+
+resource "kafka_quota" "exporter_iam_cerbos_audit_v1_quota" {
+  entity_name               = "User:CN=auth/iam-cerbos-audit-v1-exporter"
+  entity_type               = "user"
+  config = {
+    # limit consuming to 5 MB/s
+    "consumer_byte_rate" = "5242880"
+    # Allow 100% of CPU. More on this here: https://docs.confluent.io/kafka/design/quotas.html#request-rate-quotas
+    "request_percentage" = "100"
+  }
+}
