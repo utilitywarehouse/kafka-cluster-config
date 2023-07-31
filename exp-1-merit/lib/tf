@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export KAFKA_CA_CERT='../certs/ca.crt'
+export KAFKA_CLIENT_CERT='../certs/tls.crt'
+export KAFKA_CLIENT_KEY='../certs/tls.key'
+export KAFKA_SKIP_VERIFY=true
+
+terraform "$@"

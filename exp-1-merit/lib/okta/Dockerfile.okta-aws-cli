@@ -1,0 +1,12 @@
+FROM alpine:3.17
+
+ARG OKTA_AWS_CLI_VERSION
+ARG OS="linux"
+ARG MACHINE="amd64"
+
+RUN wget https://github.com/okta/okta-aws-cli/releases/download/v${OKTA_AWS_CLI_VERSION}/okta-aws-cli_${OKTA_AWS_CLI_VERSION}_${OS}_${MACHINE}.tar.gz -O - \
+      | tar -xzv -C /usr/local/bin okta-aws-cli_v${OKTA_AWS_CLI_VERSION} \
+      && mv /usr/local/bin/okta-aws-cli_v${OKTA_AWS_CLI_VERSION} /usr/local/bin/okta-aws-cli \
+      && chmod u+x /usr/local/bin/okta-aws-cli
+
+ENTRYPOINT ["/usr/local/bin/okta-aws-cli"]

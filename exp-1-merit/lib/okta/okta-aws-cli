@@ -1,0 +1,45 @@
+#!/bin/bash
+
+set -e
+
+OKTA_AWS_CLI_VERSION="0.3.0"
+
+oktadir=$(git rev-parse --show-toplevel)/exp-1-merit/lib/okta
+dockerfile=$oktadir/Dockerfile.okta-aws-cli
+
+if [[ "$(docker image inspect okta-aws-cli:${OKTA_AWS_CLI_VERSION} 2> /dev/null)" == "[]" ]]; then
+  docker build \
+    --build-arg OKTA_AWS_CLI_VERSION=${OKTA_AWS_CLI_VERSION} \
+    --platform linux/amd64 \
+    -f $dockerfile \
+    -t okta-aws-cli:${OKTA_AWS_CLI_VERSION} \
+    $oktadir
+  printf "\n"
+fi
+
+# uw-explore
+#AWS_IAM_ROLE=arn:aws:iam::229806150680:role/sys-sso-jump-role \
+#OKTA_AWS_ACCOUNT_FEDERATION_APP_ID=0oagxjlwdWFKKMoNE0x6 \
+#OKTA_OIDC_CLIENT_ID=0oa4u6xiv196MAYom0x7 \
+#OKTA_ORG_DOMAIN=uw-preview.oktapreview.com \
+#PROFILE=uw-explore-jump-role \
+
+# prod
+AWS_IAM_ROLE=arn:aws:iam::703452047160:role/sys-sso-jump-role \
+OKTA_AWS_ACCOUNT_FEDERATION_APP_ID=0oa4y03dfEwJylW2N416 \
+OKTA_OIDC_CLIENT_ID=0oa6f32s1hfenxH5z417 \
+OKTA_ORG_DOMAIN=login.uw.systems \
+PROFILE=uw-prod-jump-role \
+
+exec docker run --platform linux/amd64 --rm -ti \
+       --rm --name okta-aws-cli \
+       -v "${HOME}/.aws":/root/.aws:rw,z \
+       -e AWS_IAM_ROLE=${AWS_IAM_ROLE} \
+       -e AWS_SESSION_DURATION=43200 \
+       -e FORMAT=aws-credentials \
+       -e OKTA_AWS_ACCOUNT_FEDERATION_APP_ID=${OKTA_AWS_ACCOUNT_FEDERATION_APP_ID} \
+       -e OKTA_OIDC_CLIENT_ID=${OKTA_OIDC_CLIENT_ID} \
+       -e OKTA_ORG_DOMAIN=${OKTA_ORG_DOMAIN} \
+       -e PROFILE=${PROFILE} \
+       -e WRITE_AWS_CREDENTIALS=true \
+       okta-aws-cli:${OKTA_AWS_CLI_VERSION}
