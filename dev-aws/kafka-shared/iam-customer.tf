@@ -1,5 +1,5 @@
-resource "kafka_topic" "iam_auth_provider_v1" {
-  name               = "iam-auth-provider-v1"
+resource "kafka_topic" "iam_customer_v1" {
+  name               = "iam-customer-v1"
   replication_factor = 3
   partitions         = 10
   config = {
@@ -14,8 +14,8 @@ resource "kafka_topic" "iam_auth_provider_v1" {
   }
 }
 
-resource "kafka_acl" "iam_auth_provider_v1_access" {
-  resource_name       = "iam-auth-provider-v1"
+resource "kafka_acl" "iam_customer_v1_access" {
+  resource_name       = "iam-customer-v1"
   resource_type       = "Topic"
   acl_principal       = "User:CN=clubhouse/auth-provider"
   acl_host            = "*"
@@ -23,7 +23,7 @@ resource "kafka_acl" "iam_auth_provider_v1_access" {
   acl_permission_type = "Allow"
 }
 
-resource "kafka_quota" "iam_cerbos_audit_v1_quota" {
+resource "kafka_quota" "iam_customer_v1_quota" {
   entity_name               = "User:CN=clubhouse/auth-provider"
   entity_type               = "user"
   config = {
