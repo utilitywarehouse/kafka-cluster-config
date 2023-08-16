@@ -34,6 +34,15 @@ resource "kafka_quota" "iam_customer_v1_quota" {
   }
 }
 
+resource "kafka_acl" "indexer_iam_customer_v1_topic_access" {
+  resource_name       = "iam-customer-v1"
+  resource_type       = "Topic"
+  acl_principal       = "User:CN=auth/iam-customer-v1-indexer"
+  acl_host            = "*"
+  acl_operation       = "Read"
+  acl_permission_type = "Allow"
+}
+
 resource "kafka_acl" "indexer_iam_customer_v1_group_access" {
   resource_name       = "indexer-iam-customer-v1"
   resource_type       = "Group"
