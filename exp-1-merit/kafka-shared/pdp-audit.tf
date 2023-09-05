@@ -16,7 +16,7 @@ resource "kafka_topic" "iam_cerbos_audit_v1" {
 }
 
 module "producer" {
-  source = "./modules/producer"
+  source = "../../modules/producer"
 
   topic = kafka_topic.iam_cerbos_audit_v1.name
 
@@ -24,7 +24,7 @@ module "producer" {
 }
 
 module "consumer" {
-  source = "./modules/consumer"
+  source = "../../modules/consumer"
 
   topic          = kafka_topic.iam_cerbos_audit_v1.name
   consumer_group = "indexer-iam-cerbos-audit-v1"
