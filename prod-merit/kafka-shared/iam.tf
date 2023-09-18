@@ -1,5 +1,5 @@
 resource "kafka_topic" "iam_cerbos_audit_v1" {
-  name               = "iam-cerbos-audit-v1"
+  name               = "auth.iam-cerbos-audit-v1"
   replication_factor = 3
   partitions         = 10
   config = {
@@ -15,7 +15,7 @@ resource "kafka_topic" "iam_cerbos_audit_v1" {
 }
 
 resource "kafka_acl" "iam_cerbos_audit_v1_access" {
-  resource_name       = "iam-cerbos-audit-v1"
+  resource_name       = "auth.iam-cerbos-audit-v1"
   resource_type       = "Topic"
   acl_principal       = "User:CN=auth/policy-decision-point"
   acl_host            = "*"
@@ -35,7 +35,7 @@ resource "kafka_quota" "iam_cerbos_audit_v1_quota" {
 }
 
 resource "kafka_acl" "indexer_iam_cerbos_audit_v1_topic_access" {
-  resource_name       = "iam-cerbos-audit-v1"
+  resource_name       = "auth.iam-cerbos-audit-v1"
   resource_type       = "Topic"
   acl_principal       = "User:CN=auth/iam-cerbos-audit-v1-indexer"
   acl_host            = "*"
@@ -64,7 +64,7 @@ resource "kafka_quota" "indexer_iam_cerbos_audit_v1_quota" {
 }
 
 resource "kafka_acl" "exporter_iam_cerbos_audit_v1_topic_access" {
-  resource_name       = "iam-cerbos-audit-v1"
+  resource_name       = "auth.iam-cerbos-audit-v1"
   resource_type       = "Topic"
   acl_principal       = "User:CN=auth/iam-cerbos-audit-v1-exporter"
   acl_host            = "*"

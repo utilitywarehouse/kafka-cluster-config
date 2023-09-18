@@ -1,5 +1,5 @@
 resource "kafka_topic" "otlp_spans" {
-  name               = "otlp_spans"
+  name               = "otel.otlp_spans"
   replication_factor = 3
   partitions         = 20
   config = {
@@ -19,7 +19,7 @@ resource "kafka_topic" "otlp_spans" {
 }
 
 resource "kafka_acl" "otel_collector_topic_otlp_spans_access" {
-  resource_name       = "otlp_spans"
+  resource_name       = "otel.otlp_spans"
   resource_type       = "Topic"
   acl_principal       = "User:CN=otel/collector"
   acl_host            = "*"
@@ -39,7 +39,7 @@ resource "kafka_quota" "otel_collector_producer_quota" {
 }
 
 resource "kafka_acl" "tempo_distributor_topic_otlp_spans_access" {
-  resource_name       = "otlp_spans"
+  resource_name       = "otel.otlp_spans"
   resource_type       = "Topic"
   acl_principal       = "User:CN=otel/tempo-distributor"
   acl_host            = "*"
