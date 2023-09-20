@@ -1,4 +1,4 @@
-resource "kafka_topic" "invoice-fulfillment" {
+resource "kafka_topic" "invoice_fulfillment" {
   name               = "bex.internal.bill_fulfilled"
   replication_factor = 3
   partitions         = 10
@@ -12,10 +12,10 @@ resource "kafka_topic" "invoice-fulfillment" {
   }
 }
 
-module "producer" {
-  source = "../../../../modules/producer"
+module "invoice_fulfillment_producer" {
+  source = "../../modules/producer"
 
-  topic = kafka_topic.invoice-fulfillment.name
+  topic = kafka_topic.invoice_fulfillment.name
 
   cert_common_name = "customer-billing/invoice-fulfillment"
 }
