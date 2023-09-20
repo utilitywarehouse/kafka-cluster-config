@@ -13,7 +13,7 @@ resource "kafka_topic" "invoice_fulfillment" {
 }
 
 module "invoice_fulfillment_producer" {
-  source = "../../modules/producer"
+  source = "git@github.com:utilitywarehouse/kafka-cluster-config//modules/consumerr"
 
   topic = kafka_topic.invoice_fulfillment.name
 
