@@ -19,3 +19,12 @@ module "invoice_fulfillment_producer" {
 
   cert_common_name = "customer-billing/invoice-fulfillment"
 }
+
+module "bills_total_api_consumer" {
+  source = "git@github.com:utilitywarehouse/kafka-cluster-config//modules/consumer"
+
+  topic = kafka_topic.invoice_fulfillment.name
+  consumer_group = "bills-total-api-reader"
+
+  cert_common_name = "customer-billing/bills-total-api" 
+}
