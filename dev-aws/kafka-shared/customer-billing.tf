@@ -13,7 +13,7 @@ resource "kafka_topic" "invoice_fulfillment" {
 }
 
 module "invoice_fulfillment_producer" {
-  source = "git@github.com:utilitywarehouse/kafka-cluster-config//modules/producer"
+  source = "../../modules/producer"
 
   topic = kafka_topic.invoice_fulfillment.name
 
@@ -21,7 +21,7 @@ module "invoice_fulfillment_producer" {
 }
 
 module "bills_total_api_consumer" {
-  source = "git@github.com:utilitywarehouse/kafka-cluster-config//modules/consumer"
+  source = "../../modules/consumer"
 
   topic = kafka_topic.invoice_fulfillment.name
   consumer_group = "bills-total-api-reader"
