@@ -9,9 +9,9 @@ resource "kafka_topic" "inovice_payment_events" {
   replication_factor = 3
   partitions         = 10
   config = {
-    "retention.bytes" : "-1"
+    "retention.bytes" = "-1"
     # keep for 30 days as it is indexed
-    "retention.ms" : "2592000000"
+    "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }
 }
