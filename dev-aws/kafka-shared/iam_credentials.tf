@@ -19,5 +19,5 @@ module "iam_credentials_producer" {
 
   topic = kafka_topic.iam_credentials_v1.name
 
-  cert_common_name = "auth-customer/credentials-v1"
+  cert_common_name = "auth-customer/credentials-api"
 }
