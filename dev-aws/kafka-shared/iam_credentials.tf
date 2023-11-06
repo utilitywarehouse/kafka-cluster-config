@@ -14,22 +14,10 @@ resource "kafka_topic" "iam_credentials_v1" {
   }
 }
 
-resource "kafka_acl" "iam_credentials_v1_access" {
-  resource_name       = "auth-customer.iam-credentials-v1"
-  resource_type       = "Topic"
-  acl_principal       = "User:CN=auth-customer/credentials-api"
-  acl_host            = "*"
-  acl_operation       = "Write"
-  acl_permission_type = "Allow"
-}
+module "iam_credentials_producer" {
+  source = "../../modules/producer"
 
-resource "kafka_quota" "iam_credentials_v1_quota" {
-  entity_name = "User:CN=auth-customer/credentials-api"
-  entity_type = "user"
-  config = {
-    # limit producing to 5 MB/s
-    "producer_byte_rate" = "5242880"
-    # Allow 100% of CPU. More on this here: https://docs.confluent.io/kafka/design/quotas.html#request-rate-quotas
-    "request_percentage" = "100"
-  }
+  topic = kafka_topic.iam_credentials_v1.name
+
+  cert_common_name = "auth-customer/credentials-v1"
 }
