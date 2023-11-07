@@ -5,7 +5,7 @@ resource "kafka_topic" "iam_credentials_v1" {
   config = {
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
-    # keep data for 60 days
+    # keep data for 7 days
     "retention.ms" = "604800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
