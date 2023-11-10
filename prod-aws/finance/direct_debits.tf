@@ -12,7 +12,7 @@ resource "kafka_topic" "dd_run_events" {
 resource "kafka_topic" "invoice_payment_events" {
   name               = "invoice.payment.events"
   replication_factor = 3
-  partitions         = 10
+  partitions         = 50
   config = {
     "retention.bytes" = "-1"
     "retention.ms"    = "-1"
@@ -23,7 +23,7 @@ resource "kafka_topic" "invoice_payment_events" {
 resource "kafka_topic" "invoice_payment_events_filtered" {
   name               = "invoice.payment.events.filtered"
   replication_factor = 3
-  partitions         = 10
+  partitions         = 50
   config = {
     "retention.bytes" = "-1"
     "retention.ms"    = "-1"
