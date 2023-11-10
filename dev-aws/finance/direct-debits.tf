@@ -40,3 +40,14 @@ resource "kafka_topic" "dd_adjustment_errors" {
     "cleanup.policy"  = "delete"
   }
 }
+
+resource "kafka_topic" "dd_file_upload_results_events" {
+  name               = "dd-file-upload-results.events"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "retention.bytes" = "-1"
+    "retention.ms"    = "2592000000"
+    "cleanup.policy"  = "delete"
+  }
+}
