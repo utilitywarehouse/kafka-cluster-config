@@ -50,12 +50,3 @@ module "invoice_fulfillment_producer" {
 
   cert_common_name = "customer-billing/invoice-fulfillment"
 }
-
-module "invoice_fulfillment_consumer" {
-  source = "../../modules/consumer"
-
-  topic          = kafka_topic.invoice_fulfillment_deadletter.name
-  consumer_group = "bills-total-api-reader"
-
-  cert_common_name = "customer-billing/invoice-fulfillment"
-}
