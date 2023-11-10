@@ -21,3 +21,33 @@ module "iam_credentials_producer" {
 
   cert_common_name = "auth-customer/credentials-api"
 }
+
+
+resource "kafka_acl" "indexer_iam_credentials_v1_topic_access" {
+  resource_name       = "auth-customer.iam-credentials-v1"
+  resource_type       = "Topic"
+  acl_principal       = "User:CN=auth-customer/iam-credentials-v1-indexer"
+  acl_host            = "*"
+  acl_operation       = "Read"
+  acl_permission_type = "Allow"
+}
+
+resource "kafka_acl" "indexer_iam_credentials_v1_group_access" {
+  resource_name       = "indexer-iam-credentials-v1"
+  resource_type       = "Group"
+  acl_principal       = "User:CN=auth-customer/iam-credentials-v1-indexer"
+  acl_host            = "*"
+  acl_operation       = "Read"
+  acl_permission_type = "Allow"
+}
+
+resource "kafka_quota" "indexer_iam_credentials_v1_quota" {
+  entity_name               = "User:CN=auth-customer/iam-credentials-v1-indexer"
+  entity_type               = "user"
+  config = {
+    # limit consuming to 5 MB/s
+    "consumer_byte_rate" = "5242880"
+    # Allow 100% of CPU. More on this here: https://docs.confluent.io/kafka/design/quotas.html#request-rate-quotas
+    "request_percentage" = "100"
+  }
+}
