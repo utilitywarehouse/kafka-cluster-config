@@ -43,7 +43,7 @@ resource "kafka_topic" "invoice_fulfillment_deadletter" {
   }
 }
 
-module "invoice_fulfillment_producer" {
+module "invoice_fulfillment_deadletter_producer" {
   source = "../../modules/producer"
 
   topic = kafka_topic.invoice_fulfillment_deadletter.name
