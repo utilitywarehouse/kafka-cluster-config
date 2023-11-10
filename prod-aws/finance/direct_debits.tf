@@ -4,6 +4,7 @@ resource "kafka_topic" "dd_run_events" {
   partitions         = 10
   config = {
     "retention.bytes" = "-1"
+    "retention.ms"    = "-1"
     "cleanup.policy"  = "delete"
   }
 }
@@ -14,9 +15,8 @@ resource "kafka_topic" "invoice_payment_events" {
   partitions         = 10
   config = {
     "retention.bytes" = "-1"
-    # Messages will be stored for 30 days
-    "retention.ms"   = "2592000000"
-    "cleanup.policy" = "delete"
+    "retention.ms"    = "-1"
+    "cleanup.policy"  = "delete"
   }
 }
 
@@ -26,9 +26,8 @@ resource "kafka_topic" "invoice_payment_events_filtered" {
   partitions         = 10
   config = {
     "retention.bytes" = "-1"
-    # Messages will be stored for 30 days
-    "retention.ms"   = "2592000000"
-    "cleanup.policy" = "delete"
+    "retention.ms"    = "-1"
+    "cleanup.policy"  = "delete"
   }
 }
 
@@ -48,6 +47,7 @@ resource "kafka_topic" "dd_adjustment_errors" {
   partitions         = 10
   config = {
     "retention.bytes" = "-1"
+    "retention.ms"    = "2592000000"
     "cleanup.policy"  = "delete"
   }
 }
