@@ -25,7 +25,7 @@ module "iam_credentials_producer" {
 module "iam_credentials_consumer" {
   source = "../../modules/consumer"
 
-  topic          = kafka_topic.iam_credential_v1.name
+  topic          = kafka_topic.iam_credentials_v1.name
   consumer_group = "indexer-iam-credentials-v1"
 
   cert_common_name = "auth-customer/iam-credentials-v1-indexer"
