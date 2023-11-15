@@ -21,3 +21,12 @@ module "iam_credentials_producer" {
 
   cert_common_name = "auth-customer/credentials-api"
 }
+
+module "iam_credentials_consumer" {
+  source = "../../modules/consumer"
+
+  topic          = kafka_topic.iam_credentials_v1.name
+  consumer_group = "indexer-iam-credentials-v1"
+
+  cert_common_name = "auth-customer/iam-credentials-v1-indexer"
+}
