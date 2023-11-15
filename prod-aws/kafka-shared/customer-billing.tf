@@ -24,7 +24,7 @@ module "bills_total_api_consumer" {
   source = "../../modules/consumer"
 
   topic = kafka_topic.invoice_fulfillment.name
-  consumer_group = "bills-total-api-reader"
+  consumer_group = "bex.bills-total-api-reader"
 
   cert_common_name = "customer-billing/bills-total-api" 
 }
