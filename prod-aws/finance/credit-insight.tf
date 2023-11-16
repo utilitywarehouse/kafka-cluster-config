@@ -20,7 +20,7 @@ resource "kafka_topic" "credit-insight-account-balance-changed-events" {
   }
 }
 
-resource "kafka_topic" "credit-insight-account-changed.events" {
+resource "kafka_topic" "credit-insight-account-changed-events" {
   name               = "credit-insight-account-changed.events"
   replication_factor = 3
   partitions         = 10
