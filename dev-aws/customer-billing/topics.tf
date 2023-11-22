@@ -404,7 +404,7 @@ resource "kafka_topic" "deadletter-billing-comms-preferences-events" {
   }
 }
 
-resource "kafka_topic" "account-payment-details.v1" {
+resource "kafka_topic" "account-payment-details_v1" {
   name               = "account-payment-details.v1"
   replication_factor = 3
   partitions         = 10
