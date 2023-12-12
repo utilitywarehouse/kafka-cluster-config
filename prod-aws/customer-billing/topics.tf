@@ -208,6 +208,20 @@ resource "kafka_topic" "budget-plan" {
   }
 }
 
+resource "kafka_topic" "assessment-requests" {
+  name               = "assessment-requests"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "compression.type" = "zstd"
+    # retain 8GB on each partition
+    "retention.bytes" = "8053063680"
+    # allow max 1MB for a message
+    "max.message.bytes" = "1048588"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 resource "kafka_topic" "customer-change" {
   name               = "customer-change"
   replication_factor = 3
