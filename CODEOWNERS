@@ -1,2 +1,3 @@
-*              @utilitywarehouse/pubsub
-/*/finance/     @utilitywarehouse/finance-platform
+*                        @utilitywarehouse/pubsub
+/*/customer-billing/     @utilitywarehouse/org-billing-experience
+/*/finance/              @utilitywarehouse/finance-platform
