@@ -8,3 +8,25 @@ resource "kafka_topic" "account-debt-selected-events" {
     "cleanup.policy"  = "delete"
   }
 }
+
+resource "kafka_topic" "debt-comms-diffs-events" {
+  name               = "debt-comms-diffs.events"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "cleanup.policy"  = "delete"
+    "retention.ms"    = "2592000000"
+    "retention.bytes" = "-1"
+  }
+}
+
+resource "kafka_topic" "legacy-debt-comms-events" {
+  name               = "legacy-debt-comms.events"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "cleanup.policy"  = "delete"
+    "retention.ms"    = "2592000000"
+    "retention.bytes" = "-1"
+  }
+}
