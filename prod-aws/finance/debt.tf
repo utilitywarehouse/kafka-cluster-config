@@ -30,3 +30,14 @@ resource "kafka_topic" "legacy-debt-comms-events" {
     "retention.bytes" = "-1"
   }
 }
+
+resource "kafka_topic" "failed-debt-notification-events" {
+  name               = "failed-debt-notification.events"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "retention.ms"    = "-1"
+    "retention.bytes" = "-1"
+    "cleanup.policy"  = "delete"
+  }
+}
