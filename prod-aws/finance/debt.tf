@@ -41,3 +41,23 @@ resource "kafka_topic" "failed-debt-notification-events" {
     "cleanup.policy"  = "delete"
   }
 }
+
+resource "kafka_topic" "internal-account-debt-events" {
+  name               = "internal-account-debt.events"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "cleanup.policy" = "delete"
+  }
+}
+
+resource "kafka_topic" "account-debt.events" {
+  name = "account-debt.events"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "retention.ms"    = "-1"
+    "retention.bytes" = "-1"
+    "cleanup.policy"  = "delete"
+  }
+}
