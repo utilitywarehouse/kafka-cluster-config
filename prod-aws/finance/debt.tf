@@ -51,8 +51,8 @@ resource "kafka_topic" "internal-account-debt-events" {
   }
 }
 
-resource "kafka_topic" "account-debt.events" {
-  name = "account-debt.events"
+resource "kafka_topic" "account-debt-events" {
+  name               = "account-debt.events"
   replication_factor = 3
   partitions         = 10
   config = {
