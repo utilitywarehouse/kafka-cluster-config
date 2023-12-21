@@ -4,7 +4,7 @@ resource "kafka_topic" "account-status-events" {
   partitions         = 10
   config = {
     "retention.bytes"   = "-1"
-    "retention.ms"      = "7776000000"
+    "retention.ms"      = "604800000"
     "cleanup.policy"    = "delete"
     "max.message.bytes" = "104857600"
   }
@@ -16,5 +16,6 @@ resource "kafka_topic" "account-eligibility-changed-events" {
   partitions         = 10
   config = {
     "max.message.bytes" = "104857600"
+    "retention.ms"      = "604800000"
   }
 }
