@@ -8,8 +8,8 @@ terraform {
 
 provider "kafka" {
   bootstrap_servers = [
-    "msk-0.pubsub.svc.cluster.merit:9094",
-    "msk-1.pubsub.svc.cluster.merit:9094",
-    "msk-2.pubsub.svc.cluster.merit:9094",
+    "b-1.devenablementpubsubmsk.ri947e.c8.kafka.eu-west-1.amazonaws.com:9094",
+    "b-2.devenablementpubsubmsk.ri947e.c8.kafka.eu-west-1.amazonaws.com:9094",
+    "b-3.devenablementpubsubmsk.ri947e.c8.kafka.eu-west-1.amazonaws.com:9094",
   ]
 }
