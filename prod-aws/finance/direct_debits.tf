@@ -9,6 +9,17 @@ resource "kafka_topic" "dd_run_events" {
   }
 }
 
+resource "kafka_topic" "dd_run_reconciliation_events" {
+  name               = "dd-run.reconciliation.events"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "retention.bytes" = "-1"
+    "retention.ms"    = "259200000" #3 days
+    "cleanup.policy"  = "delete"
+  }
+}
+
 resource "kafka_topic" "invoice_payment_events" {
   name               = "invoice.payment.events"
   replication_factor = 3
