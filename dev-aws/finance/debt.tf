@@ -39,3 +39,14 @@ resource "kafka_topic" "account-debt-events" {
     "cleanup.policy"  = "delete"
   }
 }
+
+resource "kafka_topic" "debt-collection-events" {
+  name = "debt-collection.events"
+  replication_factor = 3
+  partitions         = 3
+  config = {
+    "retention.ms"    = "2592000000"
+    "retention.bytes" = "-1"
+    "cleanup.policy"  = "delete"
+  }
+}
