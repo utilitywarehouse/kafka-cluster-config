@@ -14,6 +14,7 @@ resource "kafka_topic" "dd_run_reconciliation_events" {
   replication_factor = 3
   partitions         = 10
   config = {
+    "max.message.bytes" = "1048576"
     "retention.bytes" = "-1"
     "retention.ms"    = "259200000" #3 days
     "cleanup.policy"  = "delete"
