@@ -29,12 +29,25 @@ resource "kafka_topic" "finance-sledger-transaction-events" {
 }
 
 resource "kafka_topic" "invalid-sledger-fabricated-txs" {
-  name = "invalid-sledger-fabricated-txs"
+  name               = "invalid-sledger-fabricated-txs"
   replication_factor = 3
   partitions         = 10
   config = {
     "retention.bytes" = "-1"
     "retention.ms"    = "2592000000"
     "cleanup.policy"  = "delete"
-  }  
+  }
+}
+
+resource "kafka_topic" "billing-engine-events-spread-50-filtered-all" {
+  name               = "billing-engine-events-spread-50-filtered-all"
+  replication_factor = 3
+  partitions         = 50
+  config = {
+    "retention.bytes"   = "-1"
+    "retention.ms"      = "-1"
+    "compression.type"  = "snappy"
+    "cleanup.policy"    = "delete"
+    "max.message.bytes" = "104857600"
+  }
 }
