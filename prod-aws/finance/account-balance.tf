@@ -38,3 +38,13 @@ resource "kafka_topic" "invalid-sledger-fabricated-txs" {
     "cleanup.policy"  = "delete"
   }
 }
+
+resource "kafka_topic" "billing-account-events" {
+  name               = "billing-account.events"
+  replication_factor = 3
+  partitions         = 50
+  config = {
+    "max.message.bytes" = "104857600"
+    "cleanup.policy"    = "delete"
+  }
+}
