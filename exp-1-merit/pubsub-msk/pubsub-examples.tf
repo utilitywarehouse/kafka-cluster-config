@@ -3,10 +3,13 @@ resource "kafka_topic" "pubsub_examples" {
   replication_factor = 3
   partitions         = 10
   config = {
+    "remote.storage.enable" = "true"
     # retain 100MB on each partition
     "retention.bytes" = "-1"
     # keep data for 2 days
     "retention.ms" = "-1"
+    # 1 hour hot storage
+    "local.retention.ms" = "3600000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type" = "zstd"
