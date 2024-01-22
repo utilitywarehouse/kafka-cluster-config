@@ -51,3 +51,54 @@ resource "kafka_topic" "billing-engine-events-spread-50-filtered-all" {
     "max.message.bytes" = "104857600"
   }
 }
+
+resource "kafka_topic" "account-balance-change-v2-events" {
+  name               = "account-balance-change-v2.events"
+  partitions         = 10
+  replication_factor = 3
+  config = {
+    "cleanup.policy"    = "delete"
+    "max.message.bytes" = "104857600"
+    "retention.bytes"   = "-1"
+    "retention.ms"      = "-1"
+  }
+}
+
+resource "kafka_topic" "account-balance-change-v1-events" {
+  name               = "account-balance-change.v1-events"
+  partitions         = 10
+  replication_factor = 3
+  config = {
+    "cleanup.policy"  = "delete"
+    "retention.bytes" = "-1"
+    "retention.ms"    = "604800000"
+  }
+}
+
+resource "kafka_topic" "projected-account-balance-change-v1-events" {
+  name               = "projected-account-balance-change.v1-events"
+  partitions         = 10
+  replication_factor = 3
+  config = {
+    "cleanup.policy"  = "delete"
+    "retention.bytes" = "-1"
+    "retention.ms"    = "604800000"
+  }
+}
+
+resource "kafka_topic" "account-balance-errors" {
+  name               = "account-balance.errors"
+  partitions         = 10
+  replication_factor = 3
+}
+
+resource "kafka_topic" "projected-account-balance-change-v1-events-complete" {
+  name               = "projected-account-balance-change.v1-events.complete"
+  partitions         = 10
+  replication_factor = 3
+  config = {
+    "cleanup.policy"  = "delete"
+    "retention.bytes" = "-1"
+    "retention.ms"    = "604800000"
+  }
+}
