@@ -27,7 +27,7 @@ module "iam_identitydb_snapshotter_consumer" {
   source = "../../modules/consumer"
 
   topic          = kafka_topic.iam_identitydb_v1.name
-  consumer_group = "iam-identitydb-snapshotter-v1"
+  consumer_group = "iam-identitydb-snapshotter"
 
   cert_common_name = "auth/iam-identitydb-snapshotter"
 }
@@ -36,7 +36,7 @@ module "iam_identitydb_identity_api_consumer" {
   source = "../../modules/consumer"
 
   topic          = kafka_topic.iam_identitydb_v1.name
-  consumer_group = "iam-identity-api-v1"
+  consumer_group = "iam-identity-api"
 
   cert_common_name = "auth/iam-identity-api"
 }
@@ -45,7 +45,7 @@ module "iam_identitydb_policy_decision_api_consumer" {
   source = "../../modules/consumer"
 
   topic          = kafka_topic.iam_identitydb_v1.name
-  consumer_group = "iam-policy-decision-api-v1"
+  consumer_group = "iam-policy-decision-api"
 
   cert_common_name = "auth/iam-policy-decision-api"
 }
