@@ -25,7 +25,7 @@ module "iam_cerbos_audit_producer" {
 module "iam_cerbos_audit_indexer_consumer" {
   source = "../../modules/consumer"
 
-  topic          = kafka_topic.iam_identitydb_v1.name
+  topic          = kafka_topic.iam_cerbos_audit_v1.name
   consumer_group = "indexer-iam-cerbos-audit-v1"
 
   cert_common_name = "auth/iam-cerbos-audit-indexer"
@@ -34,7 +34,7 @@ module "iam_cerbos_audit_indexer_consumer" {
 module "iam_cerbos_audit_exporter_consumer" {
   source = "../../modules/consumer"
 
-  topic          = kafka_topic.iam_identitydb_v1.name
+  topic          = kafka_topic.iam_cerbos_audit_v1.name
   consumer_group = "exporter-iam-cerbos-audit-v1"
 
   cert_common_name = "auth/iam-cerbos-audit-exporter"
