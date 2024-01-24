@@ -14,6 +14,37 @@ resource "kafka_topic" "iam_cerbos_audit_v1" {
   }
 }
 
+module "iam_cerbos_audit_producer" {
+  source = "../../modules/producer"
+
+  topic = kafka_topic.iam_cerbos_audit_v1.name
+
+  cert_common_name = "auth/iam-policy-decision-api"
+}
+
+module "iam_cerbos_audit_indexer_consumer" {
+  source = "../../modules/consumer"
+
+  topic          = kafka_topic.iam_identitydb_v1.name
+  consumer_group = "iam-cerbos-audit-indexer"
+
+  cert_common_name = "auth/iam-cerbos-audit-v1-indexer"
+}
+
+module "iam_cerbos_audit_exporter_consumer" {
+  source = "../../modules/consumer"
+
+  topic          = kafka_topic.iam_identitydb_v1.name
+  consumer_group = "iam-cerbos-audit-exporter"
+
+  cert_common_name = "auth/iam-cerbos-audit-v1-exporter"
+}
+
+###
+## ---- OLD ----
+## Remove the below once clients have migrated to the above
+###
+
 resource "kafka_acl" "iam_cerbos_audit_v1_access" {
   resource_name       = "auth.iam-cerbos-audit-v1"
   resource_type       = "Topic"
