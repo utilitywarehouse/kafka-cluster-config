@@ -34,6 +34,7 @@ resource "kafka_quota" "example_producer_quota" {
   }
 }
 
+// example consume process individually
 resource "kafka_acl" "example_consume_process_individually_topic_access" {
   resource_name       = "dev-enablement.pubsub-examples"
   resource_type       = "Topic"
@@ -63,6 +64,7 @@ resource "kafka_quota" "example_consume_process_individually_quota" {
   }
 }
 
+// example consume process batch
 resource "kafka_acl" "example_consume_process_batch_topic_access" {
   resource_name       = "dev-enablement.pubsub-examples"
   resource_type       = "Topic"
@@ -83,6 +85,36 @@ resource "kafka_acl" "example_consume_process_batch_group_access" {
 
 resource "kafka_quota" "example_consume_process_batch_quota" {
   entity_name               = "User:CN=dev-enablement/example-consume-process-batch"
+  entity_type               = "user"
+  config = {
+    # limit consuming to 5 MB/s
+    "consumer_byte_rate" = "5242880"
+    # Allow 100% of CPU. More on this here: https://docs.confluent.io/kafka/design/quotas.html#request-rate-quotas
+    "request_percentage" = "100"
+  }
+}
+
+// pubsub es topic indexer
+resource "kafka_acl" "pubsub_es_topic_indexer_topic_access" {
+  resource_name       = "dev-enablement.pubsub-examples"
+  resource_type       = "Topic"
+  acl_principal       = "User:CN=dev-enablement/es-topic-indexer"
+  acl_host            = "*"
+  acl_operation       = "Read"
+  acl_permission_type = "Allow"
+}
+
+resource "kafka_acl" "pubsub_es_topic_indexer_group_access" {
+  resource_name       = "es-topic-indexer"
+  resource_type       = "Group"
+  acl_principal       = "User:CN=dev-enablement/es-topic-indexer"
+  acl_host            = "*"
+  acl_operation       = "Read"
+  acl_permission_type = "Allow"
+}
+
+resource "kafka_quota" "pubsub_es_topic_indexer_quota" {
+  entity_name               = "User:CN=dev-enablement/es-topic-indexer"
   entity_type               = "user"
   config = {
     # limit consuming to 5 MB/s
