@@ -14,12 +14,20 @@ resource "kafka_topic" "iam_credentials_v1" {
   }
 }
 
-module "iam_credentials_producer" {
+module "iam_credentials_producer_api" {
   source = "../../modules/producer"
 
   topic = kafka_topic.iam_credentials_v1.name
 
   cert_common_name = "auth-customer/credentials-api"
+}
+
+module "iam_credentials_producer_auth_provider" {
+  source = "../../modules/producer"
+
+  topic = kafka_topic.iam_credentials_v1.name
+
+  cert_common_name = "clubhouse/auth-provider"
 }
 
 module "iam_credentials_consumer" {
