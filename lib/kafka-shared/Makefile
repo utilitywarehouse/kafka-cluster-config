@@ -8,7 +8,6 @@ KAFKA_CLIENT_CERT := $(shell pwd)/certs-0/tls.crt
 certs:
 	# obtain the certificates from the kafka pod
 	kubectl exec --context "${CONTEXT}" -n "pubsub" "kafka-shared-0" -- tar cfh - "certs-0/ca.crt" "certs-0/tls.key" "certs-0/tls.crt" | tar xf -
-	echo ${KAFKA_CA_CERT}
 
 init: certs
 	# terraform init
