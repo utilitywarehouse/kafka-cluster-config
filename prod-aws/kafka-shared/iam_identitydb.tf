@@ -41,11 +41,11 @@ module "iam_identitydb_identity_api_consumer" {
   cert_common_name = "auth/iam-identity-api"
 }
 
-module "iam_identitydb_policy_decision_api_consumer" {
-  source = "../../modules/consumer"
-
-  topic          = kafka_topic.iam_identitydb_v1.name
-  consumer_group = "iam-policy-decision-api"
+module "iam_policy_decision_api" {
+  source = "../../modules/tls-app"
 
   cert_common_name = "auth/iam-policy-decision-api"
+
+  produce_topics = [kafka_topic.iam_cerbos_audit_v1.name]
+  consume_topics = { (kafka_topic.iam_identitydb_v1.name) : "iam-policy-decision-api" }
 }
