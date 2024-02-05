@@ -14,14 +14,6 @@ resource "kafka_topic" "iam_cerbos_audit_v1" {
   }
 }
 
-module "iam_cerbos_audit_producer" {
-  source = "../../modules/producer"
-
-  topic = kafka_topic.iam_cerbos_audit_v1.name
-
-  cert_common_name = "auth/iam-policy-decision-api"
-}
-
 module "iam_cerbos_audit_indexer_consumer" {
   source = "../../modules/consumer"
 
