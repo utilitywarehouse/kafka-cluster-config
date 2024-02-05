@@ -49,3 +49,8 @@ module "iam_policy_decision_api" {
   produce_topics = [kafka_topic.iam_cerbos_audit_v1.name]
   consume_topics = { (kafka_topic.iam_identitydb_v1.name) : "iam-policy-decision-api" }
 }
+
+moved {
+  from = module.iam_policy_decision_api.kafka_quota.producer_quota
+  to   = module.iam_policy_decision_api.kafka_quota.quota
+}
