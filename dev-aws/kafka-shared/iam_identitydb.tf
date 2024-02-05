@@ -42,8 +42,6 @@ module "iam_identitydb_identity_api_consumer" {
 }
 
 module "iam_policy_decision_api" {
-  depends_on = [kafka_topic.iam_identitydb_v1, kafka_topic.iam_cerbos_audit_v1]
-
   source = "../../modules/tls-app"
 
   cert_common_name = "auth/iam-policy-decision-api"
