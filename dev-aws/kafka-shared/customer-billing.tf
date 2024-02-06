@@ -38,6 +38,12 @@ module "bills_total_api" {
   consume_topics   = { (kafka_topic.invoice_fulfillment.name) : "bex.bills-total-api-reader" }
 }
 
+module "billing_fulfilment_public_events_translator" {
+  source           = "../../modules/tls-app"
+  cert_common_name = "customer-billing/billing-fulfilment-public-events-translator"
+  consume_topics   = { (kafka_topic.invoice_fulfillment.name) : "bex.billing-fulfilment-public-events-translator" }
+}
+
 moved {
   from = module.invoice_fulfillment_deadletter_producer.kafka_acl.producer_acl
   to   = module.invoice_fulfillment.kafka_acl.producer_acl["bex.internal.accountreadytobefulfilled_deadletter"]
