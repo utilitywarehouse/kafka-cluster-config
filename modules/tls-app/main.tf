@@ -31,7 +31,7 @@ resource "kafka_acl" "producer_acl" {
 }
 
 # Quota
-resource "kafka_quota" "producer_quota" {
+resource "kafka_quota" "quota" {
   entity_name = "User:CN=${var.cert_common_name}"
   entity_type = "user"
   config      = {
