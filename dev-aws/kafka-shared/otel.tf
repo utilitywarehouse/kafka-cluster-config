@@ -18,51 +18,39 @@ resource "kafka_topic" "otlp_spans" {
   }
 }
 
-resource "kafka_acl" "otel_collector_topic_otlp_spans_access" {
-  resource_name       = "otel.otlp_spans"
-  resource_type       = "Topic"
-  acl_principal       = "User:CN=otel/collector"
-  acl_host            = "*"
-  acl_operation       = "Write"
-  acl_permission_type = "Allow"
+module "otel_collector" {
+  source = "../../modules/tls-app"
+  produce_topics = [kafka_topic.otlp_spans.name]
+  cert_common_name = "otel/collector"
 }
 
-resource "kafka_quota" "otel_collector_producer_quota" {
-  entity_name               = "User:CN=otel/collector"
-  entity_type               = "user"
-  config = {
-    # limit producing to 5 MB/s
-    "producer_byte_rate" = "5242880"
-    # Allow 100% of CPU. More on this here: https://docs.confluent.io/kafka/design/quotas.html#request-rate-quotas
-    "request_percentage" = "100"
-  }
+module "tempo_distributor" {
+  source = "../../modules/tls-app"
+  consume_topics = {(kafka_topic.otlp_spans.name): "processor-tempo"}
+  cert_common_name = "otel/tempo-distributor"
 }
 
-resource "kafka_acl" "tempo_distributor_topic_otlp_spans_access" {
-  resource_name       = "otel.otlp_spans"
-  resource_type       = "Topic"
-  acl_principal       = "User:CN=otel/tempo-distributor"
-  acl_host            = "*"
-  acl_operation       = "Read"
-  acl_permission_type = "Allow"
+moved {
+  from = kafka_acl.otel_collector_topic_otlp_spans_access
+  to   = module.otel_collector.kafka_acl.producer_acl["otel.otlp_spans"]
 }
 
-resource "kafka_acl" "tempo_distributor_group_processor_tempo_access" {
-  resource_name       = "processor-tempo"
-  resource_type       = "Group"
-  acl_principal       = "User:CN=otel/tempo-distributor"
-  acl_host            = "*"
-  acl_operation       = "Read"
-  acl_permission_type = "Allow"
+moved {
+  from = kafka_quota.otel_collector_producer_quota
+  to   = module.otel_collector.kafka_quota.quota
 }
 
-resource "kafka_quota" "tempo_distributor_consumer_quota" {
-  entity_name               = "User:CN=otel/tempo-distributor"
-  entity_type               = "user"
-  config = {
-    # limit consuming to 5 MB/s
-    "consumer_byte_rate" = "5242880"
-    # Allow 100% of CPU. More on this here: https://docs.confluent.io/kafka/design/quotas.html#request-rate-quotas
-    "request_percentage" = "100"
-  }
+moved {
+  from = kafka_acl.tempo_distributor_group_processor_tempo_access
+  to   = module.tempo_distributor.kafka_acl.group_acl["otel.otlp_spans"]
+}
+
+moved {
+  from = kafka_acl.tempo_distributor_topic_otlp_spans_access
+  to   = module.tempo_distributor.kafka_acl.topic_acl["otel.otlp_spans"]
+}
+
+moved {
+  from = kafka_quota.tempo_distributor_consumer_quota
+  to   = module.tempo_distributor.kafka_quota.quota
 }
