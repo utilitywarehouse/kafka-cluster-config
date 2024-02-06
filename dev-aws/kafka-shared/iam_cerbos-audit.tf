@@ -2,32 +2,56 @@ resource "kafka_topic" "iam_cerbos_audit_v1" {
   name               = "auth.iam-cerbos-audit-v1"
   replication_factor = 3
   partitions         = 10
-  config = {
+  config             = {
     # retain 100MB on each partition
-    "retention.bytes" = "104857600"
+    "retention.bytes"   = "104857600"
     # keep data for 2 days
-    "retention.ms" = "172800000"
+    "retention.ms"      = "172800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
-    "compression.type" = "zstd"
-    "cleanup.policy"   = "delete"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
   }
 }
 
-module "iam_cerbos_audit_indexer_consumer" {
-  source = "../../modules/consumer"
-
-  topic          = kafka_topic.iam_cerbos_audit_v1.name
-  consumer_group = "indexer-iam-cerbos-audit-v1"
-
+module "iam_cerbos_audit_indexer" {
+  source           = "../../modules/tls-app"
+  consume_topics   = { (kafka_topic.iam_cerbos_audit_v1.name) : "indexer-iam-cerbos-audit-v1" }
   cert_common_name = "auth/iam-cerbos-audit-indexer"
 }
 
-module "iam_cerbos_audit_exporter_consumer" {
-  source = "../../modules/consumer"
-
-  topic          = kafka_topic.iam_cerbos_audit_v1.name
-  consumer_group = "exporter-iam-cerbos-audit-v1"
-
+module "iam_cerbos_audit_exporter" {
+  source           = "../../modules/tls-app"
+  consume_topics   = { (kafka_topic.iam_cerbos_audit_v1.name) : "exporter-iam-cerbos-audit-v1" }
   cert_common_name = "auth/iam-cerbos-audit-exporter"
+}
+
+moved {
+  from = module.iam_cerbos_audit_indexer_consumer.kafka_acl.topic_acl
+  to   = module.iam_cerbos_audit_indexer.kafka_acl.topic_acl["auth.iam-cerbos-audit-v1"]
+}
+
+moved {
+  from = module.iam_cerbos_audit_indexer_consumer.kafka_acl.group_acl
+  to   = module.iam_cerbos_audit_indexer.kafka_acl.group_acl["auth.iam-cerbos-audit-v1"]
+}
+
+moved {
+  from = module.iam_cerbos_audit_indexer_consumer.kafka_quota.consumer_quota
+  to   = module.iam_cerbos_audit_indexer.kafka_quota.quota
+}
+
+moved {
+  from = module.iam_cerbos_audit_exporter_consumer.kafka_acl.topic_acl
+  to   = module.iam_cerbos_audit_exporter.kafka_acl.topic_acl["auth.iam-cerbos-audit-v1"]
+}
+
+moved {
+  from = module.iam_cerbos_audit_exporter_consumer.kafka_acl.group_acl
+  to   = module.iam_cerbos_audit_exporter.kafka_acl.group_acl["auth.iam-cerbos-audit-v1"]
+}
+
+moved {
+  from = module.iam_cerbos_audit_exporter_consumer.kafka_quota.consumer_quota
+  to   = module.iam_cerbos_audit_exporter.kafka_quota.quota
 }
