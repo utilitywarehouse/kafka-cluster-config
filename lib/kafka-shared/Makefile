@@ -9,17 +9,22 @@ PROVIDER := $(shell echo ${CONTEXT} | rev | cut -d"-" -f1 | rev)
 
 # obtain the certificates from the kafka pod
 certs:
-	kubectl exec --context "${CONTEXT}" -n "pubsub" "kafka-shared-0" -- tar cfh - "certs-0/ca.crt" "certs-0/tls.key" "certs-0/tls.crt" | tar xf -
+	kubectl exec \
+		--context "${CONTEXT}" \
+		--namespace "pubsub" \
+		--container kafka \
+		"kafka-shared-0" \
+		-- tar cfh - "certs-0/ca.crt" "certs-0/tls.key" "certs-0/tls.crt" | tar xf -
 
 # terraform init
 init: certs
 	terraform init \
-	-backend-config region=eu-west-1 \
-	-backend-config bucket=uw-${ENV}-pubsub-tf-applier-state \
-	-backend-config key="${CONTEXT}"/kafka-shared \
-	-backend-config encrypt=true \
-	-reconfigure \
-	-upgrade
+		-backend-config region=eu-west-1 \
+		-backend-config bucket=uw-${ENV}-pubsub-tf-applier-state \
+		-backend-config key="${CONTEXT}"/kafka-shared \
+		-backend-config encrypt=true \
+		-reconfigure \
+		-upgrade
 
 
 # forward traffic from local env to shared Kafka cluster
