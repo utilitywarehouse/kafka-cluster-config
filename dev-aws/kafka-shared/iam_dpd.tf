@@ -1,7 +1,7 @@
 resource "kafka_topic" "iam_dpd_v1" {
   name               = "auth-customer.iam-dpd-v1"
   replication_factor = 3
-  partitions         = 10
+  partitions         = 1
   config = {
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
