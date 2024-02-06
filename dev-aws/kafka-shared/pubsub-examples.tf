@@ -2,11 +2,11 @@ resource "kafka_topic" "pubsub_examples" {
   name               = "dev-enablement.pubsub-examples"
   replication_factor = 3
   partitions         = 10
-  config = {
+  config             = {
     # retain 100MB on each partition
-    "retention.bytes" = "104857600"
+    "retention.bytes"   = "104857600"
     # keep data for 2 days
-    "retention.ms" = "172800000"
+    "retention.ms"      = "172800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
@@ -15,24 +15,59 @@ resource "kafka_topic" "pubsub_examples" {
 }
 
 module "example_producer" {
-  source = "../../modules/producer"
-
-  topic            = kafka_topic.pubsub_examples.name
+  source           = "../../modules/tls-app"
+  produce_topics   = [kafka_topic.pubsub_examples.name]
   cert_common_name = "dev-enablement/example-producer"
 }
 
 module "example_process_individually_consumer" {
-  source = "../../modules/consumer"
-
-  topic            = kafka_topic.pubsub_examples.name
-  consumer_group   = "example-consume-process-individually"
+  source           = "../../modules/tls-app"
+  consume_topics   = { (kafka_topic.pubsub_examples.name) : "example-consume-process-individually" }
   cert_common_name = "dev-enablement/example-consume-process-individually"
 }
 
 module "example_process_batch_consumer" {
-  source = "../../modules/consumer"
-
-  topic            = kafka_topic.pubsub_examples.name
-  consumer_group   = "example-consume-process-batch"
+  source           = "../../modules/tls-app"
+  consume_topics   = { (kafka_topic.pubsub_examples.name) : "example-consume-process-batch" }
   cert_common_name = "dev-enablement/example-consume-process-batch"
+}
+
+moved {
+  from = module.example_producer.kafka_quota.producer_quota
+  to   = module.example_producer.kafka_quota.quota
+}
+
+moved {
+  from = module.example_producer.kafka_acl.producer_acl
+  to   = module.example_producer.kafka_acl.producer_acl["dev-enablement.pubsub-examples"]
+}
+
+moved {
+  from = module.example_process_individually_consumer.kafka_quota.consumer_quota
+  to   = module.example_process_individually_consumer.kafka_quota.quota
+}
+
+moved {
+  from = module.example_process_individually_consumer.kafka_acl.topic_acl
+  to   = module.example_process_individually_consumer.kafka_acl.topic_acl["dev-enablement.pubsub-examples"]
+}
+
+moved {
+  from = module.example_process_individually_consumer.kafka_acl.group_acl
+  to   = module.example_process_individually_consumer.kafka_acl.group_acl["dev-enablement.pubsub-examples"]
+}
+
+moved {
+  from = module.example_process_batch_consumer.kafka_quota.consumer_quota
+  to   = module.example_process_batch_consumer.kafka_quota.quota
+}
+
+moved {
+  from = module.example_process_batch_consumer.kafka_acl.topic_acl
+  to   = module.example_process_batch_consumer.kafka_acl.topic_acl["dev-enablement.pubsub-examples"]
+}
+
+moved {
+  from = module.example_process_batch_consumer.kafka_acl.group_acl
+  to   = module.example_process_batch_consumer.kafka_acl.group_acl["dev-enablement.pubsub-examples"]
 }
