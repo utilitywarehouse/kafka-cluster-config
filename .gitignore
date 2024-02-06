@@ -1,0 +1,13 @@
+# certs generated with `make certs`
+certs-0
+
+# copied from terraform repository
+*.tfstate
+*.tfstate.backup
+*.tfstate.*.backup
+.terraform/
+.terraform_plugin_cache/
+terraform.iml
+saved-plan
+terraform.d
+*.zip
