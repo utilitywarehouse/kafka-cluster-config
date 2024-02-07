@@ -25,33 +25,3 @@ module "iam_cerbos_audit_exporter" {
   consume_topics   = { (kafka_topic.iam_cerbos_audit_v1.name) : "exporter-iam-cerbos-audit-v1" }
   cert_common_name = "auth/iam-cerbos-audit-exporter"
 }
-
-moved {
-  from = module.iam_cerbos_audit_indexer_consumer.kafka_acl.topic_acl
-  to   = module.iam_cerbos_audit_indexer.kafka_acl.topic_acl["auth.iam-cerbos-audit-v1"]
-}
-
-moved {
-  from = module.iam_cerbos_audit_indexer_consumer.kafka_acl.group_acl
-  to   = module.iam_cerbos_audit_indexer.kafka_acl.group_acl["auth.iam-cerbos-audit-v1"]
-}
-
-moved {
-  from = module.iam_cerbos_audit_indexer_consumer.kafka_quota.consumer_quota
-  to   = module.iam_cerbos_audit_indexer.kafka_quota.quota
-}
-
-moved {
-  from = module.iam_cerbos_audit_exporter_consumer.kafka_acl.topic_acl
-  to   = module.iam_cerbos_audit_exporter.kafka_acl.topic_acl["auth.iam-cerbos-audit-v1"]
-}
-
-moved {
-  from = module.iam_cerbos_audit_exporter_consumer.kafka_acl.group_acl
-  to   = module.iam_cerbos_audit_exporter.kafka_acl.group_acl["auth.iam-cerbos-audit-v1"]
-}
-
-moved {
-  from = module.iam_cerbos_audit_exporter_consumer.kafka_quota.consumer_quota
-  to   = module.iam_cerbos_audit_exporter.kafka_quota.quota
-}

@@ -43,33 +43,3 @@ module "billing_fulfilment_public_events_translator" {
   cert_common_name = "customer-billing/billing-fulfilment-public-events-translator"
   consume_topics   = { (kafka_topic.invoice_fulfillment.name) : "bex.billing-fulfilment-public-events-translator" }
 }
-
-moved {
-  from = module.invoice_fulfillment_deadletter_producer.kafka_acl.producer_acl
-  to   = module.invoice_fulfillment.kafka_acl.producer_acl["bex.internal.accountreadytobefulfilled_deadletter"]
-}
-
-moved {
-  from = module.invoice_fulfillment_producer.kafka_acl.producer_acl
-  to   = module.invoice_fulfillment.kafka_acl.producer_acl["bex.internal.bill_fulfilled"]
-}
-
-moved {
-  from = module.invoice_fulfillment_producer.kafka_quota.producer_quota
-  to   = module.invoice_fulfillment.kafka_quota.quota
-}
-
-moved {
-  from = module.bills_total_api_consumer.kafka_acl.topic_acl
-  to   = module.bills_total_api.kafka_acl.topic_acl["bex.internal.bill_fulfilled"]
-}
-
-moved {
-  from = module.bills_total_api_consumer.kafka_acl.group_acl
-  to   = module.bills_total_api.kafka_acl.group_acl["bex.internal.bill_fulfilled"]
-}
-
-moved {
-  from = module.bills_total_api_consumer.kafka_quota.consumer_quota
-  to   = module.bills_total_api.kafka_quota.quota
-}
