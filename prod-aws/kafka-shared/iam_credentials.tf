@@ -25,28 +25,3 @@ module "iam_credentials_indexer" {
   consume_topics   = { (kafka_topic.iam_credentials_v1.name) : "indexer-iam-credentials-v1" }
   cert_common_name = "auth-customer/iam-credentials-v1-indexer"
 }
-
-moved {
-  from = module.iam_credentials_producer.kafka_acl.producer_acl
-  to   = module.iam_credentials_api.kafka_acl.producer_acl["auth-customer.iam-credentials-v1"]
-}
-
-moved {
-  from = module.iam_credentials_producer.kafka_quota.producer_quota
-  to   = module.iam_credentials_api.kafka_quota.quota
-}
-
-moved {
-  from = module.iam_credentials_consumer.kafka_acl.group_acl
-  to   = module.iam_credentials_indexer.kafka_acl.group_acl["auth-customer.iam-credentials-v1"]
-}
-
-moved {
-  from = module.iam_credentials_consumer.kafka_acl.topic_acl
-  to   = module.iam_credentials_indexer.kafka_acl.topic_acl["auth-customer.iam-credentials-v1"]
-}
-
-moved {
-  from = module.iam_credentials_consumer.kafka_quota.consumer_quota
-  to   = module.iam_credentials_indexer.kafka_quota.quota
-}

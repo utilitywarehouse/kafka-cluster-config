@@ -30,28 +30,3 @@ module "tempo_distributor" {
   consume_topics = {(kafka_topic.otlp_spans.name): "processor-tempo"}
   cert_common_name = "otel/tempo-distributor"
 }
-
-moved {
-  from = kafka_acl.otel_collector_topic_otlp_spans_access
-  to   = module.otel_collector.kafka_acl.producer_acl["otel.otlp_spans"]
-}
-
-moved {
-  from = kafka_quota.otel_collector_producer_quota
-  to   = module.otel_collector.kafka_quota.quota
-}
-
-moved {
-  from = kafka_acl.tempo_distributor_group_processor_tempo_access
-  to   = module.tempo_distributor.kafka_acl.group_acl["otel.otlp_spans"]
-}
-
-moved {
-  from = kafka_acl.tempo_distributor_topic_otlp_spans_access
-  to   = module.tempo_distributor.kafka_acl.topic_acl["otel.otlp_spans"]
-}
-
-moved {
-  from = kafka_quota.tempo_distributor_consumer_quota
-  to   = module.tempo_distributor.kafka_quota.quota
-}
