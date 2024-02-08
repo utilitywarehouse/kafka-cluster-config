@@ -127,6 +127,7 @@ module "iam_jwks_publisher" {
 module "iam_identitydb_event_forwarder" {
   source           = "../../modules/tls-app"
   produce_topics   = [kafka_topic.iam_identitydb_v1.name]
+  consume_topics   = { (kafka_topic.iam_revoked_v1.name) : "iam-identitydb-event-forwarder" }
   cert_common_name = "auth/iam-identitydb-event-forwarder"
 }
 
