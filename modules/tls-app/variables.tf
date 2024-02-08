@@ -49,7 +49,7 @@ variable "request_percentage" {
   type        = number
   description = "The percentage of requests a specified entity is allowed to make."
   # Allow 100% of CPU. More on this here: https://docs.confluent.io/kafka/design/quotas.html#request-rate-quotas
-  default     = 100
+  default = 100
 
   validation {
     condition     = var.request_percentage >= 0 && var.request_percentage <= 100

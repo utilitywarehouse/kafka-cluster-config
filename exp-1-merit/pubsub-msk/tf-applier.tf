@@ -17,11 +17,11 @@ resource "kafka_acl" "tf_applier_group" {
 }
 
 resource "kafka_acl" "tf_applier_cluster" {
-  resource_name       = "kafka-cluster"
-  resource_type       = "Cluster"
-  acl_principal       = "User:CN=pubsub/tf-applier"
-  acl_host            = "*"
-  acl_operation       = "All"
-  acl_permission_type = "Allow"
+  resource_name                = "kafka-cluster"
+  resource_type                = "Cluster"
+  acl_principal                = "User:CN=pubsub/tf-applier"
+  acl_host                     = "*"
+  acl_operation                = "All"
+  acl_permission_type          = "Allow"
   resource_pattern_type_filter = "Literal"
 }

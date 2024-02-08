@@ -34,7 +34,7 @@ resource "kafka_acl" "producer_acl" {
 resource "kafka_quota" "quota" {
   entity_name = "User:CN=${var.cert_common_name}"
   entity_type = "user"
-  config      = {
+  config = {
     "consumer_byte_rate" = tostring(var.consumer_byte_rate)
     "producer_byte_rate" = tostring(var.producer_byte_rate)
     "request_percentage" = tostring(var.request_percentage)
