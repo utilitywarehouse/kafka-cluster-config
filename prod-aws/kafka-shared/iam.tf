@@ -113,9 +113,9 @@ resource "kafka_topic" "iam_revoked_v1" {
   name               = "auth.iam-revoked-v1"
   replication_factor = 3
   partitions         = 1
-  config             = {
+  config = {
     # retain 100MB on each partition
-    "retention.bytes"   = "104857600"
+    "retention.bytes" = "104857600"
     # keep data for 60 days
     "retention.ms" = "5184000000"
     # allow max 1 MB for a message

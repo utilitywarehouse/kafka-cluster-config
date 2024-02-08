@@ -5,9 +5,9 @@ resource "kafka_topic" "iam_cerbos_audit_v1" {
 
   config = {
     # retain 100MB on each partition
-    "retention.bytes"   = "104857600"
+    "retention.bytes" = "104857600"
     # keep data for 2 days
-    "retention.ms"      = "172800000"
+    "retention.ms" = "172800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"

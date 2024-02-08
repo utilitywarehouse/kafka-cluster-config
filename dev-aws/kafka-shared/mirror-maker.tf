@@ -17,11 +17,11 @@ resource "kafka_acl" "mirror_maker_group_access" {
 }
 
 resource "kafka_acl" "mirror_maker_cluster_access" {
-  resource_name       = "kafka-cluster"
-  resource_type       = "Cluster"
-  acl_principal       = "User:CN=pubsub/mirror-maker"
-  acl_host            = "*"
-  acl_operation       = "All"
-  acl_permission_type = "Allow"
+  resource_name                = "kafka-cluster"
+  resource_type                = "Cluster"
+  acl_principal                = "User:CN=pubsub/mirror-maker"
+  acl_host                     = "*"
+  acl_operation                = "All"
+  acl_permission_type          = "Allow"
   resource_pattern_type_filter = "Literal"
 }

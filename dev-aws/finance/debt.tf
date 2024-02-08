@@ -41,7 +41,7 @@ resource "kafka_topic" "account-debt-events" {
 }
 
 resource "kafka_topic" "debt-collection-events" {
-  name = "debt-collection.events"
+  name               = "debt-collection.events"
   replication_factor = 3
   partitions         = 3
   config = {

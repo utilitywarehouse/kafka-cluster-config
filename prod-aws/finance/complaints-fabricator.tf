@@ -15,7 +15,7 @@ resource "kafka_topic" "complaints-eqdb-loader-events" {
   partitions         = 10
   config = {
     "retention.bytes" = "-1"
-    "retention.ms"    = "-1" 
+    "retention.ms"    = "-1"
     "cleanup.policy"  = "delete"
   }
 }

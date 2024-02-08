@@ -12,8 +12,8 @@ resource "kafka_topic" "pubsub_examples" {
     "local.retention.ms" = "3600000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
-    "compression.type" = "zstd"
-    "cleanup.policy"   = "delete"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
   }
 }
 
@@ -27,8 +27,8 @@ resource "kafka_acl" "example_producer_topic_access" {
 }
 
 resource "kafka_quota" "example_producer_quota" {
-  entity_name               = "User:CN=pubsub/example-producer"
-  entity_type               = "user"
+  entity_name = "User:CN=pubsub/example-producer"
+  entity_type = "user"
   config = {
     # limit producing to 5 MB/s
     "producer_byte_rate" = "5242880"
@@ -56,8 +56,8 @@ resource "kafka_acl" "example_consume_process_individually_group_access" {
 }
 
 resource "kafka_quota" "example_consume_process_individually_quota" {
-  entity_name               = "User:CN=pubsub/example-consume-process-individually"
-  entity_type               = "user"
+  entity_name = "User:CN=pubsub/example-consume-process-individually"
+  entity_type = "user"
   config = {
     # limit consuming to 5 MB/s
     "consumer_byte_rate" = "5242880"
