@@ -118,6 +118,12 @@ resource "kafka_topic" "iam_identitydb_v1" {
   }
 }
 
+module "iam_jwks_publisher" {
+  source           = "../../modules/tls-app"
+  produce_topics   = [kafka_topic.iam_identitydb_v1.name]
+  cert_common_name = "auth/iam-jwks-publisher"
+}
+
 module "iam_identitydb_event_forwarder" {
   source           = "../../modules/tls-app"
   produce_topics   = [kafka_topic.iam_identitydb_v1.name]
@@ -132,6 +138,7 @@ module "iam_identitydb_snapshotter" {
 
 module "iam_identity_api" {
   source           = "../../modules/tls-app"
+  produce_topics   = [kafka_topic.iam_revoked_v1.name]
   consume_topics   = { (kafka_topic.iam_identitydb_v1.name) : "iam-identity-api" }
   cert_common_name = "auth/iam-identity-api"
 }
@@ -141,4 +148,20 @@ module "iam_policy_decision_api" {
   cert_common_name = "auth/iam-policy-decision-api"
   produce_topics   = [kafka_topic.iam_cerbos_audit_v1.name]
   consume_topics   = { (kafka_topic.iam_identitydb_v1.name) : "iam-policy-decision-api" }
+}
+
+resource "kafka_topic" "iam_revoked_v1" {
+  name               = "auth.iam-revoked-v1"
+  replication_factor = 3
+  partitions         = 1
+  config             = {
+    # retain 100MB on each partition
+    "retention.bytes"   = "104857600"
+    # keep data for 7 days
+    "retention.ms"      = "604800000"
+    # allow max 1 MB for a message
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
 }
