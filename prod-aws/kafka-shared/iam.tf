@@ -95,3 +95,19 @@ module "iam_policy_decision_api" {
   produce_topics   = [kafka_topic.iam_cerbos_audit_v1.name]
   consume_topics   = { (kafka_topic.iam_identitydb_v1.name) : "iam-policy-decision-api" }
 }
+
+resource "kafka_topic" "iam_revoked_v1" {
+  name               = "auth.iam-revoked-v1"
+  replication_factor = 3
+  partitions         = 10
+  config             = {
+    # retain 100MB on each partition
+    "retention.bytes"   = "104857600"
+    # keep data for 60 days
+    "retention.ms" = "5184000000"
+    # allow max 1 MB for a message
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
