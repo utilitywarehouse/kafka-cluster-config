@@ -2,11 +2,11 @@ resource "kafka_topic" "iam_cerbos_audit_v1" {
   name               = "auth.iam-cerbos-audit-v1"
   replication_factor = 3
   partitions         = 10
-  config             = {
+  config = {
     # retain 100MB on each partition
-    "retention.bytes"   = "104857600"
+    "retention.bytes" = "104857600"
     # keep data for 2 days
-    "retention.ms"      = "172800000"
+    "retention.ms" = "172800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
@@ -54,16 +54,22 @@ module "iam_credentials_indexer" {
   cert_common_name = "auth-customer/iam-credentials-v1-indexer"
 }
 
+module "iam_customer_auth_provider" {
+  source           = "../../modules/tls-app"
+  produce_topics   = [kafka_topic.iam_credentials_v1.name]
+  cert_common_name = "clubhouse/auth-provider"
+}
+
 resource "kafka_topic" "iam_identitydb_v1" {
   name               = "auth.iam-identitydb-v1"
   replication_factor = 3
   # MUST be 1 partition as identitydb assumes this to be true
-  partitions         = 1
-  config             = {
+  partitions = 1
+  config = {
     # retain 100MB on each partition
-    "retention.bytes"   = "104857600"
+    "retention.bytes" = "104857600"
     # keep data for 30 days
-    "retention.ms"      = "2592000000"
+    "retention.ms" = "2592000000"
     # allow max 5 MB for a message
     "max.message.bytes" = "5242880"
     "compression.type"  = "zstd"
