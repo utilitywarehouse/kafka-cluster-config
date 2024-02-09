@@ -1,1 +1,0 @@
-../../dev-aws/kafka-shared/mirror-maker.tf

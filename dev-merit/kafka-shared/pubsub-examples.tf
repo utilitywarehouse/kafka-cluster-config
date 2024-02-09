@@ -1,1 +1,0 @@
-../../dev-aws/kafka-shared/pubsub-examples.tf
