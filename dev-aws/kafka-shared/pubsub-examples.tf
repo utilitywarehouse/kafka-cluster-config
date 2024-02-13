@@ -34,6 +34,6 @@ module "example_process_batch_consumer" {
 
 module "es_topic_indexer" {
   source           = "../../modules/tls-app"
-  consume_topics   = { (kafka_topic.pubsub_examples.name) : "es-topic-indexer" }
+  consume_topics   = { (kafka_topic.pubsub_examples.name) : "dev-enablement.es-topic-indexer" }
   cert_common_name = "dev-enablement/es-topic-indexer"
 }
