@@ -118,6 +118,12 @@ resource "kafka_topic" "iam_identitydb_v1" {
   }
 }
 
+module "iam_identitydb_indexer" {
+  source           = "../../modules/tls-app"
+  consume_topics   = { (kafka_topic.iam_identitydb_v1.name) : "iam.identitydb-indexer" }
+  cert_common_name = "auth/iam-identitydb-indexer"
+}
+
 module "iam_jwks_publisher" {
   source           = "../../modules/tls-app"
   produce_topics   = [kafka_topic.iam_identitydb_v1.name]
