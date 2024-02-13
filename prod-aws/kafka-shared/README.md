@@ -8,3 +8,7 @@ Use the [tls-app](../../modules/tls-app) module for granting access for the apps
 ## Contributing
 
 See [guidelines](CONTRIBUTING.md)
+
+## Debugging terraform locally
+
+See [instructions](TERRAFORM_LOCALLY.md)
