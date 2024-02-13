@@ -1,4 +1,4 @@
-# Consumers
+# For each consumed topic define an ACL for reading that topic
 resource "kafka_acl" "topic_acl" {
   for_each            = var.consume_topics
   resource_name       = each.key
@@ -9,6 +9,7 @@ resource "kafka_acl" "topic_acl" {
   acl_permission_type = "Allow"
 }
 
+# For each consumed topic define an ACL for accessing the consumer group
 resource "kafka_acl" "group_acl" {
   for_each            = var.consume_topics
   resource_name       = each.value
@@ -19,7 +20,7 @@ resource "kafka_acl" "group_acl" {
   acl_permission_type = "Allow"
 }
 
-# Producers
+# For each produce topic define a write ACL for that topic
 resource "kafka_acl" "producer_acl" {
   for_each            = toset(var.produce_topics)
   resource_name       = each.key
@@ -30,7 +31,7 @@ resource "kafka_acl" "producer_acl" {
   acl_permission_type = "Allow"
 }
 
-# Quota
+# Define a single quota for the user
 resource "kafka_quota" "quota" {
   entity_name = "User:CN=${var.cert_common_name}"
   entity_type = "user"
