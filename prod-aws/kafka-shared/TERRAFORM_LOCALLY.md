@@ -1,12 +1,13 @@
 ## How to work with Terraform locally
-This is meant to be used only in **unexpected** situations like fixing the state or debugging the kafka provider.
+This is meant to be used only in **unexpected** situations like fixing the state or debugging the kafka provider by the pubsub admins
 
 In normal situations we rely on the [terraform applier](https://github.com/utilitywarehouse/terraform-applier) to apply on merge.
 
 #### Prerequisities
 - [Terraform](https://developer.hashicorp.com/terraform/install) installed
 - [kubefwd](https://github.com/txn2/kubefwd/releases) installed
-- Following roles should exists in the .aws/credentials file:
+- Membership in the pubsbub-admin AWS IAM roles: [dev](https://github.com/utilitywarehouse/terraform/blob/33cdab3519610e86956ee179adacb2d09e991e4d/aws/dev/pubsub/iam-roles.tf#L8) and [prod](https://github.com/utilitywarehouse/terraform/blob/33cdab3519610e86956ee179adacb2d09e991e4d/aws/prod/pubsub/iam-roles.tf#L8)
+- Following roles should exist in the .aws/credentials file:
 ```
 [pubsub-dev]
 region         = eu-west-1
