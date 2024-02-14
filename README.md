@@ -1,33 +1,27 @@
-# Terraform configuration for kafka clusters to create topis and ACLs
+# Terraform configuration for kafka clusters
 
-## how to plan/ apply shared Kafka Terraform resources?
+Uses [this terraform kafka provider](https://registry.terraform.io/providers/Mongey/kafka/latest/docs) for defining the resources.
 
-#### Prerequisities
-- [Terraform](https://developer.hashicorp.com/terraform/install) installed
-- [kubefwd](https://github.com/txn2/kubefwd/releases) installed
-- Following roles should exists in the .aws/credentials file:
-```
-[pubsub-dev]
-region         = eu-west-1
-role_arn       = arn:aws:iam::950135041896:role/pubsub-admin
-source_profile = uw-prod-jump-role
+Aggregates resources for different teams willing to migrate from the [kafka topic applier](https://github.com/utilitywarehouse/kafka-topic-applier) or other styles of configuring topics.
 
-[pubsub-prod]
-region         = eu-west-1
-role_arn       = arn:aws:iam::703452047160:role/pubsub-admin
-source_profile = uw-prod-jump-role
-```
+## Structure
+At the root of the repo there are folders for each cluster and environment the config applies to, like dev-aws, dev-merit, prod-aws, etc.
+
+Under each such folder there are the TF modules for specific team kafka clusters. 
+Examples: 
+- [dev-aws/finance](dev-aws/finance) 
+- [prod-aws/customer-billing](prod-aws/customer-billing)
+
+## Shared kafka cluster config
+
+This repo includes the configuration for the active shared kafka cluster in :
+- [dev-aws/kafka-shared](dev-aws/kafka-shared)
+- [prod-aws/kafka-shared](prod-aws/kafka-shared)
 
 
-#### Run the following commands to plan/apply the changes
+## Automatic apply
+This repo is meant as a source repository for the [terraform applier](https://github.com/utilitywarehouse/terraform-applier).
+After setting up the TF module, each merge in the main branch will be applied by the terraform applier.
 
-1. Reference AWS profile necessary to perform next actions- <br> `export AWS_PROFILE=pubsub-dev` <br> or <br> `export AWS_PROFILE=pubsub-prod` <br> in each terminal window.
-2. Login to AWS- run from the `terraform` repo dir <br> `make okta-aws-cli-login` <br> More
-   info [here](https://github.com/utilitywarehouse/terraform/tree/master/aws#okta-login)
-3. Go to directory with the terraform state- e.g. <br> `cd dev-aws/kafka-shared`
-4. Run <br> `make init` <br> to initialize terraform state. This needs to happen only once per directory.
-5. In a separate window but in the same directory run <br> `make connect` <br> in order to connect to the Kafka cluster. <br>
-6. Run <br> `make plan` <br> to see which changes will be applied.
+To learn more and the steps needed for setting a new module, check the docs [here](https://github.com/utilitywarehouse/documentation/blob/master/infra/using-terraform-applier.md).
 
-After merging the changes to main, the changes will be applied automatically
-with [Terraform applier](https://terraform-applier-system.dev.merit.uw.systems/#pubsub-kafka-shared)
