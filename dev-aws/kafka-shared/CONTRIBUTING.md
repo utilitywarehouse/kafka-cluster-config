@@ -1,1 +1,0 @@
-../../prod-aws/kafka-shared/CONTRIBUTING.md
