@@ -26,7 +26,7 @@ source_profile = uw-prod-jump-role
 1. Reference AWS profile necessary to perform next actions- <br> `export AWS_PROFILE=pubsub-dev` <br> or <br> `export AWS_PROFILE=pubsub-prod` <br> in each terminal window.
 2. Login to AWS- run from the `terraform` repo dir <br> `make okta-aws-cli-login` <br> More
    info [here](https://github.com/utilitywarehouse/terraform/tree/master/aws#okta-login)
-3. Go to directory with the terraform state- e.g. <br> `cd dev-aws/kafka-shared`
+3. Go to directory with the terraform state- e.g. <br> `cd dev-aws/kafka-shared/dev-enablement`
 4. Run <br> `make init` <br> to initialize terraform state. This needs to happen only once per directory.
 5. In a separate window but in the same directory run <br> `make connect` <br> in order to connect to the Kafka cluster. <br>
 6. Run <br> `make plan` <br> to see which changes will be applied.

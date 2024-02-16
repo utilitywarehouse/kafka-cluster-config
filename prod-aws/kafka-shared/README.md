@@ -12,6 +12,13 @@ Please follow these guidelines for the resources:
    This will make it easier to define access in the kafka-ui ([dev](https://kafka-ui.dev.merit.uw.systems/) and [prod](https://kafka-ui.prod.merit.uw.systems/) )
 2. consider the number of partitions for a topic. In Amazon MSK the total number of partitions influences the cost. See [RFC](https://wiki.uw.systems/posts/amazon-msk-managed-kafka-9kjst9t5#h97za-msk)
 
+## Structure
+Each child folder contains a Terraform module for a team with the shared kafka resources for that team.
+
+For each of these modules there is a [terraform applier](https://github.com/utilitywarehouse/terraform-applier) entry under:
+- [dev](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/dev-aws/pubsub/kafka)
+- [prod](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/prod-aws/pubsub/kafka)
+
 ## pubsub admins: debugging terraform locally
 
 See [instructions](TERRAFORM_LOCALLY.md)

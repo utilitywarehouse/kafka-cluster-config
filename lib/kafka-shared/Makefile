@@ -3,7 +3,8 @@ KAFKA_CA_CERT := $(shell pwd)/certs-0/ca.crt
 KAFKA_CLIENT_KEY := $(shell pwd)/certs-0/tls.key
 KAFKA_CLIENT_CERT := $(shell pwd)/certs-0/tls.crt
 
-CONTEXT := $(shell basename $(shell dirname ${PWD}))
+SUBPROJECT := $(shell basename ${PWD})
+CONTEXT := $(shell basename $(shell dirname $(shell dirname ${PWD})))
 ENV := $(shell echo ${CONTEXT} | cut -d"-" -f1)
 PROVIDER := $(shell echo ${CONTEXT} | rev | cut -d"-" -f1 | rev)
 
@@ -21,7 +22,7 @@ init: certs
 	terraform init \
 		-backend-config region=eu-west-1 \
 		-backend-config bucket=uw-${ENV}-pubsub-tf-applier-state \
-		-backend-config key="${CONTEXT}"/kafka-shared \
+		-backend-config key="${CONTEXT}"/kafka-shared-${SUBPROJECT} \
 		-backend-config encrypt=true \
 		-reconfigure \
 		-upgrade
