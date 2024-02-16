@@ -27,19 +27,19 @@ resource "kafka_topic" "invoice_fulfillment_deadletter" {
 }
 
 module "invoice_fulfillment" {
-  source           = "../../modules/tls-app"
+  source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/invoice-fulfillment"
   produce_topics   = [kafka_topic.invoice_fulfillment.name, kafka_topic.invoice_fulfillment_deadletter.name]
 }
 
 module "bills_total_api" {
-  source           = "../../modules/tls-app"
+  source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/bills-total-api"
   consume_topics   = { (kafka_topic.invoice_fulfillment.name) : "bex.bills-total-api-reader" }
 }
 
 module "billing_fulfilment_public_events_translator" {
-  source           = "../../modules/tls-app"
+  source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/billing-fulfilment-public-events-translator"
   consume_topics   = { (kafka_topic.invoice_fulfillment.name) : "bex.billing-fulfilment-public-events-translator" }
 }
