@@ -20,13 +20,13 @@ resource "kafka_topic" "otlp_spans" {
 }
 
 module "otel_collector" {
-  source           = "../../modules/tls-app"
+  source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.otlp_spans.name]
   cert_common_name = "otel/collector"
 }
 
 module "tempo_distributor" {
-  source           = "../../modules/tls-app"
+  source           = "../../../modules/tls-app"
   consume_topics   = { (kafka_topic.otlp_spans.name) : "processor-tempo" }
   cert_common_name = "otel/tempo-distributor"
 }
