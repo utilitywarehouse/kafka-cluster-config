@@ -1,1 +1,1 @@
-include ../../lib/kafka-shared/Makefile
+include ../../../lib/kafka-shared/Makefile
