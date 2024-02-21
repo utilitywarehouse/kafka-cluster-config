@@ -22,13 +22,13 @@ module "example_producer" {
 
 module "example_process_individually_consumer" {
   source           = "../../../modules/tls-app"
-  consume_topics   = { (kafka_topic.pubsub_examples.name) : "example-consume-process-individually" }
+  consume_topics   = { (kafka_topic.pubsub_examples.name) : "dev-enablement.example-consume-process-individually" }
   cert_common_name = "dev-enablement/example-consume-process-individually"
 }
 
 module "example_process_batch_consumer" {
   source           = "../../../modules/tls-app"
-  consume_topics   = { (kafka_topic.pubsub_examples.name) : "example-consume-process-batch" }
+  consume_topics   = { (kafka_topic.pubsub_examples.name) : "dev-enablement.example-consume-process-batch" }
   cert_common_name = "dev-enablement/example-consume-process-batch"
 }
 
