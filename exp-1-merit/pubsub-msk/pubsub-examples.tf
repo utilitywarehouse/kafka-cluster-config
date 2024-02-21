@@ -1,5 +1,5 @@
 resource "kafka_topic" "pubsub_examples" {
-  name               = "pubsub.pubsub-examples"
+  name               = "pubsub.examples"
   replication_factor = 3
   partitions         = 10
   config = {
@@ -18,7 +18,7 @@ resource "kafka_topic" "pubsub_examples" {
 }
 
 resource "kafka_acl" "example_producer_topic_access" {
-  resource_name       = "pubsub.pubsub-examples"
+  resource_name       = "pubsub.examples"
   resource_type       = "Topic"
   acl_principal       = "User:CN=pubsub/example-producer"
   acl_host            = "*"
@@ -38,7 +38,7 @@ resource "kafka_quota" "example_producer_quota" {
 }
 
 resource "kafka_acl" "example_consume_process_individually_topic_access" {
-  resource_name       = "pubsub.pubsub-examples"
+  resource_name       = "pubsub.examples"
   resource_type       = "Topic"
   acl_principal       = "User:CN=pubsub/example-consume-process-individually"
   acl_host            = "*"
