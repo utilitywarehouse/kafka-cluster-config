@@ -1,5 +1,5 @@
 resource "kafka_topic" "pubsub_examples" {
-  name               = "pubsub.pubsub-examples"
+  name               = "pubsub.examples"
   replication_factor = 3
   partitions         = 10
   config = {
