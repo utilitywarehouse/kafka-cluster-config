@@ -23,7 +23,7 @@ module "eqdb_loader_process" {
 module "budget_plan_fabricator" {
   source           = "../../../modules/tls-app"
   consume_topics   = { (kafka_topic.eqbd_loader.name) : "energy-budget-plan.eqdb-fabricator-v1" }
-  cert_common_name = "energy-budget-plan/budget-plan-eqdb-fabricator"
+  cert_common_name = "energy-budget-plan/eqdb-fabricator"
 }
 
 #- max_message_bytes: "104857600" - 100MB !
@@ -50,8 +50,8 @@ resource "kafka_topic" "budget_plan" {
   }
 }
 
-#- max_message_bytes: "104857600"
-#  max_retention_bytes: "805306368000"
+#- max_message_bytes: "104857600" - 100MB !
+#  max_retention_bytes: "805306368000" - 768000MB !
 #  name: customer-change
 #  partitions: 10
 #  replication_factor: 3
