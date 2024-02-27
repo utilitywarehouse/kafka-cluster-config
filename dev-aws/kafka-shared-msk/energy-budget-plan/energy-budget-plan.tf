@@ -61,3 +61,9 @@ resource "kafka_topic" "customer_change" {
     "cleanup.policy"    = "delete"
   }
 }
+
+module "budget_plan_calculator" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = { (kafka_topic.budget_plan.name) : "energy-budget-plan.calculator-v1" }
+  cert_common_name = "energy-budget-plan/calculator"
+}
