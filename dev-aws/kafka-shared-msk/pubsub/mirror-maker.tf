@@ -24,4 +24,6 @@ resource "kafka_acl" "mirror_maker_cluster_access" {
   acl_operation                = "All"
   acl_permission_type          = "Allow"
   resource_pattern_type_filter = "Literal"
+
+  depends_on = [kafka_acl.tf_applier_cluster]
 }
