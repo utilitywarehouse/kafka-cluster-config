@@ -31,10 +31,12 @@ resource "kafka_topic" "budget_plan" {
   replication_factor = 3
   partitions         = 10
   config = {
-    # no limit on retention size, using time based instead
-    "retention.bytes" = "-1"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
     # keep data for 7 years
     "retention.ms" = "220898482000"
+    # keep data in hot storage for 2 days
+    "local.retention.ms" = "172800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
@@ -47,10 +49,12 @@ resource "kafka_topic" "customer_change" {
   replication_factor = 3
   partitions         = 10
   config = {
-    # no limit on retention size, using time based instead
-    "retention.bytes" = "-1"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
     # keep data for 2 years
     "retention.ms" = "63113852000"
+    # keep data in hot storage for 2 days
+    "local.retention.ms" = "172800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
