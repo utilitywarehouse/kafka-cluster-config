@@ -1,4 +1,4 @@
-resource "kafka_topic" "eqbd_loader" {
+resource "kafka_topic" "eqdb_loader" {
   name               = "energy-budget-plan.eqdb-loader"
   replication_factor = 3
   partitions         = 1
@@ -16,13 +16,13 @@ resource "kafka_topic" "eqbd_loader" {
 
 module "eqdb_loader_process" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.eqbd_loader.name]
+  produce_topics   = [kafka_topic.eqdb_loader.name]
   cert_common_name = "energy-budget-plan/eqdb-loader"
 }
 
 module "budget_plan_fabricator" {
   source           = "../../../modules/tls-app"
-  consume_topics   = { (kafka_topic.eqbd_loader.name) : "energy-budget-plan.eqdb-fabricator-v1" }
+  consume_topics   = { (kafka_topic.eqdb_loader.name) : "energy-budget-plan.eqdb-fabricator-v1" }
   cert_common_name = "energy-budget-plan/eqdb-fabricator"
 }
 
