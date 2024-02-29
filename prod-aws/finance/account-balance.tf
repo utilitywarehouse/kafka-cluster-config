@@ -101,3 +101,14 @@ resource "kafka_topic" "projected-account-balance-change-v1-events-complete" {
     "retention.ms"    = "-1"
   }
 }
+
+resource "kafka_topic" "account-balance-change-v2-events-compacted" {
+  name               = "account-balance-change-v2-compacted.events"
+  partitions         = 10
+  replication_factor = 3
+  config = {
+    "cleanup.policy"        = "compact"
+    "max.message.bytes"     = "104857600"
+    "max.compaction.lag.ms" = "1728000000"
+  }
+}
