@@ -58,7 +58,7 @@ module "eqdb_loader_process" {
 
 module "budget_plan_fabricator" {
   source           = "../../../modules/tls-app"
-  consume_topics   = { (kafka_topic.eqdb_loader.name) : "energy-budget-plan.eqdb-fabricator-v1" }
+  consume_topics   = { (kafka_topic.eqdb_loader.name) : "energy-budget-plan.eqdb-fabricator-loader-v1", (kafka_topic.customer_change.name) : "energy-budget-plan.eqdb-fabricator-customer-change-v1" }
   produce_topics   = [kafka_topic.customer_change.name]
   cert_common_name = "energy-budget-plan/eqdb-fabricator"
 }
