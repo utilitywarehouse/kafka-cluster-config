@@ -56,7 +56,7 @@ resource "kafka_topic" "account-balance-change-v2-events" {
   config = {
     "cleanup.policy"        = "compact"
     "max.message.bytes"     = "104857600"
-    "max.compaction.lag.ms" = "1728000000"
+    "max.compaction.lag.ms" = "7200000"
   }
 }
 
