@@ -53,8 +53,8 @@ resource "kafka_topic" "customer_change" {
     "remote.storage.enable" = "true"
     # keep data for 2 years
     "retention.ms" = "63113852000"
-    # keep data in hot storage for 2 days
-    "local.retention.ms" = "172800000"
+    # keep data in hot storage for 7 days
+    "local.retention.ms" = "604800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
