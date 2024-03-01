@@ -15,19 +15,36 @@ resource "kafka_topic" "pubsub_examples" {
 }
 
 module "example_producer" {
-  source           = "../../../modules/tls-app"
+  source           = "../../../modules/tls-app-v2"
   produce_topics   = [kafka_topic.pubsub_examples.name]
   cert_common_name = "pubsub/example-producer"
 }
 
 module "example_process_individually_consumer" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = { (kafka_topic.pubsub_examples.name) : "pubsub.example-consume-process-individually" }
+  source           = "../../../modules/tls-app-v2"
+  consume_topics   = [(kafka_topic.pubsub_examples.name)]
+  consume_groups   = ["pubsub.example-consume-process-individually"]
   cert_common_name = "pubsub/example-consume-process-individually"
 }
 
 module "example_process_batch_consumer" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = { (kafka_topic.pubsub_examples.name) : "pubsub.example-consume-process-batch" }
+  source           = "../../../modules/tls-app-v2"
+  consume_topics   = [(kafka_topic.pubsub_examples.name)]
+  consume_groups   = ["pubsub.example-consume-process-batch"]
   cert_common_name = "pubsub/example-consume-process-batch"
+}
+
+moved {
+  from = module.example_process_individually_consumer.kafka_acl.group_acl["pubsub.examples"]
+  to   = module.example_process_individually_consumer.kafka_acl.group_acl["pubsub.example-consume-process-individually"]
+}
+
+moved {
+  from = module.example_process_batch_consumer.kafka_acl.group_acl["pubsub.examples"]
+  to   = module.example_process_batch_consumer.kafka_acl.group_acl["pubsub.example-consume-process-batch"]
+}
+
+moved {
+  from = module.es_topic_indexer.kafka_acl.group_acl["pubsub.pubsub-examples"]
+  to   = module.es_topic_indexer.kafka_acl.group_acl["pubsub.es-topic-indexer"]
 }
