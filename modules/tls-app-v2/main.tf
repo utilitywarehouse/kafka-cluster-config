@@ -9,7 +9,7 @@ resource "kafka_acl" "topic_acl" {
   acl_permission_type = "Allow"
 }
 
-# For each consumed topic define an ACL for accessing the consumer group
+# For each used consumer group define an ACL for accessing it
 resource "kafka_acl" "group_acl" {
   for_each            = toset(var.consume_groups)
   resource_name       = each.key
