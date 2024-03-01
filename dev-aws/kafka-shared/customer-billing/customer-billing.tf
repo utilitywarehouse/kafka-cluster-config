@@ -27,19 +27,31 @@ resource "kafka_topic" "invoice_fulfillment_deadletter" {
 }
 
 module "invoice_fulfillment" {
-  source           = "../../../modules/tls-app"
+  source           = "../../../modules/tls-app-v2"
   cert_common_name = "customer-billing/invoice-fulfillment"
   produce_topics   = [kafka_topic.invoice_fulfillment.name, kafka_topic.invoice_fulfillment_deadletter.name]
 }
 
 module "bills_total_api" {
-  source           = "../../../modules/tls-app"
+  source           = "../../../modules/tls-app-v2"
   cert_common_name = "customer-billing/bills-total-api"
-  consume_topics   = { (kafka_topic.invoice_fulfillment.name) : "bex.bills-total-api-reader" }
+  consume_topics   = [(kafka_topic.invoice_fulfillment.name)]
+  consume_groups   = ["bex.bills-total-api-reader"]
 }
 
 module "billing_fulfilment_public_events_translator" {
-  source           = "../../../modules/tls-app"
+  source           = "../../../modules/tls-app-v2"
   cert_common_name = "customer-billing/billing-fulfilment-public-events-translator"
-  consume_topics   = { (kafka_topic.invoice_fulfillment.name) : "bex.billing-fulfilment-public-events-translator" }
+  consume_topics   = [(kafka_topic.invoice_fulfillment.name)]
+  consume_groups   = ["bex.billing-fulfilment-public-events-translator"]
+}
+
+moved {
+  from = module.bills_total_api.kafka_acl.group_acl["bex.internal.bill_fulfilled"]
+  to   = module.bills_total_api.kafka_acl.group_acl["bex.bills-total-api-reader"]
+}
+
+moved {
+  from = module.billing_fulfilment_public_events_translator.kafka_acl.group_acl["bex.internal.bill_fulfilled"]
+  to   = module.billing_fulfilment_public_events_translator.kafka_acl.group_acl["bex.billing-fulfilment-public-events-translator"]
 }
