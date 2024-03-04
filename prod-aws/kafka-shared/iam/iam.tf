@@ -15,7 +15,7 @@ resource "kafka_topic" "iam_cerbos_audit_v1" {
 }
 
 module "iam_cerbos_audit_indexer" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_cerbos_audit_v1.name)]
   consume_groups   = ["indexer-iam-cerbos-audit-v1"]
   cert_common_name = "auth/iam-cerbos-audit-indexer"
@@ -27,7 +27,7 @@ moved {
 }
 
 module "iam_cerbos_audit_exporter" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_cerbos_audit_v1.name)]
   consume_groups   = ["exporter-iam-cerbos-audit-v1"]
   cert_common_name = "auth/iam-cerbos-audit-exporter"
@@ -55,13 +55,13 @@ resource "kafka_topic" "iam_credentials_v1" {
 }
 
 module "iam_credentials_api" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.iam_credentials_v1.name]
   cert_common_name = "auth-customer/credentials-api"
 }
 
 module "iam_credentials_indexer" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_credentials_v1.name)]
   consume_groups   = ["indexer-iam-credentials-v1"]
   cert_common_name = "auth-customer/iam-credentials-v1-indexer"
@@ -73,7 +73,7 @@ moved {
 }
 
 module "iam_customer_auth_provider" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.iam_credentials_v1.name]
   cert_common_name = "clubhouse/auth-provider"
 }
@@ -95,7 +95,7 @@ resource "kafka_topic" "iam_dpd_v1" {
 }
 
 module "iam_dpd_mapper" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.iam_dpd_v1.name]
   consume_topics   = [(kafka_topic.iam_credentials_v1.name)]
   consume_groups   = ["iam.dpd-mapper"]
@@ -108,7 +108,7 @@ moved {
 }
 
 module "iam_dpd_di_kafka_source_customer_login_succeeded" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
   consume_groups   = ["iam.di-kafka-source-customer-login-succeeded"]
   cert_common_name = "auth-customer/di-kafka-source-customer-login-succeeded"
@@ -120,7 +120,7 @@ moved {
 }
 
 module "iam_dpd_di_kafka_source_customer_login_failed" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
   consume_groups   = ["iam.di-kafka-source-customer-login-failed"]
   cert_common_name = "auth-customer/di-kafka-source-customer-login-failed"
@@ -132,7 +132,7 @@ moved {
 }
 
 module "iam_dpd_di_kafka_source_customer_password_reset_failed" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
   consume_groups   = ["iam.di-kafka-source-customer-password-reset-failed"]
   cert_common_name = "auth-customer/di-kafka-source-customer-password-reset-failed"
@@ -161,7 +161,7 @@ resource "kafka_topic" "iam_identitydb_v1" {
 }
 
 module "iam_identitydb_indexer" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_identitydb_v1.name)]
   consume_groups   = ["iam.identitydb-indexer"]
   cert_common_name = "auth/iam-identitydb-indexer"
@@ -173,13 +173,13 @@ moved {
 }
 
 module "iam_jwks_publisher" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.iam_identitydb_v1.name]
   cert_common_name = "auth/iam-jwks-publisher"
 }
 
 module "iam_identitydb_event_forwarder" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.iam_identitydb_v1.name]
   consume_topics   = [(kafka_topic.iam_revoked_v1.name)]
   consume_groups   = ["iam.identitydb-event-forwarder"]
@@ -192,7 +192,7 @@ moved {
 }
 
 module "iam_identitydb_snapshotter" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_identitydb_v1.name)]
   consume_groups   = ["iam-identitydb-snapshotter"]
   cert_common_name = "auth/iam-identitydb-snapshotter"
@@ -204,7 +204,7 @@ moved {
 }
 
 module "iam_identity_api" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.iam_revoked_v1.name]
   consume_topics   = [(kafka_topic.iam_identitydb_v1.name)]
   consume_groups   = ["iam-identity-api"]
@@ -217,7 +217,7 @@ moved {
 }
 
 module "iam_policy_decision_api" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   cert_common_name = "auth/iam-policy-decision-api"
   produce_topics   = [kafka_topic.iam_cerbos_audit_v1.name]
   consume_topics   = [(kafka_topic.iam_identitydb_v1.name)]

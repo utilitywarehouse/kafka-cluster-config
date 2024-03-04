@@ -5,9 +5,15 @@ variable "produce_topics" {
 }
 
 variable "consume_topics" {
-  type        = map(string)
-  description = "The topics that the app consumes. Map containing as keys the topic names and as values the consumer group name for that topic."
-  default     = {}
+  type        = list(string)
+  description = "The topics that the app consumes."
+  default     = []
+}
+
+variable "consume_groups" {
+  type        = list(string)
+  description = "The Kafka consumer groups that the app uses to consume."
+  default     = []
 }
 
 variable "cert_common_name" {
@@ -24,8 +30,9 @@ variable "acl_host" {
 
 # QUOTA
 variable "consumer_byte_rate" {
-  type        = number
-  description = "The maximum number of bytes per second a producer is allowed to produce to the specified entity."
+  type = number
+  // See https://docs.confluent.io/kafka/design/quotas.html#enforcement
+  description = "The maximum number of bytes per second consumers with the specified user can consume across topics per broker."
   default     = 5242880 # Limit producing to 5 MB/s
 
   validation {
@@ -35,8 +42,9 @@ variable "consumer_byte_rate" {
 }
 
 variable "producer_byte_rate" {
-  type        = number
-  description = "The maximum number of bytes per second a producer is allowed to produce to the specified entity."
+  type = number
+  # See https://docs.confluent.io/kafka/design/quotas.html#enforcement
+  description = "The maximum number of bytes per second producers with the specified user can produce across topics per broker."
   default     = 5242880 # Limit producing to 5 MB/s
 
   validation {
@@ -47,7 +55,7 @@ variable "producer_byte_rate" {
 
 variable "request_percentage" {
   type        = number
-  description = "The percentage of requests a specified entity is allowed to make."
+  description = "The percentage of requests the app connecting with the specified user is allowed to make."
   # Allow 100% of CPU. More on this here: https://docs.confluent.io/kafka/design/quotas.html#request-rate-quotas
   default = 100
 
