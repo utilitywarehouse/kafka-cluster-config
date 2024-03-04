@@ -40,18 +40,3 @@ module "es_topic_indexer" {
   consume_groups   = ["dev-enablement.es-topic-indexer"]
   cert_common_name = "dev-enablement/es-topic-indexer"
 }
-
-moved {
-  from = module.example_process_individually_consumer.kafka_acl.group_acl["dev-enablement.pubsub-examples"]
-  to   = module.example_process_individually_consumer.kafka_acl.group_acl["dev-enablement.example-consume-process-individually"]
-}
-
-moved {
-  from = module.example_process_batch_consumer.kafka_acl.group_acl["dev-enablement.pubsub-examples"]
-  to   = module.example_process_batch_consumer.kafka_acl.group_acl["dev-enablement.example-consume-process-batch"]
-}
-
-moved {
-  from = module.es_topic_indexer.kafka_acl.group_acl["dev-enablement.pubsub-examples"]
-  to   = module.es_topic_indexer.kafka_acl.group_acl["dev-enablement.es-topic-indexer"]
-}

@@ -64,17 +64,6 @@ module "budget_plan_fabricator" {
   cert_common_name = "energy-budget-plan/eqdb-fabricator"
 }
 
-moved {
-  from = module.budget_plan_fabricator.kafka_acl.group_acl["energy-budget-plan.eqdb-loader"]
-  to   = module.budget_plan_fabricator.kafka_acl.group_acl["energy-budget-plan.eqdb-fabricator-loader-v1"]
-}
-
-moved {
-  from = module.budget_plan_fabricator.kafka_acl.group_acl["energy-budget-plan.customer-change"]
-  to   = module.budget_plan_fabricator.kafka_acl.group_acl["energy-budget-plan.eqdb-fabricator-customer-change-v1"]
-}
-
-
 module "budget_plan_calculator" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.budget_plan.name)]
@@ -83,7 +72,3 @@ module "budget_plan_calculator" {
   cert_common_name = "energy-budget-plan/calculator"
 }
 
-moved {
-  from = module.budget_plan_calculator.kafka_acl.group_acl["energy-budget-plan.budget-plan"]
-  to   = module.budget_plan_calculator.kafka_acl.group_acl["energy-budget-plan.calculator-v1"]
-}

@@ -46,12 +46,3 @@ module "billing_fulfilment_public_events_translator" {
   consume_groups   = ["bex.billing-fulfilment-public-events-translator"]
 }
 
-moved {
-  from = module.bills_total_api.kafka_acl.group_acl["bex.internal.bill_fulfilled"]
-  to   = module.bills_total_api.kafka_acl.group_acl["bex.bills-total-api-reader"]
-}
-
-moved {
-  from = module.billing_fulfilment_public_events_translator.kafka_acl.group_acl["bex.internal.bill_fulfilled"]
-  to   = module.billing_fulfilment_public_events_translator.kafka_acl.group_acl["bex.billing-fulfilment-public-events-translator"]
-}
