@@ -1,7 +1,7 @@
 # For each consumed topic define an ACL for reading that topic
 resource "kafka_acl" "topic_acl" {
-  for_each            = var.consume_topics
-  resource_name       = each.key
+  for_each            = toset(var.consume_topics)
+  resource_name       = each.value
   resource_type       = "Topic"
   acl_principal       = "User:CN=${var.cert_common_name}"
   acl_host            = var.acl_host
@@ -9,10 +9,10 @@ resource "kafka_acl" "topic_acl" {
   acl_permission_type = "Allow"
 }
 
-# For each consumed topic define an ACL for accessing the consumer group
+# For each used consumer group define an ACL for accessing it
 resource "kafka_acl" "group_acl" {
-  for_each            = var.consume_topics
-  resource_name       = each.value
+  for_each            = toset(var.consume_groups)
+  resource_name       = each.key
   resource_type       = "Group"
   acl_principal       = "User:CN=${var.cert_common_name}"
   acl_host            = var.acl_host

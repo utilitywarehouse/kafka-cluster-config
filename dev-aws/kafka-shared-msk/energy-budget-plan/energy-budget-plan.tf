@@ -51,13 +51,13 @@ resource "kafka_topic" "customer_change" {
 }
 
 module "eqdb_loader_process" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.eqdb_loader.name]
   cert_common_name = "energy-budget-plan/eqdb-loader"
 }
 
 module "budget_plan_fabricator" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.eqdb_loader.name), (kafka_topic.customer_change.name)]
   consume_groups   = ["energy-budget-plan.eqdb-fabricator-loader-v1", "energy-budget-plan.eqdb-fabricator-customer-change-v1"]
   produce_topics   = [kafka_topic.customer_change.name]
@@ -76,7 +76,7 @@ moved {
 
 
 module "budget_plan_calculator" {
-  source           = "../../../modules/tls-app-v2"
+  source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.budget_plan.name)]
   consume_groups   = ["energy-budget-plan.calculator-v1"]
   produce_topics   = [kafka_topic.budget_plan.name]
