@@ -32,7 +32,3 @@ module "tempo_distributor" {
   cert_common_name = "otel/tempo-distributor"
 }
 
-moved {
-  from = module.tempo_distributor.kafka_acl.group_acl["otel.otlp_spans"]
-  to   = module.tempo_distributor.kafka_acl.group_acl["processor-tempo"]
-}
