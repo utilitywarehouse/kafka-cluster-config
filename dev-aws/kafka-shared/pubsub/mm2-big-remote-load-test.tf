@@ -1,0 +1,28 @@
+resource "kafka_topic" "mm2_remote_load_test" {
+  name               = "pubsub.mm2-load-test"
+  replication_factor = 3
+  partitions         = 5
+  config = {
+    # retain 20GB on each partition, in total 100GB
+    "retention.bytes" = "21474836480"
+    # keep data for 7 days
+    "retention.ms" = "604800000"
+    # allow max 1 MB for a message
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
+module "mm2_remote_load_test_producer" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.mm2_remote_load_test.name]
+  cert_common_name = "pubsub/mm2-remote-load-test-producer"
+}
+
+module "mm2_remote_load_test_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [(kafka_topic.mm2_remote_load_test.name)]
+  consume_groups   = ["pubsub.mm2-remote-load-test-consumer"]
+  cert_common_name = "pubsub/mm2-remote-load-test-consumer"
+}
