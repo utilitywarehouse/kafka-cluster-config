@@ -26,3 +26,41 @@ module "mm2_remote_load_test_consumer" {
   consume_groups   = ["pubsub.mm2-remote-load-test-consumer"]
   cert_common_name = "pubsub/mm2-remote-load-test-consumer"
 }
+
+resource "kafka_acl" "mirror_maker_load_test_topic_access" {
+  resource_name       = "*"
+  resource_type       = "Topic"
+  acl_principal       = "User:CN=pubsub/mirror-maker-load-test"
+  acl_host            = "*"
+  acl_operation       = "All"
+  acl_permission_type = "Allow"
+}
+
+resource "kafka_acl" "mirror_maker_load_test_group_access" {
+  resource_name       = "*"
+  resource_type       = "Group"
+  acl_principal       = "User:CN=pubsub/mirror-maker-load-test"
+  acl_host            = "*"
+  acl_operation       = "All"
+  acl_permission_type = "Allow"
+}
+
+resource "kafka_acl" "mirror_maker_load_test_cluster_access" {
+  resource_name                = "kafka-cluster"
+  resource_type                = "Cluster"
+  acl_principal                = "User:CN=pubsub/mirror-maker-load-test"
+  acl_host                     = "*"
+  acl_operation                = "All"
+  acl_permission_type          = "Allow"
+  resource_pattern_type_filter = "Literal"
+}
+
+resource "kafka_quota" "quota" {
+  entity_name = "User:CN=pubsub/mirror-maker-load-test"
+  entity_type = "user"
+  config = {
+    # consume with 500 KB/broker
+    "consumer_byte_rate" = "512000"
+    "request_percentage" = "100"
+  }
+}
