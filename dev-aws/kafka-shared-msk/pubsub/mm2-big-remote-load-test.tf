@@ -51,8 +51,8 @@ resource "kafka_quota" "quota" {
   entity_name = "User:CN=pubsub/mirror-maker-load-test"
   entity_type = "user"
   config = {
-    # produce with 500 KB/broker
-    "producer_byte_rate" = "512000"
+    # produce with 5 KB/broker
+    "producer_byte_rate" = "512"
     "request_percentage" = "100"
   }
 }
