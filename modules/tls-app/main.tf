@@ -33,7 +33,7 @@ resource "kafka_acl" "producer_acl" {
 
 # Define a single quota for the user
 resource "kafka_quota" "quota" {
-  entity_name = "User:CN=${var.cert_common_name}"
+  entity_name = "CN=${var.cert_common_name}"
   entity_type = "user"
   config = {
     "consumer_byte_rate" = tostring(var.consumer_byte_rate)
