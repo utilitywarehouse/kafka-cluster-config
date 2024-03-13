@@ -91,77 +91,77 @@ module "iam_dpd_di_kafka_source_customer_login_succeeded" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
   consume_groups   = ["iam.di-kafka-source-customer-login-succeeded"]
-  cert_common_name = "auth-customer/di-kafka-source-customer-login-succeeded"
+  cert_common_name = "auth-customer/di-customer-login-succeeded"
 }
 
 module "iam_dpd_di_kafka_source_customer_login_failed" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
   consume_groups   = ["iam.di-kafka-source-customer-login-failed"]
-  cert_common_name = "auth-customer/di-kafka-source-customer-login-failed"
+  cert_common_name = "auth-customer/di-customer-login-failed"
 }
 
 module "iam_dpd_di_kafka_source_customer_password_reset_failed" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
   consume_groups   = ["iam.di-kafka-source-customer-password-reset-failed"]
-  cert_common_name = "auth-customer/di-kafka-source-customer-password-reset-failed"
+  cert_common_name = "auth-customer/di-customer-password-reset-failed"
 }
 
 module "iam_dpd_di_kafka_source_customer_logout_succeeded" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
   consume_groups   = ["iam.di-kafka-source-customer-logout-succeeded"]
-  cert_common_name = "auth-customer/di-kafka-source-customer-logout-succeeded"
+  cert_common_name = "auth-customer/di-customer-logout-succeeded"
 }
 
 module "iam_dpd_di_kafka_source_customer_logout_failed" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
   consume_groups   = ["iam.di-kafka-source-customer-logout-failed"]
-  cert_common_name = "auth-customer/di-kafka-source-customer-logout-failed"
+  cert_common_name = "auth-customer/di-customer-logout-failed"
 }
 
 module "iam_dpd_di_kafka_source_customer_password_reset_start_succeeded" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
   consume_groups   = ["iam.di-kafka-source-customer-password-reset-start-succeeded"]
-  cert_common_name = "auth-customer/di-kafka-source-customer-password-reset-start-succeeded"
+  cert_common_name = "auth-customer/di-customer-password-reset-start-succeeded"
 }
 
 module "iam_dpd_di_kafka_source_customer_password_reset_start_failed" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
   consume_groups   = ["iam.di-kafka-source-customer-password-reset-start-failed"]
-  cert_common_name = "auth-customer/di-kafka-source-customer-password-reset-start-failed"
+  cert_common_name = "auth-customer/di-customer-password-reset-start-failed"
 }
 
 module "iam_dpd_di_kafka_source_customer_password_reset_complete_succeeded" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
   consume_groups   = ["iam.di-kafka-source-customer-password-reset-complete-succeeded"]
-  cert_common_name = "auth-customer/di-kafka-source-customer-password-reset-complete-succeeded"
+  cert_common_name = "auth-customer/di-customer-password-reset-complete-succeeded"
 }
 
 module "iam_dpd_di_kafka_source_customer_password_reset_complete_failed" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
   consume_groups   = ["iam.di-kafka-source-customer-password-reset-complete-failed"]
-  cert_common_name = "auth-customer/di-kafka-source-customer-password-reset-complete-failed"
+  cert_common_name = "auth-customer/di-customer-password-reset-complete-failed"
 }
 
 module "iam_dpd_di_kafka_source_customer_password_change_succeeded" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
   consume_groups   = ["iam.di-kafka-source-customer-password-change-succeeded"]
-  cert_common_name = "auth-customer/di-kafka-source-customer-password-change-succeeded"
+  cert_common_name = "auth-customer/di-customer-password-change-succeeded"
 }
 
 module "iam_dpd_di_kafka_source_customer_password_change_failed" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
   consume_groups   = ["iam.di-kafka-source-customer-password-change-failed"]
-  cert_common_name = "auth-customer/di-kafka-source-customer-password-change-failed"
+  cert_common_name = "auth-customer/di-customer-password-change-failed"
 }
 
 resource "kafka_topic" "iam_identitydb_v1" {
