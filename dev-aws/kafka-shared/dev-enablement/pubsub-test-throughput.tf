@@ -20,19 +20,21 @@ module "example_producer_throughput" {
   cert_common_name = "dev-enablement/example-producer"
 }
 
-module "example_process_individually_consumer_throughput" {
-  source             = "../../../modules/tls-app"
-  consume_topics     = [(kafka_topic.pubsub_throughput_test.name)]
-  consume_groups     = ["dev-enablement.consume-throughput-indiv"]
-  cert_common_name   = "dev-enablement/example-consume-process-individually"
-  consumer_byte_rate = 10485760
+resource "kafka_acl" "throughput_consumer_group_acl" {
+  resource_name       = "dev-enablement.consume-throughput-batch"
+  resource_type       = "Group"
+  acl_principal       = "User:CN=dev-enablement/throughput-test-consumer"
+  acl_host            = "*"
+  acl_operation       = "Read"
+  acl_permission_type = "Allow"
 }
 
-module "example_process_batch_consumer_throughput" {
-  source             = "../../../modules/tls-app"
-  consume_topics     = [(kafka_topic.pubsub_throughput_test.name)]
-  consume_groups     = ["dev-enablement.consume-throughput-batch"]
-  cert_common_name   = "dev-enablement/example-consume-process-batch"
-  consumer_byte_rate = 10485760
+resource "kafka_acl" "throughput_consumer_topic_acl" {
+  resource_name       = kafka_topic.pubsub_throughput_test.name
+  resource_type       = "Topic"
+  acl_principal       = "User:CN=dev-enablement/throughput-test-consumer"
+  acl_host            = "*"
+  acl_operation       = "Read"
+  acl_permission_type = "Allow"
 }
 
