@@ -101,13 +101,6 @@ module "iam_dpd_di_kafka_source_customer_login_failed" {
   cert_common_name = "auth-customer/di-customer-login-failed"
 }
 
-module "iam_dpd_di_kafka_source_customer_password_reset_failed" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
-  consume_groups   = ["iam.di-kafka-source-customer-password-reset-failed"]
-  cert_common_name = "auth-customer/di-customer-password-reset-failed"
-}
-
 module "iam_dpd_di_kafka_source_customer_logout_succeeded" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
