@@ -19,6 +19,11 @@ variable "consume_groups" {
 variable "cert_common_name" {
   type        = string
   description = "The principal or user/group for which the ACL is being created."
+
+  validation {
+    condition     = length(var.cert_common_name) <= 64
+    error_message = "Certificate common name (CN) has max length of 64 chars. https://datatracker.ietf.org/doc/html/rfc5280"
+  }
 }
 
 # ACL
