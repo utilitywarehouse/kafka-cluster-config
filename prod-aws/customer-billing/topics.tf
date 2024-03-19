@@ -146,8 +146,8 @@ resource "kafka_topic" "replicated-billing-engine-events" {
     "compression.type" = "zstd"
     "retention.bytes"  = "-1"
     "retention.ms"     = "-1"
-    # allow max 1MB for a message
-    "max.message.bytes" = "1048588"
+    # allow max 10MB for a message
+    "max.message.bytes" = "10485880"
     "cleanup.policy"    = "delete"
   }
 }
