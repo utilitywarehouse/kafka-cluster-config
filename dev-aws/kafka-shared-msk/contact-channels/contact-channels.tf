@@ -2,7 +2,7 @@ resource "kafka_topic" "finished_conversations" {
   name = "contact_channels.finished_conversations"
 
   replication_factor = 3
-  partitions         = 10
+  partitions         = 3
 
   config = {
     "retention.ms"      = "86400000" # 24 hours
@@ -16,7 +16,7 @@ resource "kafka_topic" "finished_transcriptions" {
   name = "contact_channels.finished_transcriptions"
 
   replication_factor = 3
-  partitions         = 10
+  partitions         = 3
 
   config = {
     "retention.ms"      = "86400000" # 24 hours
@@ -30,7 +30,7 @@ resource "kafka_topic" "finished_segments" {
   name = "contact_channels.finished_segments"
 
   replication_factor = 3
-  partitions         = 10
+  partitions         = 3
 
   config = {
     "retention.ms"      = "172800000" # 48 hours
