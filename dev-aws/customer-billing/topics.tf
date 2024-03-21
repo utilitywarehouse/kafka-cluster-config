@@ -166,20 +166,6 @@ resource "kafka_topic" "replicated-internal-bill-core-model" {
   }
 }
 
-resource "kafka_topic" "replicated-bill-core-model" {
-  name               = "replicated-bill-core-model"
-  replication_factor = 3
-  partitions         = 10
-  config = {
-    "compression.type" = "zstd"
-    "retention.bytes"  = "-1"
-    "retention.ms"     = "-1"
-    # allow max 100MB for a message
-    "max.message.bytes" = "104857600"
-    "cleanup.policy"    = "delete"
-  }
-}
-
 resource "kafka_topic" "replicated-bill-extracts-historic-model" {
   name               = "replicated-bill-extracts-historic-model"
   replication_factor = 3
