@@ -233,3 +233,28 @@ resource "kafka_topic" "iam_revoked_v1" {
     "cleanup.policy"    = "delete"
   }
 }
+
+
+resource "kafka_topic" "iam_password_change_forwarder_v1" {
+    name = "auth.iam-password-change-forwarder-v1"
+    replication_factor = 3
+    parititions = 1
+    config = {
+        # retain 100MB on each partition
+        "retention.bytes" = "104857600"
+        # keep data for 7 days
+        "retention.ms" = "604800000"
+        # allow max 1 MB for a message
+        "max.message.bytes" = "1048576"
+        "compression.type"  = "zstd"
+        "cleanup.policy"    = "delete"
+    }
+}
+
+module "iam_password_change_processor" {
+    source  = "../../../mmodules/tls-app"
+    cert_comon_name= "auth-customer/password-change-processor"
+    produce_topics = [kafka_topic.iam_password_change_forwarder_v1.name]
+    consume_topics = [(kafka_topic.iam_credentials_v1)]
+    consume_groups = ["iam.password-change-forwarder"]
+}
