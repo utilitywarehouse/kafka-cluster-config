@@ -25,3 +25,18 @@ After setting up the TF module, each merge in the main branch will be applied by
 
 To learn more and the steps needed for setting a new module, check the docs [here](https://github.com/utilitywarehouse/documentation/blob/master/infra/using-terraform-applier.md).
 
+Note that there is an expected deprecation warning:
+
+    Warning: Argument is deprecated
+    
+      with provider["registry.terraform.io/mongey/kafka"],
+      on __env.tf line 11, in provider "kafka":
+      11: provider "kafka" {
+    
+    This parameter is now deprecated and will be removed in a later release,
+    please use `client_key` instead.
+    
+    (and one more similar warning elsewhere)
+
+See [the upstream
+issue](https://github.com/Mongey/terraform-provider-kafka/issues/108)
