@@ -10,7 +10,7 @@ resource "kafka_topic" "events" {
     "local.retention.ms" = "86400000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
-    "compression.type"  = "zstd"
+    "compression.type"  = "gzip"
     "cleanup.policy"    = "delete"
   }
 }
@@ -27,7 +27,7 @@ resource "kafka_topic" "events_send" {
     "local.retention.ms" = "86400000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
-    "compression.type"  = "zstd"
+    "compression.type"  = "gzip"
     "cleanup.policy"    = "delete"
   }
 }
@@ -44,7 +44,7 @@ resource "kafka_topic" "snowplow" {
     "local.retention.ms" = "86400000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
-    "compression.type"  = "zstd"
+    "compression.type"  = "gzip"
     "cleanup.policy"    = "delete"
   }
 }
