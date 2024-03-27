@@ -235,8 +235,8 @@ resource "kafka_topic" "iam_revoked_v1" {
 }
 
 
-resource "kafka_topic" "iam_credentials_public_events_mapper_v1" {
-    name = "auth-customer.credentials-public-events-mapper-v1"
+resource "kafka_topic" "iam_credentials_v1_public" {
+    name = "auth-customer.iam-credentials-v1-public"
     replication_factor = 3
     parititions = 10
     config = {
@@ -251,10 +251,10 @@ resource "kafka_topic" "iam_credentials_public_events_mapper_v1" {
     }
 }
 
-module "iam_password_change_processor" {
+module "iam_credentials_public_events_mapper" {
     source  = "../../../modules/tls-app"
     cert_comon_name= "auth-customer/credentials-public-events-mapper"
-    produce_topics = [kafka_topic.iam_credentials_public_events_mapper_v1.name]
+    produce_topics = [kafka_topic.iam_credentials_v1_public.name]
     consume_topics = [(kafka_topic.iam_credentials_v1)]
-    consume_groups = ["iam.password-change-forwarder"]
+    consume_groups = ["iam.public-events-mapper-iam-credentials_v1"]
 }
