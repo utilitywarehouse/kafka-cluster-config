@@ -7,12 +7,12 @@ resource "kafka_topic" "uswitch.data.v1" {
   # infinte retention
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes" = "-1"
-    "retention.ms" = "-1"
-    "local.retention.ms" = "3600000"
-    "max.message.bytes" = "1048576"
-    "compression.type"  = "zstd"
-    "cleanup.policy"    = "delete"
+    "retention.bytes"       = "-1"
+    "retention.ms"          = "-1"
+    "local.retention.ms"    = "3600000"
+    "max.message.bytes"     = "1048576"
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
   }
 }
 
