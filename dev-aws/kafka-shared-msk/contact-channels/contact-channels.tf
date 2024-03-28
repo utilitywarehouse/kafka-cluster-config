@@ -1,5 +1,5 @@
 resource "kafka_topic" "finished_conversations" {
-  name = "contact_channels.finished_conversations"
+  name = "contact-channels.finished_conversations"
 
   replication_factor = 3
   partitions         = 3
@@ -13,7 +13,7 @@ resource "kafka_topic" "finished_conversations" {
 }
 
 resource "kafka_topic" "finished_transcriptions" {
-  name = "contact_channels.finished_transcriptions"
+  name = "contact-channels.finished_transcriptions"
 
   replication_factor = 3
   partitions         = 3
@@ -27,7 +27,7 @@ resource "kafka_topic" "finished_transcriptions" {
 }
 
 resource "kafka_topic" "finished_segments" {
-  name = "contact_channels.finished_segments"
+  name = "contact-channels.finished_segments"
 
   replication_factor = 3
   partitions         = 3

@@ -8,7 +8,7 @@ Use the [tls-app](../../modules/tls-app) module for granting access for the apps
 ## Contributing
 
 Please follow these guidelines for the resources:
-1. topic and consumer groups naming: prefix the names with the name of your team. Examples: **bex.internal.bill_fulfilled**, **bex.bills-total-api-reader** where **bex** is the name of the team.
+1. topic and consumer groups naming: prefix the names with the name of your team and use `-` for names separation in the prefix. Examples: **data-infra.internal.bill_fulfilled**, **data-infra.bills-total-api-reader** where **data-infra** is the name of the team.
    This will make it easier to define access in the kafka-ui ([dev](https://kafka-ui.dev.uw.systems/) and [prod](https://kafka-ui.prod.uw.systems/) )
 2. consider the number of partitions for a topic. In Amazon MSK the total number of partitions influences the cost. See [RFC](https://wiki.uw.systems/posts/amazon-msk-managed-kafka-9kjst9t5#h97za-msk)
 
