@@ -20,13 +20,13 @@ resource "kafka_topic" "uswitch_data_v1" {
 
 module "uswitch-data-projector" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.uswitch.data.v1]
+  produce_topics   = [kafka_topic.uswitch_data_v1.name]
   cert_common_name = "customer-proposition/uswitch-data-projector"
 }
 
 module "di-uswitch-orders-kafka-source" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.uswitch.data.v1]
+  consume_topics   = [kafka_topic.uswitch_data_v1.name]
   consume_groups   = [customer-proposition.di-uswitch-orders-kafka-source]
   cert_common_name = "customer-proposition/di-uswitch-orders-kafka-source"
 }
