@@ -10,11 +10,11 @@ resource "kafka_topic" "uswitch.data.v1" {
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
     # keep data locally for 1 hour
-    "local.retention.ms"    = "3600000"
+    "local.retention.ms" = "3600000"
     # allow max 1 MB for a message
-    "max.message.bytes"     = "1048576"
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
   }
 }
 
