@@ -1,4 +1,4 @@
-resource "kafka_topic" "uswitch.data.v1" {
+resource "kafka_topic" "uswitch_data_v1" {
   name = "customer-proposition.uswitch.data.v1"
 
   replication_factor = 3
