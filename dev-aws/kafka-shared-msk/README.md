@@ -1,1 +1,1 @@
-../../prod-aws/kafka-shared/README.md
+../../prod-aws/kafka-shared-msk/README.md
