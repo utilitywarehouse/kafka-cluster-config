@@ -18,7 +18,7 @@ Please follow these guidelines for the resources:
 
 When migrating to the MSK cluster, please consider also the following:
 1. the number of partitions in MSK needs to be the same as in the source cluster.
-2. the retention period in MSK needs to be the same as in the source cluster when migrating (we've experienced some issues when those did not match upon migration). If this needs changed you can do it either before or after the migration.
+2. the retention period in MSK needs to be the same as in the source cluster when migrating (we've experienced some issues when those did not match upon migration). If this needs chnaging please do it before the migration on your local kafka cluster.
 
 ## Structure
 Each child folder contains a Terraform module for a team with the shared kafka resources for that team.
