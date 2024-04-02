@@ -103,3 +103,10 @@ module "budget_plan_di_kafka_source_recommendation" {
   consume_groups   = ["energy-budget-plan.di-kafka-source-recommendations-v1"]
   cert_common_name = "energy-budget-plan/di-kafka-source-recommendations"
 }
+
+module "elastic_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.budget_plan.name, kafka_topic.customer_change.name, kafka_topic.fabricator_deadletter.name]
+  consume_groups   = ["energy-budget-plan.elastic-events-indexer-budget-plan-v1", "energy-budget-plan.elastic-events-indexer-customer-change-v1", "energy-budget-plan.elastic-events-indexer-fabricator-deadletter-v1"]
+  cert_common_name = "energy-budget-plan/elastic-events-indexer"
+}
