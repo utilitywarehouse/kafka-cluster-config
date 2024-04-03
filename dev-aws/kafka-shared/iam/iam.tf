@@ -238,7 +238,7 @@ resource "kafka_topic" "iam_revoked_v1" {
 resource "kafka_topic" "iam_credentials_v1_public" {
   name               = "auth-customer.iam-credentials-v1-public"
   replication_factor = 3
-  parititions        = 10
+  partitions        = 10
   config = {
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
