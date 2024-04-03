@@ -252,9 +252,9 @@ resource "kafka_topic" "iam_credentials_v1_public" {
 }
 
 module "iam_credentials_public_events_mapper" {
-  source          = "../../../modules/tls-app"
-  cert_comon_name = "auth-customer/credentials-public-events-mapper"
-  produce_topics  = [kafka_topic.iam_credentials_v1_public.name]
-  consume_topics  = [(kafka_topic.iam_credentials_v1)]
-  consume_groups  = ["iam.public-events-mapper-iam-credentials_v1"]
+  source           = "../../../modules/tls-app"
+  cert_common_name = "auth-customer/credentials-public-events-mapper"
+  produce_topics   = [kafka_topic.iam_credentials_v1_public.name]
+  consume_topics   = [(kafka_topic.iam_credentials_v1)]
+  consume_groups   = ["iam.public-events-mapper-iam-credentials_v1"]
 }
