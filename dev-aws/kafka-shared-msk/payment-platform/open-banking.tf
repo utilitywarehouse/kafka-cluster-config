@@ -5,6 +5,8 @@ resource "kafka_topic" "openbanking-v1-internal-payments" {
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "-1"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
     # keep data in hot storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 30 days
@@ -20,6 +22,8 @@ resource "kafka_topic" "openbanking-deadletter-v1-internal-payments" {
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "-1"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
     # keep data in hot storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 30 days
@@ -35,6 +39,8 @@ resource "kafka_topic" "openbanking-v1-internal-payment-methods" {
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "-1"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
     # keep data in hot storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 30 days
@@ -50,6 +56,8 @@ resource "kafka_topic" "openbanking-deadletter-v1-internal-payment-methods" {
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "-1"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
     # keep data in hot storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 30 days
