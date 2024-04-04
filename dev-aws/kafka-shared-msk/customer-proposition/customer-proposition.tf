@@ -42,6 +42,7 @@ module "uswitch-data-projector" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.uswitch_data_v1.name]
   consume_topics   = [kafka_topic.uswitch_events_v1.name]
+  consume_groups   = ["customer-proposition.uswitch-data-projector"]
   cert_common_name = "customer-proposition/uswitch-data-projector"
 }
 
