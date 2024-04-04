@@ -235,3 +235,21 @@ resource "kafka_topic" "account-payment-details_v1" {
     "cleanup.policy"    = "delete"
   }
 }
+
+# The dummy topic is used in some services that are deployed
+# multiple times to avoid reacting on the same events multiple
+# times. This topic should never receive an event. It is a way to 
+# make a topic optional when the service doesn't support that.
+resource "kafka_topic" "dummy" {
+  name               = "dummy"
+  replication_factor = 1
+  partitions         = 1
+  config = {
+    "compression.type" = "zstd"
+    # retain 8GB on each partition
+    "retention.bytes" = "8053063680"
+    # allow max 1MB for a message
+    "max.message.bytes" = "1048588"
+    "cleanup.policy"    = "delete"
+  }
+}
