@@ -233,3 +233,27 @@ resource "kafka_topic" "iam_revoked_v1" {
     "cleanup.policy"    = "delete"
   }
 }
+
+resource "kafka_topic" "iam_credentials_v1_public" {
+  name               = "auth-customer.iam-credentials-v1-public"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    # retain 100MB on each partition
+    "retention.bytes" = "104857600"
+    # keep data for 7 days
+    "retention.ms" = "5184000000"
+    # allow max 1 MB for a message
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
+module "iam_credentials_public_events_mapper" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "auth-customer/credentials-public-events-mapper"
+  produce_topics   = [kafka_topic.iam_credentials_v1_public.name]
+  consume_topics   = [(kafka_topic.iam_credentials_v1.name)]
+  consume_groups   = ["iam.public-events-mapper-iam-credentials_v1"]
+}
