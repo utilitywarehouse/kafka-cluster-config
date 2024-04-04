@@ -235,3 +235,17 @@ resource "kafka_topic" "account-payment-details_v1" {
     "cleanup.policy"    = "delete"
   }
 }
+
+resource "kafka_topic" "dummy" {
+  name               = "dummy"
+  replication_factor = 1
+  partitions         = 1
+  config = {
+    "compression.type" = "zstd"
+    # retain 8GB on each partition
+    "retention.bytes" = "8053063680"
+    # allow max 1MB for a message
+    "max.message.bytes" = "1048588"
+    "cleanup.policy"    = "delete"
+  }
+}
