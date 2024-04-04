@@ -236,6 +236,10 @@ resource "kafka_topic" "account-payment-details_v1" {
   }
 }
 
+# The dummy topic is used in some services that are deployed
+# multiple times to avoid reacting on the same events multiple
+# times. This topic should never receive an event. It is a way to 
+# make a topic optional when the service doesn't support that.
 resource "kafka_topic" "dummy" {
   name               = "dummy"
   replication_factor = 1
