@@ -66,6 +66,23 @@ resource "kafka_topic" "openbanking-deadletter-v1-internal-payment-methods" {
   }
 }
 
+resource "kafka_topic" "payment-v1-events" {
+  name               = "payment-platform.payment.v1.events"
+  replication_factor = 3
+  partitions         = 5
+  config = {
+    "compression.type" = "zstd"
+    "retention.bytes"  = "-1"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data in hot storage for 2 days
+    "local.retention.ms" = "172800000"
+    # keep data for 30 days
+    "retention.ms"   = "2592000000"
+    "cleanup.policy" = "delete"
+  }
+}
+
 module "openbanking-apid" {
   source           = "../../modules/tls-app"
   produce_topics   = [kafka_topic.openbanking-v1-internal-payments.name, kafka_topic.openbanking-v1-internal-payment-methods]
@@ -73,6 +90,6 @@ module "openbanking-apid" {
 }
 
 module "openbanking-consumerd-consumer" {
-  source = "../../modules/tls-app"
+  source           = "../../modules/tls-app"
   cert_common_name = "payment-platform/openbanking-consumerd"
 }
