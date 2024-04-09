@@ -65,3 +65,14 @@ resource "kafka_topic" "openbanking-deadletter-v1-internal-payment-methods" {
     "cleanup.policy" = "delete"
   }
 }
+
+module "openbanking-apid" {
+  source           = "../../modules/tls-app"
+  produce_topics   = [kafka_topic.openbanking-v1-internal-payments.name, kafka_topic.openbanking-v1-internal-payment-methods]
+  cert_common_name = "payment-platform/openbanking-apid"
+}
+
+module "openbanking-consumerd-consumer" {
+  source = "../../modules/tls-app"
+  cert_common_name = "payment-platform/openbanking-consumerd"
+}
