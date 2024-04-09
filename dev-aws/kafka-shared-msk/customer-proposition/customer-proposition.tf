@@ -79,3 +79,9 @@ module "uswitch-mailer-switch-projector" {
   consume_groups   = ["customer-proposition.switch-mailer-001"]
   cert_common_name = "customer-proposition/uswitch-mailer-switch-projector"
 }
+
+module "uswitch-reporter" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.uswitch_events_v1.name]
+  cert_common_name = "customer-proposition/uswitch-reporter"
+}
