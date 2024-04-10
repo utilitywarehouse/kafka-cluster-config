@@ -85,3 +85,17 @@ module "uswitch-reporter" {
   produce_topics   = [kafka_topic.uswitch_events_v1.name]
   cert_common_name = "customer-proposition/uswitch-reporter"
 }
+
+module "es-indexer-uswitch-data-v1" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["customer-proposition.es-indexer-uswitch.data.v1"]
+  consume_topics   = [kafka_topic.uswitch_data_v1.name]
+  cert_common_name = "customer-proposition/es-indexer-uswitch-data-v1"
+}
+
+module "es-indexer-uswitch-events-v1" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["customer-proposition.es-indexer-uswitch.events.v1"]
+  consume_topics   = [kafka_topic.uswitch_events_v1.name]
+  cert_common_name = "customer-proposition/es-indexer-uswitch-events-v1"
+}
