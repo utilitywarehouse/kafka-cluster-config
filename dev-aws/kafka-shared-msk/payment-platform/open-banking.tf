@@ -83,13 +83,13 @@ resource "kafka_topic" "payment-v1-events" {
   }
 }
 
-module "openbanking-apid" {
+module "openbanking_apid" {
   source           = "../../modules/tls-app"
   produce_topics   = [kafka_topic.openbanking-v1-internal-payments.name, kafka_topic.openbanking-v1-internal-payment-methods.name, kafka_topic.payment-v1-events.name]
   cert_common_name = "payment-platform/openbanking-apid"
 }
 
-module "openbanking-consumerd" {
+module "openbanking_consumerd" {
   source           = "../../modules/tls-app"
   produce_topics   = [kafka_topic.openbanking-deadletter-v1-internal-payments.name, kafka_topic.openbanking-deadletter-v1-internal-payment-methods.name, kafka_topic.payment-v1-events.name]
   consume_topics   = [kafka_topic.openbanking-v1-internal-payments.name, kafka_topic.openbanking-v1-internal-payment-methods.name]
