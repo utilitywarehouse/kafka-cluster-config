@@ -257,8 +257,8 @@ resource "kafka_topic" "dummy" {
 
 # this topic is used during the transition from exstream to bex bill
 # generation and contains AccountReadyToBeFulfilledEvents 
-resource "kafka_topic" "transition-exstream-fulfilment" {
-  name               = "transition.exstream-fulfilment"
+resource "kafka_topic" "transition_exstream_fulfilment_request" {
+  name               = "transition.exstream.fulfilment_request"
   replication_factor = 3
   partitions         = 10
   config = {
@@ -272,8 +272,8 @@ resource "kafka_topic" "transition-exstream-fulfilment" {
 
 # this topic is used during the transition from exstream to bex bill
 # generation and contains AccountReadyToBeFulfilledEvents 
-resource "kafka_topic" "transition-bex-fulfilment" {
-  name               = "transition.bex-fulfilment"
+resource "kafka_topic" "transition_bex_fulfilment_request" {
+  name               = "transition.bex.fulfilment_request"
   replication_factor = 3
   partitions         = 20
   config = {
