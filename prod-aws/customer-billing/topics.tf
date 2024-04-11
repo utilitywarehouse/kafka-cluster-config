@@ -253,3 +253,34 @@ resource "kafka_topic" "dummy" {
     "cleanup.policy"    = "delete"
   }
 }
+
+
+# this topic is used during the transition from exstream to bex bill
+# generation and contains AccountReadyToBeFulfilledEvents 
+resource "kafka_topic" "transition_exstream_fulfilment_request" {
+  name               = "transition.exstream.fulfilment_request"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "compression.type" = "zstd"
+    "retention.bytes"  = "8053063680"
+    # allow max 100MB for a message
+    "max.message.bytes" = "104857600"
+    "cleanup.policy"    = "delete"
+  }
+}
+
+# this topic is used during the transition from exstream to bex bill
+# generation and contains AccountReadyToBeFulfilledEvents 
+resource "kafka_topic" "transition_bex_fulfilment_request" {
+  name               = "transition.bex.fulfilment_request"
+  replication_factor = 3
+  partitions         = 20
+  config = {
+    "compression.type" = "zstd"
+    "retention.bytes"  = "8053063680"
+    # allow max 100MB for a message
+    "max.message.bytes" = "104857600"
+    "cleanup.policy"    = "delete"
+  }
+}
