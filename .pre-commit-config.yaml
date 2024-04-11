@@ -3,3 +3,9 @@ repos:
   rev: v1.86.0
   hooks:
     - id: terraform_fmt
+    - id: terraform_tflint
+      args:
+        - --args=--config=__GIT_WORKING_DIR__/.tflint.hcl
+        # use compact, so that errors will be reported by the GH action see https://github.com/terraform-linters/setup-tflint?tab=readme-ov-file#checks
+        - --args=--format=compact
+        - --hook-config=--delegate-chdir
