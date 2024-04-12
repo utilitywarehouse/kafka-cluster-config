@@ -8,11 +8,6 @@ rule "terraform_standard_module_structure" {
   enabled = false
 }
 
-# Suppressing this until we fix it
-rule "terraform_required_version" {
-  enabled = false
-}
-
 # Include module calls
 config {
   module = true
