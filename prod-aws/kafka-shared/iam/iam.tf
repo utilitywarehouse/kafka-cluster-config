@@ -57,6 +57,13 @@ module "iam_credentials_indexer" {
   cert_common_name = "auth-customer/iam-credentials-v1-indexer"
 }
 
+module "iam_credentials_comms_processor" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [(kafka_topic.iam_credentials_v1.name)]
+  consume_groups   = ["iam.credentials-comms-processor"]
+  cert_common_name = "auth-customer/iam-credentials-comms-processor"
+}
+
 module "iam_customer_auth_provider" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.iam_credentials_v1.name]
