@@ -13,11 +13,6 @@ rule "terraform_required_version" {
   enabled = false
 }
 
-# Suppressing this until we fix it
-rule "terraform_required_providers" {
-  enabled = false
-}
-
 # Include module calls
 config {
   module = true
