@@ -1,3 +1,4 @@
+# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "account-debt-selected-events" {
   name               = "account-debt-selected.events"
   replication_factor = 3
@@ -8,7 +9,7 @@ resource "kafka_topic" "account-debt-selected-events" {
     "cleanup.policy"  = "delete"
   }
 }
-
+# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "failed-debt-notification-events" {
   name               = "failed-debt-notification.events"
   replication_factor = 3
@@ -20,6 +21,7 @@ resource "kafka_topic" "failed-debt-notification-events" {
   }
 }
 
+# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "internal-account-debt-events" {
   name               = "internal-account-debt.events"
   replication_factor = 3
@@ -29,6 +31,7 @@ resource "kafka_topic" "internal-account-debt-events" {
   }
 }
 
+# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "account-debt-events" {
   name               = "account-debt.events"
   replication_factor = 3
@@ -40,6 +43,7 @@ resource "kafka_topic" "account-debt-events" {
   }
 }
 
+# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "debt-collection-events" {
   name               = "debt-collection.events"
   replication_factor = 3

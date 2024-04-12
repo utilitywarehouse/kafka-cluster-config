@@ -1,3 +1,4 @@
+# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "account-status-events" {
   name               = "account-status.events"
   replication_factor = 3

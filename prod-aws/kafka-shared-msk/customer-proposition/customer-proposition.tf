@@ -38,6 +38,7 @@ resource "kafka_topic" "uswitch_events_v1" {
   }
 }
 
+# tflint-ignore: terraform_naming_convention
 module "uswitch-data-projector" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.uswitch_data_v1.name]
@@ -46,6 +47,7 @@ module "uswitch-data-projector" {
   cert_common_name = "customer-proposition/uswitch-data-projector"
 }
 
+# tflint-ignore: terraform_naming_convention
 module "di-uswitch-orders-kafka-source" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.uswitch_data_v1.name]
@@ -53,12 +55,14 @@ module "di-uswitch-orders-kafka-source" {
   cert_common_name = "customer-proposition/di-uswitch-orders-kafka-source"
 }
 
+# tflint-ignore: terraform_naming_convention
 module "uswitch-proxy" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.uswitch_events_v1.name]
   cert_common_name = "customer-proposition/uswitch-proxy"
 }
 
+# tflint-ignore: terraform_naming_convention
 module "uswitch-order-submitter" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.uswitch_events_v1.name]
@@ -66,6 +70,7 @@ module "uswitch-order-submitter" {
   cert_common_name = "customer-proposition/uswitch-order-submitter"
 }
 
+# tflint-ignore: terraform_naming_convention
 module "uswitch-reporter-switches-consumer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.uswitch_events_v1.name]
@@ -73,6 +78,7 @@ module "uswitch-reporter-switches-consumer" {
   cert_common_name = "customer-proposition/uswitch-reporter-switches-consumer"
 }
 
+# tflint-ignore: terraform_naming_convention
 module "uswitch-mailer-switch-projector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.uswitch_events_v1.name]
@@ -80,12 +86,14 @@ module "uswitch-mailer-switch-projector" {
   cert_common_name = "customer-proposition/uswitch-mailer-switch-projector"
 }
 
+# tflint-ignore: terraform_naming_convention
 module "uswitch-reporter" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.uswitch_events_v1.name]
   cert_common_name = "customer-proposition/uswitch-reporter"
 }
 
+# tflint-ignore: terraform_naming_convention
 module "es-indexer-uswitch-data-v1" {
   source           = "../../../modules/tls-app"
   consume_groups   = ["customer-proposition.es-indexer-uswitch.data.v1"]
@@ -93,6 +101,7 @@ module "es-indexer-uswitch-data-v1" {
   cert_common_name = "customer-proposition/es-indexer-uswitch-data-v1"
 }
 
+# tflint-ignore: terraform_naming_convention
 module "es-indexer-uswitch-events-v1" {
   source           = "../../../modules/tls-app"
   consume_groups   = ["customer-proposition.es-indexer-uswitch.events.v1"]

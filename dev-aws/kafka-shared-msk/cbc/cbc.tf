@@ -1,3 +1,4 @@
+# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "FraudEvents" {
   name = "cbc.FraudEvents"
 
