@@ -36,7 +36,7 @@ variable "acl_host" {
 # QUOTA
 variable "consumer_byte_rate" {
   type = number
-  // See https://docs.confluent.io/kafka/design/quotas.html#enforcement
+  # See https://docs.confluent.io/kafka/design/quotas.html#enforcement
   description = "The maximum number of bytes per second consumers with the specified user can consume across topics per broker."
   default     = 5242880 # Limit producing to 5 MB/s
 
