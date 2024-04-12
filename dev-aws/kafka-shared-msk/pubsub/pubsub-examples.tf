@@ -34,3 +34,10 @@ module "example_process_batch_consumer" {
   cert_common_name = "pubsub/example-consume-process-batch"
 }
 
+module "example-process-batch-consumer2" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [(kafka_topic.pubsub_examples.name)]
+  consume_groups   = ["pubsub.example-consume-process-batch2"]
+  cert_common_name = "pubsub/example-consume-process-batch2"
+}
+
