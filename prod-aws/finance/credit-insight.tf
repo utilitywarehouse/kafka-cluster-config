@@ -1,3 +1,4 @@
+# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "credit-insight-account-data-changed-events" {
   name               = "credit-insight-account-data-changed.events"
   replication_factor = 3
@@ -9,6 +10,7 @@ resource "kafka_topic" "credit-insight-account-data-changed-events" {
   }
 }
 
+# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "credit-insight-account-balance-changed-events" {
   name               = "credit-insight-account-balance-changed.events"
   replication_factor = 3
@@ -20,6 +22,7 @@ resource "kafka_topic" "credit-insight-account-balance-changed-events" {
   }
 }
 
+# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "credit-insight-account-changed-events" {
   name               = "credit-insight-account-changed.events"
   replication_factor = 3

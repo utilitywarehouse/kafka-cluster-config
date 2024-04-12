@@ -1,3 +1,4 @@
+# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "comms-eqdb-loader-events" {
   name               = "comms.eqdb-loader.events"
   replication_factor = 3
@@ -9,6 +10,7 @@ resource "kafka_topic" "comms-eqdb-loader-events" {
   }
 }
 
+# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "disputes-diffs-events" {
   name               = "disputes-diffs.events"
   replication_factor = 3

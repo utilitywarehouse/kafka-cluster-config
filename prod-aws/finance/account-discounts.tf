@@ -1,3 +1,4 @@
+# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "account-status-events" {
   name               = "account-status.events"
   replication_factor = 3
@@ -10,6 +11,7 @@ resource "kafka_topic" "account-status-events" {
   }
 }
 
+# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "account-eligibility-changed-events" {
   name               = "account-eligibility-changed.events"
   replication_factor = 3
