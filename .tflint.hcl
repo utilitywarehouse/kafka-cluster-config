@@ -14,3 +14,7 @@ rule "terraform_required_version" {
 rule "terraform_required_providers" {
   enabled = false
 }
+
+config {
+  module = true
+}
