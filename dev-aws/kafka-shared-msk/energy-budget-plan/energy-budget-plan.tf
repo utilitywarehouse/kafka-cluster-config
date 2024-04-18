@@ -71,12 +71,12 @@ resource "kafka_topic" "fabricator_deadletter" {
 resource "kafka_topic" "assessment_request" {
   name = "energy-budget-plan.assessment-request"
   replica_factor = 3
-  partitions = 10
+  partitions = 5
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data for 2 months
-    "retention.ms" = "5259600000"
+    # keep data for 7 years
+    "retention.ms" = "220898482000"
     # keep data in hot storage for 2 days
     "local.retention.ms" = "172800000"
     # allow max 1 MB for a message
