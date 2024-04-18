@@ -14,9 +14,14 @@ resource "kafka_topic" "proximo_example" {
   }
 }
 
-module "example_proximo" {
+module "example_proximo_produce" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.proximo_example.name]
+  cert_common_name = "dev-enablement/example-proximo"
+}
+
+module "example_proximo_consume" {
+  source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.proximo_example.name)]
   consume_groups   = ["dev-enablement.example-proximo"]
   cert_common_name = "dev-enablement/example-proximo"
