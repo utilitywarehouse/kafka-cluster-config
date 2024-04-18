@@ -132,6 +132,6 @@ module "elastic_events_indexer" {
 module "budget_plan_review_scheduler" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.budget_plan.name]
-  produce_topics = [kafka_topic.assessment_request.name]
+  produce_topics   = [kafka_topic.assessment_request.name]
   cert_common_name = "energy-budget-plan/review-scheduler"
 }
