@@ -68,6 +68,24 @@ resource "kafka_topic" "fabricator_deadletter" {
   }
 }
 
+resource "kafka_topic" "assessment_request" {
+  name = "energy-budget-plan.assessment-request"
+  replica_factor = 3
+  partitions = 10
+  config = {
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data for 2 months
+    "retention.ms" = "5259600000"
+    # keep data in hot storage for 2 days
+    "local.retention.ms" = "172800000"
+    # allow max 1 MB for a message
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 module "eqdb_loader_process" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.eqdb_loader.name]
@@ -109,4 +127,11 @@ module "elastic_events_indexer" {
   consume_topics   = [kafka_topic.budget_plan.name, kafka_topic.customer_change.name, kafka_topic.fabricator_deadletter.name]
   consume_groups   = ["energy-budget-plan.elastic-events-indexer-budget-plan-v1", "energy-budget-plan.elastic-events-indexer-customer-change-v1", "energy-budget-plan.elastic-events-indexer-fabricator-deadletter-v1"]
   cert_common_name = "energy-budget-plan/elastic-events-indexer"
+}
+
+module "budget_plan_review_scheduler" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.budget_plan.name]
+  produce_topics = [kafka_topic.assessment_request.name]
+  cert_common_name = "energy-budget-plan/review-scheduler"
 }
