@@ -17,14 +17,14 @@ resource "kafka_topic" "iam_cerbos_audit_v1" {
 module "iam_cerbos_audit_indexer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_cerbos_audit_v1.name)]
-  consume_groups   = ["indexer-iam-cerbos-audit-v1"]
+  consume_groups   = ["iam.indexer-iam-cerbos-audit-v1"]
   cert_common_name = "auth/iam-cerbos-audit-indexer"
 }
 
 module "iam_cerbos_audit_exporter" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_cerbos_audit_v1.name)]
-  consume_groups   = ["exporter-iam-cerbos-audit-v1"]
+  consume_groups   = ["iam.exporter-iam-cerbos-audit-v1"]
   cert_common_name = "auth/iam-cerbos-audit-exporter"
 }
 
@@ -53,7 +53,7 @@ module "iam_credentials_api" {
 module "iam_credentials_indexer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_credentials_v1.name)]
-  consume_groups   = ["indexer-iam-credentials-v1"]
+  consume_groups   = ["iam.indexer-iam-credentials-v1"]
   cert_common_name = "auth-customer/iam-credentials-v1-indexer"
 }
 
@@ -205,7 +205,7 @@ module "iam_identitydb_event_forwarder" {
 module "iam_identitydb_snapshotter" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_identitydb_v1.name)]
-  consume_groups   = ["iam-identitydb-snapshotter"]
+  consume_groups   = ["iam.iam-identitydb-snapshotter"]
   cert_common_name = "auth/iam-identitydb-snapshotter"
 }
 
@@ -213,7 +213,7 @@ module "iam_identity_api" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.iam_revoked_v1.name]
   consume_topics   = [(kafka_topic.iam_identitydb_v1.name)]
-  consume_groups   = ["iam-identity-api"]
+  consume_groups   = ["iam.iam-identity-api"]
   cert_common_name = "auth/iam-identity-api"
 }
 
@@ -222,7 +222,7 @@ module "iam_policy_decision_api" {
   cert_common_name = "auth/iam-policy-decision-api"
   produce_topics   = [kafka_topic.iam_cerbos_audit_v1.name]
   consume_topics   = [(kafka_topic.iam_identitydb_v1.name)]
-  consume_groups   = ["iam-policy-decision-api"]
+  consume_groups   = ["iam.iam-policy-decision-api"]
 }
 
 resource "kafka_topic" "iam_revoked_v1" {
