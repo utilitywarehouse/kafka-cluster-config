@@ -17,14 +17,14 @@ resource "kafka_topic" "iam_cerbos_audit_v1" {
 module "iam_cerbos_audit_indexer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_cerbos_audit_v1.name)]
-  consume_groups   = ["indexer-iam-cerbos-audit-v1"]
+  consume_groups   = ["iam.indexer-iam-cerbos-audit-v1"]
   cert_common_name = "auth/iam-cerbos-audit-indexer"
 }
 
 module "iam_cerbos_audit_exporter" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_cerbos_audit_v1.name)]
-  consume_groups   = ["exporter-iam-cerbos-audit-v1"]
+  consume_groups   = ["iam.exporter-iam-cerbos-audit-v1"]
   cert_common_name = "auth/iam-cerbos-audit-exporter"
 }
 
@@ -33,10 +33,14 @@ resource "kafka_topic" "iam_credentials_v1" {
   replication_factor = 3
   partitions         = 10
   config = {
+    # Use tiered storage
+    "remote.storage.enable" = "true"
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
     # keep data for 60 days
     "retention.ms" = "5184000000"
+    # keep data in hot storage for 2 days
+    "local.retention.ms" = "172800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
@@ -53,7 +57,7 @@ module "iam_credentials_api" {
 module "iam_credentials_indexer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_credentials_v1.name)]
-  consume_groups   = ["indexer-iam-credentials-v1"]
+  consume_groups   = ["iam.indexer-iam-credentials-v1"]
   cert_common_name = "auth-customer/iam-credentials-v1-indexer"
 }
 
@@ -75,10 +79,14 @@ resource "kafka_topic" "iam_dpd_v1" {
   replication_factor = 3
   partitions         = 1
   config = {
+    # Use tiered storage
+    "remote.storage.enable" = "true"
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
     # keep data for 7 days
     "retention.ms" = "604800000"
+    # keep data in hot storage for 2 days
+    "local.retention.ms" = "172800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
@@ -170,10 +178,14 @@ resource "kafka_topic" "iam_identitydb_v1" {
   # MUST be 1 partition as identitydb assumes this to be true
   partitions = 1
   config = {
+    # Use tiered storage
+    "remote.storage.enable" = "true"
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
     # keep data for 30 days
     "retention.ms" = "2592000000"
+    # keep data in hot storage for 2 days
+    "local.retention.ms" = "172800000"
     # allow max 5 MB for a message
     "max.message.bytes" = "5242880"
     "compression.type"  = "zstd"
@@ -205,7 +217,7 @@ module "iam_identitydb_event_forwarder" {
 module "iam_identitydb_snapshotter" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_identitydb_v1.name)]
-  consume_groups   = ["iam-identitydb-snapshotter"]
+  consume_groups   = ["iam.iam-identitydb-snapshotter"]
   cert_common_name = "auth/iam-identitydb-snapshotter"
 }
 
@@ -213,7 +225,7 @@ module "iam_identity_api" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.iam_revoked_v1.name]
   consume_topics   = [(kafka_topic.iam_identitydb_v1.name)]
-  consume_groups   = ["iam-identity-api"]
+  consume_groups   = ["iam.iam-identity-api"]
   cert_common_name = "auth/iam-identity-api"
 }
 
@@ -222,7 +234,7 @@ module "iam_policy_decision_api" {
   cert_common_name = "auth/iam-policy-decision-api"
   produce_topics   = [kafka_topic.iam_cerbos_audit_v1.name]
   consume_topics   = [(kafka_topic.iam_identitydb_v1.name)]
-  consume_groups   = ["iam-policy-decision-api"]
+  consume_groups   = ["iam.iam-policy-decision-api"]
 }
 
 resource "kafka_topic" "iam_revoked_v1" {
@@ -230,10 +242,14 @@ resource "kafka_topic" "iam_revoked_v1" {
   replication_factor = 3
   partitions         = 1
   config = {
+    # Use tiered storage
+    "remote.storage.enable" = "true"
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
     # keep data for 60 days
     "retention.ms" = "5184000000"
+    # keep data in hot storage for 2 days
+    "local.retention.ms" = "172800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
@@ -246,10 +262,14 @@ resource "kafka_topic" "iam_credentials_v1_public" {
   replication_factor = 3
   partitions         = 10
   config = {
+    # Use tiered storage
+    "remote.storage.enable" = "true"
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
-    # keep data for 7 days
+    # keep data for 60 days
     "retention.ms" = "5184000000"
+    # keep data in hot storage for 2 days
+    "local.retention.ms" = "172800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
