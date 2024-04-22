@@ -133,5 +133,6 @@ module "budget_plan_review_scheduler" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.budget_plan.name]
   produce_topics   = [kafka_topic.assessment_request.name]
+  consume_groups   = ["energy-budget-plan.review-scheduler-projector-v1"]
   cert_common_name = "energy-budget-plan/review-scheduler"
 }
