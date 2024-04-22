@@ -69,9 +69,9 @@ resource "kafka_topic" "fabricator_deadletter" {
 }
 
 resource "kafka_topic" "assessment_request" {
-  name           = "energy-budget-plan.assessment-request"
-  replica_factor = 3
-  partitions     = 5
+  name               = "energy-budget-plan.assessment-request"
+  replication_factor = 3
+  partitions         = 5
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
