@@ -15,3 +15,24 @@ resource "kafka_topic" "FraudEvents" {
     "cleanup.policy"        = "delete"
   }
 }
+
+module "cbc_fraud_detection_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.FraudEvents.name, "auth-customer.iam-credentials-v1-public"]
+  consume_groups   = ["cbc.cbc-fraud-detection-consumer-v1"]
+  cert_common_name = "cbc/cbc-fraud-detection-consumer"
+}
+
+module "cbc_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.FraudEvents.name]
+  consume_groups   = ["cbc.cbc-events-indexer"]
+  cert_common_name = "cbc/cbc-fraud-detection-consumer"
+}
+
+module "cbc_bigquery_exporter" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.FraudEvents.name]
+  consume_groups   = ["cbc.cbc-bigquery-exporter-v1"]
+  cert_common_name = "cbc/cbc-fraud-detection-consumer"
+}
