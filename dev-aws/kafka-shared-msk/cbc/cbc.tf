@@ -24,6 +24,7 @@ module "cbc_fraud_detection_api" {
 module "cbc_fraud_detection_consumer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.FraudEvents.name, "auth-customer.iam-credentials-v1-public"]
+  produce_topics   = [kafka_topic.FraudEvents.name]
   consume_groups   = ["cbc.cbc-fraud-detection-consumer-v1"]
   cert_common_name = "cbc/cbc-fraud-detection-consumer"
 }
