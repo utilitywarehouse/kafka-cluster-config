@@ -16,7 +16,7 @@ resource "kafka_topic" "FraudEvents" {
   }
 }
 
-resource "kafka_topic" "rating_rvents_v3" {
+resource "kafka_topic" "rating_events_v3" {
   name = "cbc.RatingEvents_v3"
 
   replication_factor = 3
