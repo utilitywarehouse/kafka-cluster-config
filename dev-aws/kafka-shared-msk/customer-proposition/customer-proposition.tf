@@ -63,6 +63,7 @@ module "uswitch-event-forwarder" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.uswitch_events_v2.name]
   consume_topics   = [kafka_topic.uswitch_events_v1.name]
+  consume_groups   = ["customer-proposition.uswitch-event-forwarder"]
   cert_common_name = "customer-proposition/uswitch-event-forwarder"
 }
 
