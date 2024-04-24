@@ -16,8 +16,7 @@ resource "kafka_topic" "FraudEvents" {
   }
 }
 
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "RatingEvents_v3" {
+resource "kafka_topic" "rating_rvents_v3" {
   name = "cbc.RatingEvents_v3"
 
   replication_factor = 3
