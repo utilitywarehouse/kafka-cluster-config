@@ -2,7 +2,7 @@ resource "kafka_topic" "correspondence_address_exception_check_events" {
   name               = "correspondence.address.exception.check.events"
   replication_factor = 3
   partitions         = 15
-  config             = {
+  config = {
     "retention.ms" = "604800000"
   }
 }
@@ -11,7 +11,7 @@ resource "kafka_topic" "supply_address_exception_check_events" {
   name               = "supply.address.exception.check.events"
   replication_factor = 3
   partitions         = 15
-  config             = {
+  config = {
     "retention.ms" = "604800000"
   }
 }
@@ -20,7 +20,7 @@ resource "kafka_topic" "supply_address_debt_exception_check_events" {
   name               = "supply.address.debt.exception.check.events"
   replication_factor = 3
   partitions         = 15
-  config             = {
+  config = {
     "retention.ms" = "604800000"
   }
 }
@@ -29,7 +29,7 @@ resource "kafka_topic" "correspondence_address_debt_exception_check_events" {
   name               = "correspondence.address.debt.exception.check.events"
   replication_factor = 3
   partitions         = 15
-  config             = {
+  config = {
     "retention.ms" = "604800000"
   }
 }
