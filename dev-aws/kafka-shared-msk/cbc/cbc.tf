@@ -16,6 +16,11 @@ resource "kafka_topic" "FraudEvents" {
   }
 }
 
+module "cbc_fraud_detection_api" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.FraudEvents.name]
+  cert_common_name = "cbc/cbc-fraud-detection-api"
+}
 module "cbc_fraud_detection_consumer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.FraudEvents.name, "auth-customer.iam-credentials-v1-public"]
