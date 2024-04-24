@@ -38,6 +38,34 @@ resource "kafka_topic" "uswitch_events_v1" {
   }
 }
 
+resource "kafka_topic" "uswitch_events_v2" {
+  name = "customer-proposition.uswitch.events.v2"
+
+  replication_factor = 3
+  partitions         = 15
+
+  # infinte retention
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1"
+    "retention.ms"          = "-1"
+    # keep data locally for 1 hour
+    "local.retention.ms" = "3600000"
+    # allow max 1 MB for a message
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
+# tflint-ignore: terraform_naming_convention
+module "uswitch-event-forwarder" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.uswitch_events_v2.name]
+  consume_topics   = [kafka_topic.uswitch_events_v1.name]
+  cert_common_name = "customer-proposition/uswitch-event-forwarder"
+}
+
 # tflint-ignore: terraform_naming_convention
 module "uswitch-data-projector" {
   source           = "../../../modules/tls-app"
