@@ -1,12 +1,10 @@
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "address-lookup-analytics-v1" {
+resource "kafka_topic" "address_lookup_analytics_v1" {
   name               = "address.lookup.analytics.v1"
   replication_factor = 3
   partitions         = 15
 }
 
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "legacy-account-braze-events-compacted" {
+resource "kafka_topic" "legacy_account_braze_events_compacted" {
   name               = "legacy.account.braze.events.compacted"
   replication_factor = 3
   partitions         = 50

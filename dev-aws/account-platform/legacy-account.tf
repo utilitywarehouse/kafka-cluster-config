@@ -1,5 +1,4 @@
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "legacy-account-changelog-events" {
+resource "kafka_topic" "legacy_account_changelog_events" {
   name               = "legacy.account.changelog.events"
   replication_factor = 3
   partitions         = 15
@@ -9,9 +8,7 @@ resource "kafka_topic" "legacy-account-changelog-events" {
     "delete.retention.ms"       = "100"
   }
 }
-
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "legacy-account-events-compacted" {
+resource "kafka_topic" "legacy_account_events_compacted" {
   name               = "legacy.account.events.compacted"
   replication_factor = 3
   partitions         = 50
@@ -21,9 +18,7 @@ resource "kafka_topic" "legacy-account-events-compacted" {
     "delete.retention.ms"       = "100"
   }
 }
-
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "account-unified-events" {
+resource "kafka_topic" "account_unified_events" {
   name               = "account.unified.events"
   replication_factor = 3
   partitions         = 50
@@ -33,30 +28,22 @@ resource "kafka_topic" "account-unified-events" {
     "delete.retention.ms"       = "100"
   }
 }
-
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "legacy-account-events" {
+resource "kafka_topic" "legacy_account_events" {
   name               = "legacy.account.events"
   replication_factor = 3
   partitions         = 50
 }
-
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "legacy-account-eqdb-events" {
+resource "kafka_topic" "legacy_account_eqdb_events" {
   name               = "legacy.account.eqdb.events"
   replication_factor = 3
   partitions         = 15
 }
-
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "internal-legacy-account-events" {
+resource "kafka_topic" "internal_legacy_account_events" {
   name               = "internal.legacy.account.events"
   replication_factor = 3
   partitions         = 15
 }
-
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "legacy-account-events-private" {
+resource "kafka_topic" "legacy_account_events_private" {
   name               = "legacy.account.events.private"
   replication_factor = 3
   partitions         = 15
