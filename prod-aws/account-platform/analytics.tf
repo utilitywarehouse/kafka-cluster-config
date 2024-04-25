@@ -10,7 +10,8 @@ resource "kafka_topic" "legacy_account_braze_events_compacted" {
   partitions         = 50
   config = {
     "cleanup.policy"            = "compact"
-    "min.cleanable.dirty.ratio" = "0.01"
-    "delete.retention.ms"       = "100"
+    "min.cleanable.dirty.ratio" = "0.2"
+    "delete.retention.ms"       = "86400" # 1 day
+    "segment.ms"                = "43200" # 12 hours
   }
 }
