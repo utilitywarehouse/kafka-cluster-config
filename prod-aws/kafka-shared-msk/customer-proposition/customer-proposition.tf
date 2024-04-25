@@ -42,7 +42,7 @@ resource "kafka_topic" "uswitch_events_v2" {
   name = "customer-proposition.uswitch.events.v2"
 
   replication_factor = 3
-  partitions         = 15
+  partitions         = 5
 
   # infinte retention
   config = {
