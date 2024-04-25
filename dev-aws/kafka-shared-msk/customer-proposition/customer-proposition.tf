@@ -58,8 +58,8 @@ resource "kafka_topic" "uswitch_events_v2" {
   }
 }
 
-# tflint-ignore: terraform_naming_convention
-module "uswitch-event-forwarder" {
+
+module "uswitch_event_forwarder" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.uswitch_events_v2.name]
   consume_topics   = [kafka_topic.uswitch_events_v1.name]
