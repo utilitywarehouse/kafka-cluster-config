@@ -138,8 +138,7 @@ module "es-indexer-uswitch-events-v1" {
   cert_common_name = "customer-proposition/es-indexer-uswitch-events-v1"
 }
 
-# tflint-ignore: terraform_naming_convention
-module "es-indexer-uswitch-events-v2" {
+module "es_indexer_uswitch_events_v2" {
   source           = "../../../modules/tls-app"
   consume_groups   = ["customer-proposition.es-indexer-uswitch.events.v2"]
   consume_topics   = [kafka_topic.uswitch_events_v2.name]
