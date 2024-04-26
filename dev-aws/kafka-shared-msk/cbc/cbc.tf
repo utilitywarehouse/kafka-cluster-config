@@ -220,6 +220,125 @@ resource "kafka_topic" "customer_events_v1" {
   }
 }
 
+resource "kafka_topic" "migration_events_v1" {
+  name = "cbc.MigrationEvents"
+
+  replication_factor = 3
+  partitions         = 15
+
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1"
+    "retention.ms"          = "-1"
+    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
+    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
+resource "kafka_topic" "network_events_v1" {
+  name = "cbc.NetworkEvents"
+
+  replication_factor = 3
+  partitions         = 15
+
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1"
+    "retention.ms"          = "-1"
+    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
+    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
+resource "kafka_topic" "mdes_events_v1" {
+  name = "cbc.MdesEvents"
+
+  replication_factor = 3
+  partitions         = 15
+
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1"
+    "retention.ms"          = "-1"
+    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
+    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
+resource "kafka_topic" "service_events_v1" {
+  name = "cbc.ServiceEvents"
+
+  replication_factor = 3
+  partitions         = 15
+
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1"
+    "retention.ms"          = "-1"
+    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
+    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
+resource "kafka_topic" "crm_events_v1" {
+  name = "cbc.CrmEvents"
+
+  replication_factor = 3
+  partitions         = 15
+
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1"
+    "retention.ms"          = "-1"
+    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
+    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
+resource "kafka_topic" "legacy_account_events_v2" {
+  name = "cbc.legacy.account.events.v2"
+
+  replication_factor = 3
+  partitions         = 15
+
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1"
+    "retention.ms"          = "-1"
+    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
+    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
+resource "kafka_topic" "eqdb_loader_events_v1" {
+  name = "cbc.EqdbLoaderEvents"
+
+  replication_factor = 3
+  partitions         = 15
+
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1"
+    "retention.ms"          = "-1"
+    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
+    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
 module "cbc_fraud_detection_api" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.FraudEvents.name]
@@ -233,6 +352,7 @@ module "cbc_fraud_detection_consumer" {
     kafka_topic.FraudEvents.name,
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.topup_events_v1.name,
+    kafka_topic.legacy_account_events_v2.name,
     kafka_topic.transaction_events_v3.name
   ]
   produce_topics   = [kafka_topic.FraudEvents.name]
@@ -254,6 +374,13 @@ module "cbc_events_indexer" {
     kafka_topic.order_events_v1.name,
     kafka_topic.paymentology_events_v1.name,
     kafka_topic.sodexo_events_v1.name,
+    kafka_topic.migration_events_v1.name,
+    kafka_topic.mdes_events_v1.name,
+    kafka_topic.network_events_v1.name,
+    kafka_topic.crm_events_v1.name,
+    kafka_topic.legacy_account_events_v2.name,
+    kafka_topic.eqdb_loader_events_v1.name,
+    kafka_topic.service_events_v1.name,
     kafka_topic.verification_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-events-indexer"]
@@ -274,6 +401,13 @@ module "cbc_bigquery_exporter" {
     kafka_topic.order_events_v1.name,
     kafka_topic.paymentology_events_v1.name,
     kafka_topic.sodexo_events_v1.name,
+    kafka_topic.migration_events_v1.name,
+    kafka_topic.mdes_events_v1.name,
+    kafka_topic.network_events_v1.name,
+    kafka_topic.crm_events_v1.name,
+    kafka_topic.legacy_account_events_v2.name,
+    kafka_topic.eqdb_loader_events_v1.name,
+    kafka_topic.service_events_v1.name,
     kafka_topic.verification_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-bigquery-exporter-v1"]
@@ -286,6 +420,7 @@ module "cbc_insights_projector" {
     kafka_topic.rating_events_v3.name,
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.transaction_events_v3.name,
+    kafka_topic.legacy_account_events_v2.name,
     kafka_topic.order_events_v1.name,
   ]
   consume_groups   = ["cbc.cbc-insights-projector"]
@@ -378,10 +513,30 @@ module "cbc_network_projector" {
   cert_common_name = "cbc/cbc-network-projector"
 }
 
+module "cbc_network_networkb_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.network_events_v1.name]
+  consume_groups   = ["cbc.cbc-network-networkb-consumer-v1"]
+  cert_common_name = "cbc/cbc-network-networkb-consumer"
+}
+
+module "cbc_network_networkb_report_cron" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.network_events_v1.name]
+  cert_common_name = "cbc/cbc-network-networkb-report-cron"
+}
+
+module "cbc_network_trc_report_cron" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.network_events_v1.name]
+  cert_common_name = "cbc/cbc-network-trc-report-cron"
+}
+
 module "cbc_network_awin_processor" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.transaction_events_v3.name]
   consume_groups   = ["cbc.cbc-network-awin-processor-v1"]
+  produce_topics   = [kafka_topic.network_events_v1.name]
   cert_common_name = "cbc/cbc-network-awin-processor"
 }
 
@@ -389,6 +544,7 @@ module "cbc_network_partnerize_processor" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.transaction_events_v3.name]
   consume_groups   = ["cbc.cbc-network-partnerize-processor-v1"]
+  produce_topics   = [kafka_topic.network_events_v1.name]
   cert_common_name = "cbc/cbc-network-partnerize-processor"
 }
 
@@ -480,6 +636,7 @@ module "cbc_charges_publisher_processor" {
     kafka_topic.charges_events_v1.name,
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.transaction_events_v3.name,
+    kafka_topic.legacy_account_events_v2.name,
     kafka_topic.order_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-charges-publisher-order-charges-v1"]
@@ -491,6 +648,7 @@ module "cbc_charges_publisher_projector" {
   consume_topics = [
     kafka_topic.charges_events_v1.name,
     kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.legacy_account_events_v2.name,
     kafka_topic.order_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-charges-publisher-projector-v2"]
@@ -501,6 +659,7 @@ module "cbc_ordering_platform_consumer" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.legacy_account_events_v2.name,
     kafka_topic.order_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-ordering-platform-consumer-v1"]
@@ -508,24 +667,46 @@ module "cbc_ordering_platform_consumer" {
 }
 
 module "cbc_ordering_platform_projector" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.lifecycle_events_v2.name]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.legacy_account_events_v2.name
+  ]
   consume_groups   = ["cbc.cbc-ordering-platform-projector-v1"]
   cert_common_name = "cbc/cbc-ordering-platform-projector"
 }
 
 module "cbc_mdes_projector" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.lifecycle_events_v2.name]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.legacy_account_events_v2.name,
+    kafka_topic.mdes_events_v1.name
+  ]
   consume_groups   = ["cbc.cbc-mdes-projector"]
   cert_common_name = "cbc/cbc-mdes-projector"
 }
 
 module "cbc_mdes_processor" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.lifecycle_events_v2.name]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.mdes_events_v1.name
+  ]
   consume_groups   = ["cbc.cbc-mdes-processor"]
   cert_common_name = "cbc/cbc-mdes-processor"
+}
+
+module "cbc_mdes_api" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.mdes_events_v1.name]
+  cert_common_name = "cbc/cbc-mdes-api"
+}
+
+module "cbc_mdes_grpc" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.mdes_events_v1.name]
+  cert_common_name = "cbc/cbc-mdgrpcapi"
 }
 
 module "cbc_topup_capture_retrier" {
@@ -544,6 +725,7 @@ module "cbc_topup_projector" {
   consume_topics = [
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.topup_events_v1.name,
+    kafka_topic.legacy_account_events_v2.name,
     kafka_topic.transaction_events_v3.name
   ]
   consume_groups   = ["cbc.cbc-topup-projector-v1"]
@@ -577,6 +759,7 @@ module "cbc_topup_processor" {
   consume_topics = [
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.topup_events_v1.name,
+    kafka_topic.legacy_account_events_v2.name,
     kafka_topic.transaction_events_v3.name
   ]
   produce_topics   = [kafka_topic.topup_events_v1.name]
@@ -604,8 +787,12 @@ module "cbc_crm_adapter_projector" {
 }
 
 module "cbc_crm_adapter_processor" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.lifecycle_events_v2.name]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.service_events_v1.name,
+    kafka_topic.crm_events_v1.name
+  ]
   consume_groups   = ["cbc.cbc-crm-adapter-processor-v1"]
   cert_common_name = "cbc/cbc-crm-adapter-processor"
 }
@@ -638,6 +825,7 @@ module "cbc_3ds_consumer" {
   consume_topics = [
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.transaction_events_v3.name,
+    kafka_topic.legacy_account_events_v2.name,
     kafka_topic.customer_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-3ds-consumer-v1"]
@@ -648,6 +836,7 @@ module "cbc_3ds_projector" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.transaction_events_v3.name,
+    kafka_topic.legacy_account_events_v2.name,
     kafka_topic.customer_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-3ds-projector-v1"]
@@ -672,7 +861,8 @@ module "cbc_provider_api" {
   produce_topics = [
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.transaction_events_v3.name,
-    kafka_topic.order_events_v1.name
+    kafka_topic.order_events_v1.name,
+    kafka_topic.service_events_v1.name
   ]
   cert_common_name = "cbc/cbc-provider-api"
 }
@@ -688,6 +878,7 @@ module "cbc_provider_projector" {
   consume_topics = [
     kafka_topic.transaction_events_v3.name,
     kafka_topic.order_events_v1.name,
+    kafka_topic.legacy_account_events_v2.name,
     kafka_topic.verification_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-provider-projector-v1"]
@@ -699,13 +890,15 @@ module "cbc_provider_consumer" {
   consume_topics = [
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.transaction_events_v3.name,
+    kafka_topic.legacy_account_events_v2.name,
     kafka_topic.order_events_v1.name
   ]
   consume_groups = ["cbc.cbc-provider-consumer-v1"]
   produce_topics = [
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.transaction_events_v3.name,
-    kafka_topic.order_events_v1.name
+    kafka_topic.order_events_v1.name,
+    kafka_topic.service_events_v1.name
   ]
   cert_common_name = "cbc/cbc-provider-consumer"
 }
@@ -805,6 +998,7 @@ module "cbc_dispute_credits_projector" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.legacy_account_events_v2.name,
     kafka_topic.transaction_events_v3.name
   ]
   consume_groups   = ["cbc.cbc-dispute-credits-projector-v3"]
@@ -919,10 +1113,13 @@ module "cbc_pep_api" {
 }
 
 module "cbc_ordering_api" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.order_events_v1.name]
-  consume_groups   = ["cbc.cbc-ordering-api-v2"]
-  produce_topics   = [kafka_topic.order_events_v1.name]
+  source         = "../../../modules/tls-app"
+  consume_topics = [kafka_topic.order_events_v1.name]
+  consume_groups = ["cbc.cbc-ordering-api-v2"]
+  produce_topics = [
+    kafka_topic.order_events_v1.name,
+    kafka_topic.service_events_v1.name
+  ]
   cert_common_name = "cbc/cbc-ordering-api"
 }
 
@@ -981,8 +1178,30 @@ module "cbc_account_services_fabricator" {
 }
 
 module "cbc_account_services_fabricator_projector" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.customer_events_v1.name]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.customer_events_v1.name,
+    kafka_topic.legacy_account_events_v2.name
+  ]
   consume_groups   = ["cbc.cbc-account-services-fabricator-projector-v1"]
   cert_common_name = "cbc/cbc-account-services-fabricator-projector"
+}
+
+module "cbc_customer_information_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.legacy_account_events_v2.name]
+  consume_groups   = ["cbc.cbc-customer-information-consumer-v1"]
+  cert_common_name = "cbc/cbc-customer-information-consumer"
+}
+
+module "cbc_legacy_account_eqdb_loader" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.eqdb_loader_events_v1.name]
+  cert_common_name = "cbc/cbc-legacy-account-eqdb-loader"
+}
+
+module "cbc_account_events_relay" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.legacy_account_events_v2.name]
+  cert_common_name = "cbc/cbc-account-events-relay"
 }
