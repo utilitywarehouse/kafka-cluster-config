@@ -48,3 +48,16 @@ resource "kafka_topic" "snowplow" {
     "cleanup.policy"    = "delete"
   }
 }
+
+module "pubsub_bridge" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.snowplow.name]
+  cert_common_name = "data-infra/pubsub-bridge"
+}
+
+module "snowplow_braze_connector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [(kafka_topic.snowplow.name)]
+  consume_groups   = ["data-infra.di-snowplow-braze-conn"]
+  cert_common_name = "data-infra/di-snowplow-braze-connector"
+}
