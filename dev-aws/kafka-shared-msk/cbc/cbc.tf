@@ -633,13 +633,13 @@ module "cbc_biller_projector" {
 module "cbc_charges_publisher_processor" {
   source = "../../../modules/tls-app"
   consume_topics = [
-    kafka_topic.charges_events_v1.name,
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.transaction_events_v3.name,
     kafka_topic.legacy_account_events_v2.name,
     kafka_topic.order_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-charges-publisher-order-charges-v1"]
+  produce_topics   = [kafka_topic.charges_events_v1.name]
   cert_common_name = "cbc/cbc-charges-publisher-processor"
 }
 
