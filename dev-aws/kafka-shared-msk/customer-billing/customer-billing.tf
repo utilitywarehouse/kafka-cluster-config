@@ -1,7 +1,7 @@
 resource "kafka_topic" "mail_sender_deadletter" {
   name               = "bex.internal.mail_sender_deadletter"
   replication_factor = 3
-  partitions         = 10
+  partitions         = 1
   config = {
     # keep data for 14 days
     "retention.ms" = "1209600000"
