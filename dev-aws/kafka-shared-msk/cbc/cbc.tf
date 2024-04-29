@@ -706,7 +706,7 @@ module "cbc_mdes_api" {
 module "cbc_mdes_grpc" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.mdes_events_v1.name]
-  cert_common_name = "cbc/cbc-mdgrpcapi"
+  cert_common_name = "cbc/cbc-mdes-grpc"
 }
 
 module "cbc_topup_capture_retrier" {
