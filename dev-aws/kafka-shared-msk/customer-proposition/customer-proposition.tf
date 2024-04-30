@@ -103,7 +103,7 @@ module "uswitch-order-submitter" {
 module "uswitch-reporter-switches-consumer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.uswitch_events_v2.name]
-  consume_groups   = ["customer-proposition.uswitch-reporter"]
+  consume_groups   = ["customer-proposition.uswitch-reporter-switches-consumer"]
   cert_common_name = "customer-proposition/uswitch-reporter-switches-consumer"
 }
 
@@ -111,7 +111,7 @@ module "uswitch-reporter-switches-consumer" {
 module "uswitch-mailer-switch-projector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.uswitch_events_v2.name]
-  consume_groups   = ["customer-proposition.switch-mailer-001"]
+  consume_groups   = ["customer-proposition.switch-mailer-switch-projector"]
   cert_common_name = "customer-proposition/uswitch-mailer-switch-projector"
 }
 
