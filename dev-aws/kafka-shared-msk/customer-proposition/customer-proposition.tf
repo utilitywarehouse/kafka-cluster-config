@@ -71,7 +71,7 @@ module "uswitch_event_forwarder" {
 module "uswitch-data-projector" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.uswitch_data_v1.name]
-  consume_topics   = [kafka_topic.uswitch_events_v1.name]
+  consume_topics   = [kafka_topic.uswitch_events_v2.name]
   consume_groups   = ["customer-proposition.uswitch-data-projector"]
   cert_common_name = "customer-proposition/uswitch-data-projector"
 }
@@ -87,14 +87,14 @@ module "di-uswitch-orders-kafka-source" {
 # tflint-ignore: terraform_naming_convention
 module "uswitch-proxy" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.uswitch_events_v1.name]
+  produce_topics   = [kafka_topic.uswitch_events_v2.name]
   cert_common_name = "customer-proposition/uswitch-proxy"
 }
 
 # tflint-ignore: terraform_naming_convention
 module "uswitch-order-submitter" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.uswitch_events_v1.name]
+  consume_topics   = [kafka_topic.uswitch_events_v2.name]
   consume_groups   = ["customer-proposition.order-submitter"]
   cert_common_name = "customer-proposition/uswitch-order-submitter"
 }
@@ -102,23 +102,23 @@ module "uswitch-order-submitter" {
 # tflint-ignore: terraform_naming_convention
 module "uswitch-reporter-switches-consumer" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.uswitch_events_v1.name]
-  consume_groups   = ["customer-proposition.uswitch-reporter"]
+  consume_topics   = [kafka_topic.uswitch_events_v2.name]
+  consume_groups   = ["customer-proposition.uswitch-reporter-switches-consumer"]
   cert_common_name = "customer-proposition/uswitch-reporter-switches-consumer"
 }
 
 # tflint-ignore: terraform_naming_convention
 module "uswitch-mailer-switch-projector" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.uswitch_events_v1.name]
-  consume_groups   = ["customer-proposition.switch-mailer-001"]
+  consume_topics   = [kafka_topic.uswitch_events_v2.name]
+  consume_groups   = ["customer-proposition.switch-mailer-switch-projector"]
   cert_common_name = "customer-proposition/uswitch-mailer-switch-projector"
 }
 
 # tflint-ignore: terraform_naming_convention
 module "uswitch-reporter" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.uswitch_events_v1.name]
+  produce_topics   = [kafka_topic.uswitch_events_v2.name]
   cert_common_name = "customer-proposition/uswitch-reporter"
 }
 
