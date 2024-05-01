@@ -552,7 +552,7 @@ module "cbc_network_sodexo_consumer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.sodexo_events_v1.name]
   consume_groups   = ["cbc.cbc-network-sodexo-consumer-v1"]
-  cert_common_name = "cbc/cbc-network-sodexo-customer-file-processor"
+  cert_common_name = "cbc/cbc-network-sodexo-consumer"
 }
 
 module "cbc_network_sodexo_report_cron" {
