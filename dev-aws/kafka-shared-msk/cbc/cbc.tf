@@ -630,6 +630,12 @@ module "cbc_biller_projector" {
   cert_common_name = "cbc/cbc-biller-projector"
 }
 
+module "cbc_charges_publisher_monthly_charges_job" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.charges_events_v1.name]
+  cert_common_name = "cbc/cbc-charges-publisher-monthly-charges-job"
+}
+
 module "cbc_charges_publisher_processor" {
   source = "../../../modules/tls-app"
   consume_topics = [
