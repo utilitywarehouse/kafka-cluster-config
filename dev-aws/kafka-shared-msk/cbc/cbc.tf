@@ -604,7 +604,7 @@ module "cbc_push_notifications_projector" {
 module "cbc_biller_cronjob" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.transaction_events_v3.name]
-  cert_common_name = "cbc/cbc-biller-consumer"
+  cert_common_name = "cbc/cbc-biller-cronjob"
 }
 
 module "cbc_biller_consumer" {
@@ -757,7 +757,7 @@ module "cbc_topup_low_balance_executor" {
   consume_topics   = [kafka_topic.transaction_events_v3.name]
   consume_groups   = ["cbc.cbc-topup-low-balance-executor-v1"]
   produce_topics   = [kafka_topic.topup_events_v1.name]
-  cert_common_name = "cbc/cbc-topup-processor"
+  cert_common_name = "cbc/cbc-topup-low-balance-executor"
 }
 
 module "cbc_topup_processor" {
@@ -823,7 +823,7 @@ module "cbc_welcome_bonus_consumer" {
     kafka_topic.transaction_events_v3.name
   ]
   consume_groups   = ["cbc.cbc-welcome-bonus-consumer-v1"]
-  cert_common_name = "cbc/cbc-welcome-bonnus-consumer"
+  cert_common_name = "cbc/cbc-welcome-bonus-consumer"
 }
 
 module "cbc_3ds_consumer" {
@@ -1029,7 +1029,7 @@ module "cbc_customer_consumer" {
     kafka_topic.customer_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-customer-api-v1"]
-  cert_common_name = "cbc/cbc-customer-api"
+  cert_common_name = "cbc/cbc-customer-consumer"
 }
 
 module "cbc_tariff_api" {
@@ -1115,7 +1115,7 @@ module "cbc_pep_checker" {
 module "cbc_pep_api" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.verification_events_v1.name]
-  cert_common_name = "cbc/cbc-pep-checker"
+  cert_common_name = "cbc/cbc-pep-api"
 }
 
 module "cbc_ordering_api" {
