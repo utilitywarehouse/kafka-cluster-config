@@ -757,7 +757,7 @@ module "cbc_topup_low_balance_executor" {
   consume_topics   = [kafka_topic.transaction_events_v3.name]
   consume_groups   = ["cbc.cbc-topup-low-balance-executor-v1"]
   produce_topics   = [kafka_topic.topup_events_v1.name]
-  cert_common_name = "cbc/cbc-topup-processor"
+  cert_common_name = "cbc/cbc-topup-low-balance-executor"
 }
 
 module "cbc_topup_processor" {
