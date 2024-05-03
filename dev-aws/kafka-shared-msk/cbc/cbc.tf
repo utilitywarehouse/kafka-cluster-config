@@ -1029,7 +1029,7 @@ module "cbc_customer_consumer" {
     kafka_topic.customer_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-customer-api-v1"]
-  cert_common_name = "cbc/cbc-customer-api"
+  cert_common_name = "cbc/cbc-customer-consumer"
 }
 
 module "cbc_tariff_api" {
