@@ -1115,7 +1115,7 @@ module "cbc_pep_checker" {
 module "cbc_pep_api" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.verification_events_v1.name]
-  cert_common_name = "cbc/cbc-pep-checker"
+  cert_common_name = "cbc/cbc-pep-api"
 }
 
 module "cbc_ordering_api" {
