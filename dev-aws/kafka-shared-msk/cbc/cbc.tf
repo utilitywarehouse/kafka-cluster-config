@@ -823,7 +823,7 @@ module "cbc_welcome_bonus_consumer" {
     kafka_topic.transaction_events_v3.name
   ]
   consume_groups   = ["cbc.cbc-welcome-bonus-consumer-v1"]
-  cert_common_name = "cbc/cbc-welcome-bonnus-consumer"
+  cert_common_name = "cbc/cbc-welcome-bonus-consumer"
 }
 
 module "cbc_3ds_consumer" {
