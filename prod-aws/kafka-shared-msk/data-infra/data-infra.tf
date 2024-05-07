@@ -57,7 +57,7 @@ module "pubsub_bridge" {
 
 module "snowplow_braze_connector" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [(kafka_topic.snowplow.name)]
+  consume_topics   = [kafka_topic.snowplow.name]
   consume_groups   = ["data-infra.di-snowplow-braze-conn"]
   cert_common_name = "data-infra/di-snowplow-braze-connector"
 }
