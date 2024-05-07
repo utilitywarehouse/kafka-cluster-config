@@ -601,6 +601,12 @@ module "cbc_push_notifications_projector" {
   cert_common_name = "cbc/cbc-push-notifications-projector"
 }
 
+module "cbc_biller_amount_fixer" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.charges_events_v1.name]
+  cert_common_name = "cbc/cbc-biller-amount-fixer"
+}
+
 module "cbc_biller_cronjob" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.transaction_events_v3.name]
