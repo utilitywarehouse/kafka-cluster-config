@@ -746,9 +746,7 @@ module "cbc_topup_projector" {
 
 module "cbc_topup_refund_retrier" {
   source           = "../../../modules/tls-app"
-  consume_topics   = []
   produce_topics   = [kafka_topic.topup_events_v1.name]
-  consume_groups   = ["cbc.cbc-topup-low-balance-executor-v1"]
   cert_common_name = "cbc/cbc-topup-refund-retrier"
 }
 
