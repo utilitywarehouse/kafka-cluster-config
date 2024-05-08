@@ -819,7 +819,7 @@ module "cbc_welcome_bonus_projector" {
     kafka_topic.customer_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-welcome-bonus-projector-v1"]
-  cert_common_name = "cbc/cbc-welcome-bonnus-projector"
+  cert_common_name = "cbc/cbc-welcome-bonus-projector"
 }
 
 module "cbc_welcome_bonus_consumer" {
