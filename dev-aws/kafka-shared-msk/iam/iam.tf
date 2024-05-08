@@ -287,7 +287,7 @@ module "iam_credentials_public_events_mapper" {
 }
 
 module "castle_processor" {
-  source           = "../../../modules/tls_app"
+  source           = "../../../modules/tls-app"
   cert_common_name = "auth-customer/castle-processor"
   consume_topics   = [(kafka_topic.iam_credentials_v1.name)]
   consume_groups   = ["iam.castle_processor"]
