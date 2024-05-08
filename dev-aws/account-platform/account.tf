@@ -10,7 +10,7 @@ resource "kafka_topic" "account_atomic_v1" {
   partitions         = 15
 }
 
-resource "kafka_topic" "account.events.v3" {
+resource "kafka_topic" "account_events_v3" {
   name               = "account.events.v3"
   replication_factor = 3
   partitions         = 15
