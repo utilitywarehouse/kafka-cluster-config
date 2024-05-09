@@ -59,3 +59,9 @@ module "mail_sender" {
   consume_topics   = [(kafka_topic.invoice_fulfillment.name)]
   consume_groups   = ["bex.mail-sender"]
 }
+
+module "dashboard" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "customer-billing/bex-dashboard"
+  produce_topics   = [kafka_topic.invoice_fulfillment.name]
+}
