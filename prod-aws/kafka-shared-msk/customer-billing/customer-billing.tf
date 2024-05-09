@@ -11,3 +11,9 @@ resource "kafka_topic" "mail_sender_deadletter" {
     "cleanup.policy"    = "delete"
   }
 }
+
+module "mail_sender" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "customer-billing/mail-sender"
+  produce_topics   = [kafka_topic.mail_sender_deadletter.name]
+}
