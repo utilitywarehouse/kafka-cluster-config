@@ -17,3 +17,23 @@ module "mail_sender" {
   cert_common_name = "customer-billing/mail-sender"
   produce_topics   = [kafka_topic.mail_sender_deadletter.name]
 }
+
+resource "kafka_topic" "invoice_generator" {
+  name               = "bex.internal.invoices"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    # keep data for 7 days
+    "retention.ms" = "604800000"
+    # allow max 100 MB for a message
+    "max.message.bytes" = "104857600"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
+module "invoice_generator" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "customer-billing/invoice-generator"
+  produce_topics   = [kafka_topic.invoice_generator.name]
+}
