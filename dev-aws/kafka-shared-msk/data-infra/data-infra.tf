@@ -51,8 +51,8 @@ resource "kafka_topic" "snowplow" {
 
 resource "kafka_topic" "test_pla1275" {
   name               = "data-infra.uw.data-infra.test.pla1275"
-  replication_factor = 3
-  partitions         = 15
+  replication_factor = 1
+  partitions         = 1
   config = {
     "remote.storage.enable" = "true"
     # 5 days
