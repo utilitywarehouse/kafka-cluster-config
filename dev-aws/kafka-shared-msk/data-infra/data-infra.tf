@@ -54,11 +54,12 @@ resource "kafka_topic" "test_pla1275" {
   replication_factor = 1
   partitions         = 1
   config = {
-    "remote.storage.enable" = "true"
+    # this is a test, and we need minimum and non-durable resources
+    "remote.storage.enable" = "false"
     # 5 days
-    "retention.ms" = "259200001"
+    "retention.ms" = "86400000"
     # keep data in hot storage for 1 day
-    "local.retention.ms" = "86400000"
+    #"local.retention.ms" = "86400000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
