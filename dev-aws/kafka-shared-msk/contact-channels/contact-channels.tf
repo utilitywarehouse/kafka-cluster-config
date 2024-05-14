@@ -1,3 +1,19 @@
+resource "kafka_topic" "genesys_eb_events" {
+  name = "contact-channels.genesys_eb_events"
+
+  replication_factor = 3
+  partitions         = 9
+
+  config = {
+    "remote.storage.enable" = "true"
+    "local.retention.ms"    = "259200000"  # 3 days
+    "retention.ms"          = "2629800000" # 1 month
+    "max.message.bytes"     = "104857600"  # 100MB
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
 resource "kafka_topic" "finished_conversations" {
   name = "contact-channels.finished_conversations"
 
@@ -38,4 +54,50 @@ resource "kafka_topic" "finished_segments" {
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
+}
+
+## TLS App
+
+# Consume from contact-channels.genesys_eb_events and produce to contact-channels.finished_segments
+module "segment_gatherer" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/segment-gatherer"
+  consume_topics   = [kafka_topic.genesys_eb_events.name]
+  consume_groups   = ["contact-channels.eb-kafka-segment-gatherer"]
+  produce_topics   = [kafka_topic.finished_segments.name]
+}
+
+# Consume from contact-channels.genesys_eb_events and produce to contact-channels.finished_conversations
+module "transcription_gatherer" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/transcription-gatherer"
+  consume_topics   = [kafka_topic.genesys_eb_events.name]
+  consume_groups   = ["contact-channels.eb-kafka-transcription-gatherer"]
+  produce_topics   = [kafka_topic.finished_conversations.name]
+}
+
+# Consume from contact-channels.finished_segments and produce to contact-channels.finished_transcriptions
+module "segment_aggregator" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/segment-aggregator"
+  consume_topics   = [kafka_topic.finished_segments.name]
+  consume_groups   = ["contact-channels.eb-kafka-segment-aggregator"]
+  produce_topics   = [kafka_topic.finished_transcriptions.name]
+}
+
+# Consume from contact-channels.finished_conversations and produce to contact-channels.finished_transcriptions
+module "transcription_aggregator" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/transcription-aggregator"
+  consume_topics   = [kafka_topic.finished_conversations.name]
+  consume_groups   = ["contact-channels.eb-kafka-transcription-aggregator"]
+  produce_topics   = [kafka_topic.finished_transcriptions.name]
+}
+
+# Consume from contact-channels.finished_transcriptions.
+module "transcription_segment_projector" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/transcription-segment-projector"
+  consume_topics   = [kafka_topic.finished_transcriptions.name]
+  consume_groups   = ["contact-channels.call-transcription-segment-projector"]
 }
