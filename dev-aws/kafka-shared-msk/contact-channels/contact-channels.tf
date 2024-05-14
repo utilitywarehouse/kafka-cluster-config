@@ -5,10 +5,11 @@ resource "kafka_topic" "genesys_eb_events" {
   partitions         = 9
 
   config = {
-    "retention.ms"      = "2629800000" # 1 month
-    "max.message.bytes" = "104857600"  # 100MB
-    "compression.type"  = "zstd"
-    "cleanup.policy"    = "delete"
+    "local.retention.ms" = "259200000"  # 3 days
+    "retention.ms"       = "2629800000" # 1 month
+    "max.message.bytes"  = "104857600"  # 100MB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
