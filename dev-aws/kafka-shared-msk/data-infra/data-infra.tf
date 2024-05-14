@@ -58,8 +58,6 @@ resource "kafka_topic" "test_pla1275" {
     "remote.storage.enable" = "false"
     # 1 day
     "retention.ms" = "86400000"
-    # keep data in hot storage for 1 day
-    # "local.retention.ms" = "86400000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
