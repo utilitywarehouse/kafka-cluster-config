@@ -49,6 +49,22 @@ resource "kafka_topic" "snowplow" {
   }
 }
 
+resource "kafka_topic" "test_pla1275" {
+  name               = "data-infra.uw.data-infra.test.pla1275"
+  replication_factor = 1
+  partitions         = 1
+  config = {
+    # this is a test, and we need minimum and non-durable resources
+    "remote.storage.enable" = "false"
+    # 1 day
+    "retention.ms" = "86400000"
+    # allow max 1 MB for a message
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 module "pubsub_bridge" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.snowplow.name]
@@ -60,4 +76,11 @@ module "snowplow_braze_connector" {
   consume_topics   = [(kafka_topic.snowplow.name)]
   consume_groups   = ["data-infra.di-snowplow-braze-conn"]
   cert_common_name = "data-infra/di-snowplow-braze-connector"
+}
+
+module "kafka_source_tls" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [(kafka_topic.test_pla1275.name)]
+  consume_groups   = ["data-infra.di-kafka-source-tls"]
+  cert_common_name = "data-infra/di-kafka-source-tls"
 }
