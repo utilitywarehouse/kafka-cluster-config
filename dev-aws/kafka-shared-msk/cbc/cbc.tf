@@ -1113,6 +1113,7 @@ module "cbc_pep_checker" {
     kafka_topic.verification_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-pep-checker-v8"]
+  produce_topics   = [kafka_topic.verification_events_v1.name]
   cert_common_name = "cbc/cbc-pep-checker"
 }
 
