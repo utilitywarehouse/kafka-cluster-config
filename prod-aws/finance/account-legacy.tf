@@ -5,7 +5,7 @@ resource "kafka_topic" "legacy-account-events-fwd" {
   partitions         = 10
   config = {
     "retention.bytes" = "-1"
-    "retention.ms"    = "-1" #forever
+    "retention.ms"    = "-1"
     "cleanup.policy"  = "delete"
   }
 }
