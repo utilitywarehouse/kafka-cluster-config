@@ -1216,3 +1216,18 @@ module "cbc_account_events_relay" {
   produce_topics   = [kafka_topic.legacy_account_events_v2.name]
   cert_common_name = "cbc/cbc-account-events-relay"
 }
+
+module "cbc_proximo_tls" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.crm_events_v1.name,
+    kafka_topic.service_events_v1.name,
+  ]
+  consumer_groups = [
+    "cbc.partner-customer-event-emitter-reader-20220208-01",
+    "cbc.customer-proposition-cbc-loader-8",
+    "cbc.cbc-service-projector-v1",
+  ]
+  cert_common_name = "cbc/proximo-tls"
+}
