@@ -9,6 +9,18 @@ terraform {
   }
 }
 
+resource "kafka_topic" "logs" {
+  name               = "systemd_logs"
+  replication_factor = 2
+  partitions         = 100
+
+  config = {
+    "segment.ms"     = "20000"
+    "cleanup.policy" = "compact"
+  }
+}
+
+
 provider "kafka" {
   bootstrap_servers = [
     "broker-0.broker.account-platform.svc.cluster.aws:9092",
