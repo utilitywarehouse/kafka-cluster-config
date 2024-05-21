@@ -13,8 +13,8 @@ terraform {
 
 provider "kafka" {
   bootstrap_servers = [
-    "kafka-bitnami-0.kafka-bitnami-headless.pubsub.svc.cluster.aws:9092",
-    "kafka-bitnami-1.kafka-bitnami-headless.pubsub.svc.cluster.aws:9092",
-    "kafka-bitnami-2.kafka-bitnami-headless.pubsub.svc.cluster.aws:9092",
+    "kafka-bitnami-0.kafka-bitnami-headless.otel.svc.cluster.aws:9092",
+    "kafka-bitnami-1.kafka-bitnami-headless.otel.svc.cluster.aws:9092",
+    "kafka-bitnami-2.kafka-bitnami-headless.otel.svc.cluster.aws:9092",
   ]
 }
