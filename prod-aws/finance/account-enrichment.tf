@@ -1,5 +1,4 @@
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "account-enrichment-events" {
+resource "kafka_topic" "account_enrichment_events" {
   name               = "account-enrichment.events"
   replication_factor = 3
   partitions         = 10
@@ -10,8 +9,7 @@ resource "kafka_topic" "account-enrichment-events" {
   }
 }
 
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "account-enrichment-eqdb-loader-customer-events" {
+resource "kafka_topic" "account_enrichment_eqdb_loader_customer_events" {
   name               = "account-enrichment.eqdb-loader.customer.events"
   replication_factor = 3
   partitions         = 1
