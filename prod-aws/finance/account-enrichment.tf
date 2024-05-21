@@ -4,7 +4,7 @@ resource "kafka_topic" "account_enrichment_events" {
   partitions         = 10
   config = {
     "retention.bytes" = "-1"
-    "retention.ms"    = "2592000000"
+    "retention.ms"    = "-1" #forever
     "cleanup.policy"  = "delete"
   }
 }
@@ -15,7 +15,7 @@ resource "kafka_topic" "account_enrichment_eqdb_loader_customer_events" {
   partitions         = 1
   config = {
     "retention.bytes" = "-1"
-    "retention.ms"    = "2592000000"
+    "retention.ms"    = "-1" #forever
     "cleanup.policy"  = "delete"
   }
 }
