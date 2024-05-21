@@ -1,4 +1,4 @@
-resource "kafka_topic" "legacy-account-events-fwd" {
+resource "kafka_topic" "legacy_account_events_fwd" {
   name               = "legacy.account.events.fwd"
   replication_factor = 3
   partitions         = 10
