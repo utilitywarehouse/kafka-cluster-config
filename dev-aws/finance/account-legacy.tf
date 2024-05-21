@@ -1,4 +1,3 @@
-# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "legacy-account-events-fwd" {
   name               = "legacy.account.events.fwd"
   replication_factor = 3

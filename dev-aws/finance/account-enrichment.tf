@@ -1,4 +1,3 @@
-# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "account-enrichment-events" {
   name               = "account-enrichment.events"
   replication_factor = 3
@@ -10,7 +9,6 @@ resource "kafka_topic" "account-enrichment-events" {
   }
 }
 
-# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "account-enrichment-eqdb-loader-customer-events" {
   name               = "account-enrichment.eqdb-loader.customer.events"
   replication_factor = 3
