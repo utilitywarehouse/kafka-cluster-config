@@ -1224,7 +1224,7 @@ module "cbc_proximo_tls" {
     kafka_topic.crm_events_v1.name,
     kafka_topic.service_events_v1.name,
   ]
-  consumer_groups = [
+  consume_groups = [
     "cbc.partner-customer-event-emitter-reader-20220208-01",
     "cbc.customer-proposition-cbc-loader-8",
     "cbc.cbc-service-projector-v1",
