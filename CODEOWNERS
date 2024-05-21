@@ -2,3 +2,4 @@
 /*/customer-billing/     @utilitywarehouse/org-billing-experience
 /*/finance/              @utilitywarehouse/finance-platform
 /*/account-platform/     @utilitywarehouse/account-platform
+/*/otel/                 @utilitywarehouse/otel
