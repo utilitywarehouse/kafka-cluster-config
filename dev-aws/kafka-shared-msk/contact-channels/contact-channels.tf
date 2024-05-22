@@ -56,6 +56,34 @@ resource "kafka_topic" "finished_segments" {
   }
 }
 
+resource "kafka_topic" "messenger_transcript_events" {
+  name = "contact-channels.messenger_transcript_events"
+
+  replication_factor = 3
+  partitions         = 3
+
+  config = {
+    "retention.ms"      = "172800000" # 48 hours
+    "max.message.bytes" = "1048576"   # 1MB
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
+resource "kafka_topic" "messenger_transcript_events_dlq" {
+  name = "contact-channels.messenger_transcript_events_dlq"
+
+  replication_factor = 3
+  partitions         = 3
+
+  config = {
+    "retention.ms"      = "172800000" # 48 hours
+    "max.message.bytes" = "1048576"   # 1MB
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 ## TLS App
 
 # Consume from contact-channels.genesys_eb_events and produce to contact-channels.finished_segments
@@ -100,4 +128,13 @@ module "transcription_segment_projector" {
   cert_common_name = "contact-channels/transcription-segment-projector"
   consume_topics   = [kafka_topic.finished_transcriptions.name]
   consume_groups   = ["contact-channels.call-transcription-segment-projector"]
+}
+
+# Consume from contact-channels.genesys_eb_events and produce to contact-channels.messenger_transcript_events
+module "transcript_retriever_message" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/transcript-retriever-message"
+  consume_topics   = [kafka_topic.genesys_eb_events.name]
+  consume_groups   = ["contact-channels.eb-transcript-retriever-message"]
+  produce_topics   = [kafka_topic.messenger_transcript_events.name, kafka_topic.messenger_transcript_events_dlq.name]
 }
