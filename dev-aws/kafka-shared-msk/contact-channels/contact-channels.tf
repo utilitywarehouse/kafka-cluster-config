@@ -131,7 +131,7 @@ module "transcription_segment_projector" {
 }
 
 # Consume from contact-channels.genesys_eb_events and produce to contact-channels.messenger_transcript_events
-module "transcript-retriever-message" {
+module "transcript_retriever_message" {
   source           = "../../../modules/tls-app"
   cert_common_name = "contact-channels/transcript-retriever-message"
   consume_topics   = [kafka_topic.genesys_eb_events.name]
