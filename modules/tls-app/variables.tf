@@ -38,7 +38,7 @@ variable "consumer_byte_rate" {
   type = number
   # See https://docs.confluent.io/kafka/design/quotas.html#enforcement
   description = "The maximum number of bytes per second consumers with the specified user can consume across topics per broker."
-  default     = 5242880 # Limit producing to 5 MB/s
+  default     = 5242880 # Limit consuming to 5 MB/s / broker
 
   validation {
     condition     = var.consumer_byte_rate > 0 && var.consumer_byte_rate <= 10485760
@@ -50,7 +50,7 @@ variable "producer_byte_rate" {
   type = number
   # See https://docs.confluent.io/kafka/design/quotas.html#enforcement
   description = "The maximum number of bytes per second producers with the specified user can produce across topics per broker."
-  default     = 5242880 # Limit producing to 5 MB/s
+  default     = 5242880 # Limit producing to 5 MB/s / broker
 
   validation {
     condition     = var.producer_byte_rate > 0 && var.producer_byte_rate <= 10485760
