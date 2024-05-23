@@ -101,3 +101,10 @@ module "transcription_segment_projector" {
   consume_topics   = [kafka_topic.finished_transcriptions.name]
   consume_groups   = ["contact-channels.call-transcription-segment-projector"]
 }
+
+# Genesys EB Events (SQS) produce to -> contact-channels.genesys_eb_events
+module "sqs_kafka_broadcaster" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/sqs-kafka-broadcaster"
+  produce_topics   = [kafka_topic.genesys_eb_events.name]
+}
