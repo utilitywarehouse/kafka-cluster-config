@@ -14,6 +14,10 @@ resource "kafka_topic" "events_end" {
     "cleanup.policy"    = "delete"
   }
 }
+moved {
+  from = kafka_topic.events_send
+  to   = kafka_topic.events_end
+}
 
 resource "kafka_topic" "dlq_requeue" {
   name               = "data-infra.product.v1.events.requeue"
