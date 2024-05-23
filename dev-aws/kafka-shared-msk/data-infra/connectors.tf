@@ -1,4 +1,4 @@
-resource "kafka_topic" "events_send" {
+resource "kafka_topic" "events_end" {
   name               = "data-infra.uw.data-infra.product.v1.eventsend"
   replication_factor = 3
   partitions         = 15
@@ -21,9 +21,11 @@ resource "kafka_topic" "dlq_requeue" {
   partitions         = 1
   config = {
     # this is a test, and we need minimum and non-durable resources
-    "remote.storage.enable" = "false"
-    # 5 days
-    "retention.ms" = "432000000"
+    "remote.storage.enable" = "true"
+    # 1 month
+    "retention.ms" = "2629800000"
+    # 1 day
+    "local.retention.ms" = "86400000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
@@ -37,9 +39,11 @@ resource "kafka_topic" "dlq" {
   partitions         = 1
   config = {
     # this is a test, and we need minimum and non-durable resources
-    "remote.storage.enable" = "false"
-    # 5 days
-    "retention.ms" = "432000000"
+    "remote.storage.enable" = "true"
+    # 1 month
+    "retention.ms" = "2629800000"
+    # 1 day
+    "local.retention.ms" = "86400000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
@@ -58,7 +62,7 @@ module "di_bigquery_connector" {
     "data-infra.di-bigquery-connector-overwrite"
   ]
   produce_topics = [
-    kafka_topic.events_send.name,
+    kafka_topic.events_end.name,
     kafka_topic.dlq.name
   ]
   cert_common_name = "data-infra/di-bigquery-connector"
@@ -71,7 +75,7 @@ module "di_braze_connector" {
     "data-infra.di-braze-connector"
   ]
   produce_topics = [
-    kafka_topic.events_send.name
+    kafka_topic.events_end.name
   ]
   cert_common_name = "data-infra/di-braze-connector"
 }
@@ -86,7 +90,7 @@ module "di_cockroach_db_connector" {
     "data-infra.di-cockroach-db-connector",
   ]
   produce_topics = [
-    kafka_topic.events_send.name,
+    kafka_topic.events_end.name,
     kafka_topic.dlq.name
   ]
   cert_common_name = "data-infra/di-cockroach-db-connector"
@@ -102,7 +106,7 @@ module "di_ftp_connector" {
     "data-infra.di-file-transfer-connector"
   ]
   produce_topics = [
-    kafka_topic.events_send.name,
+    kafka_topic.events_end.name,
     kafka_topic.dlq.name
   ]
   cert_common_name = "data-infra/di-ftp-connector"
