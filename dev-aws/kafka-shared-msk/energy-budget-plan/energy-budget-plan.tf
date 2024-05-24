@@ -144,3 +144,11 @@ module "budget_plan_aggregator" {
   consume_groups   = ["energy-budget-plan.aggregator-v1"]
   cert_common_name = "energy-budget-plan/aggregator"
 }
+
+module "budget_plan_assessment" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.assessment_request.name, kafka_topic.budget_plan.name, kafka_topic.customer_change.name]
+  produce_topics   = [kafka_topic.budget_plan.name]
+  consume_groups   = ["energy-budget-plan.assessment-v1"]
+  cert_common_name = "energy-budget-plan/assessment"
+}
