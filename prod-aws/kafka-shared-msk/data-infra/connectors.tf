@@ -19,17 +19,22 @@ moved {
   to   = kafka_topic.events_end
 }
 
+import {
+  to = kafka_topic.dlq_requeue
+  id = "data-infra.product.v1.events.requeue"
+}
+import {
+  to = kafka_topic.dlq
+  id = "data-infra.product.v1.events.dlq"
+}
+
 resource "kafka_topic" "dlq_requeue" {
   name               = "data-infra.product.v1.events.requeue"
   replication_factor = 3
   partitions         = 1
   config = {
-    # this is a test, and we need minimum and non-durable resources
-    "remote.storage.enable" = "true"
     # 1 month
     "retention.ms" = "2629800000"
-    # 1 day
-    "local.retention.ms" = "86400000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
@@ -42,12 +47,8 @@ resource "kafka_topic" "dlq" {
   replication_factor = 3
   partitions         = 1
   config = {
-    # this is a test, and we need minimum and non-durable resources
-    "remote.storage.enable" = "true"
     # 1 month
     "retention.ms" = "2629800000"
-    # 1 day
-    "local.retention.ms" = "86400000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
