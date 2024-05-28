@@ -45,7 +45,7 @@ resource "kafka_topic" "e2e_multi" {
 
 module "orchestrator" {
   source         = "../../../modules/tls-app"
-  consume_topics = [kafka_topic.events_send.name]
+  consume_topics = [kafka_topic.events_end.name]
   consume_groups = [
     "data-infra.di-orchestrator-job-prod-gcp",
     "data-infra.di-orchestrator-job-prod-merit",
