@@ -86,6 +86,22 @@ resource "kafka_topic" "messenger_transcript_events_dlq" {
 
 ## TLS App
 
+# Consume from contact-channels.genesys_eb_events for Auto Email Verification
+module "attributes_bq_consumer" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/attributes-bq-consumer"
+  consume_topics   = [kafka_topic.genesys_eb_events.name]
+  consume_groups   = ["contact-channels.eb-kafka-attributes-bq-consumer"]
+}
+
+# Consume from contact-channels.genesys_eb_events for Auto Email Verification
+module "email_verification" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/email-verification"
+  consume_topics   = [kafka_topic.genesys_eb_events.name]
+  consume_groups   = ["contact-channels.eb-kafka-email-verification-service"]
+}
+
 # Consume from contact-channels.genesys_eb_events and produce to contact-channels.finished_segments
 module "segment_gatherer" {
   source           = "../../../modules/tls-app"
@@ -131,11 +147,11 @@ module "transcription_segment_projector" {
 }
 
 # Consume from contact-channels.genesys_eb_events and produce to contact-channels.messenger_transcript_events
-module "transcript_retriever_message" {
+module "missing_transcript_retriever" {
   source           = "../../../modules/tls-app"
-  cert_common_name = "contact-channels/transcript-retriever-message"
+  cert_common_name = "contact-channels/missing-transcript-retriever"
   consume_topics   = [kafka_topic.genesys_eb_events.name]
-  consume_groups   = ["contact-channels.eb-transcript-retriever-message"]
+  consume_groups   = ["contact-channels.eb-missing-transcript-retriever"]
   produce_topics   = [kafka_topic.messenger_transcript_events.name, kafka_topic.messenger_transcript_events_dlq.name]
 }
 
