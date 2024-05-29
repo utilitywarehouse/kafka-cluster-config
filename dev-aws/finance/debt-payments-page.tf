@@ -41,3 +41,14 @@ resource "kafka_topic" "overdue_balance_with_payments_diffs" {
     "cleanup.policy"  = "delete"
   }
 }
+
+resource "kafka_topic" "failed_payment_confirmation" {
+  name               = "failed-payment-confirmation"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "retention.bytes" = "-1"
+    "retention.ms"    = "2592000000"
+    "cleanup.policy"  = "delete"
+  }
+}
