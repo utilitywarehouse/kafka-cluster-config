@@ -83,20 +83,18 @@ module "di_braze_connector" {
   cert_common_name = "data-infra/di-braze-connector"
 }
 
-module "di_cockroach_db_connector" {
+module "di_cockroach_db_connector_contact_channels" {
   source = "../../../modules/tls-app"
   consume_topics = [
-    kafka_topic.events.name,
-    kafka_topic.dlq_requeue.name
+    kafka_topic.events.name
   ]
   consume_groups = [
-    "data-infra.di-cockroach-db-connector-contact-channels",
+    "data-infra.di-cockroach-db-connector-contact-channels"
   ]
   produce_topics = [
-    kafka_topic.events_end.name,
-    kafka_topic.dlq.name
+    kafka_topic.events_end.name
   ]
-  cert_common_name = "data-infra/di-cockroach-db-connector"
+  cert_common_name = "contact-channels/di-cockroach-db-connector"
 }
 
 module "di_ftp_connector" {
