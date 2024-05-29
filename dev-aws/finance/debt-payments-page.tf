@@ -19,3 +19,14 @@ resource "kafka_topic" "bq_deadletter_events" {
     "cleanup.policy"  = "delete"
   }
 }
+
+resource "kafka_topic" "debt_payment_transaction" {
+  name               = "debt-payment-transaction"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "retention.bytes" = "-1"
+    "retention.ms"    = "2592000000"
+    "cleanup.policy"  = "delete"
+  }
+}
