@@ -30,3 +30,14 @@ resource "kafka_topic" "debt_payment_transaction" {
     "cleanup.policy"  = "delete"
   }
 }
+
+resource "kafka_topic" "overdue_balance_with_payments_diffs" {
+  name               = "overdue-balance-with-payments-diffs"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "retention.bytes" = "-1"
+    "retention.ms"    = "2592000000"
+    "cleanup.policy"  = "delete"
+  }
+}
