@@ -1,7 +1,7 @@
 resource "kafka_topic" "pubsub_examples" {
   name               = "pubsub.examples"
   replication_factor = 3
-  partitions         = 10
+  partitions         = 3
   config = {
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
