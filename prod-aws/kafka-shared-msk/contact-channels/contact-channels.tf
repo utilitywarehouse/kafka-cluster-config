@@ -155,6 +155,14 @@ module "missing_transcript_retriever" {
   produce_topics   = [kafka_topic.messenger_transcript_events.name, kafka_topic.messenger_transcript_events_dlq.name]
 }
 
+# Consume from contact-channels.messenger_transcript_events
+module "message_transcriptions_kafka_bq" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/message-transcriptions-kafka-bq"
+  consume_topics   = [kafka_topic.messenger_transcript_events.name]
+  consume_groups   = ["contact-channels.message-transcriptions-kafka-bq"]
+}
+
 # Genesys EB Events (SQS) produce to -> contact-channels.genesys_eb_events
 module "sqs_kafka_broadcaster" {
   source           = "../../../modules/tls-app"
