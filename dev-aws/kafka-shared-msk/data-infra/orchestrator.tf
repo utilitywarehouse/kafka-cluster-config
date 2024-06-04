@@ -72,7 +72,8 @@ module "orchestrator" {
   ]
   produce_topics = [
     kafka_topic.e2e_proto.name,
-    kafka_topic.e2e_json.name
+    kafka_topic.e2e_json.name,
+    kafka_topic.e2e_multi_dpd.name
   ]
   cert_common_name = "data-infra/orchestrator"
 }
