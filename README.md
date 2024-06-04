@@ -15,8 +15,8 @@ Examples:
 ## Shared kafka [AWS MSK](https://aws.amazon.com/msk/) cluster config
 
 This repo includes the configuration for the active shared kafka cluster in:
-- [dev-aws/kafka-shared](dev-aws/kafka-shared-msk)
-- [prod-aws/kafka-shared](prod-aws/kafka-shared-msk)
+- [dev-aws/kafka-shared-msk](dev-aws/kafka-shared-msk)
+- [prod-aws/kafka-shared-msk](prod-aws/kafka-shared-msk)
 
 
 ## Automatic apply
