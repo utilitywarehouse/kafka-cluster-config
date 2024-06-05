@@ -100,7 +100,15 @@ resource "kafka_topic" "article_feedback_v1" {
 
 ## TLS App
 
-# Consume from contact-channels.genesys_eb_events for Auto Email Verification
+# Consume from contact-channels.genesys_eb_events for Last Contact Digital Survey Projector
+module "last_contact_projector_service" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/last-contact-projector"
+  consume_topics   = [kafka_topic.genesys_eb_events.name]
+  consume_groups   = ["contact-channels.digital-survey-service-last-contact-projector"]
+}
+
+# Consume from contact-channels.genesys_eb_events for Attributes BQ
 module "attributes_bq_consumer" {
   source           = "../../../modules/tls-app"
   cert_common_name = "contact-channels/attributes-bq-consumer"
