@@ -84,6 +84,20 @@ resource "kafka_topic" "messenger_transcript_events_dlq" {
   }
 }
 
+resource "kafka_topic" "article_feedback_v1" {
+  name = "contact-channels.article_feedback_v1"
+
+  replication_factor = 3
+  partitions         = 3
+
+  config = {
+    "retention.ms"      = "172800000" # 48 hours
+    "max.message.bytes" = "1048576"   # 1MB
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 ## TLS App
 
 # Consume from contact-channels.genesys_eb_events for Auto Email Verification
@@ -161,6 +175,14 @@ module "message_transcriptions_kafka_bq" {
   cert_common_name = "contact-channels/message-transcriptions-kafka-bq"
   consume_topics   = [kafka_topic.messenger_transcript_events.name]
   consume_groups   = ["contact-channels.message-transcriptions-kafka-bq"]
+}
+
+# Consume from contact-channels.article_feedback_v1
+module "article_feedback_bq_projector" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/article-feedback-bq-projector"
+  consume_topics   = [kafka_topic.article_feedback_v1.name]
+  consume_groups   = ["contact-channels.article-feedback-bq-projector"]
 }
 
 # Genesys EB Events (SQS) produce to -> contact-channels.genesys_eb_events
