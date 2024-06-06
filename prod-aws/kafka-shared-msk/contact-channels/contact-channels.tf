@@ -119,12 +119,10 @@ resource "kafka_topic" "intents_v2" {
   partitions         = 3
 
   config = {
-    "remote.storage.enable" = "true"
-    "local.retention.ms"    = "259200000" # 3 days
-    "retention.ms"          = "-1"        # Indefinitely retention
-    "max.message.bytes"     = "104857600" # 100MB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.ms"      = "172800000" # 48 hours
+    "max.message.bytes" = "1048576"   # 1MB
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
   }
 }
 
@@ -135,12 +133,10 @@ resource "kafka_topic" "validated_intents_v2" {
   partitions         = 3
 
   config = {
-    "remote.storage.enable" = "true"
-    "local.retention.ms"    = "259200000" # 3 days
-    "retention.ms"          = "-1"        # Indefinitely retention
-    "max.message.bytes"     = "104857600" # 100MB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.ms"      = "172800000" # 48 hours
+    "max.message.bytes" = "1048576"   # 1MB
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
   }
 }
 
