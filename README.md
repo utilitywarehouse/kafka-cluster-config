@@ -12,11 +12,11 @@ Examples:
 - [dev-aws/finance](dev-aws/finance) 
 - [prod-aws/customer-billing](prod-aws/customer-billing)
 
-## Shared kafka cluster config
+## Shared kafka [AWS MSK](https://aws.amazon.com/msk/) cluster config
 
-This repo includes the configuration for the active shared kafka cluster in :
-- [dev-aws/kafka-shared](dev-aws/kafka-shared)
-- [prod-aws/kafka-shared](prod-aws/kafka-shared)
+This repo includes the configuration for the active shared kafka cluster in:
+- [dev-aws/kafka-shared-msk](dev-aws/kafka-shared-msk)
+- [prod-aws/kafka-shared-msk](prod-aws/kafka-shared-msk)
 
 
 ## Automatic apply
