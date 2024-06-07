@@ -11,9 +11,9 @@ terraform {
 
 provider "kafka" {
   bootstrap_servers = [
-    "kafka-bitnami-0.kafka-bitnami-headless.billing.svc.cluster.aws:9092",
-    "kafka-bitnami-1.kafka-bitnami-headless.billing.svc.cluster.aws:9092",
-    "kafka-bitnami-2.kafka-bitnami-headless.billing.svc.cluster.aws:9092",
+    "kafka-bitnami-0.kafka-bitnami-headless.billing.svc.cluster.merit:9092",
+    "kafka-bitnami-1.kafka-bitnami-headless.billing.svc.cluster.merit:9092",
+    "kafka-bitnami-2.kafka-bitnami-headless.billing.svc.cluster.merit:9092",
   ]
   tls_enabled = false
 }
