@@ -1,6 +1,6 @@
 *                        @utilitywarehouse/pubsub
+/*/account-platform/     @utilitywarehouse/account-platform
+/*/billing/              @utilitywarehouse/billing-maintainers
 /*/customer-billing/     @utilitywarehouse/org-billing-experience
 /*/finance/              @utilitywarehouse/finance-platform
-/*/billing/              @utilitywarehouse/billing-maintainers
-/*/account-platform/     @utilitywarehouse/account-platform
 /*/otel/                 @utilitywarehouse/otel
