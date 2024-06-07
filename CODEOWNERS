@@ -4,3 +4,4 @@
 /*/customer-billing/     @utilitywarehouse/org-billing-experience
 /*/finance/              @utilitywarehouse/finance-platform
 /*/otel/                 @utilitywarehouse/otel
+/*/workplace-infrastructure	@utilitywarehouse/workplace-infrastructure
