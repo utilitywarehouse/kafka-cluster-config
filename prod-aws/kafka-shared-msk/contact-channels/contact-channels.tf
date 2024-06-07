@@ -98,6 +98,48 @@ resource "kafka_topic" "article_feedback_v1" {
   }
 }
 
+resource "kafka_topic" "tracking_events" {
+  name = "contact-channels.tracking_events"
+
+  replication_factor = 3
+  partitions         = 3
+
+  config = {
+    "retention.ms"      = "172800000" # 48 hours
+    "max.message.bytes" = "1048576"   # 1MB
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
+resource "kafka_topic" "intents_v2" {
+  name = "contact-channels.intents_v2"
+
+  replication_factor = 3
+  partitions         = 3
+
+  config = {
+    "retention.ms"      = "172800000" # 48 hours
+    "max.message.bytes" = "1048576"   # 1MB
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
+resource "kafka_topic" "validated_intents_v2" {
+  name = "contact-channels.validated_intents_v2"
+
+  replication_factor = 3
+  partitions         = 3
+
+  config = {
+    "retention.ms"      = "172800000" # 48 hours
+    "max.message.bytes" = "1048576"   # 1MB
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 ## TLS App
 
 # Consume from contact-channels.genesys_eb_events for Last Contact Digital Survey Projector
