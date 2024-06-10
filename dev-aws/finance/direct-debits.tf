@@ -63,3 +63,14 @@ resource "kafka_topic" "dd_file_upload_results_events" {
     "cleanup.policy"  = "delete"
   }
 }
+
+resource "kafka_topic" "dd_rejections_file_available_events" {
+  name               = "dd-rejections-file-available-events"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "retention.bytes" = "-1"
+    "retention.ms"    = "604800000"
+    "cleanup.policy"  = "delete"
+  }
+}
