@@ -15,7 +15,7 @@ resource "kafka_topic" "payment_v1_events" {
   }
 }
 
-resource "kafka_topic" "payment_deadletter_v1_payments" {
+resource "kafka_topic" "payment_deadletter_v1_events" {
   name               = "payment-platform.payment-deadletter.v1.events"
   replication_factor = 3
   partitions         = 5
