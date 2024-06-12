@@ -60,8 +60,8 @@ resource "kafka_topic" "payment_v1_public_events_pp_test" {
 }
 
 module "payment_query_service_downstream" {
-  source           = "../../../modules/tls-app"
-  produce_topics   = [
+  source = "../../../modules/tls-app"
+  produce_topics = [
     kafka_topic.payment_v1_public_events_pp_test.name
   ]
   consume_topics   = [kafka_topic.payment_v1_events.name]
