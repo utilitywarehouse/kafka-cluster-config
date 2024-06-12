@@ -20,11 +20,11 @@ module "ingest_consumer_v1" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.ingest_v1.name]
   consume_groups   = ["iam-audit.ingest-consumer-v1"]
-  cert_common_name = "ingest-iam/ingest-consumer"
+  cert_common_name = "iam-audit/ingest-consumer"
 }
 
 module "ingest_producer_v1" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.ingest_v1.name]
-  cert_common_name = "ingest-iam/ingest-producer"
+  cert_common_name = "iam-audit/ingest-producer"
 }
