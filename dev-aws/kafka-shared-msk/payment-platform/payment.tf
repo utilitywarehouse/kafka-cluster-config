@@ -40,8 +40,8 @@ module "payment_query_service" {
   cert_common_name = "payment-platform/payment-query-service"
 }
 
-// Downstream integrations
-// https://github.com/utilitywarehouse/kubernetes-manifests/blob/master/dev-merit/payment-platform/_configs/platform-integration.yaml
+# Downstream integrations
+# https://github.com/utilitywarehouse/kubernetes-manifests/blob/master/dev-merit/payment-platform/_configs/platform-integration.yaml
 resource "kafka_topic" "payment_v1_public_events_pp_test" {
   name               = "payment-platform.payments.v1.public.events.pp_test"
   replication_factor = 3
