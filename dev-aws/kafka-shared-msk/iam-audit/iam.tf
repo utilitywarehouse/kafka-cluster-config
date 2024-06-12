@@ -5,10 +5,10 @@ resource "kafka_topic" "ingest_v1" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data for 2 days
-    "retention.ms" = "172800000"
-    # keep data in hot storage for 1 days
-    "local.retention.ms" = "86400000"
+    # keep data for 30 days
+    "retention.ms" = "2592000000"
+    # keep data in hot storage for 2 days
+    "local.retention.ms" = "172800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
