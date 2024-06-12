@@ -37,6 +37,6 @@ module "payment_query_service" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.payment_deadletter_v1_events.name]
   consume_topics   = [kafka_topic.payment_v1_events.name]
-  consume_groups   = ["payment-query-service.payment-platform"]
+  consume_groups   = ["payment-platform.payment_query_service"]
   cert_common_name = "payment-platform/payment-query-service"
 }
