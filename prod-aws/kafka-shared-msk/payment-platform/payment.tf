@@ -1,16 +1,16 @@
 resource "kafka_topic" "payment_v1_events" {
   name               = "payment-platform.payment.v1.events"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "-1"
+    "retention.bytes"  = "3758096384"
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in hot storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 30 days
-    "retention.ms"   = "2592000000"
+    # keep data for 1 year
+    "retention.ms"   = "31557600000"
     "cleanup.policy" = "delete"
   }
 }
@@ -18,7 +18,7 @@ resource "kafka_topic" "payment_v1_events" {
 resource "kafka_topic" "payment_deadletter_v1_events" {
   name               = "payment-platform.payment-deadletter.v1.events"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 5 # we don't need more than 5 partitions for deadlettered events
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "-1"
@@ -41,11 +41,11 @@ module "payment_query_service" {
 }
 
 # Downstream integrations
-# https://github.com/utilitywarehouse/kubernetes-manifests/blob/master/dev-merit/payment-platform/_configs/platform-integration.yaml
+# https://github.com/utilitywarehouse/kubernetes-manifests/blob/master/prod-aws/payment-platform/_configs/platform-integration.yaml
 resource "kafka_topic" "payment_v1_public_events_pp_test" {
   name               = "payment-platform.payments.v1.public.events.pp_test"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 5 # this is a test/debug topic, not need to have more than 5
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "-1"
