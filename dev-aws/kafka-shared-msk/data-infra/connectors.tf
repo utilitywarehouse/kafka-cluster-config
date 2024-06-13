@@ -20,7 +20,7 @@ resource "kafka_topic" "dlq_requeue" {
   replication_factor = 3
   partitions         = 1
   config = {
-    # this is a test, and we need minimum and non-durable resources
+
     "remote.storage.enable" = "true"
     # 1 month
     "retention.ms" = "2629800000"
@@ -55,7 +55,6 @@ resource "kafka_topic" "dlq_alerts" {
   replication_factor = 3
   partitions         = 1
   config = {
-    # this is a test, and we need minimum and non-durable resources
     "remote.storage.enable" = "true"
     #3 days
     "retention.ms" = "259200001"
