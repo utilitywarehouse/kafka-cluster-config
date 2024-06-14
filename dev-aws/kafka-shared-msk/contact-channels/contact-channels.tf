@@ -241,3 +241,18 @@ module "sqs_kafka_broadcaster" {
   cert_common_name = "contact-channels/sqs-kafka-broadcaster"
   produce_topics   = [kafka_topic.genesys_eb_events.name]
 }
+
+# Producer to contact-channels.intents_v2
+module "intent_fabricator" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/intent-fabricator"
+  produce_topics   = [kafka_topic.intents_v2.name]
+}
+
+# Consume from contact-channels.intents_v2
+module "intent_bq_projector" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/intent-bq-projector"
+  consume_topics   = [kafka_topic.intents_v2.name]
+  consume_groups   = ["contact-channels.intent-bq-projector"]
+}
