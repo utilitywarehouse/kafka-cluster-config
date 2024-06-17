@@ -162,5 +162,5 @@ module "budget_plan_di_kafka_source" {
     "energy-budget-plan.di-kafka-source-budget-plan-changed-v1",
     "energy-budget-plan.di-kafka-source-budget-plan-not-changed-v1",
   ]
-  cert_common_name = "energy-budget-plan/di-kafka-source-assessments"
+  cert_common_name = "energy-budget-plan/di-kafka-source"
 }
