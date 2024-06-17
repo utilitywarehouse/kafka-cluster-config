@@ -154,9 +154,9 @@ module "budget_plan_assessment" {
 }
 
 module "budget_plan_di_kafka_source" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.budget_plan.name]
-  consume_groups   = [
+  source         = "../../../modules/tls-app"
+  consume_topics = [kafka_topic.budget_plan.name]
+  consume_groups = [
     "energy-budget-plan.di-kafka-source-calculation-requests-v1",
     "energy-budget-plan.di-kafka-source-recommendations-v1",
     "energy-budget-plan.di-kafka-source-budget-plan-changed-v1",
