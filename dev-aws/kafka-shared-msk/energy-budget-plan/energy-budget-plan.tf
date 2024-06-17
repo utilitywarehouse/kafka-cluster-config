@@ -152,3 +152,15 @@ module "budget_plan_assessment" {
   consume_groups   = ["energy-budget-plan.assessment-v1"]
   cert_common_name = "energy-budget-plan/assessment"
 }
+
+module "budget_plan_di_kafka_source" {
+  source         = "../../../modules/tls-app"
+  consume_topics = [kafka_topic.budget_plan.name]
+  consume_groups = [
+    "energy-budget-plan.di-kafka-source-calculation-requests-v1",
+    "energy-budget-plan.di-kafka-source-recommendations-v1",
+    "energy-budget-plan.di-kafka-source-budget-plan-changed-v1",
+    "energy-budget-plan.di-kafka-source-budget-plan-not-changed-v1",
+  ]
+  cert_common_name = "energy-budget-plan/di-kafka-source"
+}
