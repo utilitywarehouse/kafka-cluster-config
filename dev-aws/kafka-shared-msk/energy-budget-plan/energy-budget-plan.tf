@@ -108,20 +108,6 @@ module "budget_plan_calculator" {
   cert_common_name = "energy-budget-plan/calculator"
 }
 
-module "budget_plan_di_kafka_source_requests" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.budget_plan.name]
-  consume_groups   = ["energy-budget-plan.di-kafka-source-calculation-requests-v1"]
-  cert_common_name = "energy-budget-plan/di-kafka-source-calculation-requests"
-}
-
-module "budget_plan_di_kafka_source_recommendation" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.budget_plan.name]
-  consume_groups   = ["energy-budget-plan.di-kafka-source-recommendations-v1"]
-  cert_common_name = "energy-budget-plan/di-kafka-source-recommendations"
-}
-
 module "elastic_events_indexer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.budget_plan.name, kafka_topic.customer_change.name, kafka_topic.fabricator_deadletter.name]
