@@ -69,3 +69,10 @@ module "payment_query_service_downstream" {
   consume_groups   = ["payment-platform.payment_query_service_downstream"]
   cert_common_name = "payment-platform/payment-query-service-downstream"
 }
+
+module "payment_query_service_downstream_preview" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.payment_v1_public_events_pp_test.name]
+  consume_groups   = ["payment-platform.payment_query_service_downstream_preview"]
+  cert_common_name = "payment-platform/payment-query-service-downstream-preview"
+}
