@@ -37,5 +37,5 @@ module "workplace_infrastructure_netapp_audit_publish_to_kafka" {
                         kafka_topic.workplace_infrastructure.netapp-audit-v1.cifs_svm_a.name,
                         kafka_topic.workplace_infrastructure.netapp-audit-v1.cifs_svm_b.name
                     ]
-  cert_common_name = "workplace-infrastructure/netapp_audit_publish_to_kafka"
+  cert_common_name = "workplace-infrastructure/netapp-audit-publish-to-kafka"
 }
