@@ -257,6 +257,21 @@ module "intent_bq_projector" {
   consume_groups   = ["contact-channels.intent-bq-projector"]
 }
 
+# Producer to contact-channels.validated_intents_v2
+module "intent_service" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/intent-service"
+  produce_topics   = [kafka_topic.validated_intents_v2.name]
+}
+
+# Consume from contact-channels.validated_intents_v2
+module "intent_validation_projector" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/intent-validation-projector"
+  consume_topics   = [kafka_topic.validated_intents_v2.name]
+  consume_groups   = ["contact-channels.intent-validation-projector"]
+}
+
 # Consume from contact-channels.tracking_events
 module "survey_responses_bq_projector" {
   source           = "../../../modules/tls-app"
