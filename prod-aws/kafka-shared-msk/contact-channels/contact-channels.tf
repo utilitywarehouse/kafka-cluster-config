@@ -257,7 +257,7 @@ module "intent_bq_projector" {
   consume_groups   = ["contact-channels.intent-bq-projector"]
 }
 
-# Consume from contact-channels.intents_v2
+# Consume from contact-channels.tracking_events
 module "survey_responses_bq_projector" {
   source           = "../../../modules/tls-app"
   cert_common_name = "contact-channels/survey-responses-bq-projector"
