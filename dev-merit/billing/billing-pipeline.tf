@@ -16,6 +16,7 @@ resource "kafka_topic" "bill_extracts_historic_model" {
   config = {
     "cleanup.policy"  = "delete"
     "retention.bytes" = "-1"
+    "retention.ms"    = "604800000" # 7 days
   }
 }
 
@@ -26,6 +27,7 @@ resource "kafka_topic" "bills_deadletter" {
   config = {
     "cleanup.policy"  = "delete"
     "retention.bytes" = "-1"
+    "retention.ms"    = "604800000" # 7 days
   }
 }
 
@@ -36,5 +38,6 @@ resource "kafka_topic" "billing_engine_events" {
   config = {
     "cleanup.policy"  = "delete"
     "retention.bytes" = "-1"
+    "retention.ms"    = "-1"
   }
 }
