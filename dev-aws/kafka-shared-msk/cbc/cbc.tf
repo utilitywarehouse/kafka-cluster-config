@@ -1227,6 +1227,7 @@ module "cbc_proximo_tls" {
   consume_groups = [
     "cbc.partner-customer-event-emitter-reader-20220208-01",
     "cbc.customer-proposition-cbc-loader-8",
+    "cbc.customer-proposition-cbc-loader-6",
     "cbc.cbc-service-projector-v1",
   ]
   cert_common_name = "cbc/proximo-tls"
