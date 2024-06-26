@@ -1044,6 +1044,13 @@ module "cbc_tariff_api" {
   cert_common_name = "cbc/cbc-tariff-api"
 }
 
+module "cbc_tariff_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.lifecycle_events_v2.name]
+  consume_groups   = ["cbc.cbc-tariff-consumer-v1"]
+  cert_common_name = "cbc/cbc-tariff-consumer"
+}
+
 module "cbc_tariff_projector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.lifecycle_events_v2.name]
