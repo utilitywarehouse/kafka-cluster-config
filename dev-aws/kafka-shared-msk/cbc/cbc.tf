@@ -847,6 +847,7 @@ module "cbc_3ds_projector" {
   consume_topics = [
     kafka_topic.transaction_events_v3.name,
     kafka_topic.legacy_account_events_v2.name,
+    kafka_topic.lifecycle_events_v2.name,
     kafka_topic.customer_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-3ds-projector-v1"]
@@ -889,6 +890,7 @@ module "cbc_provider_projector" {
     kafka_topic.transaction_events_v3.name,
     kafka_topic.order_events_v1.name,
     kafka_topic.legacy_account_events_v2.name,
+    kafka_topic.lifecycle_events_v2.name,
     kafka_topic.verification_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-provider-projector-v1"]
@@ -1124,8 +1126,11 @@ module "cbc_pep_api" {
 }
 
 module "cbc_ordering_api" {
-  source         = "../../../modules/tls-app"
-  consume_topics = [kafka_topic.order_events_v1.name]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.order_events_v1.name,
+    kafka_topic.lifecycle_events_v2.name
+  ]
   consume_groups = ["cbc.cbc-ordering-api-v2"]
   produce_topics = [
     kafka_topic.order_events_v1.name,
