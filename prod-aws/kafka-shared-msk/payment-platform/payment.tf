@@ -43,7 +43,7 @@ module "payment_query_service" {
 # Downstream integrations
 # https://github.com/utilitywarehouse/kubernetes-manifests/blob/master/prod-aws/payment-platform/_configs/platform-integration.yaml
 resource "kafka_topic" "payment_v1_public_events_pp_test" {
-  name               = "payment-platform.payments.v1.public.events.pp_test"
+  name               = "payment-platform.payment.v1.public.events.pp_test"
   replication_factor = 3
   partitions         = 5 # this is a test/debug topic, not need to have more than 5
   config = {
@@ -60,7 +60,7 @@ resource "kafka_topic" "payment_v1_public_events_pp_test" {
 }
 
 resource "kafka_topic" "payment_v1_public_events_cbc_topup_v3" {
-  name               = "payment-platform.payments.v1.public.events.cbc_topup_v3"
+  name               = "payment-platform.payment.v1.public.events.cbc_topup_v3"
   replication_factor = 3
   partitions         = 15
   config = {
