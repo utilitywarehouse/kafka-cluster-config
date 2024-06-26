@@ -381,7 +381,8 @@ module "cbc_events_indexer" {
     kafka_topic.legacy_account_events_v2.name,
     kafka_topic.eqdb_loader_events_v1.name,
     kafka_topic.service_events_v1.name,
-    kafka_topic.verification_events_v1.name
+    kafka_topic.verification_events_v1.name,
+    kafka_topic.customer_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-events-indexer"]
   cert_common_name = "cbc/cbc-events-indexer"
@@ -803,6 +804,9 @@ module "cbc_crm_adapter_processor" {
     kafka_topic.service_events_v1.name,
     kafka_topic.crm_events_v1.name
   ]
+  produce_topics = [
+    kafka_topic.crm_events_v1.name
+  ]
   consume_groups   = ["cbc.cbc-crm-adapter-processor-v1"]
   cert_common_name = "cbc/cbc-crm-adapter-processor"
 }
@@ -1032,6 +1036,7 @@ module "cbc_customer_consumer" {
     kafka_topic.topup_events_v1.name,
     kafka_topic.order_events_v1.name,
     kafka_topic.verification_events_v1.name,
+    kafka_topic.lifecycle_events_v2.name,
     kafka_topic.customer_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-customer-api-v1"]
