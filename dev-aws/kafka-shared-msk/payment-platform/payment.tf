@@ -80,7 +80,7 @@ module "payment_query_service_downstream_preview" {
 # tflint-ignore: terraform_naming_convention
 module "es-indexer-payment-v1-events" {
   source           = "../../../modules/tls-app"
-  consume_groups   = ["payment-platform.es-indexer-payments.v1.events"]
+  consume_groups   = ["payment-platform.es-indexer-payment.v1.events"]
   consume_topics   = [kafka_topic.payment_v1_events.name]
   cert_common_name = "payment-platform/es-indexer-payment-v1-events"
 }
