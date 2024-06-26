@@ -1,5 +1,5 @@
 resource "kafka_topic" "workplace_infrastructure_netapp_audit_v1_cifs_svm_a" {
-  name = "workplace-infrastructure.netapp-audit-v1.cifs_svm_a"
+  name               = "workplace-infrastructure.netapp-audit-v1.cifs_svm_a"
   replication_factor = 3
   partitions         = 10
   config = {
@@ -12,7 +12,7 @@ resource "kafka_topic" "workplace_infrastructure_netapp_audit_v1_cifs_svm_a" {
 }
 
 resource "kafka_topic" "workplace_infrastructure_netapp_audit_v1_cifs_svm_b" {
-  name = "workplace-infrastructure.netapp-audit-v1.cifs_svm_b"
+  name               = "workplace-infrastructure.netapp-audit-v1.cifs_svm_b"
   replication_factor = 3
   partitions         = 10
   config = {
