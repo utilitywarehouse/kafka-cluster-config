@@ -324,5 +324,6 @@ module "iam_accounts_management_service" {
 module "iam_accounts_management_projector" {
     source = "../../../modules/tls-app"
     cert_common_name = "clubhouse/account_management-projector"
-    produce_topics = [(kafka_topic.iam_account_management_events.name)]
+    consume_topics = [(kafka_topic.iam_account_management_events.name)]
+    consume_groups = ["dex-account-management-project"]
 }
