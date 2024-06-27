@@ -292,3 +292,37 @@ module "castle_processor" {
   consume_topics   = [(kafka_topic.iam_credentials_v1.name)]
   consume_groups   = ["iam.castle-processor"]
 }
+
+
+resource "kafka_topic" "iam_account_management_events" {
+    name = "auth-customer.iam-account-management-events"
+    replication_factor = "3"
+    partitions = "15"
+    config = {
+        
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # retain 100MB on each partition
+    "retention.bytes" = "104857600"
+    # keep data for 7 days
+    "retention.ms" = "604800000"
+    # keep data in hot storage for 2 days
+    "local.retention.ms" = "172800000"
+    # allow max 1 MB for a message
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+    }
+}
+
+module "iam_accounts_management_service" {
+    source = "../../../modules/tls-app"
+    cert_common_name = "clubhouse/account-management-service"
+    produce_topics = [[kafka_topic.iam_account_management_events.name]]
+}
+
+module "iam_accounts_management_projector" {
+    source = "../../../modules/tls-app"
+    cert_common_name = "clubhouse/account_management-projector"
+    produce_topics = [(kafka_topic.iam_account_management_events.name)]
+}
