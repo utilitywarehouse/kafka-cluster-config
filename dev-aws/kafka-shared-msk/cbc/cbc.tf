@@ -621,8 +621,11 @@ module "cbc_biller_consumer" {
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.transaction_events_v3.name
   ]
-  consume_groups   = ["cbc.cbc-biller-v3"]
-  produce_topics   = [kafka_topic.transaction_events_v3.name]
+  consume_groups = ["cbc.cbc-biller-v3"]
+  produce_topics = [
+    kafka_topic.transaction_events_v3.name,
+    kafka_topic.charges_events_v1.name,
+  ]
   cert_common_name = "cbc/cbc-biller-consumer"
 }
 
