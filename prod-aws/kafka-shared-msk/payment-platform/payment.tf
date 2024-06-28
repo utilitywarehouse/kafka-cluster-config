@@ -94,3 +94,10 @@ module "payment_query_service_downstream_preview" {
   consume_groups   = ["payment-platform.payment_query_service_downstream_preview"]
   cert_common_name = "payment-platform/payment-query-service-downstream-preview"
 }
+
+module "cbc_topup_processor" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["cbc.cbc-topup-processor-v1"]
+  consume_topics   = [kafka_topic.payment_v1_public_events_cbc_topup_v3.name]
+  cert_common_name = "cbc/cbc-topup-processor"
+}
