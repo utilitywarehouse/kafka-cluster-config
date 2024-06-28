@@ -1074,8 +1074,11 @@ module "cbc_transaction_statement_indexer" {
 }
 
 module "cbc_statement_projector" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.transaction_events_v3.name]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.transaction_events_v3.name,
+    kafka_topic.lifecycle_events_v2.name,
+  ]
   consume_groups   = ["cbc.cbc-statement-projector-v1"]
   cert_common_name = "cbc/cbc-statement-projector"
 }
