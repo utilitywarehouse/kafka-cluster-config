@@ -2,5 +2,5 @@
 /*/customer-billing/     @utilitywarehouse/org-billing-experience
 /*/finance/              @utilitywarehouse/finance-platform
 /*/billing/              @utilitywarehouse/billing-maintainers
-/*/account-platform/     @utilitywarehouse/account-platform
+/*/account-platform/     @utilitywarehouse/account-identity
 /*/otel/                 @utilitywarehouse/otel
