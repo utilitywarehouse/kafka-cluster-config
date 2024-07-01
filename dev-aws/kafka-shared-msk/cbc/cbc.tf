@@ -508,7 +508,8 @@ module "cbc_network_projector" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.rating_events_v3.name,
-    kafka_topic.transaction_events_v3.name
+    kafka_topic.transaction_events_v3.name,
+    kafka_topic.lifecycle_events_v2.name
   ]
   consume_groups   = ["cbc.cbc-network-projector-v4"]
   cert_common_name = "cbc/cbc-network-projector"
@@ -1055,6 +1056,7 @@ module "cbc_tariff_api" {
 module "cbc_tariff_consumer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.lifecycle_events_v2.name]
+  produce_topics   = [kafka_topic.lifecycle_events_v2.name]
   consume_groups   = ["cbc.cbc-tariff-consumer-v1"]
   cert_common_name = "cbc/cbc-tariff-consumer"
 }
@@ -1120,6 +1122,7 @@ module "cbc_pep_checker_projector" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.order_events_v1.name,
+    kafka_topic.lifecycle_events_v2.name,
     kafka_topic.verification_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-pep-checker-projector-v1"]
