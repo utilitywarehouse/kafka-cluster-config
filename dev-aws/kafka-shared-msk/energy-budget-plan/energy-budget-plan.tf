@@ -117,7 +117,7 @@ module "elastic_events_indexer" {
 
 module "budget_plan_review_scheduler" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.budget_plan.name]
+  consume_topics   = [kafka_topic.budget_plan.name, kafka_topic.customer_change.name]
   produce_topics   = [kafka_topic.assessment_request.name]
   consume_groups   = ["energy-budget-plan.review-scheduler-projector-v1"]
   cert_common_name = "energy-budget-plan/review-scheduler"
@@ -145,8 +145,7 @@ module "budget_plan_di_kafka_source" {
   consume_groups = [
     "energy-budget-plan.di-kafka-source-calculation-requests-v1",
     "energy-budget-plan.di-kafka-source-recommendations-v1",
-    "energy-budget-plan.di-kafka-source-budget-plan-changed-v1",
-    "energy-budget-plan.di-kafka-source-budget-plan-not-changed-v1",
+    "energy-budget-plan.di-kafka-source-account-assessed-v1",
   ]
   cert_common_name = "energy-budget-plan/di-kafka-source"
 }

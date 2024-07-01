@@ -255,10 +255,16 @@ resource "kafka_topic" "from_prod_account_events_anonymized_v0" {
   replication_factor = 3
 }
 
-
 resource "kafka_topic" "public_account_events" {
   config             = {}
   name               = "public.account.events"
+  partitions         = 15
+  replication_factor = 3
+}
+
+resource "kafka_topic" "account_management_events" {
+  config             = {}
+  name               = "account.management.events"
   partitions         = 15
   replication_factor = 3
 }

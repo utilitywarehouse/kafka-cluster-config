@@ -381,7 +381,8 @@ module "cbc_events_indexer" {
     kafka_topic.legacy_account_events_v2.name,
     kafka_topic.eqdb_loader_events_v1.name,
     kafka_topic.service_events_v1.name,
-    kafka_topic.verification_events_v1.name
+    kafka_topic.verification_events_v1.name,
+    kafka_topic.customer_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-events-indexer"]
   cert_common_name = "cbc/cbc-events-indexer"
@@ -620,8 +621,11 @@ module "cbc_biller_consumer" {
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.transaction_events_v3.name
   ]
-  consume_groups   = ["cbc.cbc-biller-v3"]
-  produce_topics   = [kafka_topic.transaction_events_v3.name]
+  consume_groups = ["cbc.cbc-biller-v3"]
+  produce_topics = [
+    kafka_topic.transaction_events_v3.name,
+    kafka_topic.charges_events_v1.name,
+  ]
   cert_common_name = "cbc/cbc-biller-consumer"
 }
 
@@ -803,6 +807,9 @@ module "cbc_crm_adapter_processor" {
     kafka_topic.service_events_v1.name,
     kafka_topic.crm_events_v1.name
   ]
+  produce_topics = [
+    kafka_topic.crm_events_v1.name
+  ]
   consume_groups   = ["cbc.cbc-crm-adapter-processor-v1"]
   cert_common_name = "cbc/cbc-crm-adapter-processor"
 }
@@ -847,6 +854,7 @@ module "cbc_3ds_projector" {
   consume_topics = [
     kafka_topic.transaction_events_v3.name,
     kafka_topic.legacy_account_events_v2.name,
+    kafka_topic.lifecycle_events_v2.name,
     kafka_topic.customer_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-3ds-projector-v1"]
@@ -889,6 +897,7 @@ module "cbc_provider_projector" {
     kafka_topic.transaction_events_v3.name,
     kafka_topic.order_events_v1.name,
     kafka_topic.legacy_account_events_v2.name,
+    kafka_topic.lifecycle_events_v2.name,
     kafka_topic.verification_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-provider-projector-v1"]
@@ -1030,6 +1039,7 @@ module "cbc_customer_consumer" {
     kafka_topic.topup_events_v1.name,
     kafka_topic.order_events_v1.name,
     kafka_topic.verification_events_v1.name,
+    kafka_topic.lifecycle_events_v2.name,
     kafka_topic.customer_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-customer-api-v1"]
@@ -1040,6 +1050,13 @@ module "cbc_tariff_api" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.lifecycle_events_v2.name]
   cert_common_name = "cbc/cbc-tariff-api"
+}
+
+module "cbc_tariff_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.lifecycle_events_v2.name]
+  consume_groups   = ["cbc.cbc-tariff-consumer-v1"]
+  cert_common_name = "cbc/cbc-tariff-consumer"
 }
 
 module "cbc_tariff_projector" {
@@ -1060,8 +1077,11 @@ module "cbc_transaction_statement_indexer" {
 }
 
 module "cbc_statement_projector" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.transaction_events_v3.name]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.transaction_events_v3.name,
+    kafka_topic.lifecycle_events_v2.name,
+  ]
   consume_groups   = ["cbc.cbc-statement-projector-v1"]
   cert_common_name = "cbc/cbc-statement-projector"
 }
@@ -1124,8 +1144,11 @@ module "cbc_pep_api" {
 }
 
 module "cbc_ordering_api" {
-  source         = "../../../modules/tls-app"
-  consume_topics = [kafka_topic.order_events_v1.name]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.order_events_v1.name,
+    kafka_topic.lifecycle_events_v2.name
+  ]
   consume_groups = ["cbc.cbc-ordering-api-v2"]
   produce_topics = [
     kafka_topic.order_events_v1.name,
@@ -1227,6 +1250,7 @@ module "cbc_proximo_tls" {
   consume_groups = [
     "cbc.partner-customer-event-emitter-reader-20220208-01",
     "cbc.customer-proposition-cbc-loader-8",
+    "cbc.customer-proposition-cbc-loader-6",
     "cbc.cbc-service-projector-v1",
   ]
   cert_common_name = "cbc/proximo-tls"
