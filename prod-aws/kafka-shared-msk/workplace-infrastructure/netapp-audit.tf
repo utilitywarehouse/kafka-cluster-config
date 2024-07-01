@@ -31,7 +31,7 @@ module "workplace_infrastructure_netapp_audit_publish_to_kafka" {
     kafka_topic.workplace_infrastructure.netapp-audit-v1.cifs_svm_b.name
   ]
   consume_groups = [
-    "workplace_infrastructure.netapp-audit-v1-consumer"
+    "workplace-infrastructure.netapp-audit-v1-consumer"
   ]
   produce_topics = [
     kafka_topic.workplace_infrastructure.netapp-audit-v1.cifs_svm_a.name,
