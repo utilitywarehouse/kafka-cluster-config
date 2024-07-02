@@ -409,7 +409,8 @@ module "cbc_bigquery_exporter" {
     kafka_topic.legacy_account_events_v2.name,
     kafka_topic.eqdb_loader_events_v1.name,
     kafka_topic.service_events_v1.name,
-    kafka_topic.verification_events_v1.name
+    kafka_topic.verification_events_v1.name,
+    kafka_topic.customer_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-bigquery-exporter-v1"]
   cert_common_name = "cbc/cbc-bigquery-exporter"
