@@ -1240,7 +1240,7 @@ module "cbc_legacy_account_eqdb_loader" {
 module "cbc_account_events_relay" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.legacy_account_events_v2.name]
-  cert_common_name = "cbc/cbc-account-events-relay"
+  cert_common_name = "cbc/cbc-account-events-relay-v2"
 }
 
 module "cbc_proximo_tls" {
