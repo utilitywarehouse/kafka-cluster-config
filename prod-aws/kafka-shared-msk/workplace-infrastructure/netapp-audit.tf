@@ -27,15 +27,15 @@ resource "kafka_topic" "workplace_infrastructure_netapp_audit_v1_cifs_svm_b" {
 module "workplace_infrastructure_netapp_audit_publish_to_kafka" {
   source = "../../../modules/tls-app"
   consume_topics = [
-    kafka_topic.workplace_infrastructure_netapp-audit-v1_cifs_svm_a.name,
-    kafka_topic.workplace_infrastructure_netapp-audit-v1_cifs_svm_b.name
+    kafka_topic.workplace_infrastructure_netapp_audit_v1_cifs_svm_a.name,
+    kafka_topic.workplace_infrastructure_netapp_audit_v1_cifs_svm_b.name
   ]
   consume_groups = [
     "workplace-infrastructure.netapp-audit-v1-consumer"
   ]
   produce_topics = [
-    kafka_topic.workplace_infrastructure_netapp-audit-v1_cifs_svm_a.name,
-    kafka_topic.workplace_infrastructure_netapp-audit-v1_cifs_svm_b.name
+    kafka_topic.workplace_infrastructure_netapp_audit_v1_cifs_svm_a.name,
+    kafka_topic.workplace_infrastructure_netapp_audit_v1_cifs_svm_b.name
   ]
   cert_common_name = "workplace-infrastructure/netapp-audit-publish-to-kafka"
 }
