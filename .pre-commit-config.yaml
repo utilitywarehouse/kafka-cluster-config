@@ -9,3 +9,4 @@ repos:
         # use compact, so that errors will be reported by the GH action see https://github.com/terraform-linters/setup-tflint?tab=readme-ov-file#checks
         - --args=--format=compact
         - --hook-config=--delegate-chdir
+    - id: terraform_validate
