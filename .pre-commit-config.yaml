@@ -9,3 +9,10 @@ repos:
         # use compact, so that errors will be reported by the GH action see https://github.com/terraform-linters/setup-tflint?tab=readme-ov-file#checks
         - --args=--format=compact
         - --hook-config=--delegate-chdir
+    - id: terraform_validate
+      args:
+        # for local cached .terraform folders. Explanations in https://github.com/antonbabenko/pre-commit-terraform?tab=readme-ov-file#terraform_validate
+        - --hook-config=--retry-once-with-cleanup=true
+        - --tf-init-args=-upgrade
+        # no backend
+        - --tf-init-args=-backend=false
