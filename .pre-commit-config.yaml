@@ -10,3 +10,6 @@ repos:
         - --args=--format=compact
         - --hook-config=--delegate-chdir
     - id: terraform_validate
+      args:
+        # for local cached .terraform folders. Explanations in https://github.com/antonbabenko/pre-commit-terraform?tab=readme-ov-file#terraform_validate
+        - --hook-config=--retry-once-with-cleanup=true
