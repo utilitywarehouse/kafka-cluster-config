@@ -523,6 +523,12 @@ module "cbc_network_networkb_consumer" {
   cert_common_name = "cbc/cbc-network-networkb-consumer"
 }
 
+module "cbc_network_cj_report_cron" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.network_events_v1.name]
+  cert_common_name = "cbc/cbc-network-cj-report-cron"
+}
+
 module "cbc_network_networkb_report_cron" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.network_events_v1.name]
