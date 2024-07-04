@@ -14,3 +14,5 @@ repos:
         # for local cached .terraform folders. Explanations in https://github.com/antonbabenko/pre-commit-terraform?tab=readme-ov-file#terraform_validate
         - --hook-config=--retry-once-with-cleanup=true
         - --tf-init-args=-upgrade
+        # no backend
+        - --tf-init-args=-backend=false
