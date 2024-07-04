@@ -13,7 +13,6 @@ repos:
       args:
         # for local cached .terraform folders. Explanations in https://github.com/antonbabenko/pre-commit-terraform?tab=readme-ov-file#terraform_validate
         - --hook-config=--retry-once-with-cleanup=true
-        # do not upgrade lockfiles, so we don't have diffs on it.
-        - --tf-init-args=-lockfile=readonly
+        - --tf-init-args=-upgrade
         # no backend
         - --tf-init-args=-backend=false
