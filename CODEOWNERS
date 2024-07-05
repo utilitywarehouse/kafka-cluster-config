@@ -4,3 +4,6 @@
 /*/billing/              @utilitywarehouse/billing-maintainers
 /*/account-platform/     @utilitywarehouse/account-platform
 /*/otel/                 @utilitywarehouse/otel
+/**/cbc/                 @utilitywarehouse/org-cashback
+/**/iam/                 @utilitywarehouse/account-identity
+/**/iam-audit/           @utilitywarehouse/account-identity
