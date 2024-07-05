@@ -1273,7 +1273,7 @@ module "cbc_data_infra_adapter_projector" {
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.legacy_account_events_v2.name
   ]
-  consume_groups   = ["cbc.cbc-data-infra-adapter-projector-v1"]
+  consume_groups   = ["cbc.cbc-data-infra-adapter-projector"]
   cert_common_name = "cbc/cbc-data-infra-adapter-projector"
 }
 
