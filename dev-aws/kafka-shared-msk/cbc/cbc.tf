@@ -1273,7 +1273,7 @@ module "cbc_data_infra_adapter_projector" {
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.legacy_account_events_v2.name
   ]
-  consume_groups   = ["cbc.cbc-customer-information-projector-v1"]
+  consume_groups   = ["cbc.cbc-data-infra-adapter-projector-v1"]
   cert_common_name = "cbc/cbc-data-infra-adapter-projector"
 }
 
@@ -1283,7 +1283,7 @@ module "cbc_data_infra_adapter_consumer" {
     kafka_topic.transaction_events_v3.name,
     kafka_topic.lifecycle_events_v2.name
   ]
-  consume_groups   = ["cbc.cbc-customer-information-consumer-v1"]
+  consume_groups   = ["cbc.cbc-data-infra-adapter-consumer-v1"]
   produce_topics   = [kafka_topic.data_product_events_v1.name]
   cert_common_name = "cbc/cbc-data-infra-adapter-consumer"
 }
