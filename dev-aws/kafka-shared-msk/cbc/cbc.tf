@@ -16,6 +16,23 @@ resource "kafka_topic" "FraudEvents" {
   }
 }
 
+resource "kafka_topic" "data_product_events_v1" {
+  name = "cbc.DataProductEvents"
+
+  replication_factor = 3
+  partitions         = 15
+
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1"
+    "retention.ms"          = "2629746000" # keep data for 1 month
+    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
 resource "kafka_topic" "rating_events_v3" {
   name = "cbc.RatingEvents_v3"
 
@@ -1248,6 +1265,34 @@ module "cbc_account_events_relay" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.legacy_account_events_v2.name]
   cert_common_name = "cbc/cbc-account-events-relay-v2"
+}
+
+module "cbc_data_infra_adapter_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.legacy_account_events_v2.name
+  ]
+  consume_groups   = ["cbc.cbc-data-infra-adapter-projector"]
+  cert_common_name = "cbc/cbc-data-infra-adapter-projector"
+}
+
+module "cbc_data_infra_adapter_consumer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.transaction_events_v3.name,
+    kafka_topic.lifecycle_events_v2.name
+  ]
+  consume_groups   = ["cbc.cbc-data-infra-adapter-consumer-v1"]
+  produce_topics   = [kafka_topic.data_product_events_v1.name]
+  cert_common_name = "cbc/cbc-data-infra-adapter-consumer"
+}
+
+module "cbc_data_infra_exporter" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.data_product_events_v1.name, ]
+  consume_groups   = ["cbc.cbc-data-infra-exporter-v1"]
+  cert_common_name = "cbc/cbc-data-infra-exporter"
 }
 
 module "cbc_proximo_tls" {
