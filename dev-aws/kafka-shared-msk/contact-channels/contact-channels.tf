@@ -302,3 +302,11 @@ module "agent_state_builder" {
   consume_groups   = ["contact-channels.eb-kafka-agent-state-builder"]
   produce_topics   = [kafka_topic.interactions_state_events.name]
 }
+
+# Consume from contact-channels.interactions_state_events
+module "agent_state_service" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/agent-state-service"
+  consume_topics   = [kafka_topic.interactions_state_events.name]
+  consume_groups   = ["contact-channels.interactions-state-projector"]
+}
