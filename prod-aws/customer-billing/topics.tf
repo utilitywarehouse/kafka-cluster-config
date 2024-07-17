@@ -300,6 +300,6 @@ resource "kafka_topic" "transition_bex_fulfilment_request" {
     "max.message.bytes" = "104857600"
     "cleanup.policy"    = "delete"
     # keep data for 14 days
-    "retention.ms" = "1209600000"
+    "retention.ms" = "2419200000"
   }
 }
