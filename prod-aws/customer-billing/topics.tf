@@ -299,7 +299,7 @@ resource "kafka_topic" "transition_bex_fulfilment_request" {
     # allow max 100MB for a message
     "max.message.bytes" = "104857600"
     "cleanup.policy"    = "delete"
-    # keep data for 14 days
-    "retention.ms" = "1209600000"
+    # keep data for 28 days to facilitate performance testing
+    "retention.ms" = "2419200000"
   }
 }
