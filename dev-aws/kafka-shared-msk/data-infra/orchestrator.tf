@@ -121,9 +121,9 @@ module "kafka_source_multi" {
   source         = "../../../modules/tls-app"
   consume_topics = [kafka_topic.e2e_multi.name]
   consume_groups = [
-    "data-infra.di-kafka-source-multi-dev-gcp",
-    "data-infra.di-kafka-source-multi-dev-merit",
-    "data-infra.di-kafka-source-multi-dev-aws"
+    "data-infra.di-kafka-source-multi-egress-dev-gcp",
+    "data-infra.di-kafka-source-multi-egress-dev-merit",
+    "data-infra.di-kafka-source-multi-egress-dev-aws"
   ]
   cert_common_name = "data-infra/kafka-source-multi"
 }
