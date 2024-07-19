@@ -150,7 +150,7 @@ resource "kafka_topic" "interactions_state_events" {
     "retention.ms"      = "86400000" # 24 hours
     "max.message.bytes" = "1048576"  # 1MB
     "compression.type"  = "zstd"
-    "cleanup.policy"    = "compact"
+    "cleanup.policy"    = "delete"
   }
 }
 
