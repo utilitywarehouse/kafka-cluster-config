@@ -140,6 +140,20 @@ resource "kafka_topic" "validated_intents_v2" {
   }
 }
 
+resource "kafka_topic" "interactions_state_events" {
+  name = "contact-channels.interactions_state_events"
+
+  replication_factor = 3
+  partitions         = 3
+
+  config = {
+    "retention.ms"      = "86400000" # 24 hours
+    "max.message.bytes" = "1048576"  # 1MB
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 ## TLS App
 
 # Consume from contact-channels.genesys_eb_events for Last Contact Digital Survey Projector
@@ -278,4 +292,20 @@ module "survey_responses_bq_projector" {
   cert_common_name = "contact-channels/survey-responses-bq-projector"
   consume_topics   = [kafka_topic.tracking_events.name]
   consume_groups   = ["contact-channels.survey-responses-bq-projector"]
+}
+
+# Consume from contact-channels.tracking_events
+module "agent_state_builder" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/agent-state-builder"
+  consume_topics   = [kafka_topic.genesys_eb_events.name]
+  consume_groups   = ["contact-channels.eb-kafka-agent-state-builder"]
+  produce_topics   = [kafka_topic.interactions_state_events.name]
+}
+
+# Consume from contact-channels.interactions_state_events
+module "agent_state_service" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/agent-state-service"
+  consume_topics   = [kafka_topic.interactions_state_events.name]
 }
