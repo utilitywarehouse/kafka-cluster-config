@@ -1157,6 +1157,7 @@ module "cbc_pep_checker" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.order_events_v1.name,
+    kafka_topic.lifecycle_events_v2.name,
     kafka_topic.verification_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-pep-checker-v8"]
