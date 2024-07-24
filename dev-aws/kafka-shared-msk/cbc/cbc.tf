@@ -1281,6 +1281,7 @@ module "cbc_data_infra_adapter_consumer" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.transaction_events_v3.name,
+    kafka_topic.mdes_events_v1.name,
     kafka_topic.lifecycle_events_v2.name
   ]
   consume_groups   = ["cbc.cbc-data-infra-adapter-consumer-v1"]
