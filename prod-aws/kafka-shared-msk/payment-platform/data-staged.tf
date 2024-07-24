@@ -4,7 +4,7 @@ resource "kafka_topic" "payment_data_staged" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384"
+    "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in hot storage for 2 days
