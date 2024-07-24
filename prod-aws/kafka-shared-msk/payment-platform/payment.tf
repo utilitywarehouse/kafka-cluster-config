@@ -77,6 +77,7 @@ resource "kafka_topic" "payment_v1_public_events_cbc_topup_v3" {
 }
 
 //All public events will go here. It's meant to be used by ops downstream.
+//It should not be consume by a particular domain team.
 resource "kafka_topic" "payment_v1_public_events" {
   name               = "payment-platform.payment.v1.public.events"
   replication_factor = 3
