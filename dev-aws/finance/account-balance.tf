@@ -114,5 +114,3 @@ resource "kafka_topic" "account_balance_events_compacted" {
     "delete.retention.ms"       = "1000"
   }
 }
-
-resource "kafka_topic" "account_balance_errors"
