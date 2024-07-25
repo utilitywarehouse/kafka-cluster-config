@@ -24,18 +24,30 @@ resource "kafka_topic" "workplace_infrastructure_netapp_audit_v1_svm_cifs_b" {
   }
 }
 
-module "workplace_infrastructure_netapp_audit_publish_to_kafka" {
+module "workplace_infrastructure_netapp_audit_publish_to_kafka_svm_cifs_a" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.workplace_infrastructure_netapp_audit_v1_svm_cifs_a.name,
-    kafka_topic.workplace_infrastructure_netapp_audit_v1_svm_cifs_b.name
   ]
   consume_groups = [
-    "workplace-infrastructure.netapp-audit-v1-consumer"
+    "workplace-infrastructure.netapp-audit-v1.svm-cifs-a.consumer"
   ]
   produce_topics = [
     kafka_topic.workplace_infrastructure_netapp_audit_v1_svm_cifs_a.name,
-    kafka_topic.workplace_infrastructure_netapp_audit_v1_svm_cifs_b.name
+  ]
+  cert_common_name = "corp-netapp-audit/netapp-audit-publish-to-kafka"
+}
+
+module "workplace_infrastructure_netapp_audit_publish_to_kafka_svm_cifs_b" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.workplace_infrastructure_netapp_audit_v1_svm_cifs_b.name,
+  ]
+  consume_groups = [
+    "workplace-infrastructure.netapp-audit-v1.svm-cifs-b.consumer"
+  ]
+  produce_topics = [
+    kafka_topic.workplace_infrastructure_netapp_audit_v1_svm_cifs_b.name,
   ]
   cert_common_name = "corp-netapp-audit/netapp-audit-publish-to-kafka"
 }
