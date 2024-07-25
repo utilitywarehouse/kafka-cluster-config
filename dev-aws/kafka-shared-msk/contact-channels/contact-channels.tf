@@ -310,7 +310,6 @@ module "agent_state_service" {
   consume_topics   = [kafka_topic.interactions_state_events.name]
 }
 
-contact-channels/genesys-eb-events-indexer
 # Consume from contact-channels.genesys_eb_events (ES Topic Indexer)
 module "genesys_eb_events_es_indexer" {
   source           = "../../../modules/tls-app"
