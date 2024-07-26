@@ -56,22 +56,6 @@ resource "kafka_topic" "billing-account-events" {
 }
 
 # tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "account-balance-change-v2-events" {
-  name               = "account-balance-change-v2.events"
-  partitions         = 10
-  replication_factor = 3
-  config = {
-    "cleanup.policy"            = "compact"
-    "max.message.bytes"         = "104857600"
-    "max.compaction.lag.ms"     = "7200000"
-    "min.cleanable.dirty.ratio" = "0.01"
-    "segment.ms"                = "3600000"
-    "segment.bytes"             = "524288000"
-    "delete.retention.ms"       = "1000"
-  }
-}
-
-# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "account-balance-change-v1-events" {
   name               = "account-balance-change.v1-events"
   partitions         = 10
