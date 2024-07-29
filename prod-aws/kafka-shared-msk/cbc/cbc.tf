@@ -31,7 +31,7 @@ module "cbc_data_infra_exporter" {
 }
 
 module "cbc_fraud_detection_consumer" {
-  source = "../../../modules/tls-app"
+  source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.iam_credentials_v1_public.name]
   produce_topics   = []
   consume_groups   = ["cbc.cbc-fraud-detection-consumer-v1"]
