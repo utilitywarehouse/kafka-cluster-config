@@ -35,7 +35,6 @@ module "cbc_fraud_detection_consumer" {
   consume_topics = [
     kafka_topic.iam_credentials_v1_public.name,
   ]
-  
   produce_topics   = []
   consume_groups   = ["cbc.cbc-fraud-detection-consumer-v1"]
   cert_common_name = "cbc/cbc-fraud-detection-consumer"
