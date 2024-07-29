@@ -37,6 +37,6 @@ module "cbc_fraud_detection_consumer" {
   ]
   
   produce_topics   = []
-  consume_groups   = []
+  consume_groups   = ["cbc.cbc-fraud-detection-consumer-v1"]
   cert_common_name = "cbc/cbc-fraud-detection-consumer"
 }
