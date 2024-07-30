@@ -105,12 +105,17 @@ resource "kafka_topic" "account_balance_events_compacted" {
   partitions         = 10
   replication_factor = 3
   config = {
-    "cleanup.policy"            = "compact"
-    "max.message.bytes"         = "104857600"
-    "max.compaction.lag.ms"     = "7200000"
-    "min.cleanable.dirty.ratio" = "0.01"
-    "segment.ms"                = "3600000"
-    "segment.bytes"             = "524288000"
-    "delete.retention.ms"       = "1000"
+    "cleanup.policy"    = "compact"
+    "max.message.bytes" = "104857600"
+    # maximum time a message will remain ineligible for compaction in the log
+    "max.compaction.lag.ms" = "172800000" # 2 days
+    # how frequently the log compactor will attempt to clean the log
+    "min.cleanable.dirty.ratio" = "0.5" # avoid cleaning a log where more than 50% of the log has been compacted
+    # period of time after which Kafka will force the log to roll even if the segment file isn't full 
+    "segment.ms" = "604800000" # 7 days
+    # the segment file size for the log
+    "segment.bytes" = "524288000" # 500MB
+    # time to retain delete tombstone markers for log compacted topics
+    "delete.retention.ms" = "86400000" # 1 day
   }
 }
