@@ -7,6 +7,15 @@ resource "kafka_acl" "tf_applier_topic" {
   acl_permission_type = "Allow"
 }
 
+resource "kafka_acl" "tf_applier_topic_deny_delete" {
+  resource_name       = "*"
+  resource_type       = "Topic"
+  acl_principal       = "User:CN=pubsub/tf-applier"
+  acl_host            = "*"
+  acl_operation       = "Delete"
+  acl_permission_type = "Deny"
+}
+
 resource "kafka_acl" "tf_applier_group" {
   resource_name       = "*"
   resource_type       = "Group"
