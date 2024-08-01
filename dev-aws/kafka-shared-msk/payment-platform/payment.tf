@@ -115,7 +115,7 @@ module "payment_query_service_downstream_preview" {
   cert_common_name = "payment-platform/payment-query-service-downstream-preview"
 }
 
-module "di-kafka-source" {
+module "di_kafka_source" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.payment_v1_public_events.name]
   consume_groups   = ["payments-di-kafka"]
