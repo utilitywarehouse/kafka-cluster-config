@@ -30,6 +30,6 @@ For each of these modules there is a [terraform applier](https://github.com/util
 - [dev](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/dev-aws/pubsub/kafka)
 - [prod](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/prod-aws/pubsub/kafka)
 
-## pubsub admins: debugging terraform locally
+## pubsub admins: debugging terraform
 
-See [instructions](TERRAFORM_LOCALLY.md)
+See [instructions](TERRAFORM_DEBUG.md)
