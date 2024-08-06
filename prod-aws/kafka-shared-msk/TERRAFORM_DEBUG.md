@@ -5,17 +5,17 @@ Under normal circumstances, we utilize the [Terraform Applier](https://github.co
 
 ## Introduction
 
-We have a pre-configured setup for this Terraform project, connecting to the MSK cluster within the PubSub namespace. This setup is represented by the stateful set `tf-kafka-config-admin`, available in both [dev](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/dev-aws/pubsub/tf-kafka-config-admin) and [prod](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/prod-aws/pubsub/tf-kafka-config-admin).
+We have a pre-configured setup for this Terraform project, connecting to the MSK cluster within the PubSub namespace. This setup is represented by the stateful set `msk-admin-client`, available in both [dev](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/dev-aws/pubsub/msk/msk-admin-client) and [prod](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/prod-aws/pubsub/msk/msk-admin-client).
 
 This setup was initially created for manually deleting topics in `prod`, but it can also be employed for debugging the Terraform modules as needed.
 
-However, it’s essential to note that this setup always checks out the `main` branch of the project using git-sync as a sidecar container under the `uwgh` folder. For more details, see [manifest](https://github.com/utilitywarehouse/dev-enablement-mono/blob/1f026eb42591444aef2e9ae644d0c7b78c25a210/services/tf-kafka-config-admin/k8s-manifests/statefulset.yaml#L61-L78).
+However, it’s essential to note that this setup always checks out the `main` branch of the project using git-sync as a sidecar container under the `uwgh` folder. For more details, see [manifest](https://github.com/utilitywarehouse/dev-enablement-mono/blob/5851d9baaad23be0722e395da9e14f221860930f/services/msk-admin-client/k8s-manifests/statefulset.yaml#L99-L116).
 
 ### Steps to Initiate a Debug Session
 
 1. **Start a shell session** in the pod:
     ```bash  
-    kubectl exec -n pubsub --context=dev-aws -it tf-kafka-config-admin-0 -- /bin/sh 
+    kubectl exec -n pubsub --context=dev-aws -c tf-kafka-config -it msk-admin-client-0 -- /bin/sh 
     ```
 2. **Checkout this project in /tmp** (it must be anywhere else than `/uwgh` to not interfere with git-sync)
     ```bash  
