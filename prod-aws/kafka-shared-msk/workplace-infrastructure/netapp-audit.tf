@@ -5,7 +5,7 @@ resource "kafka_topic" "workplace_infrastructure_netapp_audit_v1_svm_cifs_a" {
   config = {
     "retention.bytes"   = "209715200" # 200 MiB/Partition
     "retention.ms"      = "86400000"  # 1 day
-    "max.message.bytes" = "8192"      # 8 kiB/Message
+    "max.message.bytes" = "12288"     # 12 kiB/Message
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
@@ -18,7 +18,7 @@ resource "kafka_topic" "workplace_infrastructure_netapp_audit_v1_svm_cifs_b" {
   config = {
     "retention.bytes"   = "209715200" # 200 MiB/Partition
     "retention.ms"      = "86400000"  # 1 day
-    "max.message.bytes" = "8192"      # 8 kiB/Message
+    "max.message.bytes" = "12288"     # 12 kiB/Message
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
