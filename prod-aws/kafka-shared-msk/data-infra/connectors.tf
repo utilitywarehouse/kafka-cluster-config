@@ -79,7 +79,8 @@ module "di_bigquery_connector" {
     "data-infra.di-bigquery-connector-801-802",
     "data-infra.di-bigquery-connector-988-e6177f2a",
     "data-infra.di-bigquery-connector-988-a52dd3fc",
-    "data-infra.di-bigquery-connector-account-platform"
+    "data-infra.di-bigquery-connector-account-platform",
+    "data-infra.di-bigquery-connector-netapp-audit"
   ]
   produce_topics = [
     kafka_topic.events_end.name,
