@@ -3,13 +3,10 @@ resource "kafka_topic" "pubsub_examples" {
   replication_factor = 3
   partitions         = 10
   config = {
-    "remote.storage.enable" = "true"
-    # retain 100MB on each partition
-    "retention.bytes" = "-1"
-    # keep data for 2 days
-    "retention.ms" = "-1"
-    # 1 hour hot storage
-    "local.retention.ms" = "3600000"
+    # retain 10MB on each partition
+    "retention.bytes" = "10485760"
+    # keep data for 6 hours
+    "retention.ms" = "21600000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
@@ -17,52 +14,29 @@ resource "kafka_topic" "pubsub_examples" {
   }
 }
 
-resource "kafka_acl" "example_producer_topic_access" {
-  resource_name       = "pubsub.examples"
-  resource_type       = "Topic"
-  acl_principal       = "User:CN=pubsub/example-producer"
-  acl_host            = "*"
-  acl_operation       = "Write"
-  acl_permission_type = "Allow"
+module "example_producer" {
+  source           = "../../modules/tls-app"
+  produce_topics   = [kafka_topic.pubsub_examples.name]
+  cert_common_name = "pubsub/example-producer"
 }
 
-resource "kafka_quota" "example_producer_quota" {
-  entity_name = "User:CN=pubsub/example-producer"
-  entity_type = "user"
-  config = {
-    # limit producing to 5 MB/s
-    "producer_byte_rate" = "5242880"
-    # Allow 100% of CPU. More on this here: https://docs.confluent.io/kafka/design/quotas.html#request-rate-quotas
-    "request_percentage" = "100"
-  }
+module "example_process_individually_consumer" {
+  source           = "../../modules/tls-app"
+  consume_topics   = [(kafka_topic.pubsub_examples.name)]
+  consume_groups   = ["pubsub.example-consume-process-individually"]
+  cert_common_name = "pubsub/example-consume-process-individually"
 }
 
-resource "kafka_acl" "example_consume_process_individually_topic_access" {
-  resource_name       = "pubsub.examples"
-  resource_type       = "Topic"
-  acl_principal       = "User:CN=pubsub/example-consume-process-individually"
-  acl_host            = "*"
-  acl_operation       = "Read"
-  acl_permission_type = "Allow"
+module "example_process_batch_consumer" {
+  source           = "../../modules/tls-app"
+  consume_topics   = [(kafka_topic.pubsub_examples.name)]
+  consume_groups   = ["pubsub.example-consume-process-batch"]
+  cert_common_name = "pubsub/example-consume-process-batch"
 }
 
-resource "kafka_acl" "example_consume_process_individually_group_access" {
-  resource_name       = "pubsub.example-consume-process-individually"
-  resource_type       = "Group"
-  acl_principal       = "User:CN=pubsub/example-consume-process-individually"
-  acl_host            = "*"
-  acl_operation       = "Read"
-  acl_permission_type = "Allow"
+module "es_topic_indexer" {
+  source           = "../../modules/tls-app"
+  consume_topics   = [(kafka_topic.pubsub_examples.name)]
+  consume_groups   = ["dev-enablement.es-topic-indexer"]
+  cert_common_name = "dev-enablement/es-topic-indexer"
 }
-
-resource "kafka_quota" "example_consume_process_individually_quota" {
-  entity_name = "User:CN=pubsub/example-consume-process-individually"
-  entity_type = "user"
-  config = {
-    # limit consuming to 5 MB/s
-    "consumer_byte_rate" = "5242880"
-    # Allow 100% of CPU. More on this here: https://docs.confluent.io/kafka/design/quotas.html#request-rate-quotas
-    "request_percentage" = "100"
-  }
-}
-
