@@ -37,3 +37,12 @@ module "cbc_fraud_detection_consumer" {
   consume_groups   = ["cbc.cbc-fraud-detection-consumer-v1"]
   cert_common_name = "cbc/cbc-fraud-detection-consumer"
 }
+
+module "cbc_events_indexer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.data_product_events_v1.name,
+  ]
+  consume_groups   = ["cbc.cbc-events-indexer"]
+  cert_common_name = "cbc/cbc-events-indexer"
+}
