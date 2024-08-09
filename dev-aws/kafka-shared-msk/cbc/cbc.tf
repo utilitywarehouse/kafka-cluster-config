@@ -399,6 +399,7 @@ module "cbc_events_indexer" {
     kafka_topic.eqdb_loader_events_v1.name,
     kafka_topic.service_events_v1.name,
     kafka_topic.verification_events_v1.name,
+    kafka_topic.data_product_events_v1.name,
     kafka_topic.customer_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-events-indexer"]
