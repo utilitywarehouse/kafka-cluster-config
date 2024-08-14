@@ -85,3 +85,9 @@ resource "kafka_topic" "dd_rejections_fabrication_failures" {
     "cleanup.policy"  = "delete"
   }
 }
+
+resource "kafka_topic" "dd_file_available_events" {
+  name               = "dd-file-available-events"
+  replication_factor = 3
+  partitions         = 1
+}
