@@ -13,7 +13,7 @@ resource "kafka_topic" "finance-invoice-model" {
   }
 }
 
-# tflint-ignore: terraform_naming_conventi
+# tflint-ignore: terraform_naming_convention
 resource "kafka_topic" "invoice-fulfilment-event" {
   name               = "invoice-fulfilment-event"
   replication_factor = 3
