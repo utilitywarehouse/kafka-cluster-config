@@ -5,8 +5,8 @@ resource "kafka_topic" "otlp_spans" {
   config = {
     # retain 5GB on each partition
     "retention.bytes" = "5368709120"
-    # keep data for 1 day
-    "retention.ms" = "86400000"
+    # keep data for 12 hours
+    "retention.ms" = "43200000"
     # allow max 128 MB for a message
     "max.message.bytes" = "134217728"
     # roll log at 3h max
