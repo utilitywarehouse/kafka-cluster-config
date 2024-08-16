@@ -85,7 +85,7 @@ module "di_bigquery_connector" {
 }
 
 module "di_braze_connector" {
-  source = "../../../modules/tls-app"
+  source         = "../../../modules/tls-app"
   consume_topics = [kafka_topic.events.name]
   consume_groups = [
     "data-infra.di-braze-connector"
@@ -140,8 +140,8 @@ module "di_ftp_connector" {
   cert_common_name = "data-infra/di-ftp-connector"
 }
 
-resource "kafka_topic" "dlq_requeuev2" {
-  name               = "data-infra.product.v1.events.requeuev2"
+resource "kafka_topic" "dlq_requeue_v2" {
+  name               = "data-infra.product.v1.events.requeue-v2"
   replication_factor = 3
   partitions         = 1
   config = {
@@ -158,8 +158,8 @@ resource "kafka_topic" "dlq_requeuev2" {
   }
 }
 
-resource "kafka_topic" "dlqv2" {
-  name               = "data-infra.product.v1.events.dlqv2"
+resource "kafka_topic" "dlq_v2" {
+  name               = "data-infra.product.v1.events.dlq-v2"
   replication_factor = 3
   partitions         = 1
   config = {
@@ -180,7 +180,7 @@ module "di_dlq_manager" {
   consume_topics = [
     kafka_topic.dlq.name,
     kafka_topic.dlq_alerts.name,
-    kafka_topic.dlqv2.name,
+    kafka_topic.dlq_v2.name,
   ]
   consume_groups = [
     "data-infra.dlq",
@@ -191,8 +191,8 @@ module "di_dlq_manager" {
     kafka_topic.dlq.name,
     kafka_topic.dlq_requeue.name,
     kafka_topic.dlq_alerts.name,
-    kafka_topic.dlqv2.name,
-    kafka_topic.dlq_requeuev2.name,
+    kafka_topic.dlq_v2.name,
+    kafka_topic.dlq_requeue_v2.name,
   ]
   cert_common_name = "data-infra/di-dlq-manager"
 }
