@@ -190,7 +190,7 @@ module "di_dlq_manager" {
   produce_topics = [
     kafka_topic.dlq.name,
     kafka_topic.dlq_requeue.name,
-    kafka_topic.dlq_alerts.name
+    kafka_topic.dlq_alerts.name,
     kafka_topic.dlqv2.name,
     kafka_topic.dlq_requeuev2.name,
   ]
