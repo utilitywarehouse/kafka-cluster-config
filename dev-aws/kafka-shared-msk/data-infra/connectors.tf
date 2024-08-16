@@ -140,20 +140,59 @@ module "di_ftp_connector" {
   cert_common_name = "data-infra/di-ftp-connector"
 }
 
+resource "kafka_topic" "dlq_requeue_v2" {
+  name               = "data-infra.product.v1.events.requeue-v2"
+  replication_factor = 3
+  partitions         = 1
+  config = {
+
+    "remote.storage.enable" = "true"
+    # 1 month
+    "retention.ms" = "2629800000"
+    # 1 day
+    "local.retention.ms" = "86400000"
+    # allow max 1 MB for a message
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
+resource "kafka_topic" "dlq_v2" {
+  name               = "data-infra.product.v1.events.dlq-v2"
+  replication_factor = 3
+  partitions         = 1
+  config = {
+    "remote.storage.enable" = "true"
+    # 1 month
+    "retention.ms" = "2629800000"
+    # 1 day
+    "local.retention.ms" = "86400000"
+    # allow max 1 MB for a message
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 module "di_dlq_manager" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.dlq.name,
-    kafka_topic.dlq_alerts.name
+    kafka_topic.dlq_alerts.name,
+    kafka_topic.dlq_v2.name,
   ]
   consume_groups = [
     "data-infra.dlq",
+    "data-infra.dlqv2",
     "data-infra.dlq.alerts",
   ]
   produce_topics = [
     kafka_topic.dlq.name,
     kafka_topic.dlq_requeue.name,
-    kafka_topic.dlq_alerts.name
+    kafka_topic.dlq_alerts.name,
+    kafka_topic.dlq_v2.name,
+    kafka_topic.dlq_requeue_v2.name,
   ]
   cert_common_name = "data-infra/di-dlq-manager"
 }
