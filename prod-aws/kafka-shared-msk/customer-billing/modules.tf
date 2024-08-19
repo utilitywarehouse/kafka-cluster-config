@@ -59,3 +59,11 @@ module "invoice_ready_notifier" {
   consume_topics   = [(kafka_topic.invoice_fulfillment.name)]
   consume_groups   = ["bex.invoice-ready-notifier"]
 }
+
+module "bex_invoice_api" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "customer-billing/bex-invoice-api"
+  produce_topics   = [kafka_topic.bex_invoice_api.name]
+  consume_topics   = [(kafka_topic.invoice_generator.name)]
+  consume_groups   = ["bex.bex-invoice-api"]
+}
