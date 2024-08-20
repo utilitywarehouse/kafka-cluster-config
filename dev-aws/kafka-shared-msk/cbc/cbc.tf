@@ -906,6 +906,7 @@ module "cbc_provider_api" {
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.transaction_events_v3.name,
     kafka_topic.order_events_v1.name,
+    kafka_topic.mdes_events_v1.name,
     kafka_topic.service_events_v1.name
   ]
   cert_common_name = "cbc/cbc-provider-api"
