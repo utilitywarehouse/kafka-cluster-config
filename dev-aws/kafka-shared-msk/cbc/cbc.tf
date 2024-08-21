@@ -486,6 +486,9 @@ module "cbc_transaction_rater_consumer" {
     kafka_topic.transaction_events_v3.name,
     kafka_topic.sodexo_events_v1.name
   ]
+  produce_topics = [
+    kafka_topic.transaction_events_v3.name
+  ]
   consume_groups   = ["cbc.cbc-transaction-rater-v1"]
   cert_common_name = "cbc/cbc-transaction-rater-consumer"
 }
