@@ -5,15 +5,15 @@ resource "kafka_topic" "data_staged_events_finance" {
   config = {
     "compression.type" = "zstd"
     # 805 GB
-    "retention.bytes"  = "805306368000"
+    "retention.bytes" = "805306368000"
     # 105 MB
-    "max.message.bytes"  = "104857600"
+    "max.message.bytes" = "104857600"
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in hot storage for 2 days
     "local.retention.ms" = "172800000"
-    "retention.ms"   = "-1"
-    "cleanup.policy" = "delete"
+    "retention.ms"       = "-1"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -24,9 +24,9 @@ resource "kafka_topic" "historical_data_staged_events_finance" {
   config = {
     "compression.type" = "zstd"
     # 805 GB
-    "retention.bytes"  = "805306368000"
+    "retention.bytes" = "805306368000"
     # 105 MB
-    "max.message.bytes"  = "104857600"
+    "max.message.bytes" = "104857600"
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in hot storage for 2 days
