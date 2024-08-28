@@ -94,6 +94,7 @@ resource "kafka_topic" "account_events_v3" {
 resource "kafka_topic" "account_exceptions_events" {
   config = {
     "compression.type" = "snappy"
+    "cleanup.policy"   = "compact"
   }
   name               = "account.exceptions.events"
   partitions         = 15
