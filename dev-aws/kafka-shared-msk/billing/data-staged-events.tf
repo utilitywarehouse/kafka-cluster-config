@@ -1,5 +1,5 @@
 resource "kafka_topic" "data_staged_events_finance" {
-  name               = "billing.data-staged-events-finance"
+  name               = "billing.DataStagedEventsFinance"
   replication_factor = 3
   partitions         = 10
   config = {
