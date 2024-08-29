@@ -80,16 +80,6 @@ resource "kafka_topic" "legacy_account_change_events_compacted" {
   replication_factor = 3
 }
 
-# __generated__ by Terraform from "account.events.v3"
-resource "kafka_topic" "account_events_v3" {
-  config = {
-    "cleanup.policy" = "delete"
-  }
-  name               = "account.events.v3"
-  partitions         = 15
-  replication_factor = 3
-}
-
 # __generated__ by Terraform from "account.exceptions.events"
 resource "kafka_topic" "account_exceptions_events" {
   config = {
