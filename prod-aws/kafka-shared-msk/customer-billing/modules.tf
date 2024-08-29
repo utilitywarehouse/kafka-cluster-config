@@ -67,3 +67,13 @@ module "bex_invoice_api" {
   consume_topics   = [(kafka_topic.invoice_generator.name)]
   consume_groups   = ["bex.bex-invoice-api"]
 }
+
+module "bex_invoice_producer_sync" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "customer-billing/bex-temporary-invoice-producer-sync"
+  consume_topics = [
+    kafka_topic.bex_invoice_api.name,
+    kafka_topic.bex_legacy_invoice_api.name
+  ]
+  consume_groups = ["bex.bex-invoice-producer-sync"]
+}
