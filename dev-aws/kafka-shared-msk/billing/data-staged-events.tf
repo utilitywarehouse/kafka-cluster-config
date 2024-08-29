@@ -36,3 +36,20 @@ resource "kafka_topic" "historical_data_staged_events_finance" {
     "cleanup.policy" = "delete"
   }
 }
+
+module "finance_bigquery_connector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.data_staged_events_finance.name,
+  ]
+  consume_groups   = ["billing.finance-bigquery-connector"]
+  cert_common_name = "billing/finance-bigquery-connector"
+}
+
+module "finance_tx_log_staging_connector" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.data_staged_events_finance.name,
+  ]
+  cert_common_name = "billing/finance-tx-log-staging-connector"
+}
