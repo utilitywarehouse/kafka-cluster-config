@@ -172,7 +172,7 @@ resource "kafka_topic" "land_registry_check_events" {
 
 # __generated__ by Terraform from "internal.legacy.account.events"
 resource "kafka_topic" "internal_legacy_account_events" {
-  config             = {
+  config = {
     "cleanup.policy"        = "compact"
     "max.compaction.lag.ms" = "604800000"
   }
@@ -273,7 +273,7 @@ resource "kafka_topic" "public_account_events" {
 }
 
 resource "kafka_topic" "account_management_events" {
-  config             = {
+  config = {
     "cleanup.policy"        = "compact"
     "max.compaction.lag.ms" = "604800000"
   }
