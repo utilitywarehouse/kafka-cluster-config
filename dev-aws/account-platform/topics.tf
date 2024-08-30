@@ -21,9 +21,8 @@ resource "kafka_topic" "legacy_account_events_compacted" {
 # __generated__ by Terraform from "legacy.account.changelog.events"
 resource "kafka_topic" "legacy_account_changelog_events" {
   config = {
-    "cleanup.policy"            = "compact"
-    "delete.retention.ms"       = "100"
-    "min.cleanable.dirty.ratio" = "0.01"
+    "cleanup.policy"        = "compact"
+    "max.compaction.lag.ms" = "604800000"
   }
   name               = "legacy.account.changelog.events"
   partitions         = 15
@@ -43,7 +42,8 @@ resource "kafka_topic" "staff_okta_v6" {
 # __generated__ by Terraform from "finance.events.compacted"
 resource "kafka_topic" "finance_events_compacted" {
   config = {
-    "cleanup.policy" = "compact"
+    "cleanup.policy"        = "compact"
+    "max.compaction.lag.ms" = "604800000"
   }
   name               = "finance.events.compacted"
   partitions         = 15
@@ -73,7 +73,8 @@ resource "kafka_topic" "account_exceptions_v1" {
 # __generated__ by Terraform from "legacy.account.change.events.compacted"
 resource "kafka_topic" "legacy_account_change_events_compacted" {
   config = {
-    "cleanup.policy" = "compact"
+    "cleanup.policy"        = "compact"
+    "max.compaction.lag.ms" = "604800000"
   }
   name               = "legacy.account.change.events.compacted"
   partitions         = 50
@@ -83,8 +84,9 @@ resource "kafka_topic" "legacy_account_change_events_compacted" {
 # __generated__ by Terraform from "account.exceptions.events"
 resource "kafka_topic" "account_exceptions_events" {
   config = {
-    "compression.type" = "snappy"
-    "cleanup.policy"   = "compact"
+    "compression.type"      = "snappy"
+    "cleanup.policy"        = "compact"
+    "max.compaction.lag.ms" = "604800000"
   }
   name               = "account.exceptions.events"
   partitions         = 15
@@ -118,7 +120,8 @@ resource "kafka_topic" "supply_address_debt_exception_check_events" {
 # __generated__ by Terraform from "legacy.account.braze.events.compacted"
 resource "kafka_topic" "legacy_account_braze_events_compacted" {
   config = {
-    "cleanup.policy" = "compact"
+    "cleanup.policy"        = "compact"
+    "max.compaction.lag.ms" = "604800000"
   }
   name               = "legacy.account.braze.events.compacted"
   partitions         = 15
@@ -148,7 +151,9 @@ resource "kafka_topic" "address_lookup_analytics_v1" {
 # __generated__ by Terraform from "land-registry.check.events"
 resource "kafka_topic" "land_registry_check_events" {
   config = {
-    "compression.type" = "snappy"
+    "compression.type"    = "snappy"
+    "delete.retention.ms" = "604800000"
+    "retention.ms"        = "604800000"
   }
   name               = "land-registry.check.events"
   partitions         = 15
@@ -157,7 +162,10 @@ resource "kafka_topic" "land_registry_check_events" {
 
 # __generated__ by Terraform from "internal.legacy.account.events"
 resource "kafka_topic" "internal_legacy_account_events" {
-  config             = {}
+  config = {
+    "cleanup.policy"        = "compact"
+    "max.compaction.lag.ms" = "604800000"
+  }
   name               = "internal.legacy.account.events"
   partitions         = 15
   replication_factor = 3
@@ -176,8 +184,8 @@ resource "kafka_topic" "account_atomic_v1" {
 # __generated__ by Terraform from "account.unified.events"
 resource "kafka_topic" "account_unified_events" {
   config = {
-    "cleanup.policy" = "compact"
-    "retention.ms"   = "100"
+    "cleanup.policy"        = "compact"
+    "max.compaction.lag.ms" = "604800000"
   }
   name               = "account.unified.events"
   partitions         = 50
@@ -207,7 +215,8 @@ resource "kafka_topic" "correspondence_address_debt_exception_check_events" {
 # __generated__ by Terraform from "legacy.account.holder.events.compacted"
 resource "kafka_topic" "legacy_account_holder_events_compacted" {
   config = {
-    "cleanup.policy" = "compact"
+    "cleanup.policy"        = "compact"
+    "max.compaction.lag.ms" = "604800000"
   }
   name               = "legacy.account.holder.events.compacted"
   partitions         = 15
@@ -254,7 +263,10 @@ resource "kafka_topic" "public_account_events" {
 }
 
 resource "kafka_topic" "account_management_events" {
-  config             = {}
+  config = {
+    "cleanup.policy"        = "compact"
+    "max.compaction.lag.ms" = "604800000"
+  }
   name               = "account.management.events"
   partitions         = 15
   replication_factor = 3
