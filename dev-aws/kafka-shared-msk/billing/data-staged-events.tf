@@ -53,3 +53,12 @@ module "finance_tx_log_staging_connector" {
   ]
   cert_common_name = "billing/finance-tx-log-staging-connector"
 }
+
+module "historical_bigquery_connector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.historical_data_staged_events_finance.name,
+  ]
+  consume_groups   = ["billing.historical-bigquery-connector"]
+  cert_common_name = "billing/historical-bigquery-connector"
+}
