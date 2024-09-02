@@ -42,6 +42,9 @@ module "finance_bigquery_connector" {
   consume_topics = [
     kafka_topic.data_staged_events_finance.name,
   ]
+  produce_topics = [
+    kafka_topic.historical_data_staged_events_finance.name,
+  ]
   consume_groups   = ["billing.finance-bigquery-connector"]
   cert_common_name = "billing/finance-bigquery-connector"
 }
