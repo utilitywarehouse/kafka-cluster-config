@@ -15,15 +15,6 @@ resource "kafka_topic" "notifications_tx" {
   }
 }
 
-module "payment_tx_log_writer" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
-    kafka_topic.notifications_tx.name,
-  ]
-  consume_groups = ["payment-platform.payment-tx-log-writer"]
-  cert_common_name = "payment-platform/payment-tx-log-writer"
-}
-
 module "payment_gateway_report_generator" {
   source = "../../../modules/tls-app"
   consume_topics = [
