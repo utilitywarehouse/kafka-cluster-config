@@ -1,5 +1,5 @@
 resource "kafka_topic" "payment_enriched_txs" {
-  name               = "payment.enriched-txs"
+  name               = "payment-platform.payment.enriched-txs"
   replication_factor = 3
   partitions         = 5
   config = {

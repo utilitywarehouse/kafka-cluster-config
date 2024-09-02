@@ -1,5 +1,5 @@
 resource "kafka_topic" "notifications_tx" {
-  name               = "notifications.tx"
+  name               = "payment-platform.notifications.tx"
   replication_factor = 3
   partitions         = 5
   config = {
