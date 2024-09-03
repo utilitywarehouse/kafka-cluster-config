@@ -24,3 +24,13 @@ module "payment_tx_log_writer" {
   consume_groups   = ["payment-platform.payment-tx-log-writer"]
   cert_common_name = "payment-platform/payment-tx-log-writer"
 }
+
+module "payment_transaction_query_service" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.payment_data_staged.name,
+    kafka_topic.payment_gateway_reconciliation_status_changed.name,
+  ]
+  consume_groups   = ["payment-platform.payment-transaction-query-service"]
+  cert_common_name = "payment-platform/payment-transaction-query-service"
+}
