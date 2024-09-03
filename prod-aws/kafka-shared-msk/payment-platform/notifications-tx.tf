@@ -14,3 +14,12 @@ resource "kafka_topic" "notifications_tx" {
     "cleanup.policy" = "delete"
   }
 }
+
+module "payment_gateway_report_generator" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.notifications_tx.name,
+  ]
+  consume_groups   = ["payment-platform.payment-gateway-report-generator"]
+  cert_common_name = "payment-platform/payment-gateway-report-generator"
+}
