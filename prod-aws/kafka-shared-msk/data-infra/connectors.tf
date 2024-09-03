@@ -135,16 +135,17 @@ module "di_dlq_manager" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.dlq.name,
-    kafka_topic.dlq_alerts.name
+    kafka_topic.dlq_alerts.name,
   ]
   consume_groups = [
     "data-infra.dlq",
+    "data-infra.dlqv2",
     "data-infra.dlq.alerts",
   ]
   produce_topics = [
     kafka_topic.dlq.name,
     kafka_topic.dlq_requeue.name,
-    kafka_topic.dlq_alerts.name
+    kafka_topic.dlq_alerts.name,
   ]
   cert_common_name = "data-infra/di-dlq-manager"
 }
