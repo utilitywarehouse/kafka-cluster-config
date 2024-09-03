@@ -29,7 +29,7 @@ module "payment_tx_log_writer" {
 module "payment_transaction_query_service" {
   source = "../../../modules/tls-app"
   consume_topics = [
-    kafka_topic.payment_data_staged.name,
+    kafka_topic.payment_enriched_txs.name,
     kafka_topic.payment_gateway_reconciliation_status_changed.name,
   ]
   consume_groups   = ["payment-platform.payment-transaction-query-service"]
