@@ -1,7 +1,7 @@
 resource "kafka_topic" "notifications_tx" {
-  name               = "notifications.tx"
+  name               = "payment-platform.notifications.tx"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 15
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "-1"
@@ -22,13 +22,4 @@ module "payment_gateway_report_generator" {
   ]
   consume_groups   = ["payment-platform.payment-gateway-report-generator"]
   cert_common_name = "payment-platform/payment-gateway-report-generator"
-}
-
-module "payment_gateway_reconciler" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
-    kafka_topic.notifications_tx.name,
-  ]
-  consume_groups   = ["payment-platform.payment-gateway-reconciler-for-reconciler-db"]
-  cert_common_name = "payment-platform/payment-gateway-reconciler"
 }

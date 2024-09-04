@@ -23,11 +23,3 @@ module "payment_bigquery_connector" {
   consume_groups   = ["payment-platform.payment-bigquery-connector"]
   cert_common_name = "payment-platform/payment-bigquery-connector"
 }
-
-module "payment_transaction_events_forwarder" {
-  source = "../../../modules/tls-app"
-  produce_topics = [
-    kafka_topic.payment_data_staged.name,
-  ]
-  cert_common_name = "payment-platform/payment-transaction-events-forwarder"
-}

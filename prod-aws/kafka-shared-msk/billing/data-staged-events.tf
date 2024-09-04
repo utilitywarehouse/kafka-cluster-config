@@ -4,15 +4,15 @@ resource "kafka_topic" "data_staged_events_finance" {
   partitions         = 10
   config = {
     "compression.type" = "zstd"
-    # 805 GB
-    "retention.bytes" = "805306368000"
+    # 26.8 GB
+    "retention.bytes" = "26843545600"
     # 105 MB
     "max.message.bytes" = "104857600"
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in hot storage for 2 days
     "local.retention.ms" = "172800000"
-    "retention.ms"       = "-1"
+    "retention.ms"       = "604800000" #7 days
     "cleanup.policy"     = "delete"
   }
 }
