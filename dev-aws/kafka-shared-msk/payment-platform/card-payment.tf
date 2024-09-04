@@ -1,7 +1,7 @@
 resource "kafka_topic" "payment_payment" {
   name               = "payment-platform.payment.payment"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 15
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "3758096384"
@@ -18,7 +18,7 @@ resource "kafka_topic" "payment_payment" {
 resource "kafka_topic" "payment_method_created" {
   name               = "payment-platform.payment.method-created"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 15
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "3758096384"
@@ -35,7 +35,7 @@ resource "kafka_topic" "payment_method_created" {
 resource "kafka_topic" "payment_method_verified" {
   name               = "payment-platform.payment.method-verified"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 15
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "3758096384"
@@ -52,7 +52,7 @@ resource "kafka_topic" "payment_method_verified" {
 resource "kafka_topic" "payment_method_linked" {
   name               = "payment-platform.payment.method-linked"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 15
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "3758096384"

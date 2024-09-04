@@ -1,7 +1,7 @@
 resource "kafka_topic" "payment_gateway_reconciliation" {
   name               = "payment-platform.payment.gateway.reconciliation"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 15
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "3758096384"
@@ -18,7 +18,7 @@ resource "kafka_topic" "payment_gateway_reconciliation" {
 resource "kafka_topic" "payment_gateway_reconciliation_status_changed" {
   name               = "payment-platform.payment.gateway.reconciliation.status-changed"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 15
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "3758096384"
