@@ -1,7 +1,7 @@
 resource "kafka_topic" "notifications_tx" {
   name               = "payment-platform.notifications.tx"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 15
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "-1"

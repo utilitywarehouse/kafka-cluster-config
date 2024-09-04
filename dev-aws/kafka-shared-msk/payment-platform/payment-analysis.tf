@@ -1,7 +1,7 @@
 resource "kafka_topic" "payment_analysis_payment_method" {
   name               = "payment-platform.payment-analysis.payment-method"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 15
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "3758096384"

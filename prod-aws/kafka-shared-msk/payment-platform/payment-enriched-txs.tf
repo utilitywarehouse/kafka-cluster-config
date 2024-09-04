@@ -1,7 +1,7 @@
 resource "kafka_topic" "payment_enriched_txs" {
   name               = "payment-platform.payment.enriched-txs"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 15
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "-1"
