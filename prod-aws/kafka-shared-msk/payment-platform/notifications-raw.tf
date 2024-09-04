@@ -22,6 +22,7 @@ module "payment_worldpay_notification_listener" {
   ]
   produce_topics = [
     kafka_topic.notifications_worldpay_raw.name,
+    kafka_topic.notifications_tx.name,
   ]
   consume_groups   = ["payment-platform.payment-worldpay-notification-listener"]
   cert_common_name = "payment-platform/payment-worldpay-notification-listener"
@@ -51,6 +52,7 @@ module "payment_stripe_notification_listener" {
   ]
   produce_topics = [
     kafka_topic.notifications_stripe_raw.name,
+    kafka_topic.notifications_tx.name,
   ]
   consume_groups   = ["payment-platform.payment-stripe-notification-listener"]
   cert_common_name = "payment-platform/payment-stripe-notification-listener"
