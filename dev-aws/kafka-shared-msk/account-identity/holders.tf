@@ -3,6 +3,7 @@ resource "kafka_topic" "account_identity_legacy_account_holder_events_compacted"
   replication_factor = 3
   partitions         = 15
   config = {
+    "compression.type"      = "zstd"
     "retention.ms" = "604800000	"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048588"
