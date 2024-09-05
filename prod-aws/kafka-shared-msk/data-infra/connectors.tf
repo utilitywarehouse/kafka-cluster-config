@@ -89,7 +89,7 @@ module "di_bigquery_connector" {
   cert_common_name = "data-infra/di-bigquery-connector"
 }
 
-module "di_troubleshoot-pla-1381" {
+module "di_troubleshoot_pla_1381" {
   source         = "../../../modules/tls-app"
   consume_topics = [kafka_topic.events.name]
   consume_groups = [
