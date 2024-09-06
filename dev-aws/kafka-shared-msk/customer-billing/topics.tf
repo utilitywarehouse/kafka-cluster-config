@@ -123,8 +123,8 @@ resource "kafka_topic" "public_fulfilment_events" {
   partitions         = 10
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
+    # keep data for 7 days
+    "retention.ms" = "604800000"
     # keep data in hot storage for 1 day
     "local.retention.ms" = "86400000"
     # allow max 1MB for a message
