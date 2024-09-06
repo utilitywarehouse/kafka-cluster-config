@@ -1,6 +1,7 @@
 resource "kafka_topic" "account_identity_account_exceptions_v1" {
   config = {
     "compression.type" = "zstd"
+    "retention.ms"     = "604800000"
   }
   name               = "account-identity.account-account.exceptions.v1"
   partitions         = 15
@@ -11,6 +12,7 @@ resource "kafka_topic" "account_identity_account_exceptions_events" {
   config = {
     "compression.type"      = "zstd"
     "cleanup.policy"        = "compact"
+    "retention.ms"          = "604800000"
     "max.compaction.lag.ms" = "604800000"
   }
   name               = "account-identity.account.exceptions.events"
