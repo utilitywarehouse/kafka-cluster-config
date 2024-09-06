@@ -1,8 +1,3 @@
-import {
-  to = kafka_topic.account_identity_legacy_account_holder_events_compacted
-  id = "account-identity.legacy.account.holder.events.compacted"
-}
-
 resource "kafka_topic" "account_identity_legacy_account_holder_events_compacted" {
   name               = "account-identity.legacy.account.holder.events.compacted"
   replication_factor = 3
