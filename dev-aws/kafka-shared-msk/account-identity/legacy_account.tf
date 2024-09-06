@@ -89,3 +89,49 @@ resource "kafka_topic" "account_identity_legacy_account_eqdb_events" {
   partitions         = 15
   replication_factor = 3
 }
+
+import {
+  to = kafka_topic.account_identity_legacy_account_events_compacted
+  id = "account-identity.legacy.account.events.compacted"
+}
+
+import {
+  to = kafka_topic.account_identity_legacy_account_changelog_events
+  id = "account-identity.legacy.account.changelog.events"
+}
+
+import {
+  to = kafka_topic.account_identity_legacy_account_events
+  id = "account-identity.legacy.account.events"
+}
+
+import {
+  to = kafka_topic.account_identity_legacy_account_change_events_compacted
+  id = "account-identity.legacy.account.change.events.compacted"
+}
+
+import {
+  to = kafka_topic.account_identity_legacy_account_braze_events_compacted
+  id = "account-identity.legacy.account.braze.events.compacted"
+}
+
+import {
+  to = kafka_topic.account_identity_internal_legacy_account_events
+  id = "account-identity.internal.legacy.account.events"
+}
+
+import {
+  to = kafka_topic.account_identity_legacy_account_created_in_bill_events
+  id = "account-identity.legacy.account.created.in.bill.events"
+}
+
+import {
+  to = kafka_topic.account_identity_legacy_account_events_private
+  id = "account-identity.legacy.account.events.private"
+}
+
+import {
+  to = kafka_topic.account_identity_legacy_account_eqdb_events
+  id = "account-identity.legacy.account.eqdb.events"
+}
+
