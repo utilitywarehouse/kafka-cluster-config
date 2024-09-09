@@ -1,46 +1,11 @@
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "credit-insight-account-data-changed-events" {
-  name               = "credit-insight-account-data-changed.events"
-  replication_factor = 3
+resource "kafka_topic" "credit_insights_validation_errors" {
+  name               = "credit-insights-validation.errors"
   partitions         = 10
-  config = {
-    "retention.bytes" = "-1"
-    "retention.ms"    = "2592000000" #30 days
-    "cleanup.policy"  = "delete"
-  }
-}
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "credit-insight-account-balance-changed-events" {
-  name               = "credit-insight-account-balance-changed.events"
   replication_factor = 3
-  partitions         = 10
-  config = {
-    "retention.bytes" = "-1"
-    "retention.ms"    = "2592000000" #30 days
-    "cleanup.policy"  = "delete"
-  }
-}
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "credit-insight-account-changed-events" {
-  name               = "credit-insight-account-changed.events"
-  replication_factor = 3
-  partitions         = 10
-  config = {
-    "retention.bytes" = "-1"
-    "retention.ms"    = "2592000000" #30 days
-    "cleanup.policy"  = "delete"
-  }
-}
 
-# Experimental
-# tflint-ignore: terraform_naming_convention
-resource "kafka_topic" "account-insight-events" {
-  name               = "account-insight.events"
-  replication_factor = 3
-  partitions         = 10
   config = {
     "retention.bytes" = "-1"
-    "retention.ms"    = "604800000" #7 days
+    "retention.ms"    = "604800000" # 7 days since these events will be indexed
     "cleanup.policy"  = "delete"
   }
 }
