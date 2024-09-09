@@ -21,13 +21,13 @@ resource "kafka_topic" "payment_method_v1_events" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384"
+    "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in hot storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 1 year
-    "retention.ms"   = "31557600000"
+    # keep data for 30 days
+    "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }
 }
