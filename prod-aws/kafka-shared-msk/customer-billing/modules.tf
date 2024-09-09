@@ -77,3 +77,9 @@ module "bex_invoice_producer_sync" {
   ]
   consume_groups = ["bex.bex-invoice-producer-sync"]
 }
+
+module "bex_fulfilment_events_replicator" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "customer-billing/bex-fulfilment-events-replicator"
+  produce_topics   = [kafka_topic.public_fulfilment_events.name]
+}
