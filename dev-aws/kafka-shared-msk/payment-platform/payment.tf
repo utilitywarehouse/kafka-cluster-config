@@ -135,7 +135,7 @@ resource "kafka_topic" "payment_method_v1_public_events" {
   partitions         = 5
   config = {
     "compression.type" = "zstd"
-    "retention.bytes" = "-1"
+    "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in hot storage for 2 days
@@ -156,7 +156,7 @@ module "payment_query_service_downstream" {
     kafka_topic.payment_v1_public_events_cbc_topup_v3.name,
     kafka_topic.payment_method_v1_public_events_cbc_topup_v3.name
   ]
-  consume_topics   = [
+  consume_topics = [
     kafka_topic.payment_v1_events.name,
     kafka_topic.payment_method_v1_events.name
   ]
@@ -165,8 +165,8 @@ module "payment_query_service_downstream" {
 }
 
 module "payment_query_service_downstream_preview" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [
+  source = "../../../modules/tls-app"
+  consume_topics = [
     kafka_topic.payment_v1_public_events_pp_test.name,
     kafka_topic.payment_v1_public_events.name,
     kafka_topic.payment_method_v1_public_events.name
