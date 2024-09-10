@@ -139,14 +139,14 @@ module "di_kafka_source" {
   cert_common_name = "payment-platform/payments-di-kafka"
 }
 
-module "payment-v1-events-indexer" {
+module "payment_v1_events_indexer" {
   source           = "../../../modules/tls-app"
   consume_groups   = ["payment-platform.payment.v1.events-indexer"]
   consume_topics   = [kafka_topic.payment_v1_events.name]
   cert_common_name = "payment-platform/payment-v1-events-indexer"
 }
 
-module "payment-method-v1-events-indexer" {
+module "payment_method_v1_events_indexer" {
   source           = "../../../modules/tls-app"
   consume_groups   = ["payment-platform.payment-method.v1.events-indexer"]
   consume_topics   = [kafka_topic.payment_method_v1_events.name]
