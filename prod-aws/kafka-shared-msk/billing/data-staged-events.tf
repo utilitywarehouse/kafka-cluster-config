@@ -56,7 +56,7 @@ module "finance_tx_log_staging_connector" {
   ]
   #  limit to 150 KB per broker, as the consumer doesn't keep up with the producer and the producer is loading the brokers CPU when not throttled.
   producer_byte_rate = "153600"
-  cert_common_name = "billing/finance-tx-log-staging-connector"
+  cert_common_name   = "billing/finance-tx-log-staging-connector"
 }
 
 module "historical_bigquery_connector" {
