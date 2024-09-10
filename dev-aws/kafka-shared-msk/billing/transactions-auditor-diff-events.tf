@@ -17,12 +17,13 @@ resource "kafka_topic" "transactions_auditor_diff_events" {
   }
 }
 
+
 module "transactions-auditor-api" {
   source = "../../../modules/tls-app"
-  // consume_topics = [ index? ]
+  // consume_topics = [transactions-auditor-events-indexer.name,]
   produce_topics = [
     kafka_topic.transactions-auditor-diff.events.name,
   ]
-  // consume_groups   = ["?"]
+  // consume_groups   = ["billing.transactions-auditor-events-indexer"]
   cert_common_name = "billing/transactions-auditor-api"
 }
