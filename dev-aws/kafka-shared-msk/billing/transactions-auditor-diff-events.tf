@@ -23,6 +23,6 @@ module "transactions-auditor-api" {
   produce_topics = [
     kafka_topic.transactions-auditor-diff.events.name,
   ]
-  // consume_groups   = ["billing.finance-bigquery-connector"]
-  cert_common_name = "billing/finance-bigquery-connector"
+  // consume_groups   = ["?"]
+  cert_common_name = "billing/transactions-auditor-api"
 }
