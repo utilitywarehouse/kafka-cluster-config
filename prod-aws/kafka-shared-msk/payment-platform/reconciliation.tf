@@ -44,5 +44,5 @@ module "payment_gateway_reconciler" {
     kafka_topic.payment_gateway_reconciliation_status_changed.name,
   ]
   consume_groups   = ["payment-platform.payment-gateway-reconciler-for-reconciler-db"]
-  cert_common_name = "payment-platform/payment-gateway-reconciler-for-reconciler-db"
+  cert_common_name = "payment-platform/payment-gateway-reconciler"
 }
