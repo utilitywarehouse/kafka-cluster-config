@@ -139,20 +139,18 @@ module "di_kafka_source" {
   cert_common_name = "payment-platform/payments-di-kafka"
 }
 
-# tflint-ignore: terraform_naming_convention
-module "es-indexer-payment-v1-events" {
+module "payment_v1_events_indexer" {
   source           = "../../../modules/tls-app"
-  consume_groups   = ["payment-platform.es-indexer-payment.v1.events"]
+  consume_groups   = ["payment-platform.payment.v1.events-indexer"]
   consume_topics   = [kafka_topic.payment_v1_events.name]
-  cert_common_name = "payment-platform/es-indexer-payment-v1-events"
+  cert_common_name = "payment-platform/payment-v1-events-indexer"
 }
 
-# tflint-ignore: terraform_naming_convention
-module "es-indexer-payment-method-v1-events" {
+module "payment_method_v1_events_indexer" {
   source           = "../../../modules/tls-app"
-  consume_groups   = ["payment-platform.es-indexer-payment-method.v1.events"]
+  consume_groups   = ["payment-platform.payment-method.v1.events-indexer"]
   consume_topics   = [kafka_topic.payment_method_v1_events.name]
-  cert_common_name = "payment-platform/es-indexer-payment-method-v1-events"
+  cert_common_name = "payment-platform/payment-method-v1-events-indexer"
 }
 
 module "cbc_topup_processor" {
