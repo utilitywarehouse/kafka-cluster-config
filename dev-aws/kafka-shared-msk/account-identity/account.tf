@@ -1,38 +1,3 @@
-import {
-  to = kafka_topic.account_identity_account_events_v2
-  id = "account-identity.account.events.v2"
-}
-
-import {
-  to = kafka_topic.account_identity_account_atomic_v1
-  id = "account-identity.account.atomic.v1"
-}
-
-import {
-  to = kafka_topic.account_identity_account_unified_events
-  id = "account-identity.account.unified.events"
-}
-
-import {
-  to = kafka_topic.account_identity_dev_account_events_anonymized_v0
-  id = "account-identity.dev.account.events.anonymized.v0"
-}
-
-import {
-  to = kafka_topic.account_identity_from_prod_account_events_anonymized_v0
-  id = "account-identity.from-prod.account.events.anonymized.v0"
-}
-
-import {
-  to = kafka_topic.account_identity_public_account_events
-  id = "account-identity.public.account.events"
-}
-
-import {
-  to = kafka_topic.account_identity_account_management_events
-  id = "account-identity.account.management.events"
-}
-
 resource "kafka_topic" "account_identity_account_events_v2" {
   config = {
     "compression.type" = "zstd"
