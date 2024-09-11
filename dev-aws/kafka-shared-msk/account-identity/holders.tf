@@ -16,11 +16,11 @@ module "account_identity_update_holders" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.account_identity_legacy_account_holder_events_compacted.name)]
   consume_groups   = ["account-identity.update-holders-projector"]
-  cert_common_name = "account-identity/update-holders-projector"
+  cert_common_name = "account-platform/update-holders-projector"
 }
 
 module "account_identity_legacy_account_holder_compaction" {
   source           = "../../../modules/tls-app"
   produce_topics   = [(kafka_topic.account_identity_legacy_account_holder_events_compacted.name)]
-  cert_common_name = "account-identity/legacy-account-holder-compaction"
+  cert_common_name = "account-platform/legacy-account-holder-compaction"
 }
