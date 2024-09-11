@@ -24,7 +24,7 @@ module "account_identity_update_holders" {
 module "account_identity_legacy_account_holder_compaction" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
-  consume_groups   = ["account-identity.legacy-account-holder-compaction"]
+  consume_groups   = ["account-identity.legacy-account-holders-events-compaction-relay"]
   produce_topics   = [(kafka_topic.account_identity_legacy_account_holder_events_compacted.name)]
   cert_common_name = "account-platform/legacy-account-holder-compaction"
 }
