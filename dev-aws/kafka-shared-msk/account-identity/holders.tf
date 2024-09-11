@@ -4,8 +4,10 @@ resource "kafka_topic" "account_identity_legacy_account_holder_events_compacted"
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    # keep data for 7 days
-    "retention.ms" = "604800000"
+    # infinite retention
+    "retention.ms" = "-1"
+    # compaction lag of 7 days
+    "max.compaction.lag.ms" = "604800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048588"
     "cleanup.policy"    = "compact"
