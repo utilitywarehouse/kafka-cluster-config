@@ -139,6 +139,10 @@ resource "kafka_topic" "account_identity_legacy_account_created_in_bill_events" 
     "compression.type" = "zstd"
     # infinite retention
     "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
   }
   name               = "account-identity.legacy.account.created.in.bill.events"
   partitions         = 15
@@ -150,6 +154,10 @@ resource "kafka_topic" "account_identity_legacy_account_events_private" {
     "compression.type" = "zstd"
     # infinite retention
     "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
   }
   name               = "account-identity.legacy.account.events.private"
   partitions         = 15
@@ -159,8 +167,8 @@ resource "kafka_topic" "account_identity_legacy_account_events_private" {
 resource "kafka_topic" "account_identity_legacy_account_eqdb_events" {
   config = {
     "compression.type" = "zstd"
-    # keep data for 7 days
-    "retention.ms" = "604800000"
+    # keep data for 3 days
+    "retention.ms" = "259200000"
   }
   name               = "account-identity.legacy.account.eqdb.events"
   partitions         = 15
