@@ -37,6 +37,8 @@ import {
 resource "kafka_topic" "account_identity_account_exceptions_v1" {
   config = {
     "compression.type" = "zstd"
+    # enable remote storage
+    "remote.storage.enable" = "true"
     # keep data in hot storage for 1 day
     "local.retention.ms" = "86400000"
     # infinite retention
@@ -65,6 +67,8 @@ resource "kafka_topic" "account_identity_account_exceptions_events" {
 resource "kafka_topic" "account_identity_supply_address_exception_check_events" {
   config = {
     "cleanup.policy" = "delete"
+    # enable remote storage
+    "remote.storage.enable" = "true"
     # keep data in hot storage for 1 day
     "local.retention.ms" = "86400000"
     # infinite retention
@@ -80,6 +84,8 @@ resource "kafka_topic" "account_identity_supply_address_exception_check_events" 
 resource "kafka_topic" "account_identity_supply_address_debt_exception_check_events" {
   config = {
     "cleanup.policy" = "delete"
+    # enable remote storage
+    "remote.storage.enable" = "true"
     # keep data in hot storage for 1 day
     "local.retention.ms" = "86400000"
     # infinite retention
@@ -94,6 +100,8 @@ resource "kafka_topic" "account_identity_supply_address_debt_exception_check_eve
 resource "kafka_topic" "account_identity_correspondence_address_exception_check_events" {
   config = {
     "cleanup.policy" = "delete"
+    # enable remote storage
+    "remote.storage.enable" = "true"
     # keep data in hot storage for 1 day
     "local.retention.ms" = "86400000"
     # infinite retention
@@ -108,6 +116,8 @@ resource "kafka_topic" "account_identity_correspondence_address_exception_check_
 resource "kafka_topic" "account_identity_land_registry_check_events" {
   config = {
     "compression.type" = "zstd"
+    # enable remote storage
+    "remote.storage.enable" = "true"
     # keep data in hot storage for 1 day
     "local.retention.ms" = "86400000"
     # infinite retention
@@ -121,6 +131,8 @@ resource "kafka_topic" "account_identity_land_registry_check_events" {
 resource "kafka_topic" "account_identity_correspondence_address_debt_exception_check_events" {
   config = {
     "cleanup.policy" = "delete"
+    # enable remote storage
+    "remote.storage.enable" = "true"
     # keep data in hot storage for 1 day
     "local.retention.ms" = "86400000"
     # infinite retention

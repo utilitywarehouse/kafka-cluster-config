@@ -82,6 +82,8 @@ resource "kafka_topic" "account_identity_legacy_account_events" {
     "compression.type" = "zstd"
     # infinite retention
     "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
     # keep data in hot storage for 1 day
     "local.retention.ms" = "86400000"
   }

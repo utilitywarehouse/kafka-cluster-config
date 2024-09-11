@@ -38,6 +38,8 @@ resource "kafka_topic" "account_identity_account_events_v2" {
     "compression.type" = "zstd"
     # infinite retention
     "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
     # keep data in hot storage for 3 days
     "local.retention.ms" = "259200000"
   }
@@ -52,6 +54,8 @@ resource "kafka_topic" "account_identity_account_atomic_v1" {
     "compression.type" = "zstd"
     # infinite retention
     "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
     # keep data in hot storage for 1 day
     "local.retention.ms" = "86400000"
   }
