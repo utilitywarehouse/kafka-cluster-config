@@ -8,7 +8,7 @@ resource "kafka_topic" "account_identity_account_exceptions_v1" {
     # infinite retention
     "retention.ms" = "-1"
   }
-  name               = "account-identity.account-account.exceptions.v1"
+  name               = "account-identity.account.exceptions.v1"
   partitions         = 15
   replication_factor = 3
 }
