@@ -1115,7 +1115,7 @@ module "cbc_statement_projector" {
     kafka_topic.transaction_events_v3.name,
     kafka_topic.lifecycle_events_v2.name,
   ]
-  consume_groups   = ["cbc.cbc-statement-projector-v1"]
+  consume_groups   = ["cbc.cbc-statement-projector-v1", "cbc.cbc-statement-projector-v2"]
   cert_common_name = "cbc/cbc-statement-projector"
 }
 
