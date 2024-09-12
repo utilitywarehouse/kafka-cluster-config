@@ -1,3 +1,8 @@
+import {
+  to = kafka_topic.account_identity_account_exceptions_v1
+  id = "account-identity.account.exceptions.v1"
+}
+
 resource "kafka_topic" "account_identity_account_exceptions_v1" {
   config = {
     "compression.type" = "zstd"
