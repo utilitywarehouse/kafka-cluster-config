@@ -90,3 +90,31 @@ resource "kafka_topic" "account_identity_account_management_events" {
   partitions         = 15
   replication_factor = 3
 }
+
+module "account_identity_account_atomic_v1_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
+  consume_groups   = ["account-identity.account-api-atomic-v1-indexer-aws"]
+  cert_common_name = "account-platform/account_atomic_v1_indexer"
+}
+
+module "account_identity_account_api_account_atomic_producer" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
+  cert_common_name = "account-platform/account_api_account_atomic_producer"
+}
+
+module "account_identity_account_atomic_to_internal" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
+  consume_groups   = ["account-identity.account-atomic-to-legacy-internal"]
+  produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
+  cert_common_name = "account-platform/account_atomic_to_internal"
+}
+
+module "account_identity_account_api_atomic_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
+  consume_groups   = ["account-identity.account-api-atomic-projector-cdb-aws"]
+  cert_common_name = "account-platform/account_api_atomic_projector"
+}
