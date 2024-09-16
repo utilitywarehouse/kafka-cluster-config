@@ -93,23 +93,6 @@ resource "kafka_topic" "payment_v1_public_events_cbc_topup_v3" {
   }
 }
 
-resource "kafka_topic" "payment_method_v1_public_events_cbc_topup_v3" {
-  name               = "payment-platform.payment_method.v1.public.events.cbc_topup_v3"
-  replication_factor = 3
-  partitions         = 5
-  config = {
-    "compression.type" = "zstd"
-    "retention.bytes"  = "-1"
-    # Use tiered storage
-    "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
-    "local.retention.ms" = "172800000"
-    # keep data for 30 days
-    "retention.ms"   = "2592000000"
-    "cleanup.policy" = "delete"
-  }
-}
-
 #All public events will go here. It's meant to be used by ops downstream.
 #It should not be consume by a particular domain team.
 resource "kafka_topic" "payment_v1_public_events" {
@@ -154,7 +137,6 @@ module "payment_query_service_downstream" {
     kafka_topic.payment_method_v1_public_events.name,
     # integration topics have to go there
     kafka_topic.payment_v1_public_events_cbc_topup_v3.name,
-    kafka_topic.payment_method_v1_public_events_cbc_topup_v3.name
   ]
   consume_topics = [
     kafka_topic.payment_v1_events.name,
