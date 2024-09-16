@@ -91,11 +91,6 @@ resource "kafka_topic" "account_identity_account_management_events" {
   replication_factor = 3
 }
 
-import {
-  to = kafka_topic.account_identity_to_anonymize_events
-  id = "account-identity.to.anonymize"
-}
-
 resource "kafka_topic" "account_identity_to_anonymize_events" {
   config = {
     "cleanup.policy"   = "delete"
