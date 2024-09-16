@@ -1074,8 +1074,21 @@ module "cbc_customer_consumer" {
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.customer_events_v1.name
   ]
-  consume_groups   = ["cbc.cbc-customer-api-v1"]
+  consume_groups   = ["cbc.cbc-customer-consumer-v1", "cbc.cbc-customer-api-v1"]
   cert_common_name = "cbc/cbc-customer-consumer"
+}
+
+module "cbc_customer_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.topup_events_v1.name,
+    kafka_topic.order_events_v1.name,
+    kafka_topic.verification_events_v1.name,
+    kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.customer_events_v1.name
+  ]
+  consume_groups   = ["cbc.cbc-customer-api-v1"]
+  cert_common_name = "cbc/cbc-customer-projector"
 }
 
 module "cbc_tariff_api" {
