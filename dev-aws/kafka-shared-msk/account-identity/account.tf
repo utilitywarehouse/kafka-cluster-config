@@ -90,3 +90,24 @@ resource "kafka_topic" "account_identity_account_management_events" {
   partitions         = 15
   replication_factor = 3
 }
+
+import {
+  to = kafka_topic.account_identity_to_anonymize_events
+  id = "account-identity.to.anonymize"
+}
+
+resource "kafka_topic" "account_identity_to_anonymize_events" {
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # retention of 7 days
+    "retention.ms" = "604800000"
+  }
+  name               = "account-identity.to.anonymize"
+  partitions         = 15
+  replication_factor = 3
+}
