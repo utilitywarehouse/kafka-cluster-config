@@ -112,11 +112,29 @@ resource "kafka_topic" "payment_v1_public_events" {
   }
 }
 
+resource "kafka_topic" "payment_method_v1_public_events" {
+  name               = "payment-platform.payment-method.v1.public.events"
+  replication_factor = 3
+  partitions         = 15
+  config = {
+    "compression.type" = "zstd"
+    "retention.bytes"  = "-1"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data in hot storage for 2 days
+    "local.retention.ms" = "172800000"
+    # keep data for 30 days
+    "retention.ms"   = "2592000000"
+    "cleanup.policy" = "delete"
+  }
+}
+
 module "payment_query_service_downstream" {
   source = "../../../modules/tls-app"
   produce_topics = [
     kafka_topic.payment_v1_public_events_pp_test.name,
     kafka_topic.payment_v1_public_events.name,
+    kafka_topic.payment_method_v1_public_events.name,
     # integration topics have to go there
     kafka_topic.payment_v1_public_events_cbc_topup_v3.name
   ]
@@ -126,8 +144,12 @@ module "payment_query_service_downstream" {
 }
 
 module "payment_query_service_downstream_preview" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.payment_v1_public_events_pp_test.name, kafka_topic.payment_v1_public_events.name]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.payment_v1_public_events_pp_test.name,
+    kafka_topic.payment_v1_public_events.name,
+    kafka_topic.payment_method_v1_public_events.name
+  ]
   consume_groups   = ["payment-platform.payment_query_service_downstream_preview"]
   cert_common_name = "payment-platform/payment-query-service-downstream-preview"
 }
