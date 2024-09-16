@@ -4,6 +4,8 @@ resource "kafka_topic" "di_eqdbloader_schedule" {
   partitions         = 1
   config = {
     "remote.storage.enable" = "false"
+    # 5 days
+    "retention.ms" = "432000000"
     # 1 day
     "local.retention.ms" = "86400000"
     # allow max 1 MB for a message
