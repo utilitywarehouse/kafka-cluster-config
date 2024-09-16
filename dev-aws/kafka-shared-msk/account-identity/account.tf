@@ -98,6 +98,13 @@ module "account_identity_account_atomic_v1_indexer" {
   cert_common_name = "account-platform/account_atomic_v1_indexer"
 }
 
+module "account_identity_account_events_v2_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_events_v2.name]
+  consume_groups   = ["account-identity.account-events-v2-aws"]
+  cert_common_name = "account-platform/account_events_v2_indexer"
+}
+
 module "account_identity_account_api_account_atomic_producer" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
@@ -117,4 +124,25 @@ module "account_identity_account_api_atomic_projector" {
   consume_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
   consume_groups   = ["account-identity.account-api-atomic-projector-cdb-aws"]
   cert_common_name = "account-platform/account_api_atomic_projector"
+}
+
+module "account_identity_account_v2_to_legacy" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_events_v2.name]
+  consume_groups   = ["account-identity.account-v2-to-legacy-events-relay"]
+  produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
+  cert_common_name = "account-platform/account_v2_to_legacy"
+}
+
+module "account_identity_account_api_v2_dispatcher" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_account_events_v2.name]
+  cert_common_name = "account-platform/account_api_v2_dispatcher"
+}
+
+module "account_identity_create_account_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_events_v2.name]
+  consume_groups   = ["account-identity.create-account-projector-aws"]
+  cert_common_name = "account-platform/create_account_projector"
 }
