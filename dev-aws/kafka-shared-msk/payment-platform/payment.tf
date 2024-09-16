@@ -136,7 +136,7 @@ module "payment_query_service_downstream" {
     kafka_topic.payment_v1_public_events.name,
     kafka_topic.payment_method_v1_public_events.name,
     # integration topics have to go there
-    kafka_topic.payment_v1_public_events_cbc_topup_v3.name,
+    kafka_topic.payment_v1_public_events_cbc_topup_v3.name
   ]
   consume_topics = [
     kafka_topic.payment_v1_events.name,
