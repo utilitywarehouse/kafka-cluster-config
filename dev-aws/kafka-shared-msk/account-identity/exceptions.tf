@@ -107,3 +107,11 @@ resource "kafka_topic" "account_identity_correspondence_address_debt_exception_c
   partitions         = 15
   replication_factor = 3
 }
+
+module "account_identity_account_to_land_registry_events_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_events_v2.name]
+  consume_groups   = ["account-identity.land-registry-events-relay"]
+  produce_topics   = [kafka_topic.account_identity_land_registry_check_events.name]
+  cert_common_name = "account-platform/account_to_land_registry_events_relay"
+}
