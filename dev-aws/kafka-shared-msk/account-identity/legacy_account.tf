@@ -154,3 +154,26 @@ module "account_identity_graphql_api" {
   produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name, kafka_topic.account_identity_account_exceptions_v1.name]
   cert_common_name = "account-platform/graphql_api"
 }
+
+module "account_identity_internal_legacy_account_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
+  consume_groups   = ["account-identity.legacy-account-indexer-internal-aws"]
+  cert_common_name = "account-platform/internal_legacy_account_indexer"
+}
+
+module "account_identity_from_prod_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_from_prod_account_events_anonymized_v0.name]
+  consume_groups   = ["account-identity.anonymized-from-prod-events-relay"]
+  produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
+  cert_common_name = "account-platform/from_prod_relay"
+}
+
+module "account_identity_private_to_public_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
+  consume_groups   = ["account-identity.relay-private-to-public"]
+  produce_topics   = [kafka_topic.account_identity_public_account_events.name]
+  cert_common_name = "account-platform/private_to_public_relay"
+}
