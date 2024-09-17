@@ -193,3 +193,11 @@ module "account_identity_legacy_account_created_in_bill_relay" {
   produce_topics   = [kafka_topic.account_identity_legacy_account_events.name]
   cert_common_name = "account-platform/legacy_account_created_in_bill_relay"
 }
+
+module "account_identity_legacy_to_anonymize_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_created_in_bill_events.name]
+  consume_groups   = ["account-identity.account-legacy-to-anonymize-events-relay"]
+  produce_topics   = [kafka_topic.account_identity_to_anonymize_events.name]
+  cert_common_name = "account-platform/legacy_to_anonymize_relay"
+}
