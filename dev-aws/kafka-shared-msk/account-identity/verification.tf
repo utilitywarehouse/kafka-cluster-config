@@ -1,8 +1,14 @@
-module "account_identity_verification" {
+module "account_identity_verification_api" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.account_identity_verification.name]
-  consume_topics   = [kafka_topic.account_identity_verification.name]
   cert_common_name = "auth-customer/verification-api"
+}
+
+module "account_identity_verification_processor" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_verification.name]
+  consume_groups   = ["account-identity.verification-processor"]
+  cert_common_name = "auth-customer/verification-processor"
 }
 
 resource "kafka_topic" "account_identity_verification" {
