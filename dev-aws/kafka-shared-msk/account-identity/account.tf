@@ -189,3 +189,10 @@ module "account_identity_anonymized_to_unified" {
   produce_topics   = [kafka_topic.account_identity_account_unified_events.name]
   cert_common_name = "account-platform/anonymized_to_unified"
 }
+
+module "account_identity_home_move_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["account-identity.home-move-dev"]
+  cert_common_name = "account-platform/home_move_projector"
+}
