@@ -188,3 +188,19 @@ module "account_identity_correspondence_address_debt_finance_relay" {
   produce_topics   = [kafka_topic.account_identity_correspondence_address_debt_exception_check_events.name]
   cert_common_name = "account-platform/correspondence_address_debt_finance_relay"
 }
+
+module "account_identity_legacy_correspondence_address_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.legacy-account-correspondence-address-update-events-relay"]
+  produce_topics   = [kafka_topic.account_identity_correspondence_address_exception_check_events.name]
+  cert_common_name = "account-platform/legacy_correspondence_address_relay"
+}
+
+module "account_identity_legacy_supply_address_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.legacy-account-supply-address-update-events-relay"]
+  produce_topics   = [kafka_topic.account_identity_supply_address_exception_check_events.name]
+  cert_common_name = "account-platform/legacy_supply_address_relay"
+}

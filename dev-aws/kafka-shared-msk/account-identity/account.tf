@@ -174,3 +174,18 @@ module "account_identity_to_anonymize" {
   cert_common_name = "account-platform/to_anonymize"
 }
 
+module "account_identity_account_events_compaction_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.legacy-account-change-events-compaction-relay"]
+  produce_topics   = [kafka_topic.account_identity_legacy_account_change_events_compacted.name]
+  cert_common_name = "account-platform/account_events_compaction_relay"
+}
+
+module "account_identity_anonymized_to_unified" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_to_anonymize_events.name]
+  consume_groups   = ["account-identity.unified-anonymized-accounts-relay"]
+  produce_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  cert_common_name = "account-platform/anonymized_to_unified"
+}

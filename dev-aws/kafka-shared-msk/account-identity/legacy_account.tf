@@ -177,3 +177,19 @@ module "account_identity_private_to_public_relay" {
   produce_topics   = [kafka_topic.account_identity_public_account_events.name]
   cert_common_name = "account-platform/private_to_public_relay"
 }
+
+module "account_identity_legacy_account_braze_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events_compacted.name]
+  consume_groups   = ["account-identity.legacy-account-braze-relay"]
+  produce_topics   = [kafka_topic.account_identity_legacy_account_braze_events_compacted.name]
+  cert_common_name = "account-platform/legacy_account_braze_relay"
+}
+
+module "account_identity_legacy_account_created_in_bill_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_created_in_bill_events.name]
+  consume_groups   = ["account-identity.created-in-bill-relay"]
+  produce_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  cert_common_name = "account-platform/legacy_account_created_in_bill_relay"
+}
