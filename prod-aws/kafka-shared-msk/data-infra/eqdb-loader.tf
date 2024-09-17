@@ -15,6 +15,12 @@ resource "kafka_topic" "di_eqdbloader_schedule" {
   }
 }
 
+moved {
+  from = kafka_topic.di_eqdbloader_scheduler
+  to   = kafka_topic.di_eqdbloader_schedule
+}
+
+
 module "di_eqdbloader_scheduler" {
   source = "../../../modules/tls-app"
   produce_topics = [
