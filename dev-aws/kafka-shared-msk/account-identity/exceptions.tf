@@ -116,13 +116,6 @@ module "account_identity_account_to_land_registry_events_relay" {
   cert_common_name = "account-platform/account_to_land_registry_events_relay"
 }
 
-module "account_identity_debt_events_relay" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
-  consume_groups   = ["account-identity.legacy-account-creation-corrsep-address-debt-events-relay"]
-  produce_topics   = [kafka_topic.account_identity_correspondence_address_debt_exception_check_events.name]
-  cert_common_name = "account-platform/debt_events_relay"
-}
 
 module "account_identity_correspondence_address_relay" {
   source           = "../../../modules/tls-app"
@@ -132,12 +125,12 @@ module "account_identity_correspondence_address_relay" {
   cert_common_name = "account-platform/correspondence_address_relay"
 }
 
-module "account_identity_supply_address_debt_relay" {
+module "account_identity_internal_supply_address_debt_relay" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
   consume_groups   = ["account-identity.legacy-account-creation-supply-address-debt-events-relay"]
   produce_topics   = [kafka_topic.account_identity_supply_address_debt_exception_check_events.name]
-  cert_common_name = "account-platform/supply_address_debt_relay"
+  cert_common_name = "account-platform/internal_supply_address_debt_relay"
 }
 
 module "account_identity_supply_address_relay" {
@@ -148,3 +141,50 @@ module "account_identity_supply_address_relay" {
   cert_common_name = "account-platform/supply_address_relay"
 }
 
+module "account_identity_supply_address_debt_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.legacy-account-update-supply-address-debt-events-relay"]
+  produce_topics   = [kafka_topic.account_identity_supply_address_debt_exception_check_events.name]
+  cert_common_name = "account-platform/supply_address_debt_relay"
+}
+
+module "account_identity_supply_address_debt_finance_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_finance_events_compacted.name]
+  consume_groups   = ["account-identity.finance-supply-address-debt-events-relay-003"]
+  produce_topics   = [kafka_topic.account_identity_supply_address_debt_exception_check_events.name]
+  cert_common_name = "account-platform/supply_address_debt_finance_relay"
+}
+# TODO reads from proximo still
+# module "account_identity_debt_events_compaction_relay" {
+#     source           = "../../../modules/tls-app"
+#     consume_topics   = [kafka_topic.account_identity_correspondence_address_debt_exception_check_events.name]
+#     consume_groups   = ["account-identity.correspondence-address-debt-events-compaction-relay"]
+#     produce_topics   = [kafka_topic.account_identity_correspondence_address_debt_exception_check_events.name]
+#     cert_common_name = "account-platform/debt_events_compaction_relay"
+# }
+
+module "account_identity_debt_events_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.legacy-account-update-correspondence-address-debt-events-relay"]
+  produce_topics   = [kafka_topic.account_identity_correspondence_address_debt_exception_check_events.name]
+  cert_common_name = "account-platform/debt_events_relay"
+}
+
+module "account_identity_debt_corresp_events_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
+  consume_groups   = ["account-identity.legacy-account-creation-corrsep-address-debt-events-relay"]
+  produce_topics   = [kafka_topic.account_identity_correspondence_address_debt_exception_check_events.name]
+  cert_common_name = "account-platform/debt_corresp_events_relay"
+}
+
+module "account_identity_correspondence_address_debt_finance_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_finance_events_compacted.name]
+  consume_groups   = ["account-identity.finance-correspondence-address-debt-events-relay-003"]
+  produce_topics   = [kafka_topic.account_identity_correspondence_address_debt_exception_check_events.name]
+  cert_common_name = "account-platform/correspondence_address_debt_finance_relay"
+}
