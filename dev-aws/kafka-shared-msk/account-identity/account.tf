@@ -203,3 +203,80 @@ module "account_identity_graphql_projector" {
   consume_groups   = ["account-identity.graphql-projector"]
   cert_common_name = "account-platform/graphql_projector"
 }
+
+module "account_identity_account_events_anonymized_v1_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_dev_account_events_anonymized_v0.name]
+  consume_groups   = ["account-identity.dev-account-events-anonymized-v0-indexer"]
+  cert_common_name = "account-platform/account_events_anonymized_v1_indexer"
+}
+
+module "account_identity_account_events_anonymized_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_from_prod_account_events_anonymized_v0.name]
+  consume_groups   = ["account_identity.from-prod-account-events-anonymized-v0"]
+  cert_common_name = "account-platform/account_events_anonymized_indexer"
+}
+
+module "account_identity_account_events_created_in_bill_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_created_in_bill_events.name]
+  consume_groups   = ["account-identity.legacy-account-created-in-bill-indexer"]
+  cert_common_name = "account-platform/account_events_created_in_bill_indexer"
+}
+
+module "account_identity_account_exceptions_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_exceptions_events.name]
+  consume_groups   = ["account-identity.account-exceptions-events-aws"]
+  cert_common_name = "account-platform/account_exceptions_events_indexer"
+}
+
+module "account_identity_account_exceptions_v1_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_exceptions_v1.name]
+  consume_groups   = ["account-identity.account-exceptions-v1"]
+  cert_common_name = "account-platform/account_exceptions_v1_indexer"
+}
+
+module "account_identity_unified_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["account-identity.account-unified-events"]
+  cert_common_name = "account-platform/unified_events_indexer"
+}
+
+module "account_identity_land_registry_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_land_registry_check_events.name]
+  consume_groups   = ["account-identity.land-registry-aws"]
+  cert_common_name = "account-platform/land_registry_indexer"
+}
+
+module "account_identity_braze_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_braze_events_compacted.name]
+  consume_groups   = ["account_identity.legacy-account-braze-indexer-aws"]
+  cert_common_name = "account-platform/braze_events_indexer"
+}
+
+module "account_identity_legacy_account_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.legacy-account-indexer-aws"]
+  cert_common_name = "account-platform/legacy_account_events_indexer"
+}
+
+module "account_identity_legacy_account_events_compacted_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_change_events_compacted.name]
+  consume_groups   = ["account-identity.legacy-account-compacted-indexer-aws"]
+  cert_common_name = "account-platform/legacy_account_events_compacted_indexer"
+}
+
+module "account_identity_public_account_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_public_account_events.name]
+  consume_groups   = ["account-identity.dev-public-account-events-indexer"]
+  cert_common_name = "account-platform/public_account_events_indexer"
+}
