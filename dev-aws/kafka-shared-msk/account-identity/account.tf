@@ -280,3 +280,18 @@ module "account_identity_public_account_events_indexer" {
   consume_groups   = ["account-identity.dev-public-account-events-indexer"]
   cert_common_name = "account-platform/public_account_events_indexer"
 }
+
+module "account_identity_account_number_anonymized_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_dev_account_events_anonymized_v0.name]
+  consume_groups   = ["account-identity.account-number-anonymized-projector-source"]
+  cert_common_name = "account-platform/account_number_anonymized_projector"
+}
+
+module "account_identity_account_number_seed_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_dev_account_events_anonymized_v0.name]
+  consume_groups   = ["account-identity.account-number-seed-projector-source"]
+  cert_common_name = "account-platform/account_number_seed_projector"
+}
+

@@ -242,7 +242,14 @@ module "account_identity_legacy_account_translator" {
 module "account_identity_bill_writer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
-  produce_topics   = [] # also needs bill analytics topic
   consume_groups   = ["account-identity.bill-writer"]
   cert_common_name = "account-platform/bill_writer"
+}
+
+module "account_identity_holders_mapper" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.account-holders-mapper"]
+  produce_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  cert_common_name = "account-platform/holders_mapper"
 }
