@@ -295,3 +295,17 @@ module "account_identity_account_number_seed_projector" {
   cert_common_name = "account-platform/account_number_seed_projector"
 }
 
+module "account_identity_events_anonymizer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_to_anonymize_events.name]
+  consume_groups   = ["account-identity.account-events-anonymizer-source"]
+  produce_topics   = [kafka_topic.account_identity_dev_account_events_anonymized_v0.name]
+  cert_common_name = "account-platform/events_anonymizer"
+}
+
+module "account_identity_update_account_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_change_events_compacted.name]
+  consume_groups   = ["account-identity.update-account-projector-aws"]
+  cert_common_name = "account-platform/update_account_projector"
+}
