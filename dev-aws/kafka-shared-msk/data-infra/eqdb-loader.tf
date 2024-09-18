@@ -1,7 +1,7 @@
 resource "kafka_topic" "di_eqdbloader_schedule" {
   name               = "data-infra.eqdb-loader.schedule"
   replication_factor = 3
-  partitions         = 1
+  partitions         = 12
   config = {
     "remote.storage.enable" = "false"
     # 5 days
