@@ -11,6 +11,13 @@ module "account_identity_verification_processor" {
   cert_common_name = "auth-customer/verification-processor"
 }
 
+module "account_identity_verification_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_verification.name]
+  consume_groups   = ["ai-verification-events-v1"]
+  cert_common_name = "account-platform/ai-verification-events-v1-indexer"
+}
+
 resource "kafka_topic" "account_identity_verification" {
   config = {
     "compression.type" = "zstd"
