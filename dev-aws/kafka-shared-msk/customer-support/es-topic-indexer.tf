@@ -1,4 +1,4 @@
-module "es-topic_indexer" {
+module "es_topic_indexer" {
   source           = "../../../modules/tls-app"
   cert_common_name = "crm/topic-indexer-msk"
   consume_topics   = [(kafka_topic.vulnerability_v7.name)]
