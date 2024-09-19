@@ -14,7 +14,7 @@ module "account_identity_verification_processor" {
 module "account_identity_verification_indexer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_verification.name]
-  consume_groups   = ["ai-verification-events-v1"]
+  consume_groups   = ["account-identity.ai-verification-events-v1"]
   cert_common_name = "account-platform/ai-verification-events-v1-indexer"
 }
 
