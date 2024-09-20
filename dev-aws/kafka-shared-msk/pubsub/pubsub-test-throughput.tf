@@ -33,7 +33,7 @@ resource "kafka_acl" "throughput_consumer_group_acl" {
 resource "kafka_acl" "throughput_consumer_topic_acl" {
   resource_name       = kafka_topic.pubsub_throughput_test.name
   resource_type       = "Topic"
-  acl_principal       = "User:CN=dev-enablement/throughput-test-consumer"
+  acl_principal       = "User:CN=pubsub/throughput-test-consumer"
   acl_host            = "*"
   acl_operation       = "Read"
   acl_permission_type = "Allow"
