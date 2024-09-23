@@ -4,11 +4,11 @@ module "account_identity_verification_api" {
   cert_common_name = "auth-customer/verification-api"
 }
 
-module "account_identity_verification_processor" {
+module "account_identity_verification_link_sender" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_verification.name]
-  consume_groups   = ["account-identity.verification-processor"]
-  cert_common_name = "auth-customer/verification-processor"
+  consume_groups   = ["account-identity.verification-link-sender"]
+  cert_common_name = "auth-customer/verification-link-sender"
 }
 
 module "account_identity_verification_indexer" {
