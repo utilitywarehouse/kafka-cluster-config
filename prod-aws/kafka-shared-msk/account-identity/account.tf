@@ -48,6 +48,11 @@ resource "kafka_topic" "account_identity_public_account_events" {
     "compression.type" = "zstd"
     # infinite retention
     "retention.ms" = "-1"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+
   }
   name               = "account-identity.public.account.events"
   partitions         = 15
