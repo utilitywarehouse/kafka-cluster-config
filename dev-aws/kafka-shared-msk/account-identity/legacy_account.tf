@@ -129,7 +129,7 @@ resource "kafka_topic" "account_identity_legacy_account_eqdb_events" {
 
 module "cbc_account_events_relay_v2" {
   source           = "../../../modules/tls-app"
-  consume_groups   = ["cbc.cbc-account-events-relay-v2"]
+  consume_groups   = ["account-identity.cbc-account-events-relay-v2"]
   consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
   cert_common_name = "cbc/cbc-account-events-relay-v2"
 }
