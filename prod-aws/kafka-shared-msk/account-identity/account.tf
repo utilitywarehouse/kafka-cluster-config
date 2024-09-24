@@ -67,6 +67,7 @@ resource "kafka_topic" "account_identity_account_management_events" {
     "local.retention.ms" = "86400000"
     # enable remote storage
     "remote.storage.enable" = "true"
+    "retention.ms"          = -1
   }
   name               = "account-identity.account-management-events-green"
   partitions         = 1
