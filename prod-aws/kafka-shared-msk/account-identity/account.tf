@@ -89,3 +89,50 @@ resource "kafka_topic" "account_identity_to_anonymize_events" {
   partitions         = 15
   replication_factor = 3
 }
+
+resource "kafka_topic" "account_identity_account_events_v3" {
+  config = {
+    "compression.type" = "zstd"
+    # infinite retention
+    "retention.ms" = "-1"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+
+  }
+  name               = "account-identity.account.events.v3"
+  partitions         = 15
+  replication_factor = 3
+}
+
+resource "kafka_topic" "account_identity_address_lookup_analytics_v1" {
+  config = {
+    "compression.type" = "zstd"
+    # infinite retention
+    "retention.ms" = "-1"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+
+  }
+  name               = "account-identity.address.lookup.analytics.v1"
+  partitions         = 15
+  replication_factor = 3
+}
+resource "kafka_topic" "account_identity_analytics_bill_change_events" {
+  config = {
+    "compression.type" = "zstd"
+    # infinite retention
+    "retention.ms" = "-1"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+
+  }
+  name               = "account-identity.analytics.bill.change.events"
+  partitions         = 15
+  replication_factor = 3
+}
