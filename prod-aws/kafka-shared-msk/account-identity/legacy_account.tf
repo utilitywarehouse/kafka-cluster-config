@@ -58,6 +58,10 @@ resource "kafka_topic" "account_identity_legacy_account_change_events_compacted"
   replication_factor = 3
 }
 
+import {
+  to = kafka_topic.account_identity_legacy_account_braze_events_compacted
+  id = "account-identity.legacy.account.braze.events.compacted"
+}
 resource "kafka_topic" "account_identity_legacy_account_braze_events_compacted" {
   config = {
     "cleanup.policy" = "compact"
@@ -68,7 +72,7 @@ resource "kafka_topic" "account_identity_legacy_account_braze_events_compacted" 
     "compression.type" = "zstd"
   }
   name               = "account-identity.legacy.account.braze.events.compacted"
-  partitions         = 15
+  partitions         = 50
   replication_factor = 3
 }
 
