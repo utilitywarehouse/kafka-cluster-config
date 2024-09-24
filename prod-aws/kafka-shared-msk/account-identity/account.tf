@@ -61,13 +61,12 @@ resource "kafka_topic" "account_identity_public_account_events" {
 
 resource "kafka_topic" "account_identity_account_management_events" {
   config = {
-    "cleanup.policy"   = "compact"
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-
-    # compaction lag of 7 days
-    "max.compaction.lag.ms" = "604800000"
-    # infinite retention
-    "retention.ms" = "-1"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
   }
   name               = "account-identity.account-management-events-green"
   partitions         = 1
