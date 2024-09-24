@@ -72,7 +72,7 @@ resource "kafka_topic" "account_identity_legacy_account_braze_events_compacted" 
     "compression.type" = "zstd"
   }
   name               = "account-identity.legacy.account.braze.events.compacted"
-  partitions         = 15
+  partitions         = 50
   replication_factor = 3
 }
 
