@@ -91,3 +91,19 @@ resource "kafka_topic" "account_identity_correspondence_address_debt_exception_c
   partitions         = 15
   replication_factor = 3
 }
+
+resource "kafka_topic" "account_identity_land_registry_check_events_test" {
+  config = {
+    "compression.type" = "zstd"
+    # infinite retention
+    "retention.ms" = "-1"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+
+  }
+  name               = "account-identity.land-registry.check.events.test"
+  partitions         = 15
+  replication_factor = 3
+}
