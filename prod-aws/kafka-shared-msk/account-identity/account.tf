@@ -70,7 +70,7 @@ resource "kafka_topic" "account_identity_account_management_events" {
     "retention.ms" = "-1"
   }
   name               = "account-identity.account-management-events-green"
-  partitions         = 15
+  partitions         = 1
   replication_factor = 3
 }
 
