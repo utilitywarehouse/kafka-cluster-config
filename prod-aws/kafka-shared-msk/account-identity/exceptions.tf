@@ -36,8 +36,8 @@ resource "kafka_topic" "account_identity_supply_address_debt_exception_check_eve
     "remote.storage.enable" = "true"
     # keep data in hot storage for 1 day
     "local.retention.ms" = "86400000"
-    # infinite retention
-    "retention.ms"     = "-1"
+    # keep data for 7 days
+    "retention.ms"     = "604800000"
     "compression.type" = "zstd"
   }
   name               = "account-identity.supply.address.debt.exception.check.events"
@@ -52,8 +52,8 @@ resource "kafka_topic" "account_identity_correspondence_address_exception_check_
     "remote.storage.enable" = "true"
     # keep data in hot storage for 1 day
     "local.retention.ms" = "86400000"
-    # infinite retention
-    "retention.ms"     = "-1"
+    # keep data for 7 days
+    "retention.ms"     = "604800000"
     "compression.type" = "zstd"
   }
   name               = "account-identity.correspondence.address.exception.check.events"
@@ -83,8 +83,8 @@ resource "kafka_topic" "account_identity_correspondence_address_debt_exception_c
     "remote.storage.enable" = "true"
     # keep data in hot storage for 1 day
     "local.retention.ms" = "86400000"
-    # infinite retention
-    "retention.ms"     = "-1"
+    # keep data for 7 days
+    "retention.ms"     = "604800000"
     "compression.type" = "zstd"
   }
   name               = "account-identity.correspondence.address.debt.exception.check.events"
