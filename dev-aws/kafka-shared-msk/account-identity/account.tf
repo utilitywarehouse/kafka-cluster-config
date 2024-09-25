@@ -76,10 +76,6 @@ resource "kafka_topic" "account_identity_public_account_events" {
   replication_factor = 3
 }
 
-import {
-  to = kafka_topic.account_identity_account_management_events
-  id = "account-identity.account-management-events"
-}
 resource "kafka_topic" "account_identity_account_management_events" {
   config = {
     "cleanup.policy"   = "delete"
