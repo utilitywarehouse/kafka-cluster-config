@@ -86,7 +86,7 @@ resource "kafka_topic" "account_identity_account_management_events" {
     # infinite retention
     "retention.ms" = "-1"
   }
-  name               = "account-identity.account.management.events"
+  name               = "account-identity.account-management-events"
   partitions         = 15
   replication_factor = 3
 }
