@@ -4,11 +4,21 @@ repos:
   hooks:
     - id: terraform_fmt
     - id: terraform_tflint
+      name: Validate with tflint the uw hosted team configs
       args:
-        - --args=--config=__GIT_WORKING_DIR__/.tflint.hcl
+        - --args=--config=__GIT_WORKING_DIR__/.tflint-uw-team-hosted.hcl
         # use compact, so that errors will be reported by the GH action see https://github.com/terraform-linters/setup-tflint?tab=readme-ov-file#checks
         - --args=--format=compact
-        - --hook-config=--delegate-chdir
+#        - --hook-config=--delegate-chdir
+      exclude: "^.*/kafka-shared-msk/.*$"
+    - id: terraform_tflint
+      name: Validate with tflint the MSK team configs
+      args:
+        - --args=--config=__GIT_WORKING_DIR__/.tflint-msk.hcl
+        # use compact, so that errors will be reported by the GH action see https://github.com/terraform-linters/setup-tflint?tab=readme-ov-file#checks
+        - --args=--format=compact
+#        - --hook-config=--delegate-chdir
+      files: "^.*/kafka-shared-msk/.*$"
     - id: terraform_validate
       args:
         # for local cached .terraform folders. Explanations in https://github.com/antonbabenko/pre-commit-terraform?tab=readme-ov-file#terraform_validate
