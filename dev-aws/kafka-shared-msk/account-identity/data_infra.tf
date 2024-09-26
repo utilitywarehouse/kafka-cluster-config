@@ -1,9 +1,9 @@
-# module "account_identity_di_addr_lookup" {
-#   source           = "../../../modules/tls-app"
-#   consume_topics   = [kafka_topic.address_lookup_analytics]
-#   consume_groups   = ["account-identity.di-kafka-source-address-lookup-analytics"]
-#   cert_common_name = "account-platform/di_addr_lookup"
-# }
+module "account_identity_di_addr_lookup" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_address_lookup_analytics_v1]
+  consume_groups   = ["account-identity.di-kafka-source-address-lookup-analytics"]
+  cert_common_name = "account-platform/di_addr_lookup"
+}
 
 module "account_identity_di_exceptions" {
   source         = "../../../modules/tls-app"
