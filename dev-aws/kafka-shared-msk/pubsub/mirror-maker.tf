@@ -16,7 +16,7 @@ resource "kafka_acl" "mirror_maker_group_access" {
   acl_permission_type = "Allow"
 }
 
-resource "kafka_acl" "mirror_maker_cluster_access" {
+resource "kafka_acl" "mirror-maker_cluster_access" {
   resource_name                = "kafka-cluster"
   resource_type                = "Cluster"
   acl_principal                = "User:CN=pubsub/mirror-maker"
