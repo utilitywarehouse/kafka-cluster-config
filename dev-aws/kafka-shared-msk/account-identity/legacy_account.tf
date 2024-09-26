@@ -234,7 +234,7 @@ module "account_identity_legacy_account_mux" {
 module "account_identity_legacy_account_projector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_legacy_account_changelog_events.name, kafka_topic.account_identity_legacy_account_events.name]
-  consume_groups   = ["account-identity.legacy-account-projector"]
+  consume_groups   = ["account-identity.legacy-account-projector-aws"]
   cert_common_name = "account-platform/legacy_account_projector"
 }
 
