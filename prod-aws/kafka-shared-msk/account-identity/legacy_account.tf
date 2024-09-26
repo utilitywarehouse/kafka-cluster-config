@@ -135,3 +135,17 @@ resource "kafka_topic" "account_identity_legacy_account_eqdb_events" {
   replication_factor = 3
 }
 
+
+module "account_identity_legacy_dispatcher" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
+  cert_common_name = "account-platform/legacy_dispatcher"
+}
+
+
+module "account_identity_bill_writer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
+  consume_groups   = ["account-identity.bill-writer"]
+  cert_common_name = "account-platform/bill_writer"
+}

@@ -136,3 +136,47 @@ resource "kafka_topic" "account_identity_analytics_bill_change_events" {
   partitions         = 15
   replication_factor = 3
 }
+
+module "account_identity_account_api_account_atomic_producer" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
+  cert_common_name = "account-platform/account_api_account_atomic_producer"
+}
+
+module "account_identity_account_api_atomic_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
+  consume_groups   = ["account-identity.account-api-atomic-projector-cdb"]
+  cert_common_name = "account-platform/account_api_atomic_projector"
+}
+
+module "account_identity_create_account_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [kafka_topic.account_identity_account_events_v2.name
+  ]
+  consume_groups = [
+    "account-identity.create-account-projector"
+  ]
+  cert_common_name = "account-platform/create_account_projector"
+}
+
+
+module "account_identity_update_account_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_change_events_compacted.name]
+  consume_groups   = ["account-identity.update-account-projector"]
+  cert_common_name = "account-platform/update_account_projector"
+}
+
+module "account_identity_account_api_v2_dispatcher" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_account_events_v2.name]
+  cert_common_name = "account-platform/account_api_v2_dispatcher"
+}
+
+module "account_identity_account_number_seed_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["account-identity.account-number-seed-projector-source"]
+  cert_common_name = "account-platform/account_number_seed_projector"
+}
