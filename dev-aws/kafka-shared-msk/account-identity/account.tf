@@ -185,7 +185,7 @@ module "account_identity_account_events_compaction_relay" {
 
 module "account_identity_anonymized_to_unified" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.account_identity_to_anonymize_events.name]
+  consume_topics   = [kafka_topic.account_identity_from_prod_account_events_anonymized_v0.name]
   consume_groups   = ["account-identity.unified-anonymized-accounts-relay"]
   produce_topics   = [kafka_topic.account_identity_account_unified_events.name]
   cert_common_name = "account-platform/anonymized_to_unified"
@@ -257,7 +257,7 @@ module "account_identity_land_registry_indexer" {
 module "account_identity_braze_events_indexer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_legacy_account_braze_events_compacted.name]
-  consume_groups   = ["account_identity.legacy-account-braze-indexer-aws"]
+  consume_groups   = ["account-identity.legacy-account-braze-indexer-aws"]
   cert_common_name = "account-platform/braze_events_indexer"
 }
 
@@ -270,7 +270,7 @@ module "account_identity_legacy_account_events_indexer" {
 
 module "account_identity_legacy_account_events_compacted_indexer" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.account_identity_legacy_account_change_events_compacted.name]
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events_compacted.name]
   consume_groups   = ["account-identity.legacy-account-compacted-indexer-aws"]
   cert_common_name = "account-platform/legacy_account_events_compacted_indexer"
 }
@@ -291,7 +291,7 @@ module "account_identity_account_number_anonymized_projector" {
 
 module "account_identity_account_number_seed_projector" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.account_identity_dev_account_events_anonymized_v0.name]
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
   consume_groups   = ["account-identity.account-number-seed-projector-source"]
   cert_common_name = "account-platform/account_number_seed_projector"
 }
