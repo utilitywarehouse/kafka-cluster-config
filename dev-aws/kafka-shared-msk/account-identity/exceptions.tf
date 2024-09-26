@@ -136,7 +136,7 @@ module "account_identity_internal_supply_address_debt_relay" {
 module "account_identity_supply_address_relay" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
-  consume_groups   = ["account-identity.legacy-account-supply-address-update-events-relay"]
+  consume_groups   = ["account-identity.legacy-account-supply-address-creation-events-relay"]
   produce_topics   = [kafka_topic.account_identity_supply_address_exception_check_events.name]
   cert_common_name = "account-platform/supply_address_relay"
 }
