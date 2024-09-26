@@ -35,7 +35,8 @@ module "account_identity_proximo" {
     "account-identity.ordering-platform-william-account-history",
     "account-identity.partner-customer-account-number-api-v1",
     "account-identity.dex-new-account-application-handler",
-    "account-identity.debt-collection-comms-api-accounts"
+    "account-identity.debt-collection-comms-api-accounts",
+    "account-platform.fixed-line-accounts-legacy-events"
   ]
   produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name, kafka_topic.account_identity_account_management_events.name]
   cert_common_name = "account-platform/proximo"
