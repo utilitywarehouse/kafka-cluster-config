@@ -147,5 +147,7 @@ resource "kafka_topic" "transition_bex_fulfilment_request" {
     "max.message.bytes"  = "104857600"
     "compression.type"   = "zstd"
     "cleanup.policy"     = "delete"
+    "retention.ms"      = "604800000"
+    "retention.bytes"    = "1006632960"
   }
 }
