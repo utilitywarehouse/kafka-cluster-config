@@ -180,3 +180,45 @@ module "account_identity_account_number_seed_projector" {
   consume_groups   = ["account-identity.account-number-seed-projector-source"]
   cert_common_name = "account-platform/account_number_seed_projector"
 }
+
+module "account_identity_account_atomic_v1_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
+  consume_groups   = ["account-identity.account-api-atomic-v1-indexer-aws"]
+  cert_common_name = "account-platform/account_atomic_v1_indexer"
+}
+
+module "account_identity_account_events_created_in_bill_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_created_in_bill_events.name]
+  consume_groups   = ["account-identity.legacy-account-created-in-bill-indexer"]
+  cert_common_name = "account-platform/account_events_created_in_bill_indexer"
+}
+
+module "account_identity_account_events_v2_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_events_v2.name]
+  consume_groups   = ["account-identity.account-events-v2-aws"]
+  cert_common_name = "account-platform/account_events_v2_indexer"
+}
+
+module "account_identity_account_events_v3_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_events_v3.name]
+  consume_groups   = ["account-identity.account-events-v2-aws"]
+  cert_common_name = "account-platform/account_events_v3_indexer"
+}
+
+module "account_identity_unified_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["account-identity.account-unified-events-indexer-aws"]
+  cert_common_name = "account-platform/unified_events_indexer"
+}
+
+module "account_identity_to_anonymize_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_to_anonymize_events.name]
+  consume_groups   = ["account-identity.account-to-anonymize-events-indexer-aws"]
+  cert_common_name = "account-platform/to_anonymize_events_indexer"
+}

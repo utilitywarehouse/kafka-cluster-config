@@ -135,17 +135,57 @@ resource "kafka_topic" "account_identity_legacy_account_eqdb_events" {
   replication_factor = 3
 }
 
-
 module "account_identity_legacy_dispatcher" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
   cert_common_name = "account-platform/legacy_dispatcher"
 }
 
-
 module "account_identity_bill_writer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
   consume_groups   = ["account-identity.bill-writer"]
   cert_common_name = "account-platform/bill_writer"
+}
+
+module "account_identity_braze_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_braze_events_compacted.name]
+  consume_groups   = ["account-identity.legacy-account-braze-indexer-aws"]
+  cert_common_name = "account-platform/braze_events_indexer"
+}
+
+module "account_identity_legacy_account_changelog_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_changelog_events.name]
+  consume_groups   = ["account-identity.legacy-account-changelog-indexer-aws"]
+  cert_common_name = "account-platform/legacy_account_changelog_events_indexer"
+}
+
+module "account_identity_legacy_account_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.legacy-account-indexer-aws"]
+  cert_common_name = "account-platform/legacy_account_events_indexer"
+}
+
+module "account_identity_legacy_account_events_compacted_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events_compacted.name]
+  consume_groups   = ["account-identity.legacy-account-compacted-indexer-aws"]
+  cert_common_name = "account-platform/legacy_account_events_compacted_indexer"
+}
+
+module "account_identity_internal_legacy_account_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
+  consume_groups   = ["account-identity.legacy-account-indexer-internal-aws"]
+  cert_common_name = "account-platform/internal_legacy_account_indexer"
+}
+
+module "account_identity_private_legacy_account_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events_private.name]
+  consume_groups   = ["account-identity.legacy-account-indexer-private-aws"]
+  cert_common_name = "account-platform/private_legacy_account_indexer"
 }
