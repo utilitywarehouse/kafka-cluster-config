@@ -148,7 +148,7 @@ resource "kafka_topic" "transition_bex_fulfilment_request" {
     "compression.type"   = "zstd"
     "cleanup.policy"     = "delete"
     # keep data for 7 days
-    "retention.ms"       = "604800000"
-    "retention.bytes"    = "1006632960"
+    "retention.ms"    = "604800000"
+    "retention.bytes" = "1006632960"
   }
 }
