@@ -144,8 +144,8 @@ resource "kafka_topic" "transition_bex_fulfilment_request" {
     "remote.storage.enable" = "true"
     # keep data in hot storage for 1 day
     "local.retention.ms" = "86400000"
-    "max.message.bytes" = "104857600"
-    "compression.type"  = "zstd"
-    "cleanup.policy"    = "delete"
+    "max.message.bytes"  = "104857600"
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
