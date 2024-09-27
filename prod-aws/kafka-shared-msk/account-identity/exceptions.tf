@@ -107,3 +107,24 @@ resource "kafka_topic" "account_identity_land_registry_check_events_test" {
   partitions         = 15
   replication_factor = 3
 }
+
+module "account_identity_account_exceptions_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_exceptions_events.name]
+  consume_groups   = ["account-identity.account-exceptions-events-aws"]
+  cert_common_name = "account-platform/account_exceptions_events_indexer"
+}
+
+module "account_identity_account_exceptions_v1_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_exceptions_v1.name]
+  consume_groups   = ["account-identity.account-exceptions-v1-aws"]
+  cert_common_name = "account-platform/account_exceptions_v1_indexer"
+}
+
+module "account_identity_land_registry_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_land_registry_check_events.name]
+  consume_groups   = ["account-identity.land-registry-aws"]
+  cert_common_name = "account-platform/land_registry_indexer"
+}
