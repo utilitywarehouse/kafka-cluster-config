@@ -159,10 +159,11 @@ module "account_identity_account_api_v2_dispatcher" {
 
 module "account_identity_create_account_projector" {
   source = "../../../modules/tls-app"
-  consume_topics = [kafka_topic.account_identity_account_events_v2.name
+  consume_topics = [kafka_topic.account_identity_account_events_v2.name, kafka_topic.account_identity_legacy_account_events.name
   ]
   consume_groups = [
-    "account-identity.create-account-projector-aws"
+    "account-identity.create-account-projector-aws",
+    "account-identity.create-account-projector-data-fix-aws"
   ]
   cert_common_name = "account-platform/create_account_projector"
 }
