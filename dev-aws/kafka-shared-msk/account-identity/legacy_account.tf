@@ -264,6 +264,6 @@ module "account_identity_holders_mapper" {
 module "account_identity_legacy_acount_change_event_uswitch_reporter" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_legacy_account_change_events_compacted.name]
-  consume_groups   = ["customer-proposition.uswitch-reporter"]
+  consume_groups   = ["account-identity.uswitch-reporter"]
   cert_common_name = "customer-proposition/uswitch-reporter-account-consumer"
 }
