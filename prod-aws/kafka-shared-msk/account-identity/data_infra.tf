@@ -23,7 +23,7 @@ module "account_identity_di_exceptions" {
 
 module "account_identity_di_legacy_account" {
   source         = "../../../modules/tls-app"
-  consume_topics = [kafka_topic.account_identity_internal_legacy_account_events.name, kafka_topic.account_identity_legacy_account_events.name, kafka_topic.account_identity_legacy_account_braze_events_compacted.name]
+  consume_topics = [kafka_topic.account_identity_internal_legacy_account_events.name, kafka_topic.account_identity_legacy_account_events.name, kafka_topic.account_identity_legacy_account_braze_events_compacted.name, kafka_topic.account_identity_analytics_bill_change_events.name]
   consume_groups = ["account-identity.di-kafka-source-account-dob-one",
     "account-identity.di-kafka-source-account-dob-two",
     "account-identity.di-kafka-source-account-label",
@@ -41,6 +41,7 @@ module "account_identity_di_legacy_account" {
     "account-identity.di-kafka-source-supply-landline",
     "account-identity.di-kafka-source-supply-mobile",
     "account-identity.di-kafka-source-supply-name",
+    "account-identity.di-kafka-source-bill-change"
   ]
   cert_common_name = "account-platform/di_legacy_account"
 }
