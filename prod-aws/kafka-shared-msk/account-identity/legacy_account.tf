@@ -189,3 +189,10 @@ module "account_identity_private_legacy_account_indexer" {
   consume_groups   = ["account-identity.legacy-account-indexer-private-aws"]
   cert_common_name = "account-platform/private_legacy_account_indexer"
 }
+
+module "account_identity_legacy_account_change_event_uswitch_reporter" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_change_events_compacted.name]
+  consume_groups   = ["account-identity.uswitch-reporter"]
+  cert_common_name = "customer-proposition/uswitch-reporter-account-consumer"
+}

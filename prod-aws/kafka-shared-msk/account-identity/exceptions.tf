@@ -128,3 +128,10 @@ module "account_identity_land_registry_indexer" {
   consume_groups   = ["account-identity.land-registry-aws"]
   cert_common_name = "account-platform/land_registry_indexer"
 }
+
+module "account_identity_exceptions_uswitch_reporter" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_exceptions_events.name]
+  consume_groups   = ["account-identity.uswitch-reporter"]
+  cert_common_name = "customer-proposition/uswitch-reporter-account-consumer"
+}

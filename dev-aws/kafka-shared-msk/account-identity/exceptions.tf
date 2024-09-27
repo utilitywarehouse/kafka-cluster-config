@@ -272,3 +272,10 @@ module "account_identity_supply_address_debt_checker" {
   produce_topics   = [kafka_topic.account_identity_account_exceptions_v1.name]
   cert_common_name = "account-platform/supply_address_debt_checker"
 }
+
+module "account_identity_exceptions_uswitch_reporter" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_exceptions_events.name]
+  consume_groups   = ["account-identity.uswitch-reporter"]
+  cert_common_name = "customer-proposition/uswitch-reporter-account-consumer"
+}
