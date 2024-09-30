@@ -116,7 +116,6 @@ module "account_identity_account_to_land_registry_events_relay" {
   cert_common_name = "account-platform/account_to_land_registry_events_relay"
 }
 
-
 module "account_identity_correspondence_address_relay" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
@@ -156,14 +155,6 @@ module "account_identity_supply_address_debt_finance_relay" {
   produce_topics   = [kafka_topic.account_identity_supply_address_debt_exception_check_events.name]
   cert_common_name = "account-platform/supply_address_debt_finance_relay"
 }
-# TODO reads from proximo still
-# module "account_identity_debt_events_compaction_relay" {
-#     source           = "../../../modules/tls-app"
-#     consume_topics   = [kafka_topic.account_identity_correspondence_address_debt_exception_check_events.name]
-#     consume_groups   = ["account-identity.correspondence-address-debt-events-compaction-relay"]
-#     produce_topics   = [kafka_topic.account_identity_correspondence_address_debt_exception_check_events.name]
-#     cert_common_name = "account-platform/debt_events_compaction_relay"
-# }
 
 module "account_identity_debt_events_relay" {
   source           = "../../../modules/tls-app"

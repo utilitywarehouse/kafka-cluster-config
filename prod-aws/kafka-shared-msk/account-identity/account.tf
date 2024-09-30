@@ -222,3 +222,64 @@ module "account_identity_to_anonymize_events_indexer" {
   consume_groups   = ["account-identity.account-to-anonymize-events-indexer-aws"]
   cert_common_name = "account-platform/to_anonymize_events_indexer"
 }
+
+module "account_identity_graphql_api" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name, kafka_topic.account_identity_account_exceptions_v1.name]
+  cert_common_name = "account-platform/graphql_api"
+}
+
+module "account_identity_graphql_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name, kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.graphql-projector-aws"]
+  cert_common_name = "account-platform/graphql_projector"
+}
+
+module "account_identity_home_move_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["account-identity.home-move-prod"]
+  cert_common_name = "account-platform/home_move_projector"
+}
+
+module "account_identity_account_v2_to_legacy" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_events_v2.name]
+  consume_groups   = ["account-identity.account-v2-to-legacy-events-relay"]
+  produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
+  cert_common_name = "account-platform/account_v2_to_legacy"
+}
+
+module "account_identity_to_anonymize" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_events_v2.name]
+  consume_groups   = ["account-identity.account-v2-to-anonymize-events-relay"]
+  produce_topics   = [kafka_topic.account_identity_to_anonymize_events.name]
+  cert_common_name = "account-platform/to_anonymize"
+}
+
+
+module "account_identity_account_atomic_to_internal" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
+  consume_groups   = ["account-identity.account-atomic-to-legacy-internal"]
+  produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
+  cert_common_name = "account-platform/account_atomic_to_internal"
+}
+
+
+module "account_identity_account_events_compaction_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.legacy-account-change-events-compaction-relay"]
+  produce_topics   = [kafka_topic.account_identity_legacy_account_change_events_compacted.name]
+  cert_common_name = "account-platform/account_events_compaction_relay"
+}
+
+module "account_identity_events_anonymizer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_to_anonymize_events.name]
+  consume_groups   = ["account-identity.account-events-anonymizer"]
+  cert_common_name = "account-platform/events_anonymizer"
+}

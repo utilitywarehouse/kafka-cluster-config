@@ -196,3 +196,89 @@ module "account_identity_legacy_account_change_event_uswitch_reporter" {
   consume_groups   = ["account-identity.uswitch-reporter"]
   cert_common_name = "customer-proposition/uswitch-reporter-account-consumer"
 }
+
+module "account_identity_legacy_account_differ" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_eqdb_events.name, kafka_topic.account_identity_legacy_account_changelog_events.name]
+  consume_groups   = ["account-identity.legacy-account-differ"]
+  produce_topics   = [kafka_topic.account_identity_analytics_bill_change_events.name]
+  cert_common_name = "account-platform/legacy_account_differ"
+}
+
+module "account_identity_legacy_account_mux" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
+  consume_groups   = ["account-identity.legacy-account-mux"]
+  produce_topics   = [kafka_topic.account_identity_legacy_account_events.name, kafka_topic.account_identity_legacy_account_created_in_bill_events.name]
+  cert_common_name = "account-platform/legacy_account_mux"
+}
+
+module "account_identity_legacy_account_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_changelog_events.name, kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.legacy-account-projector"]
+  cert_common_name = "account-platform/legacy_account_projector"
+}
+
+module "account_identity_legacy_account_translator" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_changelog_events.name]
+  produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name, kafka_topic.account_identity_legacy_account_events_private.name]
+  consume_groups   = ["account-identity.legacy-account-translator"]
+  cert_common_name = "account-platform/legacy_account_translator"
+}
+
+module "account_identity_eqdb_loader" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_legacy_account_eqdb_events.name]
+  cert_common_name = "account-platform/eqdb_loader"
+}
+
+module "account_identity_legacy_to_anonymize_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_created_in_bill_events.name]
+  consume_groups   = ["account-identity.account-legacy-to-anonymize-events-relay"]
+  produce_topics   = [kafka_topic.account_identity_to_anonymize_events.name]
+  cert_common_name = "account-platform/legacy_to_anonymize_relay"
+}
+
+module "account_identity_legacy_account_braze_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events_compacted.name]
+  consume_groups   = ["account-identity.legacy-account-braze-relay"]
+  produce_topics   = [kafka_topic.account_identity_legacy_account_braze_events_compacted.name]
+  cert_common_name = "account-platform/legacy_account_braze_relay"
+}
+
+module "account_identity_legacy_events_compaction_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.legacy-account-events-compaction-relay"]
+  produce_topics   = [kafka_topic.account_identity_legacy_account_events_compacted.name]
+  cert_common_name = "account-platform/legacy_events_compaction_relay"
+}
+
+module "account_identity_legacy_account_created_in_bill_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_created_in_bill_events.name]
+  consume_groups   = ["account-identity.created-in-bill-relay"]
+  produce_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  cert_common_name = "account-platform/legacy_account_created_in_bill_relay"
+}
+
+module "account_identity_private_to_public_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
+  consume_groups   = ["account-identity.relay-private-to-public"]
+  produce_topics   = [kafka_topic.account_identity_public_account_events.name]
+  cert_common_name = "account-platform/private_to_public_relay"
+}
+
+
+module "account_identity_legacy_to_unified" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name, kafka_topic.account_identity_account_events_v2.name]
+  consume_groups   = ["account-identity.unified-accounts-relay-legacy", "account-identity.unified-accounts-relay-created"]
+  produce_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  cert_common_name = "account-platform/legacy_to_unified"
+}
