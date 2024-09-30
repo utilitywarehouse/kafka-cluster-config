@@ -222,3 +222,16 @@ module "account_identity_to_anonymize_events_indexer" {
   consume_groups   = ["account-identity.account-to-anonymize-events-indexer-aws"]
   cert_common_name = "account-platform/to_anonymize_events_indexer"
 }
+
+module "account_identity_graphql_api" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name, kafka_topic.account_identity_account_exceptions_v1.name]
+  cert_common_name = "account-platform/graphql_api"
+}
+
+module "account_identity_graphql_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name, kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.graphql-projector-aws"]
+  cert_common_name = "account-platform/graphql_projector"
+}
