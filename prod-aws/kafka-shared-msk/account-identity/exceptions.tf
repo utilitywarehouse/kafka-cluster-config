@@ -135,3 +135,64 @@ module "account_identity_exceptions_uswitch_reporter" {
   consume_groups   = ["account-identity.uswitch-reporter"]
   cert_common_name = "customer-proposition/uswitch-reporter-account-consumer"
 }
+
+module "account_identity_exceptions_processor" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_exceptions_v1.name]
+  consume_groups   = ["account-identity.account-exceptions-processor-source"]
+  produce_topics   = [kafka_topic.account_identity_account_exceptions_events.name]
+  cert_common_name = "account-platform/exceptions_processor"
+}
+
+module "account_identity_exceptions_service_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_exceptions_v1.name]
+  consume_groups   = ["account-identity.account-exceptions-service-projector-v1"]
+  cert_common_name = "account-platform/exceptions_service_projector"
+}
+
+module "account_identity_correspondence_address_debt_checker" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_correspondence_address_debt_exception_check_events.name]
+  consume_groups   = ["account-identity.correspondence-address-debt-checker"]
+  produce_topics   = [kafka_topic.account_identity_account_exceptions_v1.name]
+  cert_common_name = "account-platform/correspondence_address_debt_checker"
+}
+
+module "account_identity_land_registry_checker" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_land_registry_check_events.name]
+  consume_groups   = ["account-identity.land-registry-checker"]
+  produce_topics   = [kafka_topic.account_identity_account_exceptions_v1.name]
+  cert_common_name = "account-platform/land_registry_checker"
+}
+
+module "account_identity_land_registry_failures_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_exceptions_v1.name]
+  consume_groups   = ["account-identity.land-registry-failures-projector"]
+  produce_topics   = [kafka_topic.account_identity_account_exceptions_v1.name]
+  cert_common_name = "account-platform/land_registry_failures_projector"
+}
+
+module "account_identity_land_registry_failures_retrier" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_land_registry_check_events.name]
+  cert_common_name = "account-platform/land_registry_failures_retrier"
+}
+
+module "account_identity_correspondence_address_matching_checker" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_correspondence_address_exception_check_events.name]
+  consume_groups   = ["account-identity.correspondence-address-matching-checker"]
+  produce_topics   = [kafka_topic.account_identity_account_exceptions_v1.name]
+  cert_common_name = "account-platform/correspondence_address_matching_checker"
+}
+
+module "account_identity_supply_address_debt_checker" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_supply_address_debt_exception_check_events.name]
+  consume_groups   = ["account-identity.supply-address-debt-checker"]
+  produce_topics   = [kafka_topic.account_identity_account_exceptions_v1.name]
+  cert_common_name = "account-platform/supply_address_debt_checker"
+}
