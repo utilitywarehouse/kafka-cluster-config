@@ -235,3 +235,10 @@ module "account_identity_graphql_projector" {
   consume_groups   = ["account-identity.graphql-projector-aws"]
   cert_common_name = "account-platform/graphql_projector"
 }
+
+module "account_identity_home_move_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["account-identity.home-move-prod"]
+  cert_common_name = "account-platform/home_move_projector"
+}
