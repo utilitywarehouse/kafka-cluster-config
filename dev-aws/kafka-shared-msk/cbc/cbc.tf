@@ -1214,7 +1214,7 @@ module "cbc_onfido_projector" {
     kafka_topic.verification_events_v1.name,
     kafka_topic.order_events_v1.name
   ]
-  consume_groups = ["cbc.cbc-onfido-projector-v2"]
+  consume_groups   = ["cbc.cbc-onfido-projector-v2"]
   cert_common_name = "cbc/cbc-onfido-projector"
 }
 
