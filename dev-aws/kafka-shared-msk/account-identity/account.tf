@@ -78,16 +78,17 @@ resource "kafka_topic" "account_identity_public_account_events" {
 
 resource "kafka_topic" "account_identity_account_management_events" {
   config = {
-    "cleanup.policy"   = "compact"
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-
-    # compaction lag of 7 days
-    "max.compaction.lag.ms" = "604800000"
-    # infinite retention
-    "retention.ms" = "-1"
+    # retention for 7 days
+    "retention.ms" = "604800000"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
   }
-  name               = "account-identity.account.management.events"
-  partitions         = 15
+  name               = "account-identity.account-management-events"
+  partitions         = 1
   replication_factor = 3
 }
 
@@ -158,10 +159,11 @@ module "account_identity_account_api_v2_dispatcher" {
 
 module "account_identity_create_account_projector" {
   source = "../../../modules/tls-app"
-  consume_topics = [kafka_topic.account_identity_account_events_v2.name
+  consume_topics = [kafka_topic.account_identity_account_events_v2.name, kafka_topic.account_identity_legacy_account_events.name
   ]
   consume_groups = [
-    "account-identity.create-account-projector-aws"
+    "account-identity.create-account-projector-aws",
+    "account-identity.create-account-projector-data-fix-aws"
   ]
   cert_common_name = "account-platform/create_account_projector"
 }
@@ -184,7 +186,7 @@ module "account_identity_account_events_compaction_relay" {
 
 module "account_identity_anonymized_to_unified" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.account_identity_to_anonymize_events.name]
+  consume_topics   = [kafka_topic.account_identity_from_prod_account_events_anonymized_v0.name]
   consume_groups   = ["account-identity.unified-anonymized-accounts-relay"]
   produce_topics   = [kafka_topic.account_identity_account_unified_events.name]
   cert_common_name = "account-platform/anonymized_to_unified"
@@ -256,7 +258,7 @@ module "account_identity_land_registry_indexer" {
 module "account_identity_braze_events_indexer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_legacy_account_braze_events_compacted.name]
-  consume_groups   = ["account_identity.legacy-account-braze-indexer-aws"]
+  consume_groups   = ["account-identity.legacy-account-braze-indexer-aws"]
   cert_common_name = "account-platform/braze_events_indexer"
 }
 
@@ -269,7 +271,7 @@ module "account_identity_legacy_account_events_indexer" {
 
 module "account_identity_legacy_account_events_compacted_indexer" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.account_identity_legacy_account_change_events_compacted.name]
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events_compacted.name]
   consume_groups   = ["account-identity.legacy-account-compacted-indexer-aws"]
   cert_common_name = "account-platform/legacy_account_events_compacted_indexer"
 }
@@ -290,7 +292,7 @@ module "account_identity_account_number_anonymized_projector" {
 
 module "account_identity_account_number_seed_projector" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.account_identity_dev_account_events_anonymized_v0.name]
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
   consume_groups   = ["account-identity.account-number-seed-projector-source"]
   cert_common_name = "account-platform/account_number_seed_projector"
 }

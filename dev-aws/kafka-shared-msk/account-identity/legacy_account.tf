@@ -234,7 +234,7 @@ module "account_identity_legacy_account_mux" {
 module "account_identity_legacy_account_projector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_legacy_account_changelog_events.name, kafka_topic.account_identity_legacy_account_events.name]
-  consume_groups   = ["account-identity.legacy-account-projector"]
+  consume_groups   = ["account-identity.legacy-account-projector-aws"]
   cert_common_name = "account-platform/legacy_account_projector"
 }
 
@@ -259,4 +259,11 @@ module "account_identity_holders_mapper" {
   consume_groups   = ["account-identity.account-holders-mapper"]
   produce_topics   = [kafka_topic.account_identity_legacy_account_events.name]
   cert_common_name = "account-platform/holders_mapper"
+}
+
+module "account_identity_legacy_acount_change_event_uswitch_reporter" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_change_events_compacted.name]
+  consume_groups   = ["account-identity.uswitch-reporter"]
+  cert_common_name = "customer-proposition/uswitch-reporter-account-consumer"
 }

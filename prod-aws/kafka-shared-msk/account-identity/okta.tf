@@ -13,3 +13,16 @@ resource "kafka_topic" "account_identity_staff_okta_v6" {
   partitions         = 15
   replication_factor = 3
 }
+
+module "account_identity_okta_staff_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_staff_okta_v6.name]
+  consume_groups   = ["account-identity.staff-okta-events-v6-aws"]
+  cert_common_name = "account-platform/okta_staff_events_indexer"
+}
+
+module "account_identity_staff_okta_producer" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_staff_okta_v6.name]
+  cert_common_name = "account-platform/staff_okta_producer"
+}
