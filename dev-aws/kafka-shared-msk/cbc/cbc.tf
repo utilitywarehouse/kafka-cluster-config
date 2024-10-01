@@ -1090,7 +1090,10 @@ module "cbc_customer_projector" {
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.customer_events_v1.name
   ]
-  consume_groups   = ["cbc.cbc-customer-api-v1"]
+  consume_groups = [
+    "cbc.cbc-customer-api-v1",
+    "cbc.cbc-customer-api-v1-tmp"
+  ]
   cert_common_name = "cbc/cbc-customer-projector"
 }
 
@@ -1214,7 +1217,10 @@ module "cbc_onfido_projector" {
     kafka_topic.verification_events_v1.name,
     kafka_topic.order_events_v1.name
   ]
-  consume_groups   = ["cbc.cbc-onfido-projector-v2"]
+  consume_groups = [
+    "cbc.cbc-onfido-projector-v2",
+    "cbc.cbc-onfido-projector-v2-tmp"
+  ]
   cert_common_name = "cbc/cbc-onfido-projector"
 }
 
