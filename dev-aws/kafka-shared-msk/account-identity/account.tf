@@ -311,3 +311,11 @@ module "account_identity_update_account_projector" {
   consume_groups   = ["account-identity.update-account-projector-aws"]
   cert_common_name = "account-platform/update_account_projector"
 }
+
+# Consume from account-identity.account.unified.events
+module "contact_channels_account_events_consumer" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/account-events-consumer"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["contact-channels.account-events-consumer"]
+}

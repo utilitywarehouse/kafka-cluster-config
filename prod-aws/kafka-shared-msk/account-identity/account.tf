@@ -283,3 +283,12 @@ module "account_identity_events_anonymizer" {
   consume_groups   = ["account-identity.account-events-anonymizer"]
   cert_common_name = "account-platform/events_anonymizer"
 }
+
+# Consume from account-identity.account.unified.events
+module "contact_channels_account_events_consumer" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/account-events-consumer"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["contact-channels.account-events-consumer"]
+}
+
