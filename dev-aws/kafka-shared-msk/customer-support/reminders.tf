@@ -30,6 +30,7 @@ module "reminders_benthos" {
   source           = "../../../modules/tls-app"
   cert_common_name = "crm/reminders-bq-v1"
   consume_topics   = [kafka_topic.reminders_v1.name]
+  consume_groups   = ["customer-support.reminders-v1-benthos-bq-001"]
 }
 
 module "reminders_outbox" {
