@@ -40,7 +40,8 @@ module "account_identity_proximo" {
     "account-identity.mobile-accounts-legacy-events-1",
     "account-identity.customer-proposition-account-platform-adapter-01",
     "account-identity.fixed-line-accounts-legacy-events-changed-comp",
-    "account-identity.iam-identitydb-event-forwarder"
+    "account-identity.iam-identitydb-event-forwarder",
+    "account-identity.iam-account-projector-auth-customer"
   ]
   produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name, kafka_topic.account_identity_account_management_events.name]
   cert_common_name = "account-platform/proximo"
