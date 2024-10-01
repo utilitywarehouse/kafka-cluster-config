@@ -46,7 +46,7 @@ module "coffee_services_projector" {
 
 module "coffee_service" {
   source           = "../../../modules/tls-app"
-  cert_common_name = "crm/coffee-actions"
+  cert_common_name = "crm/coffee-service"
   produce_topics   = [kafka_topic.coffee_services.name]
 }
 
