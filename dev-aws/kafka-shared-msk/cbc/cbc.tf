@@ -1209,12 +1209,12 @@ module "cbc_ordering_api" {
 }
 
 module "cbc_onfido_projector" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [
+  source = "../../../modules/tls-app"
+  consume_topics = [
     kafka_topic.verification_events_v1.name,
     kafka_topic.order_events_v1.name
   ]
-  consume_groups   = ["cbc.cbc-onfido-projector-v2"]
+  consume_groups = ["cbc.cbc-onfido-projector-v2"]
   cert_common_name = "cbc/cbc-onfido-projector"
 }
 
