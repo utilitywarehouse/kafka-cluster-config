@@ -18,12 +18,18 @@ resource "kafka_topic" "reminders_notifications_v1" {
   config = {
     # Recommended by dev-ena
     "compression.type" = "zstd"
-    # keep data for a day
-    "retention.ms" = "86400000"
+    # keep data for 18 hours
+    "retention.ms" = "64800000"
   }
   name               = "customer-support.reminders_notifications_v1"
   partitions         = 5
   replication_factor = 3
+}
+
+module "reminders_benthos" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "crm/reminders-bq-v1"
+  consume_topics   = [kafka_topic.reminders_v1.name]
 }
 
 module "reminders_outbox" {

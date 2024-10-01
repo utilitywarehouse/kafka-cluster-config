@@ -44,8 +44,14 @@ module "coffee_services_projector" {
   consume_groups   = ["customer-support.coffee-services-projector-001"]
 }
 
-module "coffee_actions" {
+module "coffee_service" {
   source           = "../../../modules/tls-app"
   cert_common_name = "crm/coffee-actions"
   produce_topics   = [kafka_topic.coffee_services.name]
+}
+
+module "coffee_actions" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "crm/coffee-actions"
+  produce_topics   = [kafka_topic.coffee_account_history_v1.name]
 }
