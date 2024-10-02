@@ -152,3 +152,83 @@ resource "kafka_topic" "transition_bex_fulfilment_request" {
     "retention.bytes" = "1006632960"
   }
 }
+
+
+# this topic is used in the bill regeneration pipeline
+resource "kafka_topic" "internal_bex_bill_regeneration" {
+  name               = "bex.internal.bill_regeneration"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
+    "compression.type"   = "zstd"
+    "retention.bytes"    = "8053063680"
+    # allow max 1MB for a message
+    "max.message.bytes" = "1048576"
+    "cleanup.policy"    = "delete"
+    # keep data for 14 days
+    "retention.ms" = "1209600000"
+  }
+}
+
+# this topic is used in the bill regeneration pipeline
+# used for retrying the bill regeneration on failure
+resource "kafka_topic" "internal_bex_bill_regeneration_retry_1" {
+  name               = "bex.internal.bill_regeneration_retry_1"
+  replication_factor = 3
+  partitions         = 5
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
+    "compression.type"   = "zstd"
+    "retention.bytes"    = "8053063680"
+    # allow max 1MB for a message
+    "max.message.bytes" = "1048576"
+    "cleanup.policy"    = "delete"
+    # keep data for 3 days
+    "retention.ms" = "259200000"
+  }
+}
+
+# this topic is used in the bill regeneration pipeline
+# used for retrying the bill regeneration on failure
+resource "kafka_topic" "internal_bex_bill_regeneration_retry_2" {
+  name               = "bex.internal.bill_regeneration_retry_2"
+  replication_factor = 3
+  partitions         = 5
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
+    "compression.type"   = "zstd"
+    "retention.bytes"    = "8053063680"
+    # allow max 1MB for a message
+    "max.message.bytes" = "1048576"
+    "cleanup.policy"    = "delete"
+    # keep data for 3 days
+    "retention.ms" = "259200000"
+  }
+}
+
+# this topic is used in the bill regeneration pipeline
+# used for retrying the bill regeneration on failure
+resource "kafka_topic" "internal_bex_bill_regeneration_deadletter" {
+  name               = "bex.internal.bill_regeneration_deadletter"
+  replication_factor = 3
+  partitions         = 1
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
+    # keep data for 14 days
+    "retention.ms" = "1209600000"
+    # allow max 1 MB for a message
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
