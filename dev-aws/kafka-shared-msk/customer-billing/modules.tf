@@ -37,7 +37,7 @@ module "invoice_generator" {
 module "invoice_fulfillment" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/invoice-fulfillment"
-  produce_topics   = [kafka_topic.invoice_fulfillment.name, kafka_topic.invoice_fulfillment_deadletter.name, kafka_topic.internal_bex_bill_regeneration.name, kafka_topic.internal_bex_bill_regeneration_retry_1.name, kafka_topic.internal_bex_bill_regeneration_retry_2.name, kafka_topic.internal_bex_bill_regeneration_deadletter.name]
+  produce_topics   = [kafka_topic.invoice_fulfillment.name, kafka_topic.invoice_fulfillment_deadletter.name, kafka_topic.internal_bex_bill_regeneration_retry_1.name, kafka_topic.internal_bex_bill_regeneration_retry_2.name, kafka_topic.internal_bex_bill_regeneration_deadletter.name]
   consume_topics   = [kafka_topic.transition_bex_fulfilment_request.name, kafka_topic.internal_bex_bill_regeneration.name, kafka_topic.internal_bex_bill_regeneration_retry_1.name, kafka_topic.internal_bex_bill_regeneration_retry_2.name]
   consume_groups   = ["bex.invoice-fulfillment"]
 }
