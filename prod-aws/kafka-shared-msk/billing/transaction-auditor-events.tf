@@ -12,6 +12,7 @@ resource "kafka_topic" "transactions_auditor_diff_events" {
     "remote.storage.enable" = "true"
     # keep data in hot storage for 2 days
     "local.retention.ms" = "172800000"
+    # keep data for 60 days
     "retention.ms"       = "5184000000"
     "cleanup.policy"     = "delete"
   }
