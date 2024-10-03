@@ -125,8 +125,8 @@ resource "kafka_topic" "replicated-internal-bill-core-model" {
   partitions         = 10
   config = {
     "compression.type" = "zstd"
-    # keep data for 28 days to facilitate invoice-producer v2 work
-    "retention.ms" = "2419200000"
+    # keep data for 35 days to facilitate invoice-producer v2 work
+    "retention.ms" = "3024000000"
     # retain 8GB on each partition
     "retention.bytes" = "8053063680"
     # allow max 100MB for a message
