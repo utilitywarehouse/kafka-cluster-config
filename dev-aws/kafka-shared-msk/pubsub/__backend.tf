@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket  = "uw-dev-pubsub-tf-applier-state"
-    key     = "dev-aws/kafka-shared-msk-pubsub"
+    key     = "dev-aws/kafka-shared-msk-should-fail"
     region  = "eu-west-1"
     encrypt = true
   }
