@@ -23,9 +23,12 @@ module "fulfilment_router" {
 module "mail_sender" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/mail-sender"
-  produce_topics   = [kafka_topic.mail_sender_deadletter.name]
-  consume_topics   = [(kafka_topic.invoice_fulfillment.name)]
-  consume_groups   = ["bex.mail-sender"]
+  produce_topics = [
+    kafka_topic.mail_sender_deadletter.name,
+    kafka_topic.mail_sender_reprint_deadletter.name
+  ]
+  consume_topics = [(kafka_topic.invoice_fulfillment.name)]
+  consume_groups = ["bex.mail-sender"]
 }
 
 module "invoice_generator" {
