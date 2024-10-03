@@ -268,6 +268,12 @@ module "account_identity_account_atomic_to_internal" {
   cert_common_name = "account-platform/account_atomic_to_internal"
 }
 
+module "account_identity_account_api_change_notifier" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
+  consume_groups   = ["account-identity.account-api-change-notifier"]
+  cert_common_name = "account-platform/account_api_change_notifier"
+}
 
 module "account_identity_account_events_compaction_relay" {
   source           = "../../../modules/tls-app"
