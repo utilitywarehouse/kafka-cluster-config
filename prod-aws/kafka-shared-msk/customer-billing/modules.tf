@@ -15,7 +15,7 @@ module "billing_fulfilment_public_events_translator" {
 module "fulfilment_router" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/fulfilment-router"
-  produce_topics   = [kafka_topic.invoice_fulfillment.name]
+  produce_topics   = [kafka_topic.transition_bex_fulfilment_request.name]
   consume_topics   = [(kafka_topic.invoice_fulfillment_deadletter.name)]
   consume_groups   = ["bex.fulfilment-router"]
 }
