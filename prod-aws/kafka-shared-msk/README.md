@@ -30,6 +30,18 @@ For each of these modules there is a [terraform applier](https://github.com/util
 - [dev](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/dev-aws/pubsub/kafka)
 - [prod](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/prod-aws/pubsub/kafka)
 
+### How to start a new team module
+Create a folder with your team name and copy everything, with keeping the symbolic links, from the folder `_template_team_x`. 
+Then replace in every file `_template_team_x` with your team name
+
+Example commands:
+```bash
+export TEAM=myteam
+mkdir -p "${TEAM}"
+cp -a  _template_team_x/* "${TEAM}"
+for f in "${TEAM}"/*; do sed -i '' "s/_template_team_x/${TEAM}/g" $f; done
+```
+
 ## pubsub admins: debugging terraform
 
 See [instructions](TERRAFORM_DEBUG.md)
