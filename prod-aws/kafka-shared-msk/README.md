@@ -27,13 +27,15 @@ When migrating to the MSK cluster, please consider also the following:
 Each child folder contains a Terraform module for a team with the shared kafka resources for that team.
 
 For each of these modules there is a [terraform applier](https://github.com/utilitywarehouse/terraform-applier) entry under:
-- [dev](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/dev-aws/pubsub/kafka)
-- [prod](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/prod-aws/pubsub/kafka)
+- [dev](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/dev-aws/pubsub/msk)
+- [prod](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/prod-aws/pubsub/msk)
 
 ### How to start a new team module
-Create a folder with your team name and copy everything, with keeping the symbolic links, from the folder `_template_team_x`. 
-Then replace in every file `_template_team_x` with your team name
 
+#### Set up the terraform team module
+Create a folder with your team name under the current folder and copy everything, with keeping the symbolic links, from the folder `_template_team_x`. 
+Then replace in every file `_template_team_x` with your team name
+   
 Example commands:
 ```bash
 export TEAM=myteam
@@ -41,6 +43,21 @@ mkdir -p "${TEAM}"
 cp -a  _template_team_x/* "${TEAM}"
 for f in "${TEAM}"/*; do sed -i '' "s/_template_team_x/${TEAM}/g" $f; done
 ```
+
+#### Set up the terraform applier for this terraform team module
+In the kubernetes-manifests repository, under [dev](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/dev-aws/pubsub/msk) or [prod](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/prod-aws/pubsub/msk) 
+copy the file `tf-module-_template_team_x.yaml` into one with your team name and then replace `team_x` with your team name in the file.
+Example commands:
+```bash
+export TEAM=myteam
+cat tf-module-_template_team_x.yaml| sed "s/team_x/${TEAM}/g" > tf-module-${TEAM}.yaml 
+```
+
+After the PR with the new file will be merged in the main branch, the terraform-applier will pick up this new CRD 
+and an entry for your team will appear in the UI in [dev](https://terraform-applier-system.dev.aws.uw.systems/#pubsub) or [prod](https://terraform-applier-system.prod.aws.uw.systems/#pubsub).
+
+Please note that this module is created in `plan-only` mode, meaning it will only issue the `terraform plan` command without applying. 
+After you check that the configuration for the module is ok and the plan is as expected, you can enable the apply mode by setting in this file `planOnly: false`.
 
 ## pubsub admins: debugging terraform
 
