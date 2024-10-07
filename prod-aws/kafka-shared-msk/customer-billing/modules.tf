@@ -106,7 +106,7 @@ module "bex_fulfilment_events_replicator" {
 }
 
 module "invoice_fulfilment_regeneration_job" {
-    source           = "../../../modules/tls-app"
-    cert_common_name = "customer-billing/invoice-fulfilment-regeneration-job"
-    produce_topics   = [kafka_topic.internal_bex_bill_regeneration.name]
+  source           = "../../../modules/tls-app"
+  cert_common_name = "customer-billing/invoice-fulfilment-regeneration-job"
+  produce_topics   = [kafka_topic.internal_bex_bill_regeneration.name]
 }
