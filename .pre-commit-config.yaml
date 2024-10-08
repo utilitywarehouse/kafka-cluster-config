@@ -13,6 +13,7 @@ repos:
         - --hook-config=--delegate-chdir
       exclude: "^.*/kafka-shared-msk/.*$"
     - id: terraform_tflint
+      alias: terraform_tflint_msk
       name: Validate with tflint the MSK team configs
       args:
         - --args=--config=__GIT_WORKING_DIR__/.tflint-msk.hcl
