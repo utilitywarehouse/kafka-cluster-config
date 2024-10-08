@@ -53,7 +53,12 @@ module "invoice_fulfillment" {
     kafka_topic.internal_bex_bill_regeneration_retry_1.name,
     kafka_topic.internal_bex_bill_regeneration_retry_2.name
   ]
-  consume_groups = ["bex.invoice-fulfillment"]
+  consume_groups = [
+    "bex.invoice-fulfillment",
+    "bex.invoice-fulfillment-regen",
+    "bex.invoice-fulfillment-regen-retry-1",
+    "bex.invoice-fulfillment-regen-retry-2"
+  ]
 }
 
 module "dashboard" {
