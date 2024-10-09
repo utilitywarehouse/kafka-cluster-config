@@ -11,4 +11,3 @@ module "account_identity_proximo" {
   produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name, kafka_topic.account_identity_account_management_events.name]
   cert_common_name = "account-platform/proximo"
 }
-
