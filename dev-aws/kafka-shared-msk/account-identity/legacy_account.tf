@@ -131,14 +131,14 @@ module "cbc_account_events_relay_v2" {
   source           = "../../../modules/tls-app"
   consume_groups   = ["account-identity.cbc-account-events-relay-v2"]
   consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
-  cert_common_name = "cbc/account-events-relay"
+  cert_common_name = "cbc/cbc-account-events-relay-v2"
 }
 
 module "cbc_fraud_detection_consumer_v1" {
   source           = "../../../modules/tls-app"
   consume_groups   = ["account-identity.cbc-fraud-detection-consumer-v1"]
   consume_topics   = [kafka_topic.account_identity_public_account_events.name]
-  cert_common_name = "cbc/fraud-detection-consumer"
+  cert_common_name = "cbc/cbc-fraud-detection-consumer"
 }
 
 module "account_identity_created_to_unified" {
