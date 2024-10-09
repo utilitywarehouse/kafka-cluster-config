@@ -366,14 +366,18 @@ module "cbc_fraud_detection_consumer" {
   source = "../../../modules/tls-app"
   consume_topics = [
     "auth-customer.iam-credentials-v1-public",
+    "account-identity.public.account.events",
     kafka_topic.FraudEvents.name,
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.topup_events_v1.name,
     kafka_topic.legacy_account_events_v2.name,
     kafka_topic.transaction_events_v3.name
   ]
-  produce_topics   = [kafka_topic.FraudEvents.name]
-  consume_groups   = ["cbc.cbc-fraud-detection-consumer-v1"]
+  produce_topics = [kafka_topic.FraudEvents.name]
+  consume_groups = [
+    "cbc.cbc-fraud-detection-consumer-v1",
+    "account-identity.cbc-fraud-detection-consumer-v1",
+  ]
   cert_common_name = "cbc/cbc-fraud-detection-consumer"
 }
 
@@ -1297,6 +1301,8 @@ module "cbc_legacy_account_eqdb_loader" {
 module "cbc_account_events_relay" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.legacy_account_events_v2.name]
+  consume_topics   = ["account-identity.public.account.events"]
+  consume_groups   = ["account-identity.cbc-account-events-relay-v2"]
   cert_common_name = "cbc/cbc-account-events-relay-v2"
 }
 
