@@ -39,6 +39,8 @@ module "account_identity_proximo" {
     "account-identity.fixed-line-accounts-legacy-events",
     "account-identity.mobile-accounts-fraud-events-1",
     "account-identity.mobile-accounts-legacy-events-1",
+    "account-identity.cbc-account-events-relay-v2",
+    "account-identity.cbc-fraud-detection-consumer-v1",
     "account-identity.customer-proposition-account-platform-adapter-01",
     "account-identity.fixed-line-accounts-legacy-events-changed-comp",
     "account-identity.iam-identitydb-event-forwarder",
