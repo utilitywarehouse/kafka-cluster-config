@@ -57,6 +57,6 @@ module "cbc_account_events_relay" {
   source           = "../../../modules/tls-app"
   produce_topics   = []
   consume_topics   = ["account-identity.public.account.events"]
-  consume_groups   = ["account-identity.cbc-fraud-detection-consumer-v1"]
+  consume_groups   = ["account-identity.cbc-account-events-relay-v2"]
   cert_common_name = "cbc/cbc-account-events-relay-v2"
 }
