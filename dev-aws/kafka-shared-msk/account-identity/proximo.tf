@@ -10,6 +10,8 @@ module "account_identity_proximo" {
     "account-identity.fixed-line-accounts-legacy-events-changed-comp", "account-identity.contact-channels-legacy-account-events-reader-dev",
     "account-identity.cbc-account-events-relay-v2",
     "account-identity.cbc-fraud-detection-consumer-v1",
+    "account-identity.insurance-legacy-account-kafka-relay",
+    "account-identity.finserv-benthos-relay"
   ]
   produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name, kafka_topic.account_identity_account_management_events.name]
   cert_common_name = "account-platform/proximo"
