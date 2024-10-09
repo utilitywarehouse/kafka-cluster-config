@@ -30,7 +30,4 @@ module "tempo_distributor" {
   consume_topics   = [kafka_topic.otlp_spans.name]
   consume_groups   = ["processor-tempo"]
   cert_common_name = "otel/tempo-distributor"
-  # Limit consuming to 10 MB/s / broker
-  consumer_byte_rate = 10485760
 }
-
