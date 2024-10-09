@@ -31,10 +31,16 @@ module "cbc_data_infra_exporter" {
 }
 
 module "cbc_fraud_detection_consumer" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = ["auth-customer.iam-credentials-v1-public"]
-  produce_topics   = []
-  consume_groups   = ["cbc.cbc-fraud-detection-consumer-v1"]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    "auth-customer.iam-credentials-v1-public",
+    "account-identity.cbc-fraud-detection-consumer-v1",
+  ]
+  produce_topics = []
+  consume_groups = [
+    "cbc.cbc-fraud-detection-consumer-v1",
+    "account-identity.cbc-fraud-detection-consumer-v1",
+  ]
   cert_common_name = "cbc/cbc-fraud-detection-consumer"
 }
 
@@ -45,4 +51,12 @@ module "cbc_events_indexer" {
   ]
   consume_groups   = ["cbc.cbc-events-indexer"]
   cert_common_name = "cbc/cbc-events-indexer"
+}
+
+module "cbc_account_events_relay" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = []
+  consume_topics   = ["account-identity.public.account.events"]
+  consume_groups   = ["account-identity.cbc-fraud-detection-consumer-v1"]
+  cert_common_name = "cbc/cbc-account-events-relay-v2"
 }
