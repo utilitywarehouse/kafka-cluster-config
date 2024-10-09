@@ -54,9 +54,16 @@ module "finance_tx_log_staging_connector" {
   produce_topics = [
     kafka_topic.data_staged_events_finance.name,
   ]
-  #  limit to 150 KB per broker, as the consumer doesn't keep up with the producer and the producer is loading the brokers CPU when not throttled.
-  producer_byte_rate = "153600"
-  cert_common_name   = "billing/finance-tx-log-staging-connector"
+  cert_common_name = "billing/finance-tx-log-staging-connector"
+}
+
+resource "kafka_quota" "finance_tx_log_staging_connector" {
+  entity_name = module.finance_tx_log_staging_connector.user_name
+  entity_type = "user"
+  config = {
+    # limit to 150 KB per broker, as the consumer doesn't keep up with the producer and the producer is loading the brokers CPU when not throttled.
+    "producer_byte_rate" = "153600"
+  }
 }
 
 module "historical_bigquery_connector" {
