@@ -26,3 +26,10 @@ module "account_identity_staff_okta_producer" {
   produce_topics   = [kafka_topic.account_identity_staff_okta_v6.name]
   cert_common_name = "account-platform/staff_okta_producer"
 }
+
+module "account_identity_crm_okta_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_staff_okta_v6.name]
+  consume_groups   = ["customer-support.staff.okta.ticketing.20230313T1510"]
+  cert_common_name = "crm/okta-projector"
+}

@@ -26,3 +26,10 @@ module "account_identity_okta_staff_events_indexer" {
   consume_groups   = ["account-identity.staff-okta-events-v6-aws"]
   cert_common_name = "account-platform/okta_staff_events_indexer"
 }
+
+module "account_identity_crm_okta_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_staff_okta_v6.name]
+  consume_groups   = ["customer-support.staff.okta.ticketing.20240313-1234"]
+  cert_common_name = "crm/okta-projector"
+}
