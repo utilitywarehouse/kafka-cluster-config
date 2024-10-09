@@ -6,8 +6,9 @@ module "account_identity_proximo" {
     "account-identity.dex-account-management-projector-2022-07-22-dev", "account-identity.account_number_api_reader", "account-identity.customer-billing-account-platform-projector-billing-communications", "account-identity.customer-billing-account-platform-projector-payment-details",
     "account-identity.finance-legacy-account-api", "account-identity.ordering-platform-william-account-history", "account-identity.partner-bq-customer-account-indexer-v1", "account-identity.partner-customer-account-number-api-v1", "account-identity.leads-api-conversion-v1",
     "account-identity.postgres-indexer-customer-24-09-11", "account-identity.referral-portal-221116", "account-identity.telecom-accounts-legacy-events", "account-identity.partner-registration-indexer-v1", "account-identity.caps-customers-loader-test", "account-identity.iam-credentials-api-email-projector",
-    "account-identity.iam-account-projector-auth-customer", "account-identity.iam-identitydb-event-forwarder", "account-identity.iam-identitydb-event-forwarder", "account-identity.fixed-line-accounts-legacy-events-v2", "account-identity.mobile-accounts-legacy-events-1", "account-identity.customer-proposition-account-platform-adapter-01",
+    "account-identity.iam-account-projector-auth-customer", "account-identity.iam-identitydb-event-forwarder", "account-identity.iam-identitydb-event-forwarder", "account-identity.fixed-line-accounts-legacy-events-v2", "account-identity.mobile-accounts-legacy-events-1", "account-identity.mobile-accounts-fraud-events-1", "account-identity.customer-proposition-account-platform-adapter-01",
   "account-identity.fixed-line-accounts-legacy-events-changed-comp", "account-identity.contact-channels-legacy-account-events-reader-dev"]
   produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name, kafka_topic.account_identity_account_management_events.name]
   cert_common_name = "account-platform/proximo"
 }
+

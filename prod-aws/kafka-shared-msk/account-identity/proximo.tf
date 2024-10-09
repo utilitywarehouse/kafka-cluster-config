@@ -37,6 +37,7 @@ module "account_identity_proximo" {
     "account-identity.dex-new-account-application-handler",
     "account-identity.debt-collection-comms-api-accounts",
     "account-identity.fixed-line-accounts-legacy-events",
+    "account-identity.mobile-accounts-fraud-events-1",
     "account-identity.mobile-accounts-legacy-events-1",
     "account-identity.customer-proposition-account-platform-adapter-01",
     "account-identity.fixed-line-accounts-legacy-events-changed-comp",
