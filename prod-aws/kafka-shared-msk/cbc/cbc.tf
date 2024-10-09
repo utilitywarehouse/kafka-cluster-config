@@ -34,7 +34,7 @@ module "cbc_fraud_detection_consumer" {
   source = "../../../modules/tls-app"
   consume_topics = [
     "auth-customer.iam-credentials-v1-public",
-    "account-identity.cbc-fraud-detection-consumer-v1",
+    "account-identity.public.account.events",
   ]
   produce_topics = []
   consume_groups = [
@@ -56,7 +56,7 @@ module "cbc_events_indexer" {
 module "cbc_account_events_relay" {
   source           = "../../../modules/tls-app"
   produce_topics   = []
-  consume_topics   = ["account-identity.public.account.events"]
+  consume_topics   = ["account-identity.legacy.account.events"]
   consume_groups   = ["account-identity.cbc-account-events-relay-v2"]
   cert_common_name = "cbc/cbc-account-events-relay-v2"
 }
