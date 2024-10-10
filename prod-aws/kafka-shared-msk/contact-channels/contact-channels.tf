@@ -154,6 +154,54 @@ resource "kafka_topic" "interactions_state_events" {
   }
 }
 
+resource "kafka_topic" "dsar" {
+  name = "contact-channels.dsar"
+
+  replication_factor = 3
+  partitions         = 9
+
+  config = {
+    "remote.storage.enable" = "true"
+    "local.retention.ms"    = "259200000"  # 3 days
+    "retention.ms"          = "2629800000" # 1 month
+    "max.message.bytes"     = "104857600"  # 100MB
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
+resource "kafka_topic" "dsar_job" {
+  name = "contact-channels.dsar_job"
+
+  replication_factor = 3
+  partitions         = 9
+
+  config = {
+    "remote.storage.enable" = "true"
+    "local.retention.ms"    = "259200000"  # 3 days
+    "retention.ms"          = "2629800000" # 1 month
+    "max.message.bytes"     = "104857600"  # 100MB
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
+resource "kafka_topic" "dsar_conversation" {
+  name = "contact-channels.dsar_conversation"
+
+  replication_factor = 3
+  partitions         = 9
+
+  config = {
+    "remote.storage.enable" = "true"
+    "local.retention.ms"    = "259200000"  # 3 days
+    "retention.ms"          = "2629800000" # 1 month
+    "max.message.bytes"     = "104857600"  # 100MB
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
 ## TLS App
 
 # Consume from contact-channels.genesys_eb_events for Last Contact Digital Survey Projector
