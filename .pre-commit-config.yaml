@@ -28,3 +28,8 @@ repos:
         - --tf-init-args=-upgrade
         # no backend
         - --tf-init-args=-backend=false
+- repo: https://github.com/semgrep/pre-commit
+  rev: 'v1.90.0'
+  hooks:
+    - id: semgrep-ci
+      args: ['--config', '.semgrep/rules.yaml', '--error', '--skip-unknown-extensions']
