@@ -330,7 +330,7 @@ module "contact_channels_account_events_consumer" {
 # Consume from account-identity.legacy.account.events
 module "customer_support_crm" {
   source           = "../../../modules/tls-app"
-  cert_common_name = "crm/accout-projector"
+  cert_common_name = "crm/account-projector"
   consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
   consume_groups   = ["customer-support.account.legacy.events.v31072024"]
 }
