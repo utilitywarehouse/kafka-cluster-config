@@ -305,3 +305,11 @@ module "customer_support_crm" {
   consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
   consume_groups   = ["customer-support.account.legacy.events.v01082024"]
 }
+
+# Consume from account-identity.legacy.account.events
+module "customer_support_crm" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "crm/idv-projector"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["customer-support.idv.projector-001"]
+}
