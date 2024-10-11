@@ -32,5 +32,4 @@ repos:
   rev: 'v1.90.0'
   hooks:
     - id: semgrep-ci
-      # See https://semgrep.dev/explore to select a ruleset and copy its URL
       args: ['--config', '.semgrep/rules.yaml', '--error', '--skip-unknown-extensions']
