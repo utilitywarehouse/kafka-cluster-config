@@ -1,0 +1,7 @@
+rules:
+  # Do not allow ignoring the msk_topic_name rule
+  - id: enforce-msk-topic-name
+    pattern-regex: tflint-ignore.*msk_topic_name
+    message: "The MSK topic name rule must always be followed. You can define additional team aliases"
+    languages: [terraform]
+    severity: ERROR
