@@ -199,9 +199,9 @@ module "account_identity_legacy_account_change_event_uswitch_reporter" {
 
 module "account_identity_legacy_account_differ" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.account_identity_legacy_account_eqdb_events.name, kafka_topic.account_identity_legacy_account_changelog_events.name]
+  consume_topics   = [kafka_topic.account_identity_legacy_account_eqdb_events.name]
   consume_groups   = ["account-identity.legacy-account-differ"]
-  produce_topics   = [kafka_topic.account_identity_analytics_bill_change_events.name]
+  produce_topics   = [kafka_topic.account_identity_analytics_bill_change_events.name, kafka_topic.account_identity_legacy_account_changelog_events.name]
   cert_common_name = "account-platform/legacy_account_differ"
 }
 
