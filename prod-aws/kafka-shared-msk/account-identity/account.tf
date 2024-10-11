@@ -307,7 +307,7 @@ module "customer_support_crm" {
 }
 
 # Consume from account-identity.legacy.account.events
-module "customer_support_crm" {
+module "customer_support_crm_idv" {
   source           = "../../../modules/tls-app"
   cert_common_name = "crm/idv-projector"
   consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
