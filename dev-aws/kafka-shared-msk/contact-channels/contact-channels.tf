@@ -374,6 +374,13 @@ module "interactions_state_events_es_indexer" {
   consume_groups   = ["contact-channels.interactions-state-events-indexer"]
 }
 
+# Produce to contact-channels.dsar
+module "dsar_request_producer" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/dsar-request-producer"
+  produce_topics   = [kafka_topic.dsar.name]
+}
+
 # Consume from contact-channels.dsar
 module "dsar_request_consumer" {
   source           = "../../../modules/tls-app"
