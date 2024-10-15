@@ -16,11 +16,11 @@ module "fulfilment_router" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/fulfilment-router"
   produce_topics   = [kafka_topic.transition_bex_fulfilment_request.name]
-  consume_topics   = [
+  consume_topics = [
     kafka_topic.invoice_fulfillment_deadletter.name,
     kafka_topic.internal_invoice_fulfilment_deadletter.name
   ]
-  consume_groups   = ["bex.fulfilment-router"]
+  consume_groups = ["bex.fulfilment-router"]
 }
 
 module "mail_sender" {
