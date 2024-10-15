@@ -42,6 +42,8 @@ module "invoice_fulfillment" {
   cert_common_name = "customer-billing/invoice-fulfillment"
   produce_topics = [
     kafka_topic.invoice_fulfillment.name,
+    kafka_topic.internal_bex_fulfilment_retry_1.name,
+    kafka_topic.internal_bex_fulfilment_retry_2.name,
     kafka_topic.invoice_fulfillment_deadletter.name,
     kafka_topic.internal_bex_bill_regeneration_retry_1.name,
     kafka_topic.internal_bex_bill_regeneration_retry_2.name,
@@ -49,12 +51,16 @@ module "invoice_fulfillment" {
   ]
   consume_topics = [
     kafka_topic.transition_bex_fulfilment_request.name,
+    kafka_topic.internal_bex_fulfilment_retry_1.name,
+    kafka_topic.internal_bex_fulfilment_retry_2.name,
     kafka_topic.internal_bex_bill_regeneration.name,
     kafka_topic.internal_bex_bill_regeneration_retry_1.name,
     kafka_topic.internal_bex_bill_regeneration_retry_2.name
   ]
   consume_groups = [
     "bex.invoice-fulfillment",
+    "bex.internal.fulfilment-retry-1",
+    "bex.internal.fulfilment-retry-2",
     "bex.invoice-fulfillment-regen",
     "bex.invoice-fulfillment-regen-retry-1",
     "bex.invoice-fulfillment-regen-retry-2"

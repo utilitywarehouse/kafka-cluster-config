@@ -170,6 +170,46 @@ resource "kafka_topic" "transition_bex_fulfilment_request" {
   }
 }
 
+# this topic is used in the bill generation pipeline
+# used for retrying the bill generation on failure
+resource "kafka_topic" "internal_bex_fulfilment_retry_1" {
+  name               = "bex.internal.fulfilment_retry_1"
+  replication_factor = 3
+  partitions         = 5
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
+    "compression.type"   = "zstd"
+    "retention.bytes"    = "8053063680"
+    # allow max 1MB for a message
+    "max.message.bytes" = "1048576"
+    "cleanup.policy"    = "delete"
+    # keep data for 3 days
+    "retention.ms" = "259200000"
+  }
+}
+
+# this topic is used in the bill generation pipeline
+# used for retrying the bill generation on failure
+resource "kafka_topic" "internal_bex_fulfilment_retry_2" {
+  name               = "bex.internal.fulfilment_retry_2"
+  replication_factor = 3
+  partitions         = 5
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
+    "compression.type"   = "zstd"
+    "retention.bytes"    = "8053063680"
+    # allow max 1MB for a message
+    "max.message.bytes" = "1048576"
+    "cleanup.policy"    = "delete"
+    # keep data for 3 days
+    "retention.ms" = "259200000"
+  }
+}
+
 
 # this topic is used in the bill regeneration pipeline
 resource "kafka_topic" "internal_bex_bill_regeneration" {
