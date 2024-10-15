@@ -190,8 +190,8 @@ resource "kafka_topic" "internal_bex_fulfilment_retry_1" {
   }
 }
 
-# this topic is used in the bill regeneration pipeline
-# used for retrying the bill regeneration on failure
+# this topic is used in the bill generation pipeline
+# used for retrying the bill generation on failure
 resource "kafka_topic" "internal_bex_fulfilment_retry_2" {
   name               = "bex.internal.fulfilment_retry_2"
   replication_factor = 3
