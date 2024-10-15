@@ -59,8 +59,8 @@ module "invoice_fulfillment" {
   ]
   consume_groups = [
     "bex.invoice-fulfillment",
-    "bex.internal.fulfilment-retry_1",
-    "bex.internal.fulfilment-retry_2",
+    "bex.internal.fulfilment-retry-1",
+    "bex.internal.fulfilment-retry-2",
     "bex.invoice-fulfillment-regen",
     "bex.invoice-fulfillment-regen-retry-1",
     "bex.invoice-fulfillment-regen-retry-2"
