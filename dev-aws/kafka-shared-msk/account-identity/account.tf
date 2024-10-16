@@ -342,3 +342,15 @@ module "customer_support_crm_idv" {
   consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
   consume_groups   = ["customer-support.idv.projector-001"]
 }
+
+module "cbc_fraud_detection_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_public_account_events.name]
+  cert_common_name = "cbc/cbc-fraud-detection-consumer"
+}
+
+module "cbc_account_events_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_public_account_events.name]
+  cert_common_name = "cbc/cbc-account-events-relay-v2"
+}
