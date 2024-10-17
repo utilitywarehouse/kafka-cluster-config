@@ -30,6 +30,14 @@ module "account_identity_holders_mapper" {
   cert_common_name = "account-platform/holders_mapper"
 }
 
+module "account_identity_holders_mapper_data_fix" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.account-holders-mapper-data-fix"]
+  produce_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  cert_common_name = "account-platform/holders_mapper"
+}
+
 module "account_identity_legacy_account_holder_compaction" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
