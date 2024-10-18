@@ -27,7 +27,7 @@ rule "msk_topic_name" {
 
 # Disable this rule until we fix the current issues
 rule "msk_app_topics" {
-  enabled = false
+  enabled = true
 }
 
 # Include module calls

@@ -282,3 +282,10 @@ module "account_identity_legacy_to_unified" {
   produce_topics   = [kafka_topic.account_identity_account_unified_events.name]
   cert_common_name = "account-platform/legacy_to_unified"
 }
+
+module "cbc_account_events_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.cbc-account-events-relay-v2"]
+  cert_common_name = "cbc/cbc-account-events-relay-v2"
+}
