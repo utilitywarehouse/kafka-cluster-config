@@ -313,3 +313,10 @@ module "customer_support_crm_idv" {
   consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
   consume_groups   = ["customer-support.idv.projector-001"]
 }
+
+module "cbc_fraud_detection_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_public_account_events.name]
+  consume_groups   = ["account-identity.cbc-fraud-detection-consumer-v1"]
+  cert_common_name = "cbc/cbc-fraud-detection-consumer"
+}
