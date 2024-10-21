@@ -10,6 +10,12 @@ Use the [tls-app](../../modules/tls-app) module for granting access for the apps
 We want `utilitywarehouse/pubsub` to own any changes to the MSK clusters so please don't make any CODEOWNERS changes as
 part PRs adding resources to the clusters.
 
+We have a custom `tflint` plugin that help enforce best practices and avoid some
+common issues. This is run through `pre-commit`, see [the contributing
+docs](../../CONTRIBUTING.md) for installation details. See [the plugin repo's
+README for a list of the
+rules](https://github.com/utilitywarehouse/tflint-ruleset-kafka-config/blob/main/README.md#rules).
+
 Please follow these guidelines for the resources:
 1. topic and consumer groups naming: prefix the names with the name of your team and use `-` for names separation in the prefix. Examples: **data-infra.internal.bill_fulfilled**, **data-infra.bills-total-api-reader** where **data-infra** is the name of the team.
    This will make it easier to define access in the kafka-ui ([dev](https://kafka-ui.dev.uw.systems/) and [prod](https://kafka-ui.prod.uw.systems/) )
