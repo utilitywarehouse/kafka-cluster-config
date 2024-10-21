@@ -7,8 +7,8 @@ Use the [tls-app](../../modules/tls-app) module for granting access for the apps
 
 ## Contributing
 
-We want utilitywarehouse/pubsub to own any chages to the msk clusters so please don't make any CODEOWNERS changes as
-part PRs adding resouces to the clusters.
+We want `utilitywarehouse/pubsub` to own any changes to the MSK clusters so please don't make any CODEOWNERS changes as
+part PRs adding resources to the clusters.
 
 Please follow these guidelines for the resources:
 1. topic and consumer groups naming: prefix the names with the name of your team and use `-` for names separation in the prefix. Examples: **data-infra.internal.bill_fulfilled**, **data-infra.bills-total-api-reader** where **data-infra** is the name of the team.
