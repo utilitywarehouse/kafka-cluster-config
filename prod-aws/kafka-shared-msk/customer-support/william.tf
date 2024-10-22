@@ -1,5 +1,6 @@
 resource "kafka_topic" "notes_v2" {
   config = {
+    "cleanup.policy" = "delete"
     # Recommended by dev-ena
     "compression.type" = "zstd"
     # Use tiered storage
@@ -16,6 +17,7 @@ resource "kafka_topic" "notes_v2" {
 
 resource "kafka_topic" "ticketing_v2" {
   config = {
+    "cleanup.policy" = "delete"
     # Recommended by dev-ena
     "compression.type" = "zstd"
     # Use tiered storage

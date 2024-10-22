@@ -88,6 +88,7 @@ resource "kafka_topic" "account_identity_internal_legacy_account_events" {
 
 resource "kafka_topic" "account_identity_legacy_account_created_in_bill_events" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # infinite retention
     "retention.ms" = "-1"
@@ -103,6 +104,7 @@ resource "kafka_topic" "account_identity_legacy_account_created_in_bill_events" 
 
 resource "kafka_topic" "account_identity_legacy_account_events_private" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # infinite retention
     "retention.ms" = "-1"
@@ -118,6 +120,7 @@ resource "kafka_topic" "account_identity_legacy_account_events_private" {
 
 resource "kafka_topic" "account_identity_legacy_account_eqdb_events" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data for 3 days
     "retention.ms" = "259200000"

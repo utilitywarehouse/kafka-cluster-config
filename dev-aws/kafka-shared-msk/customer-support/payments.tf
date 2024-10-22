@@ -1,5 +1,6 @@
 resource "kafka_topic" "payments_audit_log_v1" {
   config = {
+    "cleanup.policy" = "delete"
     # Recommended by dev-ena
     "compression.type" = "zstd"
     # Use tiered storage

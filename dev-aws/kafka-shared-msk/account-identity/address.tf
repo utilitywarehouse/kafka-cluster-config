@@ -1,5 +1,6 @@
 resource "kafka_topic" "account_identity_address_lookup_analytics_v1" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data in hot storage for 1 day
     "local.retention.ms" = "86400000"
