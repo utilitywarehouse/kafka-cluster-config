@@ -49,16 +49,16 @@ module "es_topic_indexer" {
 }
 
 
-resource "kafka_topic" "test-config2" {
-  name               = "pubsub.test-config-sb2"
+resource "kafka_topic" "test-config3" {
+  name               = "pubsub.test-config-sb3"
   replication_factor = 3
   partitions         = 3
   config = {
-    # keep data for 6 hours
-    "retention.ms" = "21600000"
+#     # keep data for 6 hours
+#     "retention.ms" = "21600000"
 #     # allow max 1 MB for a message
 #     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
-    "cleanup.policy"    = "compact"
+    "cleanup.policy"    = "delete"
   }
 }
