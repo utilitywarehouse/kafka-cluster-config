@@ -47,3 +47,18 @@ module "es_topic_indexer" {
   consume_groups   = ["dev-enablement.es-topic-indexer"]
   cert_common_name = "dev-enablement/es-topic-indexer"
 }
+
+
+resource "kafka_topic" "test-config" {
+  name               = "pubsub.test-config-sb"
+  replication_factor = 3
+  partitions         = 3
+  config = {
+#     # keep data for 6 hours
+#     "retention.ms" = "21600000"
+#     # allow max 1 MB for a message
+#     "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "compact"
+  }
+}

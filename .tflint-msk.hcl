@@ -8,8 +8,8 @@ plugin "terraform" {
 plugin "uw-kafka-config" {
   enabled = true
 
-  version = "1.3.0"
-  source  = "github.com/utilitywarehouse/tflint-ruleset-kafka-config"
+#   version = "1.3.0"
+#   source  = "github.com/utilitywarehouse/tflint-ruleset-kafka-config"
 }
 
 # I think it's too late for this and wouldn't make sense for our modules
