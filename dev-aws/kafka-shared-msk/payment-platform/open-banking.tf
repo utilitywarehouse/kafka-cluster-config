@@ -99,3 +99,19 @@ module "openbanking_crond" {
   consume_groups   = ["payment-platform.openbanking_crond"]
   cert_common_name = "payment-platform/openbanking-crond"
 }
+
+module "payment_deadletterd" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.openbanking_deadletter_v1_internal_payments.name,
+    kafka_topic.openbanking_deadletter_v1_internal_payment_methods.name,
+    kafka_topic.payment_deadletter_v1_events.name,
+  ]
+  consume_topics = [
+    kafka_topic.openbanking_deadletter_v1_internal_payments.name,
+    kafka_topic.openbanking_deadletter_v1_internal_payment_methods.name,
+    kafka_topic.payment_deadletter_v1_events.name,
+  ]
+  consume_groups   = ["payment-platform.payment-deadletterd"]
+  cert_common_name = "payment-platform/payment-deadletterd"
+}
