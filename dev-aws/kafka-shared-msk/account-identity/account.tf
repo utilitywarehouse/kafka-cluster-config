@@ -355,8 +355,11 @@ module "cbc_fraud_detection_consumer" {
 }
 
 module "cbc_account_events_relay" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.account_identity_public_account_events.name]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.account_identity_public_account_events.name,
+    kafka_topic.account_identity_legacy_account_events.name
+  ]
   consume_groups   = ["account-identity.cbc-account-events-relay-v2"]
   cert_common_name = "cbc/cbc-account-events-relay-v2"
 }

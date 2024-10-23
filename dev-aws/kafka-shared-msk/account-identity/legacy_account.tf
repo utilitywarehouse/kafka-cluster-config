@@ -130,13 +130,6 @@ resource "kafka_topic" "account_identity_legacy_account_eqdb_events" {
   replication_factor = 3
 }
 
-module "cbc_account_events_relay_v2" {
-  source           = "../../../modules/tls-app"
-  consume_groups   = ["account-identity.cbc-account-events-relay-v2"]
-  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
-  cert_common_name = "cbc/cbc-account-events-relay-v2"
-}
-
 module "account_identity_created_to_unified" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_legacy_account_events.name, kafka_topic.account_identity_account_events_v2.name]
@@ -265,8 +258,11 @@ module "account_identity_holders_mapper" {
 }
 
 module "account_identity_legacy_acount_change_event_uswitch_reporter" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.account_identity_legacy_account_change_events_compacted.name]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.account_identity_legacy_account_change_events_compacted.name,
+    kafka_topic.account_identity_account_exceptions_events.name
+  ]
   consume_groups   = ["account-identity.uswitch-reporter"]
   cert_common_name = "customer-proposition/uswitch-reporter-account-consumer"
 }
