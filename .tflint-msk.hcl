@@ -8,7 +8,7 @@ plugin "terraform" {
 plugin "uw-kafka-config" {
   enabled = true
 
-  version = "1.3.0"
+  version = "1.4.0"
   source  = "github.com/utilitywarehouse/tflint-ruleset-kafka-config"
 }
 
@@ -23,11 +23,6 @@ rule "msk_topic_name" {
     iam = ["auth", "auth-customer"]
     customer-billing = ["bex"]
   }
-}
-
-# Disable this rule until we fix the current issues
-rule "msk_app_topics" {
-  enabled = true
 }
 
 # Include module calls
