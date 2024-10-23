@@ -1,5 +1,6 @@
 resource "kafka_topic" "account_identity_account_events_v2" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # infinite retention
     "retention.ms" = "-1"
@@ -45,6 +46,7 @@ resource "kafka_topic" "account_identity_account_unified_events" {
 
 resource "kafka_topic" "account_identity_public_account_events" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # infinite retention
     "retention.ms" = "-1"
@@ -92,6 +94,7 @@ resource "kafka_topic" "account_identity_to_anonymize_events" {
 
 resource "kafka_topic" "account_identity_account_events_v3" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # infinite retention
     "retention.ms" = "-1"
@@ -108,6 +111,7 @@ resource "kafka_topic" "account_identity_account_events_v3" {
 
 resource "kafka_topic" "account_identity_address_lookup_analytics_v1" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # infinite retention
     "retention.ms" = "-1"
@@ -123,6 +127,7 @@ resource "kafka_topic" "account_identity_address_lookup_analytics_v1" {
 }
 resource "kafka_topic" "account_identity_analytics_bill_change_events" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data for 7 days
     "retention.ms" = "604800000"

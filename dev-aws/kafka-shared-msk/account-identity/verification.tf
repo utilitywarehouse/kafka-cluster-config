@@ -20,6 +20,7 @@ module "account_identity_verification_indexer" {
 
 resource "kafka_topic" "account_identity_verification" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data in hot storage for 1 day
     "local.retention.ms" = "86400000"

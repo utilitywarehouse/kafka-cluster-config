@@ -1,5 +1,6 @@
 resource "kafka_topic" "account_identity_account_events_v2" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # infinite retention
     "retention.ms" = "-1"
@@ -45,6 +46,7 @@ resource "kafka_topic" "account_identity_account_unified_events" {
 
 resource "kafka_topic" "account_identity_dev_account_events_anonymized_v0" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data for 3 days
     "retention.ms" = "259200000"
@@ -56,6 +58,7 @@ resource "kafka_topic" "account_identity_dev_account_events_anonymized_v0" {
 
 resource "kafka_topic" "account_identity_from_prod_account_events_anonymized_v0" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data for 3 days
     "retention.ms" = "259200000"
@@ -67,6 +70,7 @@ resource "kafka_topic" "account_identity_from_prod_account_events_anonymized_v0"
 
 resource "kafka_topic" "account_identity_public_account_events" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # infinite retention
     "retention.ms" = "-1"

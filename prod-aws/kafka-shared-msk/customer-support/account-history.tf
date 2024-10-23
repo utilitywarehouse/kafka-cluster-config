@@ -1,5 +1,6 @@
 resource "kafka_topic" "account_history_eqdb_notifications_v1" {
   config = {
+    "cleanup.policy" = "delete"
     # Recommended by dev-ena
     "compression.type" = "zstd"
     # keep data for 18 hours

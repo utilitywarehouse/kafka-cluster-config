@@ -1,5 +1,6 @@
 resource "kafka_topic" "reminders_v1" {
   config = {
+    "cleanup.policy" = "delete"
     # Recommended by dev-ena
     "compression.type" = "zstd"
     # Use tiered storage
@@ -16,6 +17,7 @@ resource "kafka_topic" "reminders_v1" {
 
 resource "kafka_topic" "reminders_notifications_v1" {
   config = {
+    "cleanup.policy" = "delete"
     # Recommended by dev-ena
     "compression.type" = "zstd"
     # keep data for 18 hours

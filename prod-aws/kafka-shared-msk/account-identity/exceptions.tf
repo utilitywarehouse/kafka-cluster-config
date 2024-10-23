@@ -1,5 +1,6 @@
 resource "kafka_topic" "account_identity_account_exceptions_v1" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # enable remote storage
     "remote.storage.enable" = "true"
@@ -63,6 +64,7 @@ resource "kafka_topic" "account_identity_correspondence_address_exception_check_
 
 resource "kafka_topic" "account_identity_land_registry_check_events" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # enable remote storage
     "remote.storage.enable" = "true"
@@ -94,6 +96,7 @@ resource "kafka_topic" "account_identity_correspondence_address_debt_exception_c
 
 resource "kafka_topic" "account_identity_land_registry_check_events_test" {
   config = {
+    "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # infinite retention
     "retention.ms" = "-1"
