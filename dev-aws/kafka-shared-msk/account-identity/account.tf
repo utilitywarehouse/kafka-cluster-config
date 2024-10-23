@@ -355,8 +355,8 @@ module "cbc_fraud_detection_consumer" {
 }
 
 module "cbc_account_events_relay" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [
+  source = "../../../modules/tls-app"
+  consume_topics = [
     kafka_topic.account_identity_public_account_events.name,
     kafka_topic.account_identity_legacy_account_events.name
   ]
