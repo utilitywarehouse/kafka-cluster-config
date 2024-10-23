@@ -23,9 +23,9 @@ module "account_identity_update_holders" {
 }
 
 module "account_identity_holders_mapper" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
-  consume_groups   = [
+  source         = "../../../modules/tls-app"
+  consume_topics = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups = [
     "account-identity.account-holders-mapper",
     "account-identity.account-holders-mapper-data-fix"
   ]

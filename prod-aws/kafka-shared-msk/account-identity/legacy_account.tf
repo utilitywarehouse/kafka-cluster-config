@@ -194,8 +194,8 @@ module "account_identity_private_legacy_account_indexer" {
 }
 
 module "account_identity_legacy_account_change_event_uswitch_reporter" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [
+  source = "../../../modules/tls-app"
+  consume_topics = [
     kafka_topic.account_identity_legacy_account_change_events_compacted.name,
     kafka_topic.account_identity_account_exceptions_events.name
   ]
