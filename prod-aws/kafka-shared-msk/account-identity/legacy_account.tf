@@ -250,7 +250,7 @@ module "account_identity_legacy_to_anonymize_relay" {
 
 module "account_identity_legacy_account_braze_relay" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.account_identity_legacy_account_events_compacted.name]
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
   consume_groups   = ["account-identity.legacy-account-braze-relay"]
   produce_topics   = [kafka_topic.account_identity_legacy_account_braze_events_compacted.name]
   cert_common_name = "account-platform/legacy_account_braze_relay"
