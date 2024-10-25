@@ -201,3 +201,10 @@ module "cbc_topup_processor" {
   consume_topics   = [kafka_topic.payment_v1_public_events_cbc_topup_v3.name]
   cert_common_name = "cbc/cbc-topup-processor"
 }
+
+
+module "kafka-debugger" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.payment_method_deadletter_v1_events.name]
+  cert_common_name = "payment-platform/kafka-debugger"
+}
