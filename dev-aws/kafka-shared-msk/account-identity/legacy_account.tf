@@ -120,8 +120,11 @@ resource "kafka_topic" "account_identity_legacy_account_events_private" {
 
 resource "kafka_topic" "account_identity_legacy_account_eqdb_events" {
   config = {
-    "cleanup.policy"   = "delete"
-    "compression.type" = "zstd"
+    "remote.storage.enable" = "true"
+    # keep data in hot storage for 1 day
+    "local.retention.ms" = "86400000"
+    "cleanup.policy"     = "delete"
+    "compression.type"   = "zstd"
     # keep data for 3 days
     "retention.ms" = "259200000"
   }
