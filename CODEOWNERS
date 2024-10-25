@@ -7,3 +7,4 @@
 /**/cbc/                 @utilitywarehouse/org-cashback
 /**/iam/                 @utilitywarehouse/account-identity
 /**/iam-audit/           @utilitywarehouse/account-identity
+/**/payment-platform/    @utilitywarehouse/payments-maintainers

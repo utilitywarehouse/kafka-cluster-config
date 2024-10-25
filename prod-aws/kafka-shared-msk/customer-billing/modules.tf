@@ -125,3 +125,9 @@ module "invoice_fulfilment_regeneration_job" {
   cert_common_name = "customer-billing/invoice-fulfilment-regeneration-job"
   produce_topics   = [kafka_topic.internal_bex_bill_regeneration.name]
 }
+
+module "invoice_api" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "customer-billing/invoice-api"
+  produce_topics   = [kafka_topic.bex_legacy_invoice_api.name]
+}
