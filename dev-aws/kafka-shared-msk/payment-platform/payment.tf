@@ -203,7 +203,7 @@ module "cbc_topup_processor" {
 }
 
 
-module "kafka-debugger" {
+module "kafka_debugger" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.payment_method_deadletter_v1_events.name]
   cert_common_name = "payment-platform/kafka-debugger"
