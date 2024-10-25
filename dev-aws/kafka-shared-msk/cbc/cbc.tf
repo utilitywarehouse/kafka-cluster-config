@@ -774,6 +774,7 @@ module "cbc_topup_projector" {
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.topup_events_v1.name,
     kafka_topic.legacy_account_events_v2.name,
+    kafka_topic.charges_events_v1.name,
     kafka_topic.transaction_events_v3.name
   ]
   consume_groups   = ["cbc.cbc-topup-projector-v1"]
