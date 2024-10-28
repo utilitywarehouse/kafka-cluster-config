@@ -35,9 +35,7 @@ resource "kafka_topic" "account_identity_account_unified_events" {
     "cleanup.policy" = "compact"
     # compaction lag of 7 days
     "max.compaction.lag.ms" = "604800000"
-    # infinite retention
-    "retention.ms"     = "-1"
-    "compression.type" = "zstd"
+    "compression.type"      = "zstd"
   }
   name               = "account-identity.account.unified.events"
   partitions         = 50
