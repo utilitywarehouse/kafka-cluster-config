@@ -21,8 +21,6 @@ resource "kafka_topic" "account_identity_account_exceptions_events" {
 
     # compaction lag of 7 days
     "max.compaction.lag.ms" = "604800000"
-    # infinite retention
-    "retention.ms" = "-1"
   }
   name               = "account-identity.account.exceptions.events"
   partitions         = 15

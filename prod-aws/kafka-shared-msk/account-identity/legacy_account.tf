@@ -5,8 +5,6 @@ resource "kafka_topic" "account_identity_legacy_account_events_compacted" {
     "compression.type" = "zstd"
     # compaction lag of 7 days
     "max.compaction.lag.ms" = "604800000"
-    # infinite retention
-    "retention.ms" = "-1"
   }
   name               = "account-identity.legacy.account.events.compacted"
   partitions         = 50
@@ -20,8 +18,7 @@ resource "kafka_topic" "account_identity_legacy_account_changelog_events" {
 
     # compaction lag of 7 days
     "max.compaction.lag.ms" = "604800000"
-    # infinite retention
-    "retention.ms" = "-1"
+
   }
   name               = "account-identity.legacy.account.changelog.events"
   partitions         = 15
@@ -49,9 +46,7 @@ resource "kafka_topic" "account_identity_legacy_account_change_events_compacted"
     "cleanup.policy" = "compact"
     # compaction lag of 7 days
     "max.compaction.lag.ms" = "604800000"
-    # infinite retention
-    "retention.ms"     = "-1"
-    "compression.type" = "zstd"
+    "compression.type"      = "zstd"
   }
   name               = "account-identity.legacy.account.change.events.compacted"
   partitions         = 50
@@ -67,9 +62,7 @@ resource "kafka_topic" "account_identity_legacy_account_braze_events_compacted" 
     "cleanup.policy" = "compact"
     # compaction lag of 7 days
     "max.compaction.lag.ms" = "604800000"
-    # infinite retention
-    "retention.ms"     = "-1"
-    "compression.type" = "zstd"
+    "compression.type"      = "zstd"
   }
   name               = "account-identity.legacy.account.braze.events.compacted"
   partitions         = 50
@@ -81,9 +74,7 @@ resource "kafka_topic" "account_identity_internal_legacy_account_events" {
     "cleanup.policy" = "compact"
     # compaction lag of 7 days
     "max.compaction.lag.ms" = "604800000"
-    # infinite retention
-    "retention.ms"     = "-1"
-    "compression.type" = "zstd"
+    "compression.type"      = "zstd"
   }
   name               = "account-identity.internal.legacy.account.events"
   partitions         = 15
