@@ -128,7 +128,7 @@ resource "kafka_topic" "account_identity_accunt_bill_writes_public" {
     "compression.type"      = "zstd"
   }
   name               = "account-identity.account.bill.writes.public"
-  partitions         = 50
+  partitions         = 15
   replication_factor = 3
 }
 
