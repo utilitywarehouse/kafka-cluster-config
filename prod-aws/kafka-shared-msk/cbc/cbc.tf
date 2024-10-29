@@ -8,8 +8,8 @@ resource "kafka_topic" "fraud_events" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -42,8 +42,8 @@ resource "kafka_topic" "rating_events_v3" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -59,8 +59,8 @@ resource "kafka_topic" "challenge_events_v1" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -76,8 +76,8 @@ resource "kafka_topic" "charges_events_v1" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -93,8 +93,8 @@ resource "kafka_topic" "lifecycle_events_v2" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -110,8 +110,8 @@ resource "kafka_topic" "topup_events_v1" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -127,8 +127,8 @@ resource "kafka_topic" "transaction_events_v3" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -144,8 +144,8 @@ resource "kafka_topic" "openbanking_events_v1" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -161,8 +161,8 @@ resource "kafka_topic" "order_events_v1" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -178,8 +178,8 @@ resource "kafka_topic" "paymentology_events_v1" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -195,8 +195,8 @@ resource "kafka_topic" "sodexo_events_v1" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -212,8 +212,8 @@ resource "kafka_topic" "verification_events_v1" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -229,8 +229,8 @@ resource "kafka_topic" "customer_events_v1" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -246,8 +246,8 @@ resource "kafka_topic" "migration_events_v1" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -263,8 +263,8 @@ resource "kafka_topic" "network_events_v1" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -280,8 +280,8 @@ resource "kafka_topic" "mdes_events_v1" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -297,8 +297,8 @@ resource "kafka_topic" "service_events_v1" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -314,8 +314,8 @@ resource "kafka_topic" "crm_events_v1" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -331,8 +331,8 @@ resource "kafka_topic" "legacy_account_events_v2" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -348,15 +348,15 @@ resource "kafka_topic" "eqdb_loader_events_v1" {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
     "retention.ms"          = "-1"
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000" # keep data locally for 5 hours
+    "max.message.bytes"     = "2097152"  # allow max 2MB for a message
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
 }
 
 module "cbc_data_infra_adapter_consumer" {
-  source           = "../../../modules/tls-app"
+  source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.transaction_events_v3.name,
     kafka_topic.mdes_events_v1.name,
@@ -375,15 +375,15 @@ module "cbc_data_infra_exporter" {
 }
 
 module "cbc_fraud_detection_consumer" {
-  source           = "../../../modules/tls-app"
+  source = "../../../modules/tls-app"
   consume_topics = [
-    kafka_topic.FraudEvents.name,
+    kafka_topic.fraud_events.name,
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.topup_events_v1.name,
     kafka_topic.legacy_account_events_v2.name,
     kafka_topic.transaction_events_v3.name
   ]
-  produce_topics = [kafka_topic.FraudEvents.name]
+  produce_topics   = [kafka_topic.fraud_events.name]
   consume_groups   = ["cbc.cbc-fraud-detection-consumer-v1"]
   cert_common_name = "cbc/cbc-fraud-detection-consumer"
 }
@@ -392,7 +392,7 @@ module "cbc_events_indexer" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.data_product_events_v1.name,
-    kafka_topic.FraudEvents.name,
+    kafka_topic.fraud_events.name,
     kafka_topic.rating_events_v3.name,
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.charges_events_v1.name,
@@ -419,14 +419,14 @@ module "cbc_events_indexer" {
 
 module "cbc_fraud_detection_api" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.FraudEvents.name]
+  produce_topics   = [kafka_topic.fraud_events.name]
   cert_common_name = "cbc/cbc-fraud-detection-api"
 }
 
 module "cbc_bigquery_exporter" {
   source = "../../../modules/tls-app"
   consume_topics = [
-    kafka_topic.FraudEvents.name,
+    kafka_topic.fraud_events.name,
     kafka_topic.rating_events_v3.name,
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.charges_events_v1.name,
