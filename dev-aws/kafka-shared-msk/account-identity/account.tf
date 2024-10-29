@@ -371,3 +371,11 @@ module "cbc_account_events_relay" {
   consume_groups   = ["account-identity.cbc-account-events-relay-v2"]
   cert_common_name = "cbc/cbc-account-events-relay-v2"
 }
+
+# Consume from account-identity.account.unified.events
+module "quoting_platform_account_projector" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "quoting-platform/account-projector"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["quoting-platform.account-projector"]
+}
