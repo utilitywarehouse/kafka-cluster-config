@@ -744,7 +744,8 @@ module "cbc_mdes_projector" {
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.legacy_account_events_v2.name,
     kafka_topic.transaction_events_v3.name,
-    kafka_topic.mdes_events_v1.name
+    kafka_topic.mdes_events_v1.name,
+    kafka_topic.rating_events_v3.name,
   ]
   consume_groups   = ["cbc.cbc-mdes-projector"]
   cert_common_name = "cbc/cbc-mdes-projector"
@@ -1069,7 +1070,8 @@ module "cbc_dispute_credits_projector" {
   consume_topics = [
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.legacy_account_events_v2.name,
-    kafka_topic.transaction_events_v3.name
+    kafka_topic.transaction_events_v3.name,
+    kafka_topic.mdes_events_v1.name,
   ]
   consume_groups   = ["cbc.cbc-dispute-credits-projector-v3"]
   cert_common_name = "cbc/cbc-dispute-credits-projector"
