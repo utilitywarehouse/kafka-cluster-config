@@ -120,6 +120,18 @@ resource "kafka_topic" "account_identity_to_anonymize_events" {
   replication_factor = 3
 }
 
+resource "kafka_topic" "account_identity_accunt_bill_writes_public" {
+  config = {
+    "cleanup.policy" = "compact"
+    # compaction lag of 7 days
+    "max.compaction.lag.ms" = "604800000"
+    "compression.type"      = "zstd"
+  }
+  name               = "account-identity.account.bill.writes.public"
+  partitions         = 15
+  replication_factor = 3
+}
+
 module "account_identity_account_atomic_v1_indexer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
@@ -174,6 +186,12 @@ module "account_identity_account_api_v2_dispatcher" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.account_identity_account_events_v2.name]
   cert_common_name = "account-platform/account_api_v2_dispatcher"
+}
+
+module "account_identity_account_api_v2" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_accunt_bill_writes_public.name]
+  cert_common_name = "account-platform/account_api_v2"
 }
 
 module "account_identity_create_account_projector" {
