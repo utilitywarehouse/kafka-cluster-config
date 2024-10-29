@@ -1328,7 +1328,7 @@ module "cbc_data_infra_adapter_consumer" {
 
 module "cbc_data_infra_exporter" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.data_product_events_v1.name,]
+  consume_topics   = [kafka_topic.data_product_events_v1.name]
   consume_groups   = ["cbc.cbc-data-infra-exporter-v1"]
   cert_common_name = "cbc/cbc-data-infra-exporter"
 }
