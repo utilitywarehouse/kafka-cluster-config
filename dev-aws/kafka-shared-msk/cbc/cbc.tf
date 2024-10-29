@@ -729,7 +729,7 @@ module "cbc_mdes_projector" {
     kafka_topic.legacy_account_events_v2.name,
     kafka_topic.transaction_events_v3.name,
     kafka_topic.mdes_events_v1.name,
-    cbc.RatingEvents_v3.name,
+    cbc.rating_events_v3.name,
   ]
   consume_groups   = ["cbc.cbc-mdes-projector"]
   cert_common_name = "cbc/cbc-mdes-projector"
