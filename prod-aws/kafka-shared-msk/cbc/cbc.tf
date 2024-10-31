@@ -915,6 +915,7 @@ module "cbc_3ds_sms_challenge_executor" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.challenge_events_v1.name]
   consume_groups   = ["cbc.cbc-3ds-sms-challenge-executor-v1"]
+  produce_topics   = [kafka_topic.challenge_events_v1.name]
   cert_common_name = "cbc/cbc-3ds-sms-challenge-executor"
 }
 
