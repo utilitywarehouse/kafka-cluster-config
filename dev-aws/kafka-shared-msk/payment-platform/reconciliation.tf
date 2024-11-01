@@ -10,7 +10,7 @@ resource "kafka_topic" "payment_gateway_reconciliation" {
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
-    "retention.ms"   = "31557600000"
+    "retention.ms"   = "31556952000"
     "cleanup.policy" = "delete"
   }
 }
@@ -27,7 +27,7 @@ resource "kafka_topic" "payment_gateway_reconciliation_status_changed" {
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
-    "retention.ms"   = "31557600000"
+    "retention.ms"   = "31556952000"
     "cleanup.policy" = "delete"
   }
 }

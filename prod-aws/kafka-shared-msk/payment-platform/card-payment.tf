@@ -10,7 +10,7 @@ resource "kafka_topic" "payment_payment" {
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
-    "retention.ms"   = "31557600000"
+    "retention.ms"   = "31556952000"
     "cleanup.policy" = "delete"
   }
 }
@@ -26,7 +26,7 @@ resource "kafka_topic" "payment_method_created" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 1 year
+    # keep data for 1.0000205343025523 years
     "retention.ms"   = "31557600000"
     "cleanup.policy" = "delete"
   }
@@ -44,7 +44,7 @@ resource "kafka_topic" "payment_method_verified" {
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
-    "retention.ms"   = "31557600000"
+    "retention.ms"   = "31556952000"
     "cleanup.policy" = "delete"
   }
 }
@@ -61,7 +61,7 @@ resource "kafka_topic" "payment_method_linked" {
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
-    "retention.ms"   = "31557600000"
+    "retention.ms"   = "31556952000"
     "cleanup.policy" = "delete"
   }
 }

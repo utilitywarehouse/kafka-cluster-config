@@ -10,7 +10,7 @@ resource "kafka_topic" "openbanking_v1_internal_payments" {
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
-    "retention.ms"   = "31557600000"
+    "retention.ms"   = "31556952000"
     "cleanup.policy" = "delete"
   }
 }
@@ -27,7 +27,7 @@ resource "kafka_topic" "openbanking_deadletter_v1_internal_payments" {
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
-    "retention.ms"   = "31557600000"
+    "retention.ms"   = "31556952000"
     "cleanup.policy" = "delete"
   }
 }
@@ -44,7 +44,7 @@ resource "kafka_topic" "openbanking_v1_internal_payment_methods" {
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
-    "retention.ms"   = "31557600000"
+    "retention.ms"   = "31556952000"
     "cleanup.policy" = "delete"
   }
 }
@@ -61,7 +61,7 @@ resource "kafka_topic" "openbanking_deadletter_v1_internal_payment_methods" {
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
-    "retention.ms"   = "31557600000"
+    "retention.ms"   = "31556952000"
     "cleanup.policy" = "delete"
   }
 }
