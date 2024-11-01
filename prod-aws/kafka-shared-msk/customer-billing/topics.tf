@@ -4,7 +4,7 @@ resource "kafka_topic" "invoice_fulfillment" {
   partitions         = 10
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data for 7 days
     "retention.ms" = "604800000"
@@ -21,7 +21,7 @@ resource "kafka_topic" "invoice_fulfillment_deadletter" {
   partitions         = 1
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data for 14 days
     "retention.ms" = "1209600000"
@@ -38,7 +38,7 @@ resource "kafka_topic" "internal_invoice_fulfilment_deadletter" {
   partitions         = 1
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data for 28 days
     "retention.ms" = "2419200000"
@@ -55,7 +55,7 @@ resource "kafka_topic" "mail_sender_deadletter" {
   partitions         = 1
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data for 28 days
     "retention.ms" = "2419200000"
@@ -72,7 +72,7 @@ resource "kafka_topic" "mail_sender_reprint_deadletter" {
   partitions         = 1
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data for 14 days
     "retention.ms" = "1209600000"
@@ -89,7 +89,7 @@ resource "kafka_topic" "invoice_generator" {
   partitions         = 10
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data for 7 days
     "retention.ms" = "604800000"
@@ -106,7 +106,7 @@ resource "kafka_topic" "invoice_ready_notifier_deadletter" {
   partitions         = 1
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data for 14 days
     "retention.ms" = "1209600000"
@@ -123,7 +123,7 @@ resource "kafka_topic" "bex_invoice_api" {
   partitions         = 10
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data for 7 days
     "retention.ms" = "604800000"
@@ -140,7 +140,7 @@ resource "kafka_topic" "bex_legacy_invoice_api" {
   partitions         = 10
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data for 7 days
     "retention.ms" = "604800000"
@@ -159,8 +159,8 @@ resource "kafka_topic" "public_fulfilment_events" {
     "remote.storage.enable" = "true"
     # keep data forever 
     "retention.bytes" = "-1"
-    "retention.ms"    = "-1"
-    # keep data in hot storage for 1 day
+    "retention.ms"    = "-1" # keep data forever
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # allow max 1MB for a message
     "max.message.bytes" = "1048588"
@@ -177,7 +177,7 @@ resource "kafka_topic" "transition_bex_fulfilment_request" {
   partitions         = 20
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     "compression.type"   = "zstd"
     "retention.bytes"    = "8053063680"
@@ -197,7 +197,7 @@ resource "kafka_topic" "internal_bex_fulfilment_retry_1" {
   partitions         = 5
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     "compression.type"   = "zstd"
     "retention.bytes"    = "8053063680"
@@ -217,7 +217,7 @@ resource "kafka_topic" "internal_bex_fulfilment_retry_2" {
   partitions         = 5
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     "compression.type"   = "zstd"
     "retention.bytes"    = "8053063680"
@@ -236,7 +236,7 @@ resource "kafka_topic" "internal_bex_bill_regeneration" {
   partitions         = 10
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     "compression.type"   = "zstd"
     "retention.bytes"    = "8053063680"
@@ -256,7 +256,7 @@ resource "kafka_topic" "internal_bex_bill_regeneration_retry_1" {
   partitions         = 5
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     "compression.type"   = "zstd"
     "retention.bytes"    = "8053063680"
@@ -276,7 +276,7 @@ resource "kafka_topic" "internal_bex_bill_regeneration_retry_2" {
   partitions         = 5
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     "compression.type"   = "zstd"
     "retention.bytes"    = "8053063680"
@@ -296,7 +296,7 @@ resource "kafka_topic" "internal_bex_bill_regeneration_deadletter" {
   partitions         = 1
   config = {
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data for 14 days
     "retention.ms" = "1209600000"

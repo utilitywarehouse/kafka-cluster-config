@@ -8,8 +8,8 @@ resource "kafka_topic" "uswitch_data_v1" {
   config = {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    # keep data locally for 1 hour
+    "retention.ms"          = "-1" # keep data forever
+    # keep data in primary storage for 1 hour
     "local.retention.ms" = "3600000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
@@ -28,8 +28,8 @@ resource "kafka_topic" "uswitch_events_v2" {
   config = {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    # keep data locally for 1 hour
+    "retention.ms"          = "-1" # keep data forever
+    # keep data in primary storage for 1 hour
     "local.retention.ms" = "3600000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"

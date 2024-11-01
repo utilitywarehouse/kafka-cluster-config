@@ -22,11 +22,11 @@ resource "kafka_topic" "account_identity_verification" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # enable remote storage
     "remote.storage.enable" = "true"
-    # retain data for 7 days
+    # keep data for 7 days
     "retention.ms" = "604800000"
   }
   name               = "account-identity.verification.events.v1"

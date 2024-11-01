@@ -4,9 +4,9 @@ resource "kafka_topic" "account_identity_account_exceptions_v1" {
     "compression.type" = "zstd"
     # enable remote storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # infinite retention
+    # keep data forever
     "retention.ms" = "-1"
   }
   name               = "account-identity.account.exceptions.v1"
@@ -19,7 +19,7 @@ resource "kafka_topic" "account_identity_account_exceptions_events" {
     "compression.type" = "zstd"
     "cleanup.policy"   = "compact"
 
-    # compaction lag of 7 days
+    # allow not compacted keys maximum for 7 days
     "max.compaction.lag.ms" = "604800000"
   }
   name               = "account-identity.account.exceptions.events"
@@ -33,7 +33,7 @@ resource "kafka_topic" "account_identity_supply_address_debt_exception_check_eve
     "cleanup.policy" = "delete"
     # enable remote storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data for 7 days
     "retention.ms"     = "604800000"
@@ -49,7 +49,7 @@ resource "kafka_topic" "account_identity_correspondence_address_exception_check_
     "cleanup.policy" = "delete"
     # enable remote storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data for 7 days
     "retention.ms"     = "604800000"
@@ -66,9 +66,9 @@ resource "kafka_topic" "account_identity_land_registry_check_events" {
     "compression.type" = "zstd"
     # enable remote storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # infinite retention
+    # keep data forever
     "retention.ms" = "-1"
   }
   name               = "account-identity.land-registry.check.events"
@@ -81,7 +81,7 @@ resource "kafka_topic" "account_identity_correspondence_address_debt_exception_c
     "cleanup.policy" = "delete"
     # enable remote storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data for 7 days
     "retention.ms"     = "604800000"
@@ -96,9 +96,9 @@ resource "kafka_topic" "account_identity_land_registry_check_events_test" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # infinite retention
+    # keep data forever
     "retention.ms" = "-1"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # enable remote storage
     "remote.storage.enable" = "true"

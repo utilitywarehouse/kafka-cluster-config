@@ -7,9 +7,9 @@ resource "kafka_topic" "openbanking_v1_internal_payments" {
     "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 30 days
+    # keep data for 1 month
     "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }
@@ -24,9 +24,9 @@ resource "kafka_topic" "openbanking_deadletter_v1_internal_payments" {
     "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 30 days
+    # keep data for 1 month
     "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }
@@ -41,9 +41,9 @@ resource "kafka_topic" "openbanking_v1_internal_payment_methods" {
     "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 30 days
+    # keep data for 1 month
     "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }
@@ -58,9 +58,9 @@ resource "kafka_topic" "openbanking_deadletter_v1_internal_payment_methods" {
     "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 30 days
+    # keep data for 1 month
     "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }

@@ -7,7 +7,7 @@ resource "kafka_topic" "notifications_worldpay_raw" {
     "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
     "retention.ms"   = "31557600000"
@@ -37,7 +37,7 @@ resource "kafka_topic" "notifications_stripe_raw" {
     "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
     "retention.ms"   = "31557600000"

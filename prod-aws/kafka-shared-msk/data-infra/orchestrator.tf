@@ -4,7 +4,7 @@ resource "kafka_topic" "e2e_proto" {
   partitions         = 1
   config = {
     "remote.storage.enable" = "false"
-    # 1 day
+    # keep data for 1 day
     "retention.ms" = "86400000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
@@ -19,7 +19,7 @@ resource "kafka_topic" "e2e_json" {
   partitions         = 1
   config = {
     "remote.storage.enable" = "false"
-    # 1 day
+    # keep data for 1 day
     "retention.ms" = "86400000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
@@ -35,7 +35,7 @@ resource "kafka_topic" "e2e_multi" {
   config = {
     # this is a test, and we need minimum and non-durable resources
     "remote.storage.enable" = "false"
-    # 1 day
+    # keep data for 1 day
     "retention.ms" = "86400000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
@@ -51,7 +51,7 @@ resource "kafka_topic" "e2e_multi_dpd" {
   config = {
     # this is a test, and we need minimum and non-durable resources
     "remote.storage.enable" = "false"
-    # 1 day
+    # keep data for 1 day
     "retention.ms" = "86400000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
@@ -67,7 +67,7 @@ resource "kafka_topic" "e2e_non_std_envelope" {
   config = {
     # this is a test, and we need minimum and non-durable resources
     "remote.storage.enable" = "false"
-    # 1 day
+    # keep data for 1 day
     "retention.ms" = "86400000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"

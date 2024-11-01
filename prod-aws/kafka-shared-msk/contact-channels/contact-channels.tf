@@ -6,8 +6,8 @@ resource "kafka_topic" "genesys_eb_events" {
 
   config = {
     "remote.storage.enable" = "true"
-    "local.retention.ms"    = "259200000"  # 3 days
-    "retention.ms"          = "2629800000" # 1 month
+    "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
+    "retention.ms"          = "2629800000" # keep data for 1 month
     "max.message.bytes"     = "104857600"  # 100MB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
@@ -21,7 +21,7 @@ resource "kafka_topic" "finished_conversations" {
   partitions         = 3
 
   config = {
-    "retention.ms"      = "86400000" # 24 hours
+    "retention.ms"      = "86400000" # keep data for 1 day
     "max.message.bytes" = "1048576"  # 1MB
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -35,7 +35,7 @@ resource "kafka_topic" "finished_transcriptions" {
   partitions         = 3
 
   config = {
-    "retention.ms"      = "86400000" # 24 hours
+    "retention.ms"      = "86400000" # keep data for 1 day
     "max.message.bytes" = "1048576"  # 1MB
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -49,7 +49,7 @@ resource "kafka_topic" "finished_segments" {
   partitions         = 3
 
   config = {
-    "retention.ms"      = "172800000" # 48 hours
+    "retention.ms"      = "172800000" # keep data for 2 days
     "max.message.bytes" = "1048576"   # 1MB
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -63,7 +63,7 @@ resource "kafka_topic" "messenger_transcript_events" {
   partitions         = 3
 
   config = {
-    "retention.ms"      = "172800000" # 48 hours
+    "retention.ms"      = "172800000" # keep data for 2 days
     "max.message.bytes" = "1048576"   # 1MB
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -77,7 +77,7 @@ resource "kafka_topic" "messenger_transcript_events_dlq" {
   partitions         = 3
 
   config = {
-    "retention.ms"      = "172800000" # 48 hours
+    "retention.ms"      = "172800000" # keep data for 2 days
     "max.message.bytes" = "1048576"   # 1MB
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -91,7 +91,7 @@ resource "kafka_topic" "article_feedback_v1" {
   partitions         = 3
 
   config = {
-    "retention.ms"      = "172800000" # 48 hours
+    "retention.ms"      = "172800000" # keep data for 2 days
     "max.message.bytes" = "1048576"   # 1MB
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -105,7 +105,7 @@ resource "kafka_topic" "tracking_events" {
   partitions         = 3
 
   config = {
-    "retention.ms"      = "172800000" # 48 hours
+    "retention.ms"      = "172800000" # keep data for 2 days
     "max.message.bytes" = "1048576"   # 1MB
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -119,7 +119,7 @@ resource "kafka_topic" "intents_v2" {
   partitions         = 3
 
   config = {
-    "retention.ms"      = "172800000" # 48 hours
+    "retention.ms"      = "172800000" # keep data for 2 days
     "max.message.bytes" = "1048576"   # 1MB
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -133,7 +133,7 @@ resource "kafka_topic" "validated_intents_v2" {
   partitions         = 3
 
   config = {
-    "retention.ms"      = "172800000" # 48 hours
+    "retention.ms"      = "172800000" # keep data for 2 days
     "max.message.bytes" = "1048576"   # 1MB
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -147,7 +147,7 @@ resource "kafka_topic" "interactions_state_events" {
   partitions         = 3
 
   config = {
-    "retention.ms"      = "86400000" # 24 hours
+    "retention.ms"      = "86400000" # keep data for 1 day
     "max.message.bytes" = "1048576"  # 1MB
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -162,8 +162,8 @@ resource "kafka_topic" "dsar" {
 
   config = {
     "remote.storage.enable" = "true"
-    "local.retention.ms"    = "259200000"  # 3 days
-    "retention.ms"          = "2629800000" # 1 month
+    "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
+    "retention.ms"          = "2629800000" # keep data for 1 month
     "max.message.bytes"     = "104857600"  # 100MB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
@@ -178,8 +178,8 @@ resource "kafka_topic" "dsar_job" {
 
   config = {
     "remote.storage.enable" = "true"
-    "local.retention.ms"    = "259200000"  # 3 days
-    "retention.ms"          = "2629800000" # 1 month
+    "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
+    "retention.ms"          = "2629800000" # keep data for 1 month
     "max.message.bytes"     = "104857600"  # 100MB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
@@ -194,8 +194,8 @@ resource "kafka_topic" "dsar_conversation" {
 
   config = {
     "remote.storage.enable" = "true"
-    "local.retention.ms"    = "259200000"  # 3 days
-    "retention.ms"          = "2629800000" # 1 month
+    "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
+    "retention.ms"          = "2629800000" # keep data for 1 month
     "max.message.bytes"     = "104857600"  # 100MB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"

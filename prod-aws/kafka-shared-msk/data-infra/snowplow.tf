@@ -4,9 +4,9 @@ resource "kafka_topic" "snowplow" {
   partitions         = 15
   config = {
     "remote.storage.enable" = "true"
-    # 5 days
+    # keep data for 5 days
     "retention.ms" = "432000000"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"

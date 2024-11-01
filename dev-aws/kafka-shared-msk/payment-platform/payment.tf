@@ -7,9 +7,9 @@ resource "kafka_topic" "payment_v1_events" {
     "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 30 days
+    # keep data for 1 month
     "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }
@@ -24,9 +24,9 @@ resource "kafka_topic" "payment_method_v1_events" {
     "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 30 days
+    # keep data for 1 month
     "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }
@@ -41,9 +41,9 @@ resource "kafka_topic" "payment_deadletter_v1_events" {
     "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 30 days
+    # keep data for 1 month
     "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }
@@ -58,9 +58,9 @@ resource "kafka_topic" "payment_method_deadletter_v1_events" {
     "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 30 days
+    # keep data for 1 month
     "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }
@@ -85,9 +85,9 @@ resource "kafka_topic" "payment_v1_public_events_pp_test" {
     "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 30 days
+    # keep data for 1 month
     "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }
@@ -102,9 +102,9 @@ resource "kafka_topic" "payment_v1_public_events_cbc_topup_v3" {
     "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 30 days
+    # keep data for 1 month
     "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }
@@ -121,9 +121,9 @@ resource "kafka_topic" "payment_v1_public_events" {
     "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 30 days
+    # keep data for 1 month
     "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }
@@ -138,9 +138,9 @@ resource "kafka_topic" "payment_method_v1_public_events" {
     "retention.bytes"  = "-1"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 30 days
+    # keep data for 1 month
     "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }
