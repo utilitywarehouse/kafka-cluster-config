@@ -37,9 +37,9 @@ resource "kafka_topic" "iam_credentials_v1" {
     "remote.storage.enable" = "true"
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
-    # keep data for 60 days
+    # keep data for 2 months
     "retention.ms" = "5184000000"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
@@ -85,7 +85,7 @@ resource "kafka_topic" "iam_dpd_v1" {
     "retention.bytes" = "104857600"
     # keep data for 7 days
     "retention.ms" = "604800000"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
@@ -182,9 +182,9 @@ resource "kafka_topic" "iam_identitydb_v1" {
     "remote.storage.enable" = "true"
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
-    # keep data for 30 days
+    # keep data for 1 month
     "retention.ms" = "2592000000"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # allow max 5 MB for a message
     "max.message.bytes" = "5242880"
@@ -246,9 +246,9 @@ resource "kafka_topic" "iam_revoked_v1" {
     "remote.storage.enable" = "true"
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
-    # keep data for 60 days
+    # keep data for 2 months
     "retention.ms" = "5184000000"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"
@@ -266,9 +266,9 @@ resource "kafka_topic" "iam_credentials_v1_public" {
     "remote.storage.enable" = "true"
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
-    # keep data for 60 days
+    # keep data for 2 months
     "retention.ms" = "5184000000"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # allow max 1 MB for a message
     "max.message.bytes" = "1048576"

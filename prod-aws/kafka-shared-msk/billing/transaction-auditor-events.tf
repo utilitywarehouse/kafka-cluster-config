@@ -10,9 +10,9 @@ resource "kafka_topic" "transactions_auditor_diff_events" {
     "max.message.bytes" = "104857600"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 60 days
+    # keep data for 2 months
     "retention.ms"   = "5184000000"
     "cleanup.policy" = "delete"
   }

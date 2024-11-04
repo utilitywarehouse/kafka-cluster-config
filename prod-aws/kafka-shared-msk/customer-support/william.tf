@@ -5,7 +5,7 @@ resource "kafka_topic" "notes_v2" {
     "compression.type" = "zstd"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for a day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data forever
     "retention.ms" = "-1"
@@ -22,7 +22,7 @@ resource "kafka_topic" "ticketing_v2" {
     "compression.type" = "zstd"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for a day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data forever
     "retention.ms" = "-1"

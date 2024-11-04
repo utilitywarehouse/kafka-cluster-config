@@ -7,7 +7,7 @@ resource "kafka_topic" "payment_payment" {
     "retention.bytes"  = "3758096384"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
     "retention.ms"   = "31557600000"
@@ -24,7 +24,7 @@ resource "kafka_topic" "payment_method_created" {
     "retention.bytes"  = "3758096384"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
     "retention.ms"   = "31557600000"
@@ -41,7 +41,7 @@ resource "kafka_topic" "payment_method_verified" {
     "retention.bytes"  = "3758096384"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
     "retention.ms"   = "31557600000"
@@ -58,7 +58,7 @@ resource "kafka_topic" "payment_method_linked" {
     "retention.bytes"  = "3758096384"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
     "retention.ms"   = "31557600000"
