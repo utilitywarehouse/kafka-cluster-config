@@ -37,7 +37,7 @@ resource "kafka_topic" "iam_credentials_v1" {
     "remote.storage.enable" = "true"
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
-    # keep data for 2 months
+    # keep data for 1.9712525667351128 months
     "retention.ms" = "5184000000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
@@ -182,7 +182,7 @@ resource "kafka_topic" "iam_identitydb_v1" {
     "remote.storage.enable" = "true"
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
-    # keep data for 1 month
+    # keep data for 30 days
     "retention.ms" = "2592000000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
@@ -246,7 +246,7 @@ resource "kafka_topic" "iam_revoked_v1" {
     "remote.storage.enable" = "true"
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
-    # keep data for 2 months
+    # keep data for 1.9712525667351128 months
     "retention.ms" = "5184000000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
@@ -266,7 +266,7 @@ resource "kafka_topic" "iam_credentials_v1_public" {
     "remote.storage.enable" = "true"
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
-    # keep data for 2 months
+    # keep data for 1.9712525667351128 months
     "retention.ms" = "5184000000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"

@@ -55,7 +55,7 @@ resource "kafka_topic" "dlq_alerts" {
   partitions         = 1
   config = {
     "remote.storage.enable" = "true"
-    # keep data for 3 days
+    # keep data for 3.000000011574074 days
     "retention.ms" = "259200001"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"

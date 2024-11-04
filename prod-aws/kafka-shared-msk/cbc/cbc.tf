@@ -24,7 +24,7 @@ resource "kafka_topic" "data_product_events_v1" {
   config = {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1"
-    "retention.ms"          = "2629746000" # keep data for 1 month
+    "retention.ms"          = "2629746000" # keep data for 30.436875 days
     "local.retention.ms"    = "18000000"   # keep data in primary storage for 5 hours
     "max.message.bytes"     = "2097152"    # allow max 2MB for a message
     "compression.type"      = "zstd"

@@ -182,7 +182,7 @@ resource "kafka_topic" "iam_identitydb_v1" {
     "remote.storage.enable" = "true"
     # retain 100MB on each partition
     "retention.bytes" = "104857600"
-    # keep data for 1 month
+    # keep data for 30 days
     "retention.ms" = "2592000000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"

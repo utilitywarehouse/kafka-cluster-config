@@ -9,7 +9,7 @@ resource "kafka_topic" "payment_data_staged" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 1 month
+    # keep data for 30 days
     "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }

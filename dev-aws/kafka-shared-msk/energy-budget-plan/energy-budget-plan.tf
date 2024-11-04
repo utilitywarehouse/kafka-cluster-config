@@ -21,7 +21,7 @@ resource "kafka_topic" "budget_plan" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data for 7 years
+    # keep data for 6.999994232649592 years
     "retention.ms" = "220898482000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
@@ -39,7 +39,7 @@ resource "kafka_topic" "customer_change" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data for 2 years
+    # keep data for 1.9999983521855977 years
     "retention.ms" = "63113852000"
     # keep data in primary storage for 7 days
     "local.retention.ms" = "604800000"
@@ -75,7 +75,7 @@ resource "kafka_topic" "assessment_request" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data for 7 years
+    # keep data for 6.999994232649592 years
     "retention.ms" = "220898482000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"

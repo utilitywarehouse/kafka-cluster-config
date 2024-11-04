@@ -12,7 +12,7 @@ resource "kafka_topic" "transactions_auditor_diff_events" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 2 months
+    # keep data for 1.9712525667351128 months
     "retention.ms"   = "5184000000"
     "cleanup.policy" = "delete"
   }

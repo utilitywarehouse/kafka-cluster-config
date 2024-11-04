@@ -5,7 +5,7 @@ resource "kafka_topic" "ingest_v1" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data for 1 month
+    # keep data for 30 days
     "retention.ms" = "2592000000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
