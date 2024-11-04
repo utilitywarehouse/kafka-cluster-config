@@ -4,6 +4,9 @@ Uses [this terraform kafka provider](https://registry.terraform.io/providers/Mon
 
 Aggregates resources for different teams willing to migrate from the [kafka topic applier](https://github.com/utilitywarehouse/kafka-topic-applier) or other styles of configuring topics.
 
+## Contributing
+See [Contributing doc](./CONTRIBUTING.md)
+
 ## Structure
 At the root of the repo there are folders for each cluster and environment the config applies to, like dev-aws, dev-merit, prod-aws, etc.
 
