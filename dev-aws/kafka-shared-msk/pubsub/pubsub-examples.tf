@@ -14,6 +14,12 @@ resource "kafka_topic" "pubsub_examples" {
   }
 }
 
+resource "kafka_topic" "pubsub_examples_failure" {
+  name               = "pubsub.examples"
+  replication_factor = 1
+  partitions         = 3
+}
+
 module "example_producer" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.pubsub_examples.name]
