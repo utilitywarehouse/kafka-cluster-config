@@ -4,7 +4,7 @@ resource "kafka_topic" "payment_payment" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384"
+    "retention.bytes"  = "3758096384" # keep on each partition 3.5GB
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
@@ -21,7 +21,7 @@ resource "kafka_topic" "payment_method_created" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384"
+    "retention.bytes"  = "3758096384" # keep on each partition 3.5GB
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
@@ -38,7 +38,7 @@ resource "kafka_topic" "payment_method_verified" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384"
+    "retention.bytes"  = "3758096384" # keep on each partition 3.5GB
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
@@ -55,7 +55,7 @@ resource "kafka_topic" "payment_method_linked" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384"
+    "retention.bytes"  = "3758096384" # keep on each partition 3.5GB
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days

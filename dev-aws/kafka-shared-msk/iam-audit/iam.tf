@@ -9,7 +9,7 @@ resource "kafka_topic" "ingest_v1" {
     "retention.ms" = "2592000000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"

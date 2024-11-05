@@ -4,7 +4,7 @@ resource "kafka_topic" "notifications_worldpay_raw" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "-1"
+    "retention.bytes"  = "-1" # keep on each partition unlimited data
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
@@ -34,7 +34,7 @@ resource "kafka_topic" "notifications_stripe_raw" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "-1"
+    "retention.bytes"  = "-1" # keep on each partition unlimited data
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days

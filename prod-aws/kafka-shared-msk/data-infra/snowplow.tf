@@ -8,7 +8,7 @@ resource "kafka_topic" "snowplow" {
     "retention.ms" = "432000000"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"

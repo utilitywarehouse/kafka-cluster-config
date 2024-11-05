@@ -4,7 +4,7 @@ resource "kafka_topic" "openbanking_v1_internal_payments" {
   partitions         = 5
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "-1"
+    "retention.bytes"  = "-1" # keep on each partition unlimited data
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
@@ -21,7 +21,7 @@ resource "kafka_topic" "openbanking_deadletter_v1_internal_payments" {
   partitions         = 5
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "-1"
+    "retention.bytes"  = "-1" # keep on each partition unlimited data
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
@@ -38,7 +38,7 @@ resource "kafka_topic" "openbanking_v1_internal_payment_methods" {
   partitions         = 5
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "-1"
+    "retention.bytes"  = "-1" # keep on each partition unlimited data
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
@@ -55,7 +55,7 @@ resource "kafka_topic" "openbanking_deadletter_v1_internal_payment_methods" {
   partitions         = 5
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "-1"
+    "retention.bytes"  = "-1" # keep on each partition unlimited data
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
