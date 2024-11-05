@@ -38,6 +38,5 @@ resource "kafka_topic" "account_identity_verification" {
 module "iam_dpd_mapper" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.account_identity_verification.name)]
-  consume_groups   = ["iam.dpd-mapper"]
   cert_common_name = "auth-customer/dpd-mapper"
 }
