@@ -18,10 +18,16 @@ repos:
       name: Validate with tflint the MSK team configs
       args:
         - --args=--config=__GIT_WORKING_DIR__/.tflint-msk.hcl
-        # use compact, so that errors will be reported by the GH action see https://github.com/terraform-linters/setup-tflint?tab=readme-ov-file#checks
-        - --args=--format=compact
         - --args=--fix
-        # We won't be able to use --hook-config=--delegate-chdir, as we need to determine the current folder in our plugin tflint-ruleset-kafka-config.
+        # use default format, so that the errors are verbose and links to the rules are added in the output.
+        #
+        # for the failures to be reported in the PR, we would need both: --format=compact and --hook-config=--delegate-chdir,
+        # but we can not use --hook-config=--delegate-chdir as we need to determine the current folder in our plugin tflint-ruleset-kafka-config by getting the current folder.
+        # See https://github.com/utilitywarehouse/tflint-ruleset-kafka-config/blob/074a2ea37787a6ac62694ec27ba4deedcf58a339/rules/msk_topic_name.go#L68
+        #
+        # Refs: https://github.com/terraform-linters/setup-tflint?tab=readme-ov-file#checks
+        # https://github.com/antonbabenko/pre-commit-terraform?tab=readme-ov-file#terraform_tflint
+        - --args=--format=default
       files: "^.*/kafka-shared-msk/.+/.*$"
     - id: terraform_validate
       args:
