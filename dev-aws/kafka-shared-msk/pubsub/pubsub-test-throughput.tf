@@ -3,11 +3,11 @@ resource "kafka_topic" "pubsub_throughput_test" {
   replication_factor = 3
   partitions         = 10
   config = {
-    # keep on each partition 9.8GB
+    # keep on each partition 9.8GiB
     "retention.bytes" = "10485760000"
     # keep data for 2 days
     "retention.ms" = "172800000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"

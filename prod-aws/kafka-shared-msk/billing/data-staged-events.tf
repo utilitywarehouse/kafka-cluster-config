@@ -4,9 +4,9 @@ resource "kafka_topic" "data_staged_events_finance" {
   partitions         = 10
   config = {
     "compression.type" = "zstd"
-    # keep on each partition 25GB
+    # keep on each partition 25GiB
     "retention.bytes" = "26843545600"
-    # allow for a batch of records maximum 100MB
+    # allow for a batch of records maximum 100MiB
     "max.message.bytes" = "104857600"
     # Use tiered storage
     "remote.storage.enable" = "true"
@@ -23,9 +23,9 @@ resource "kafka_topic" "historical_data_staged_events_finance" {
   partitions         = 10
   config = {
     "compression.type" = "zstd"
-    # keep on each partition 750GB
+    # keep on each partition 750GiB
     "retention.bytes" = "805306368000"
-    # allow for a batch of records maximum 100MB
+    # allow for a batch of records maximum 100MiB
     "max.message.bytes" = "104857600"
     # Use tiered storage
     "remote.storage.enable" = "true"

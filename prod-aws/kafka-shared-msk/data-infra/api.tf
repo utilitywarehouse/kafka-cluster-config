@@ -8,7 +8,7 @@ resource "kafka_topic" "events" {
     "retention.ms" = "-1"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"

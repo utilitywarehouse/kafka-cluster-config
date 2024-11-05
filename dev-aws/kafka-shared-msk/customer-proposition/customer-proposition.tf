@@ -11,7 +11,7 @@ resource "kafka_topic" "uswitch_data_v1" {
     "retention.ms"          = "-1" # keep data forever
     # keep data in primary storage for 1 hour
     "local.retention.ms" = "3600000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -31,7 +31,7 @@ resource "kafka_topic" "uswitch_events_v2" {
     "retention.ms"          = "-1" # keep data forever
     # keep data in primary storage for 1 hour
     "local.retention.ms" = "3600000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"

@@ -3,11 +3,11 @@ resource "kafka_topic" "iam_cerbos_audit_v1" {
   replication_factor = 3
   partitions         = 10
   config = {
-    # keep on each partition 100MB
+    # keep on each partition 100MiB
     "retention.bytes" = "104857600"
     # keep data for 2 days
     "retention.ms" = "172800000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -35,13 +35,13 @@ resource "kafka_topic" "iam_credentials_v1" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep on each partition 100MB
+    # keep on each partition 100MiB
     "retention.bytes" = "104857600"
     # keep data for 7 days
     "retention.ms" = "604800000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -81,13 +81,13 @@ resource "kafka_topic" "iam_dpd_v1" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep on each partition 100MB
+    # keep on each partition 100MiB
     "retention.bytes" = "104857600"
     # keep data for 7 days
     "retention.ms" = "604800000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -180,13 +180,13 @@ resource "kafka_topic" "iam_identitydb_v1" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep on each partition 100MB
+    # keep on each partition 100MiB
     "retention.bytes" = "104857600"
     # keep data for 1 month
     "retention.ms" = "2592000000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow for a batch of records maximum 5MB
+    # allow for a batch of records maximum 5MiB
     "max.message.bytes" = "5242880"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -244,13 +244,13 @@ resource "kafka_topic" "iam_revoked_v1" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep on each partition 100MB
+    # keep on each partition 100MiB
     "retention.bytes" = "104857600"
     # keep data for 7 days
     "retention.ms" = "604800000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -265,13 +265,13 @@ resource "kafka_topic" "iam_credentials_v1_public" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep on each partition 100MB
+    # keep on each partition 100MiB
     "retention.bytes" = "104857600"
     # keep data for 7 days
     "retention.ms" = "604800000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"

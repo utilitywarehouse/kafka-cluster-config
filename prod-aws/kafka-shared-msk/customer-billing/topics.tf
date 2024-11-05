@@ -8,7 +8,7 @@ resource "kafka_topic" "invoice_fulfillment" {
     "local.retention.ms" = "86400000"
     # keep data for 7 days
     "retention.ms" = "604800000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -25,7 +25,7 @@ resource "kafka_topic" "invoice_fulfillment_deadletter" {
     "local.retention.ms" = "86400000"
     # keep data for 14 days
     "retention.ms" = "1209600000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -42,7 +42,7 @@ resource "kafka_topic" "internal_invoice_fulfilment_deadletter" {
     "local.retention.ms" = "86400000"
     # keep data for 28 days
     "retention.ms" = "2419200000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -59,7 +59,7 @@ resource "kafka_topic" "mail_sender_deadletter" {
     "local.retention.ms" = "86400000"
     # keep data for 28 days
     "retention.ms" = "2419200000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -76,7 +76,7 @@ resource "kafka_topic" "mail_sender_reprint_deadletter" {
     "local.retention.ms" = "86400000"
     # keep data for 14 days
     "retention.ms" = "1209600000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -93,7 +93,7 @@ resource "kafka_topic" "invoice_generator" {
     "local.retention.ms" = "86400000"
     # keep data for 7 days
     "retention.ms" = "604800000"
-    # allow for a batch of records maximum 100MB
+    # allow for a batch of records maximum 100MiB
     "max.message.bytes" = "104857600"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -110,7 +110,7 @@ resource "kafka_topic" "invoice_ready_notifier_deadletter" {
     "local.retention.ms" = "86400000"
     # keep data for 14 days
     "retention.ms" = "1209600000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -127,7 +127,7 @@ resource "kafka_topic" "bex_invoice_api" {
     "local.retention.ms" = "86400000"
     # keep data for 7 days
     "retention.ms" = "604800000"
-    # allow for a batch of records maximum 100MB
+    # allow for a batch of records maximum 100MiB
     "max.message.bytes" = "104857600"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -144,7 +144,7 @@ resource "kafka_topic" "bex_legacy_invoice_api" {
     "local.retention.ms" = "86400000"
     # keep data for 7 days
     "retention.ms" = "604800000"
-    # allow for a batch of records maximum 100MB
+    # allow for a batch of records maximum 100MiB
     "max.message.bytes" = "104857600"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -162,7 +162,7 @@ resource "kafka_topic" "public_fulfilment_events" {
     "retention.ms"    = "-1" # keep data forever
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048588"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -180,8 +180,8 @@ resource "kafka_topic" "transition_bex_fulfilment_request" {
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     "compression.type"   = "zstd"
-    "retention.bytes"    = "8053063680" # keep on each partition 7.5GB
-    # allow for a batch of records maximum 100MB
+    "retention.bytes"    = "8053063680" # keep on each partition 7.5GiB
+    # allow for a batch of records maximum 100MiB
     "max.message.bytes" = "104857600"
     "cleanup.policy"    = "delete"
     # keep data for 14 days
@@ -200,8 +200,8 @@ resource "kafka_topic" "internal_bex_fulfilment_retry_1" {
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     "compression.type"   = "zstd"
-    "retention.bytes"    = "8053063680" # keep on each partition 7.5GB
-    # allow for a batch of records maximum 1MB
+    "retention.bytes"    = "8053063680" # keep on each partition 7.5GiB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "cleanup.policy"    = "delete"
     # keep data for 3 days
@@ -220,8 +220,8 @@ resource "kafka_topic" "internal_bex_fulfilment_retry_2" {
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     "compression.type"   = "zstd"
-    "retention.bytes"    = "8053063680" # keep on each partition 7.5GB
-    # allow for a batch of records maximum 1MB
+    "retention.bytes"    = "8053063680" # keep on each partition 7.5GiB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "cleanup.policy"    = "delete"
     # keep data for 3 days
@@ -239,8 +239,8 @@ resource "kafka_topic" "internal_bex_bill_regeneration" {
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     "compression.type"   = "zstd"
-    "retention.bytes"    = "8053063680" # keep on each partition 7.5GB
-    # allow for a batch of records maximum 1MB
+    "retention.bytes"    = "8053063680" # keep on each partition 7.5GiB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "cleanup.policy"    = "delete"
     # keep data for 14 days
@@ -259,8 +259,8 @@ resource "kafka_topic" "internal_bex_bill_regeneration_retry_1" {
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     "compression.type"   = "zstd"
-    "retention.bytes"    = "8053063680" # keep on each partition 7.5GB
-    # allow for a batch of records maximum 1MB
+    "retention.bytes"    = "8053063680" # keep on each partition 7.5GiB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "cleanup.policy"    = "delete"
     # keep data for 3 days
@@ -279,8 +279,8 @@ resource "kafka_topic" "internal_bex_bill_regeneration_retry_2" {
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     "compression.type"   = "zstd"
-    "retention.bytes"    = "8053063680" # keep on each partition 7.5GB
-    # allow for a batch of records maximum 1MB
+    "retention.bytes"    = "8053063680" # keep on each partition 7.5GiB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "cleanup.policy"    = "delete"
     # keep data for 3 days
@@ -300,7 +300,7 @@ resource "kafka_topic" "internal_bex_bill_regeneration_deadletter" {
     "local.retention.ms" = "86400000"
     # keep data for 14 days
     "retention.ms" = "1209600000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"

@@ -7,7 +7,7 @@ resource "kafka_topic" "e2e_proto" {
     "remote.storage.enable" = "false"
     # keep data for 1 day
     "retention.ms" = "86400000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -23,7 +23,7 @@ resource "kafka_topic" "e2e_json" {
     "remote.storage.enable" = "false"
     # keep data for 1 day
     "retention.ms" = "86400000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -39,7 +39,7 @@ resource "kafka_topic" "e2e_multi" {
     "remote.storage.enable" = "false"
     # keep data for 1 day
     "retention.ms" = "86400000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -55,7 +55,7 @@ resource "kafka_topic" "e2e_multi_dpd" {
     "remote.storage.enable" = "false"
     # keep data for 1 day
     "retention.ms" = "86400000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -71,7 +71,7 @@ resource "kafka_topic" "e2e_non_std_envelope" {
     "remote.storage.enable" = "false"
     # keep data for 1 day
     "retention.ms" = "86400000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -87,7 +87,7 @@ resource "kafka_topic" "e2e_multi_project" {
     "remote.storage.enable" = "false"
     # keep data for 1 day
     "retention.ms" = "86400000"
-    # allow for a batch of records maximum 1MB
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
