@@ -97,7 +97,7 @@ resource "kafka_topic" "iam_dpd_v1" {
 module "iam_dpd_mapper" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.iam_dpd_v1.name]
-  consume_topics   = [(kafka_topic.iam_credentials_v1.name), (kafka_topic.account_identity_verification.name)]
+  consume_topics   = [(kafka_topic.iam_credentials_v1.name)]
   consume_groups   = ["iam.dpd-mapper"]
   cert_common_name = "auth-customer/dpd-mapper"
 }
