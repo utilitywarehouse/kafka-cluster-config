@@ -7,9 +7,6 @@ Use the [tls-app](../../modules/tls-app) module for granting access for the apps
 
 ## Contributing
 
-We want `utilitywarehouse/pubsub` to own any changes to the MSK clusters so please don't make any CODEOWNERS changes as
-part PRs adding resources to the clusters.
-
 We have a [custom `tflint` plugin](https://github.com/utilitywarehouse/tflint-ruleset-kafka-config) that help enforce best practices and avoid some
 common issues. This is run through `pre-commit`, see [the contributing
 docs](../../CONTRIBUTING.md) for installation details. 
