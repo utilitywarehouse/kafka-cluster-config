@@ -33,3 +33,10 @@ resource "kafka_topic" "account_identity_verification" {
   partitions         = 3
   replication_factor = 3
 }
+
+# Existing iam dpd mapper config is in ../iam/iam.tf
+module "iam_dpd_mapper" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [(kafka_topic.account_identity_verification.name)]
+  cert_common_name = "auth-customer/dpd-mapper"
+}
