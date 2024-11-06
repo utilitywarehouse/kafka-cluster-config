@@ -7,5 +7,7 @@ run the hooks:
 
 ``` console
 $ pre-commit install
-$ pre-commit run --all-hooks
+# do a test run on all the files in the repo
+$ pre-commit run -a
 ```
+The validations will run, from now on, before each git commit.
