@@ -1321,6 +1321,26 @@ module "cbc_data_infra_adapter_projector" {
   cert_common_name = "cbc/cbc-data-infra-adapter-projector"
 }
 
+module "cbc_bill_integration_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.legacy_account_events_v2.name
+  ]
+  consume_groups   = ["cbc.cbc-bill-integration-projector-v2"]
+  cert_common_name = "cbc/cbc-bill-integration-projector"
+}
+
+module "cbc_bill_integration_consumer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.legacy_account_events_v2.name
+  ]
+  consume_groups   = ["cbc.cbc-bill-integration-consumer-v2"]
+  cert_common_name = "cbc/cbc-bill-integration-consumer"
+}
+
 module "cbc_proximo_tls" {
   source = "../../../modules/tls-app"
   consume_topics = [
