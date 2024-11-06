@@ -14,5 +14,5 @@
 /**/iam-audit/                 @utilitywarehouse/account-identity
 /**/otel/                      @utilitywarehouse/otel
 /**/payment-platform/          @utilitywarehouse/payments-maintainers
-/**/workplace-infrastructure/  @utilitywarehouse/btg-engineering
+/**/workplace-infrastructure/  @utilitywarehouse/workplace-infrastructure
 
