@@ -3,11 +3,11 @@ resource "kafka_topic" "eqdb_loader" {
   replication_factor = 3
   partitions         = 1
   config = {
-    # retain 100MB on each partition
+    # keep on each partition 100MiB
     "retention.bytes" = "104857600"
     # keep data for 18 hours
     "retention.ms" = "64800000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -25,7 +25,7 @@ resource "kafka_topic" "budget_plan" {
     "retention.ms" = "220898482000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -43,7 +43,7 @@ resource "kafka_topic" "customer_change" {
     "retention.ms" = "63113852000"
     # keep data in primary storage for 7 days
     "local.retention.ms" = "604800000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -61,7 +61,7 @@ resource "kafka_topic" "fabricator_deadletter" {
     "retention.ms" = "5259600000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -79,7 +79,7 @@ resource "kafka_topic" "assessment_request" {
     "retention.ms" = "220898482000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"

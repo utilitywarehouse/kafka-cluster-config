@@ -8,7 +8,7 @@ resource "kafka_topic" "events_end" {
     "retention.ms" = "-1"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -26,7 +26,7 @@ resource "kafka_topic" "dlq_requeue" {
     "retention.ms" = "2629800000"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -43,7 +43,7 @@ resource "kafka_topic" "dlq" {
     "retention.ms" = "2629800000"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -60,7 +60,7 @@ resource "kafka_topic" "dlq_alerts" {
     "retention.ms" = "259200001"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"

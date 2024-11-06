@@ -4,7 +4,7 @@ resource "kafka_topic" "payment_gateway_reconciliation" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384"
+    "retention.bytes"  = "3758096384" # keep on each partition 3.5GiB
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
@@ -21,7 +21,7 @@ resource "kafka_topic" "payment_gateway_reconciliation_status_changed" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384"
+    "retention.bytes"  = "3758096384" # keep on each partition 3.5GiB
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days

@@ -4,7 +4,7 @@ resource "kafka_topic" "payment_v1_events" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384"
+    "retention.bytes"  = "3758096384" # keep on each partition 3.5GiB
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
@@ -21,7 +21,7 @@ resource "kafka_topic" "payment_method_v1_events" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384"
+    "retention.bytes"  = "3758096384" # keep on each partition 3.5GiB
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
@@ -38,7 +38,7 @@ resource "kafka_topic" "payment_deadletter_v1_events" {
   partitions         = 5 # we don't need more than 5 partitions for deadlettered events
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "-1"
+    "retention.bytes"  = "-1" # keep on each partition unlimited data
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
@@ -55,7 +55,7 @@ resource "kafka_topic" "payment_method_deadletter_v1_events" {
   partitions         = 5 # we don't need more than 5 partitions for deadlettered events
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "-1"
+    "retention.bytes"  = "-1" # keep on each partition unlimited data
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
@@ -82,7 +82,7 @@ resource "kafka_topic" "payment_v1_public_events_pp_test" {
   partitions         = 5 # this is a test/debug topic, not need to have more than 5
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "-1"
+    "retention.bytes"  = "-1" # keep on each partition unlimited data
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
@@ -99,7 +99,7 @@ resource "kafka_topic" "payment_v1_public_events_cbc_topup_v3" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "-1"
+    "retention.bytes"  = "-1" # keep on each partition unlimited data
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
@@ -118,7 +118,7 @@ resource "kafka_topic" "payment_v1_public_events" {
   partitions         = 5
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "-1"
+    "retention.bytes"  = "-1" # keep on each partition unlimited data
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
@@ -135,7 +135,7 @@ resource "kafka_topic" "payment_method_v1_public_events" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "-1"
+    "retention.bytes"  = "-1" # keep on each partition unlimited data
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
