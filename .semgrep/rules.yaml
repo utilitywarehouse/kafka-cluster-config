@@ -10,3 +10,8 @@ rules:
     message: "TLS apps in the MSK configuration must be defined the module they produce/consume on"
     languages: [terraform]
     severity: ERROR
+  - id: enforce-msk-app-consume-groups
+    pattern-regex: tflint-ignore.*msk_app_consume_groups
+    message: "TLS apps in the MSK configuration must prefix all consume_groups with the team name"
+    languages: [terraform]
+    severity: ERROR
