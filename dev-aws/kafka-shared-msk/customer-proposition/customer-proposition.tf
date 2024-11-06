@@ -39,6 +39,27 @@ resource "kafka_topic" "uswitch_events_v2" {
 }
 
 
+resource "kafka_topic" "service_status_v3" {
+  name = "customer-proposition.service-status.events.v3"
+
+  replication_factor = 3
+  partitions         = 15
+
+  # infinte retention
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1"
+    "retention.ms"          = "-1" # keep data forever
+    # keep data in primary storage for 1 hour
+    "local.retention.ms" = "3600000"
+    # allow max 1 MB for a message
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
+
 module "uswitch_event_forwarder" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.uswitch_events_v2.name]
