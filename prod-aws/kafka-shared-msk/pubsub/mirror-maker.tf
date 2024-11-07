@@ -27,3 +27,15 @@ resource "kafka_acl" "mirror_maker_cluster_access" {
 
   depends_on = [kafka_acl.tf_applier_cluster]
 }
+
+resource "kafka_quota" "mirror_maker_quota" {
+  entity_name = "User:CN=pubsub/mirror-maker"
+  entity_type = "user"
+  config = {
+    # limit producing to 5 MB/s/broker
+    "producer_byte_rate" = "5242880"
+
+    # Allow 100% of CPU. More on this here: https://docs.confluent.io/kafka/design/quotas.html#request-rate-quotas
+    "request_percentage" = "100"
+  }
+}
