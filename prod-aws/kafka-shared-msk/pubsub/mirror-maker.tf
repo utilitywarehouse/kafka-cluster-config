@@ -29,7 +29,7 @@ resource "kafka_acl" "mirror_maker_cluster_access" {
 }
 
 resource "kafka_quota" "mirror_maker_quota" {
-  entity_name = "User:CN=pubsub/mirror-maker"
+  entity_name = "CN=pubsub/mirror-maker"
   entity_type = "user"
   config = {
     # limit producing to 5 MB/s/broker
