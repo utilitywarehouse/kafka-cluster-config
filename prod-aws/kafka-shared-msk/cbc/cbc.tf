@@ -1341,6 +1341,15 @@ module "cbc_bill_integration_consumer" {
   cert_common_name = "cbc/cbc-bill-integration-consumer"
 }
 
+module "cbc_crm_services_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.crm_events_v1.name
+  ]
+  consume_groups   = ["cbc.cbc-service-projector-v1"]
+  cert_common_name = "cbc/crm-services-projector"
+}
+
 module "cbc_proximo_tls" {
   source = "../../../modules/tls-app"
   consume_topics = [
