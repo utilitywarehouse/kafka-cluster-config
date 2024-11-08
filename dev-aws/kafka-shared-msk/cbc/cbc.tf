@@ -1045,6 +1045,9 @@ module "cbc_dispute_credits_consumer" {
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.transaction_events_v3.name
   ]
+  produce_topics = [
+    kafka_topic.transaction_events_v3.name
+  ]
   consume_groups   = ["cbc.cbc-dispute-credits-consumer-v1"]
   cert_common_name = "cbc/cbc-dispute-credits-consumer"
 }
