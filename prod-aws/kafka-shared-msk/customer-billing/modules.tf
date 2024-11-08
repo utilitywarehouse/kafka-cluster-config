@@ -126,6 +126,14 @@ module "invoice_fulfilment_regeneration_job" {
   produce_topics   = [kafka_topic.internal_bex_bill_regeneration.name]
 }
 
+module "invoice_fulfilment_dlq_job" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "customer-billing/invoice-fulfilment-dlq-job"
+  consume_topics   = [kafka_topic.internal_invoice_fulfilment_deadletter.name]
+  consume_groups   = ["bex.invoice-fulfilment-dlq-job"]
+  produce_topics   = [kafka_topic.transition_bex_fulfilment_request.name]
+}
+
 module "invoice_api" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/invoice-api"
