@@ -18,13 +18,6 @@ module "account_identity_verification_indexer" {
   cert_common_name = "auth-customer/ai-verification-events-v1-indexer"
 }
 
-module "account_identity_di_kafka_source_verification" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [(kafka_topic.account_identity_verification.name)]
-  consume_groups   = ["account-identity.di-kafka-source-verification"]
-  cert_common_name = "auth-customer/di-verification"
-}
-
 resource "kafka_topic" "account_identity_verification" {
   config = {
     "cleanup.policy"   = "delete"

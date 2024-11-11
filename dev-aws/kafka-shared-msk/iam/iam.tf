@@ -102,6 +102,13 @@ module "iam_dpd_mapper" {
   cert_common_name = "auth-customer/dpd-mapper"
 }
 
+module "account_identity_di_kafka_source_verification" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
+  consume_groups   = ["account-identity.di-kafka-source-verification"]
+  cert_common_name = "auth-customer/di-verification"
+}
+
 module "iam_dpd_di_kafka_source_customer_login_succeeded" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
