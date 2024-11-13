@@ -195,6 +195,12 @@ module "account_identity_account_api_v2" {
   cert_common_name = "account-platform/account_api_v2"
 }
 
+module "account_identity_account_api_v2_customer_bill_writer" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_accunt_bill_writes_public.name]
+  cert_common_name = "account-platform/account_api_v2_customer_bill_writer"
+}
+
 module "account_identity_account_number_seed_projector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
