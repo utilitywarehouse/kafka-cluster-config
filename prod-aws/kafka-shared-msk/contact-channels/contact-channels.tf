@@ -388,3 +388,26 @@ module "dsar_request_consumer" {
   consume_topics   = [kafka_topic.dsar.name]
   consume_groups   = ["contact-channels.dsar-request-consumer"]
 }
+
+# Produce to contact-channels.dsar-jobs and conversations
+module "dsar_job_request_producer" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/dsar-job-runner"
+  produce_topics   = [kafka_topic.dsar_job.name, kafka_topic.dsar_conversation.name]
+}
+
+# Consume from contact-channels.dsar-conversations
+module "dsar_conversations_retriever" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/dsar-conversations-retriever"
+  consume_topics   = [kafka_topic.dsar_conversation.name]
+  consume_groups   = ["contact-channels.dsar-conversations-retriever"]
+}
+
+# Consume from contact-channels.dsar-jobs
+module "dsar_job_fulfiller" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/dsar-job-fulfiller"
+  consume_topics   = [kafka_topic.dsar_job.name]
+  consume_groups   = ["contact-channels.dsar-job-fulfiller"]
+}
