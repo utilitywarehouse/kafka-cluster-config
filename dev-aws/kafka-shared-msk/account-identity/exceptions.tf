@@ -198,8 +198,8 @@ module "account_identity_legacy_supply_address_relay" {
 
 module "account_identity_exceptions_processor" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.account_identity_account_exceptions_v1.name]
-  consume_groups   = ["account-identity.account-exceptions-processor-source"]
+  consume_topics   = [kafka_topic.account_identity_account_exceptions_v1.name, kafka_topic.account_identity_account_events_v2.name]
+  consume_groups   = ["account-identity.account-exceptions-processor-source", "account-identity.account-exceptions-processor-creation-events"]
   produce_topics   = [kafka_topic.account_identity_account_exceptions_events.name]
   cert_common_name = "account-platform/exceptions_processor"
 }
