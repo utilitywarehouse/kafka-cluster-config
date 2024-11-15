@@ -1068,7 +1068,6 @@ module "cbc_dispute_credits_projector" {
 module "cbc_customer_api" {
   source = "../../../modules/tls-app"
   produce_topics = [
-    kafka_topic.lifecycle_events_v2.name,
     kafka_topic.customer_events_v1.name
   ]
   cert_common_name = "cbc/cbc-customer-api"
