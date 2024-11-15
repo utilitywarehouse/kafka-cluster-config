@@ -66,7 +66,7 @@ resource "kafka_topic" "card_deadletter_v1_internal_3ds" {
   }
 }
 
-resource "kafka_topic" "card_v1_internal.payment_methods" {
+resource "kafka_topic" "card_v1_internal_payment_methods" {
   name               = "payment-platform.card.v1.internal.payment-methods"
   replication_factor = 3
   partitions         = 5
@@ -83,7 +83,7 @@ resource "kafka_topic" "card_v1_internal.payment_methods" {
   }
 }
 
-resource "kafka_topic" "card_deadletter_v1_internal.payment_methods" {
+resource "kafka_topic" "card_deadletter_v1_internal_payment_methods" {
   name               = "payment-platform.card-deadletter.v1.internal.payment-methods"
   replication_factor = 3
   partitions         = 5
