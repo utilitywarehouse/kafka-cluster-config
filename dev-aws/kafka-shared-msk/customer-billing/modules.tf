@@ -69,9 +69,11 @@ module "invoice_fulfillment" {
     "bex.invoice-fulfillment",
     "bex.invoice-fulfilment-retry-1",
     "bex.invoice-fulfilment-retry-2",
+    "bex.invoice-fulfilment-large-invoice",
     "bex.invoice-fulfillment-regen",
     "bex.invoice-fulfillment-regen-retry-1",
-    "bex.invoice-fulfillment-regen-retry-2"
+    "bex.invoice-fulfillment-regen-retry-2",
+    "bex.invoice-fulfillment-regen-large-invoice"
   ]
 }
 
