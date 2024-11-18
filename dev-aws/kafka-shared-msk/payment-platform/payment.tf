@@ -156,8 +156,8 @@ module "payment_query_service_downstream" {
 }
 
 module "payment_query_service" {
-  source           = "../../../modules/tls-app"
-  produce_topics   = [
+  source = "../../../modules/tls-app"
+  produce_topics = [
     kafka_topic.payment_deadletter_v1_events.name,
     kafka_topic.payment_v1_events.name,
     kafka_topic.payment_method_deadletter_v1_events.name,
