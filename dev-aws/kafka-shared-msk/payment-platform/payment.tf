@@ -68,7 +68,16 @@ resource "kafka_topic" "payment_method_deadletter_v1_events" {
 
 module "payment_query_service" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.payment_deadletter_v1_events.name, kafka_topic.payment_v1_events.name, kafka_topic.payment_method_deadletter_v1_events.name]
+  produce_topics   = [
+    kafka_topic.payment_deadletter_v1_events.name,
+    kafka_topic.payment_v1_events.name,
+    kafka_topic.payment_method_deadletter_v1_events.name,
+    kafka_topic.payment_v1_public_events_pp_test.name,
+    kafka_topic.payment_v1_public_events.name,
+    kafka_topic.payment_method_v1_public_events.name,
+    # integration topics have to go there
+    kafka_topic.payment_v1_public_events_cbc_topup_v3.name
+  ]
   consume_topics   = [kafka_topic.payment_v1_events.name, kafka_topic.payment_method_v1_events.name]
   consume_groups   = ["payment-platform.payment_query_service"]
   cert_common_name = "payment-platform/payment-query-service"
