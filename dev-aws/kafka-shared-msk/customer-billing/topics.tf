@@ -227,6 +227,25 @@ resource "kafka_topic" "internal_bex_fulfilment_retry_2" {
   }
 }
 
+# this topic is used in the bill generation pipeline
+# used for processing large invoices
+resource "kafka_topic" "internal_bex_fulfilment_large_invoice" {
+  name               = "bex.internal.fulfilment_large_invoice"
+  replication_factor = 3
+  partitions         = 1
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 1 day
+    "local.retention.ms" = "86400000"
+    "compression.type"   = "zstd"
+    "retention.bytes"    = "8053063680" # keep on each partition 7.5GiB
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "cleanup.policy"    = "delete"
+    # keep data for 3 days
+    "retention.ms" = "259200000"
+  }
+}
 
 # this topic is used in the bill regeneration pipeline
 resource "kafka_topic" "internal_bex_bill_regeneration" {
@@ -273,6 +292,26 @@ resource "kafka_topic" "internal_bex_bill_regeneration_retry_2" {
   name               = "bex.internal.bill_regeneration_retry_2"
   replication_factor = 3
   partitions         = 5
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 1 day
+    "local.retention.ms" = "86400000"
+    "compression.type"   = "zstd"
+    "retention.bytes"    = "8053063680" # keep on each partition 7.5GiB
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "cleanup.policy"    = "delete"
+    # keep data for 3 days
+    "retention.ms" = "259200000"
+  }
+}
+
+# this topic is used in the bill regeneration pipeline
+# used for processing large invoices
+resource "kafka_topic" "internal_bex_bill_regeneration_large_invoice" {
+  name               = "bex.internal.bill_regeneration_large_invoice"
+  replication_factor = 3
+  partitions         = 1
   config = {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 1 day
