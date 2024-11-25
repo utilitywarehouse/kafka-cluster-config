@@ -468,7 +468,10 @@ module "cbc_transaction_notification_mapper" {
     kafka_topic.transaction_events_v3.name,
     kafka_topic.paymentology_events_v1.name
   ]
-  consume_groups = ["cbc.cbc-transaction-notification-mapper-v2"]
+  consume_groups = [
+    "cbc.cbc-transaction-notification-mapper-v2",
+    "cbc.local-test-consumer-v1",
+  ]
   produce_topics = [
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.transaction_events_v3.name
