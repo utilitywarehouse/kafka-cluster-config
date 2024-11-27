@@ -389,6 +389,36 @@ module "cbc_fraud_detection_consumer" {
   cert_common_name = "cbc/cbc-fraud-detection-consumer"
 }
 
+module "cbc_events_indexer_v2" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.data_product_events_v1.name,
+    kafka_topic.fraud_events.name,
+    kafka_topic.rating_events_v3.name,
+    kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.charges_events_v1.name,
+    kafka_topic.challenge_events_v1.name,
+    kafka_topic.topup_events_v1.name,
+    kafka_topic.transaction_events_v3.name,
+    kafka_topic.openbanking_events_v1.name,
+    kafka_topic.order_events_v1.name,
+    kafka_topic.paymentology_events_v1.name,
+    kafka_topic.sodexo_events_v1.name,
+    kafka_topic.migration_events_v1.name,
+    kafka_topic.mdes_events_v1.name,
+    kafka_topic.network_events_v1.name,
+    kafka_topic.crm_events_v1.name,
+    kafka_topic.legacy_account_events_v2.name,
+    kafka_topic.eqdb_loader_events_v1.name,
+    kafka_topic.service_events_v1.name,
+    kafka_topic.verification_events_v1.name,
+    kafka_topic.customer_events_v1.name
+  ]
+  consume_groups   = ["cbc.cbc-events-indexer-v2"]
+  cert_common_name = "cbc/cbc-events-indexer-v2"
+}
+
+
 module "cbc_events_indexer" {
   source = "../../../modules/tls-app"
   consume_topics = [
