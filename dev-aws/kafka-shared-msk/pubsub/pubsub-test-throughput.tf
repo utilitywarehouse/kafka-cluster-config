@@ -39,3 +39,27 @@ resource "kafka_acl" "throughput_consumer_topic_acl" {
   acl_permission_type = "Allow"
 }
 
+# a topic to write to to simulate some real work
+resource "kafka_topic" "pubsub_throughput_test_out" {
+  name               = "pubsub.throughput-test-out"
+  replication_factor = 3
+  partitions         = 2
+  config = {
+    # we don't really care about the data on this topic, don't bother keeping
+    # much around
+    # keep data for 2 hours
+    "retention.ms" = "7200000"
+    # keep on each partition 2GiB
+    "retention.bytes" = "2097152000"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
+module "example_producer_throughput_out" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.pubsub_throughput_test_out.name]
+  cert_common_name = "pubsub/example-throughput-producer-out"
+}
