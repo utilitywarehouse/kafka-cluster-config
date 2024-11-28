@@ -14,31 +14,6 @@ resource "kafka_topic" "pubsub_throughput_test" {
   }
 }
 
-module "example_producer_throughput" {
-  source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.pubsub_throughput_test.name]
-  cert_common_name = "pubsub/example-throughput-producer"
-}
-
-/*  no not use the module for the consumer, as we don't need quota */
-resource "kafka_acl" "throughput_consumer_group_acl" {
-  resource_name       = "pubsub.consume-throughput"
-  resource_type       = "Group"
-  acl_principal       = "User:CN=pubsub/throughput-test-consumer"
-  acl_host            = "*"
-  acl_operation       = "Read"
-  acl_permission_type = "Allow"
-}
-
-resource "kafka_acl" "throughput_consumer_topic_acl" {
-  resource_name       = kafka_topic.pubsub_throughput_test.name
-  resource_type       = "Topic"
-  acl_principal       = "User:CN=pubsub/throughput-test-consumer"
-  acl_host            = "*"
-  acl_operation       = "Read"
-  acl_permission_type = "Allow"
-}
-
 # a topic to write to to simulate some real work
 resource "kafka_topic" "pubsub_throughput_test_out" {
   name               = "pubsub.throughput-test-out"
@@ -58,8 +33,17 @@ resource "kafka_topic" "pubsub_throughput_test_out" {
   }
 }
 
-module "example_producer_throughput_out" {
+
+module "example_producer_throughput" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.pubsub_throughput_test.name]
+  cert_common_name = "pubsub/example-throughput-producer"
+}
+
+module "throughput_test_consumer" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.pubsub_throughput_test_out.name]
-  cert_common_name = "pubsub/example-throughput-producer-out"
+  consume_topics   = [kafka_topic.pubsub_throughput_test.name]
+  consume_groups   = ["pubsub.throughput-test-consumer"]
+  cert_common_name = "pubsub/throughput-test-consumer"
 }
