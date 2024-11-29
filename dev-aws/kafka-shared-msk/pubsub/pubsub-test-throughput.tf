@@ -1,7 +1,7 @@
 resource "kafka_topic" "pubsub_throughput_test" {
   name               = "pubsub.throughput-test"
   replication_factor = 3
-  partitions         = 10
+  partitions         = 15
   config = {
     # keep on each partition 9.8GiB
     "retention.bytes" = "10485760000"
@@ -18,7 +18,7 @@ resource "kafka_topic" "pubsub_throughput_test" {
 resource "kafka_topic" "pubsub_throughput_test_out" {
   name               = "pubsub.throughput-test-out"
   replication_factor = 3
-  partitions         = 2
+  partitions         = 15
   config = {
     # we don't really care about the data on this topic, don't bother keeping
     # much around
