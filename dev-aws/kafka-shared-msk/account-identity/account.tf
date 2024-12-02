@@ -132,6 +132,18 @@ resource "kafka_topic" "account_identity_accunt_bill_writes_public" {
   replication_factor = 3
 }
 
+resource "kafka_topic" "account_identity_business_account_creation_events" {
+  config = {
+    "cleanup.policy" = "compact"
+    # allow not compacted keys maximum for 7 days
+    "max.compaction.lag.ms" = "604800000"
+    "compression.type"      = "zstd"
+  }
+  name               = "account-identity.account.business.creation.public"
+  partitions         = 15
+  replication_factor = 3
+}
+
 module "account_identity_account_atomic_v1_indexer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
@@ -148,7 +160,7 @@ module "account_identity_account_events_v2_indexer" {
 
 module "account_identity_account_api" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.account_identity_account_atomic_v1.name, kafka_topic.account_identity_internal_legacy_account_events.name]
+  produce_topics   = [kafka_topic.account_identity_account_atomic_v1.name, kafka_topic.account_identity_business_account_creation_events.name]
   cert_common_name = "account-platform/account_api"
 }
 
