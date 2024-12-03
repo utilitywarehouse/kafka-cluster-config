@@ -1395,9 +1395,9 @@ module "cbc_proximo_tls" {
     kafka_topic.service_events_v1.name,
   ]
   consume_groups = [
-    "cbc.partner-customer-event-emitter-reader-20220208-01",
-    "cbc.customer-proposition-cbc-loader-8",
-    "cbc.customer-proposition-cbc-loader-6",
+    "cbc.partner-customer-event-emitter-reader-20211214-01",
+    "cbc.customer-proposition-cbc-loader-v3-1",
+    "cbc.customer-proposition-cbc-loader-2",
     "cbc.cbc-service-projector-v1",
   ]
   cert_common_name = "cbc/proximo-tls"
