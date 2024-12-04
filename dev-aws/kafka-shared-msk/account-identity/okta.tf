@@ -37,6 +37,6 @@ module "account_identity_crm_okta_projector" {
 module "account_identity_staff_api_projector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_staff_okta_v6.name]
-  consume_groups   = ["acount-identity.staff-api-projector"]
+  consume_groups   = ["account-identity.staff-api-projector"]
   cert_common_name = "account-platform/staff-api-projector"
 }
