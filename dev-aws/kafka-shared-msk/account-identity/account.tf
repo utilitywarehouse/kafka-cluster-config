@@ -142,7 +142,7 @@ module "account_identity_account_atomic_v1_indexer" {
 module "account_identity_account_events_v2_indexer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_account_events_v2.name]
-  consume_groups   = ["account-identity.account-events-v2-aws"]
+  consume_groups   = ["account-identity.account-events-v2-aws", "account-identity.account-events-v2-business-creation-events"]
   cert_common_name = "account-platform/account_events_v2_indexer"
 }
 
