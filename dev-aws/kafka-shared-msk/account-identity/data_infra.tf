@@ -8,54 +8,23 @@ module "account_identity_di_addr_lookup" {
 module "account_identity_di_exceptions" {
   source         = "../../../modules/tls-app"
   consume_topics = [kafka_topic.account_identity_account_exceptions_v1.name]
-  consume_groups = [
-    "account-identity.di-kafka-source-correspondence-address-bad-debt-cancelled",
-    "account-identity.di-kafka-source-correspondence-address-bad-debt-check-passed",
-    "account-identity.di-kafka-source-correspondence-address-bad-debt-check-skipped",
-    "account-identity.di-kafka-source-correspondence-address-bad-debt-created",
-    "account-identity.di-kafka-source-corr-address-debt-payment-requested",
-    "account-identity.di-kafka-source-correspondence-address-bad-debt-proof-requested",
-    "account-identity.di-kafka-source-correspondence-address-bad-debt-resolved",
-    "account-identity.di-kafka-source-correspondence-address-match-cancelled",
-    "account-identity.di-kafka-source-correspondence-address-match-check-passed",
-    "account-identity.di-kafka-source-correspondence-address-match-check-skipped",
-    "account-identity.di-kafka-source-correspondence-address-match-created",
-    "account-identity.di-kafka-source-correspondence-address-match-deposit-requested",
-    "account-identity.di-kafka-source-correspondence-address-match-resolved",
-    "account-identity.di-kafka-source-land-registry-exception-cancelled",
-    "account-identity.di-kafka-source-land-registry-exception-check-attempt-failed",
-    "account-identity.di-kafka-source-land-registry-exception-check-marked-as-failed",
-    "account-identity.di-kafka-source-land-registry-exception-created",
-    "account-identity.di-kafka-source-land-registry-exception-deferred",
-    "account-identity.di-kafka-source-land-registry-exception-letter-sent",
-    "account-identity.di-kafka-source-land-registry-exception-resolved",
-    "account-identity.di-kafka-source-supply-address-bad-debt-cancelled",
-    "account-identity.di-kafka-source-supply-address-bad-debt-check-passed",
-    "account-identity.di-kafka-source-supply-address-bad-debt-check-skipped",
-    "account-identity.di-kafka-source-supply-address-bad-debt-created",
-    "account-identity.di-kafka-source-supply-address-bad-debt-payment-requested",
-    "account-identity.di-kafka-source-supply-address-bad-debt-proof-requested",
-    "account-identity.di-kafka-source-supply-address-bad-debt-resolved",
-    "account-identity.di-kafka-source-supply-address-match-cancelled",
-    "account-identity.di-kafka-source-supply-address-match-check-passed",
-    "account-identity.di-kafka-source-supply-address-match-check-skipped",
-    "account-identity.di-kafka-source-supply-address-match-created",
-    "account-identity.di-kafka-source-supply-address-match-handed-over",
-    "account-identity.di-kafka-source-supply-address-match-resolved",
-    "account-identity.account-identity.di-kafka-source-supply-address-match-cancelled"
-  ]
+  consume_groups = ["account-identity.di-kafka-source-correspondence-address-bad-debt-cancelled", "account-identity.di-kafka-source-correspondence-address-bad-debt-check-passed", "account-identity.di-kafka-source-correspondence-address-bad-debt-check-skipped",
+    "account-identity.di-kafka-source-correspondence-address-bad-debt-created", "account-identity.di-kafka-source-corr-address-debt-payment-requested", "account-identity.di-kafka-source-correspondence-address-bad-debt-proof-requested", "account-identity.di-kafka-source-correspondence-address-bad-debt-resolved",
+    "account-identity.di-kafka-source-correspondence-address-match-cancelled", "account-identity.di-kafka-source-correspondence-address-match-check-passed", "account-identity.di-kafka-source-correspondence-address-match-check-skipped", "account-identity.di-kafka-source-correspondence-address-match-created",
+    "account-identity.di-kafka-source-correspondence-address-match-deposit-requested", "account-identity.di-kafka-source-correspondence-address-match-resolved", "account-identity.di-kafka-source-land-registry-exception-cancelled",
+    "account-identity.di-kafka-source-land-registry-exception-check-attempt-failed", "account-identity.di-kafka-source-land-registry-exception-check-marked-as-failed", "account-identity.di-kafka-source-land-registry-exception-created",
+    "account-identity.di-kafka-source-land-registry-exception-deferred", "account-identity.di-kafka-source-land-registry-exception-letter-sent", "account-identity.di-kafka-source-land-registry-exception-resolved",
+    "account-identity.di-kafka-source-supply-address-bad-debt-cancelled", "account-identity.di-kafka-source-supply-address-bad-debt-check-passed", "account-identity.di-kafka-source-supply-address-bad-debt-check-skipped", "account-identity.di-kafka-source-supply-address-bad-debt-created",
+    "account-identity.di-kafka-source-supply-address-bad-debt-payment-requested", "account-identity.di-kafka-source-supply-address-bad-debt-proof-requested", "account-identity.di-kafka-source-supply-address-bad-debt-resolved",
+    "account-identity.di-kafka-source-supply-address-match-cancelled", "account-identity.di-kafka-source-supply-address-match-check-passed", "account-identity.di-kafka-source-supply-address-match-check-skipped", "account-identity.di-kafka-source-supply-address-match-created",
+  "account-identity.di-kafka-source-supply-address-match-handed-over", "account-identity.di-kafka-source-supply-address-match-resolved", "account-identity.account-identity.di-kafka-source-supply-address-match-cancelled"]
   cert_common_name = "account-platform/di_exceptions"
 }
 
 module "account_identity_di_legacy_account" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
-    kafka_topic.account_identity_internal_legacy_account_events.name,
-    kafka_topic.account_identity_legacy_account_events.name,
-    kafka_topic.account_identity_legacy_account_braze_events_compacted.name
-  ]
-  consume_groups = [
-    "account-identity.di-kafka-source-account-dob-one",
+  source         = "../../../modules/tls-app"
+  consume_topics = [kafka_topic.account_identity_internal_legacy_account_events.name, kafka_topic.account_identity_legacy_account_events.name, kafka_topic.account_identity_legacy_account_braze_events_compacted.name]
+  consume_groups = ["account-identity.di-kafka-source-account-dob-one",
     "account-identity.di-kafka-source-account-dob-two",
     "account-identity.di-kafka-source-account-label",
     "account-identity.di-kafka-source-account-occupancy-type",
@@ -74,13 +43,6 @@ module "account_identity_di_legacy_account" {
     "account-identity.di-kafka-source-supply-name",
   ]
   cert_common_name = "account-platform/di_legacy_account"
-}
-
-module "account_identity_di_analytics" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.account_identity_analytics_v1.name]
-  consume_groups   = ["account-identity.di-kafka-source-move-out-notification"]
-  cert_common_name = "account-platform/di_analytics"
 }
 
 module "account_identity_di_business_events" {
