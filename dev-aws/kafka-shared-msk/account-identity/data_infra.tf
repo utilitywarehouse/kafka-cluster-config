@@ -43,6 +43,7 @@ module "account_identity_di_legacy_account" {
     "account-identity.di-kafka-source-supply-name",
   ]
   cert_common_name = "account-platform/di_legacy_account"
+}
 
 module "account_identity_di_business_events" {
   source           = "../../../modules/tls-app"
