@@ -48,7 +48,7 @@ module "account_identity_di_exceptions" {
 }
 
 module "account_identity_di_legacy_account" {
-  source         = "../../../modules/tls-app"
+  source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.account_identity_internal_legacy_account_events.name,
     kafka_topic.account_identity_legacy_account_events.name,
@@ -77,7 +77,7 @@ module "account_identity_di_legacy_account" {
 }
 
 module "account_identity_di_analytics" {
-  source = "../../../modules/tls-app"
+  source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_analytics_v1.name]
   consume_groups   = ["account-identity.di-kafka-source-move-out-notification"]
   cert_common_name = "account-platform/di_analytics"
