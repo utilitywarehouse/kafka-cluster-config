@@ -204,6 +204,8 @@ module "account_identity_account_api_v2" {
 
 module "account_identity_account_api_v2_customer_bill_writer" {
   source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_events_v2.name]
+  consume_groups   = ["account-identity.account-api-v2-customer-bill-writer"]
   produce_topics   = [kafka_topic.account_identity_account_bill_writes_public.name]
   cert_common_name = "account-platform/account_api_v2_customer_bill_writer"
 }
