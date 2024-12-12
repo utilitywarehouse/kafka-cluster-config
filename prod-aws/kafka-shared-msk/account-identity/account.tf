@@ -140,7 +140,7 @@ resource "kafka_topic" "account_identity_analytics_bill_change_events" {
   replication_factor = 3
 }
 
-resource "kafka_topic" "account_identity_accunt_bill_writes_public" {
+resource "kafka_topic" "account_identity_account_bill_writes_public" {
   config = {
     "cleanup.policy" = "compact"
     # allow not compacted keys maximum for 7 days
@@ -156,6 +156,13 @@ module "account_identity_account_api_account_atomic_producer" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
   cert_common_name = "account-platform/account_api_account_atomic_producer"
+}
+
+module "account_identity_account_api_business_validation_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_events_v2.name]
+  consume_groups   = ["account-identity.account-api-business-validation-projector"]
+  cert_common_name = "account-platform/account_api_business_validation_projector"
 }
 
 module "account_identity_account_api_atomic_projector" {
@@ -191,7 +198,7 @@ module "account_identity_account_api_v2_dispatcher" {
 
 module "account_identity_account_api_v2" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.account_identity_accunt_bill_writes_public.name]
+  produce_topics   = [kafka_topic.account_identity_account_bill_writes_public.name]
   cert_common_name = "account-platform/account_api_v2"
 }
 
@@ -199,7 +206,7 @@ module "account_identity_account_api_v2_customer_bill_writer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_account_events_v2.name]
   consume_groups   = ["account-identity.account-api-v2-customer-bill-writer"]
-  produce_topics   = [kafka_topic.account_identity_accunt_bill_writes_public.name]
+  produce_topics   = [kafka_topic.account_identity_account_bill_writes_public.name]
   cert_common_name = "account-platform/account_api_v2_customer_bill_writer"
 }
 
