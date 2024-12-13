@@ -55,5 +55,6 @@ module "otel_tail_sampling_collector" {
   source           = "../../modules/tls-app"
   consume_topics   = [kafka_topic.otlp_spans.name]
   produce_topics   = [kafka_topic.otlp_sampled_spans.name]
+  consume_groups   = ["otel.tail-sampling-collector"]
   cert_common_name = "otel/tail-sampling-collector"
 }
