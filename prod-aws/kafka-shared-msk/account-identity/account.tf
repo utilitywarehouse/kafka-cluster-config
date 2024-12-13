@@ -152,6 +152,11 @@ resource "kafka_topic" "account_identity_account_bill_writes_public" {
   replication_factor = 3
 }
 
+moved {
+  from = kafka_topic.account_identity_accunt_bill_writes_public
+  to   = kafka_topic.account_identity_account_bill_writes_public
+}
+
 module "account_identity_account_api_account_atomic_producer" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
