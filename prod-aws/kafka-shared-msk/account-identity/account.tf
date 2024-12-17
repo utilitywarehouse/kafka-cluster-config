@@ -157,10 +157,10 @@ moved {
   to   = kafka_topic.account_identity_account_bill_writes_public
 }
 
-module "account_identity_account_api_account_atomic_producer" {
+module "account_identity_account_api" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
-  cert_common_name = "account-platform/account_api_account_atomic_producer"
+  produce_topics   = [kafka_topic.account_identity_account_atomic_v1.name, kafka_topic.account_identity_account_events_v2.name]
+  cert_common_name = "account-platform/account_api"
 }
 
 module "account_identity_account_api_business_validation_projector" {
