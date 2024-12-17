@@ -25,6 +25,12 @@ module "otel_collector" {
   cert_common_name = "otel/collector"
 }
 
+module "otel_collector_web" {
+  source           = "../../modules/tls-app"
+  produce_topics   = [kafka_topic.otlp_spans.name]
+  cert_common_name = "otel/collector-web"
+}
+
 module "tempo_distributor" {
   source           = "../../modules/tls-app"
   consume_topics   = [kafka_topic.otlp_spans.name]
