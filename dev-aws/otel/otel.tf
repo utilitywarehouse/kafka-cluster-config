@@ -31,8 +31,11 @@ module "otel_collector_web" {
 }
 
 module "tempo_distributor" {
-  source           = "../../modules/tls-app"
-  consume_topics   = [kafka_topic.otlp_spans.name]
+  source = "../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.otlp_spans.name,
+    kafka_topic.otlp_sampled_spans.name,
+  ]
   consume_groups   = ["processor-tempo"]
   cert_common_name = "otel/tempo-distributor"
 }
