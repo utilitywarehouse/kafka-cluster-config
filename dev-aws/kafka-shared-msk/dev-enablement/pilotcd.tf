@@ -24,5 +24,5 @@ module "dev_enablement_pilotcd_worker" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.dev_enablement_pilotcd_v1.name]
   consume_groups   = ["dev_enablement.pilotcd.api"]
-  cert_common_name = "crm/okta-projector"
+  cert_common_name = "dev-enablement/pilotcd-worker"
 }
