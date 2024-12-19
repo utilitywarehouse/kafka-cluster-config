@@ -17,7 +17,7 @@ resource "kafka_topic" "dev_enablement_pilotcd_v1" {
 module "dev_enablement_pilotcd_api" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.dev_enablement_pilotcd_v1.name]
-  cert_common_name = "dev_enablement/pilotcd-api"
+  cert_common_name = "dev-enablement/pilotcd-api"
 }
 
 module "dev_enablement_pilotcd_worker" {
