@@ -51,3 +51,10 @@ module "account_identity_di_business_events" {
   consume_groups   = ["account-identity.di-kafka-source-business-events"]
   cert_common_name = "account-platform/di_business_events"
 }
+
+module "account_identity_di_move_out_notifications" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_public_account_events.name]
+  consume_groups   = ["account-identity.di-kafka-source-move-out"]
+  cert_common_name = "account-platform/di_home_moves"
+}
