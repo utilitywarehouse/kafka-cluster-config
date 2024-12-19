@@ -215,6 +215,13 @@ module "account_identity_account_api_v2_customer_bill_writer" {
   cert_common_name = "account-platform/account_api_v2_customer_bill_writer"
 }
 
+module "account_identity_account_api_v2_email_verifier" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_events_v2.name]
+  consume_groups   = ["account-identity.account-api-v2-email-verifier"]
+  cert_common_name = "account-platform/account_api_v2_email_verifier"
+}
+
 module "account_identity_account_number_seed_projector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
