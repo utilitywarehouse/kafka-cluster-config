@@ -39,31 +39,9 @@ resource "kafka_topic" "connect_status" {
 # https://docs.confluent.io/platform/7.8/connect/security.html#worker-acl-requirements
 
 # Allow Kafka Connect full access to internal topics
-resource "kafka_acl" "kafka_connect_full_internal_topics" {
-  resource_name       = "_connect-*"
-  resource_type       = "Topic"
-  acl_principal       = "User:CN=dev-enablement/kafka-connect"
-  acl_host            = "*"
-  acl_operation       = "All"
-  acl_permission_type = "Allow"
-}
-
-# Allow Kafka Connect to consume only on other topics
-resource "kafka_acl" "kafka_connect_consume_other_topics" {
-  resource_name       = "*"
-  resource_type       = "Topic"
-  acl_principal       = "User:CN=dev-enablement/kafka-connect"
-  acl_host            = "*"
-  acl_operation       = "Read"
-  acl_permission_type = "Allow"
-}
-
-# Needs read/write to register itself as a consumer group
-resource "kafka_acl" "kafka_connect_group_acl" {
-  resource_name       = "*"
-  resource_type       = "Group"
-  acl_principal       = "User:CN=dev-enablement/kafka-connect"
-  acl_host            = "*"
-  acl_operation       = "All"
-  acl_permission_type = "Allow"
+module "kafka_connect_full_internal_topics" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = ["dev-enablement.connect-configs", "dev-enablement.connect-offsets", "dev-enablement.connect-status"]
+  consume_groups   = ["kafka-connect-group"]
+  cert_common_name = "dev-enablement/kafka-connect"
 }
