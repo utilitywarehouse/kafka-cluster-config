@@ -43,7 +43,7 @@ module "kafka_connect_full_internal_topics" {
   source           = "../../../modules/tls-app"
   consume_topics   = ["dev-enablement.connect-configs", "dev-enablement.connect-offsets", "dev-enablement.connect-status"]
   produce_topics   = ["dev-enablement.connect-configs", "dev-enablement.connect-offsets", "dev-enablement.connect-status"]
-  consume_groups   = ["dev-enablement.kafka-connect-group"]
+  consume_groups   = ["dev-enablement.kafka-connect-group", "dev-enablement.kafka-connect-worker-group"]
   cert_common_name = "dev-enablement/kafka-connect"
 }
 
