@@ -46,3 +46,21 @@ module "kafka_connect_full_internal_topics" {
   consume_groups   = ["dev-enablement.kafka-connect-group"]
   cert_common_name = "dev-enablement/kafka-connect"
 }
+
+resource "kafka_acl" "kafka_connect_describe_topic_all" {
+  resource_name       = "*"
+  resource_type       = "Topic"
+  acl_principal       = "User:CN=dev-enablement/kafka-connect"
+  acl_host            = "*"
+  acl_operation       = "Describe"
+  acl_permission_type = "Allow"
+}
+
+resource "kafka_acl" "kafka_connect_describe_group_all" {
+  resource_name       = "*"
+  resource_type       = "Group"
+  acl_principal       = "User:CN=dev-enablement/kafka-connect"
+  acl_host            = "*"
+  acl_operation       = "Describe"
+  acl_permission_type = "Allow"
+}
