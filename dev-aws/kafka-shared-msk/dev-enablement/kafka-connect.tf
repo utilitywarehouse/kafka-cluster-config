@@ -5,9 +5,9 @@ resource "kafka_topic" "_connect_configs" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"       = "compact"
-    "compression.type"     = "zstd"
-    "retention.ms"         = "-1"
+    "cleanup.policy"    = "compact"
+    "compression.type"  = "zstd"
+    "retention.ms"      = "-1"
   }
 }
 
@@ -17,9 +17,9 @@ resource "kafka_topic" "_connect_offsets" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"       = "compact"
-    "compression.type"     = "zstd"
-    "retention.ms"         = "-1"
+    "cleanup.policy"    = "compact"
+    "compression.type"  = "zstd"
+    "retention.ms"      = "-1"
   }
 }
 
@@ -29,9 +29,9 @@ resource "kafka_topic" "_connect_status" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"       = "compact"
-    "compression.type"     = "zstd"
-    "retention.ms"         = "-1"
+    "cleanup.policy"    = "compact"
+    "compression.type"  = "zstd"
+    "retention.ms"      = "-1"
   }
 }
 
