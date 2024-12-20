@@ -1,37 +1,37 @@
 # https://docs.confluent.io/platform/7.8/connect/references/allconfigs.html#distributed-worker-configuration
-resource "kafka_topic" "_connect_configs" {
-  name               = "_connect-configs"
+resource "kafka_topic" "connect_configs" {
+  name               = "dev-enablement.connect-configs"
   partitions         = 1
   replication_factor = 3
 
   config = {
-    "cleanup.policy"    = "compact"
-    "compression.type"  = "zstd"
-    "retention.ms"      = "-1"
+    "cleanup.policy"   = "compact"
+    "compression.type" = "zstd"
+
   }
 }
 
-resource "kafka_topic" "_connect_offsets" {
-  name               = "_connect-offsets"
+resource "kafka_topic" "connect_offsets" {
+  name               = "dev-enablement.connect-offsets"
   partitions         = 25
   replication_factor = 3
 
   config = {
-    "cleanup.policy"    = "compact"
-    "compression.type"  = "zstd"
-    "retention.ms"      = "-1"
+    "cleanup.policy"   = "compact"
+    "compression.type" = "zstd"
+
   }
 }
 
-resource "kafka_topic" "_connect_status" {
-  name               = "_connect-status"
+resource "kafka_topic" "connect_status" {
+  name               = "dev-enablement.connect-status"
   partitions         = 5
   replication_factor = 3
 
   config = {
-    "cleanup.policy"    = "compact"
-    "compression.type"  = "zstd"
-    "retention.ms"      = "-1"
+    "cleanup.policy"   = "compact"
+    "compression.type" = "zstd"
+
   }
 }
 
