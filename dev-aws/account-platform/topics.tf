@@ -272,12 +272,3 @@ resource "kafka_topic" "account_management_events" {
   replication_factor = 3
 }
 
-resource "kafka_topic" "account_history_v1" {
-  config = {
-    "cleanup.policy"        = "compact"
-    "max.compaction.lag.ms" = "604800000"
-  }
-  name               = "account.history.v1"
-  partitions         = 15
-  replication_factor = 3
-}
