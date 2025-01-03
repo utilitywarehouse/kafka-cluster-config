@@ -4,15 +4,15 @@ resource "kafka_topic" "data_staged_events_finance" {
   partitions         = 10
   config = {
     "compression.type" = "zstd"
-    # 26.8 GB
+    # keep on each partition 25GiB
     "retention.bytes" = "26843545600"
-    # 105 MB
+    # allow for a batch of records maximum 100MiB
     "max.message.bytes" = "104857600"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    "retention.ms"       = "604800000" #7 days
+    "retention.ms"       = "604800000" # keep data for 7 days
     "cleanup.policy"     = "delete"
   }
 }
@@ -23,13 +23,13 @@ resource "kafka_topic" "historical_data_staged_events_finance" {
   partitions         = 10
   config = {
     "compression.type" = "zstd"
-    # 805 GB
+    # keep on each partition 750GiB
     "retention.bytes" = "805306368000"
-    # 105 MB
+    # allow for a batch of records maximum 100MiB
     "max.message.bytes" = "104857600"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 7 days
     "retention.ms"   = "604800000"
@@ -54,9 +54,16 @@ module "finance_tx_log_staging_connector" {
   produce_topics = [
     kafka_topic.data_staged_events_finance.name,
   ]
-  #  limit to 150 KB per broker, as the consumer doesn't keep up with the producer and the producer is loading the brokers CPU when not throttled.
-  producer_byte_rate = "153600"
-  cert_common_name   = "billing/finance-tx-log-staging-connector"
+  cert_common_name = "billing/finance-tx-log-staging-connector"
+}
+
+resource "kafka_quota" "finance_tx_log_staging_connector" {
+  entity_name = module.finance_tx_log_staging_connector.user_name
+  entity_type = "user"
+  config = {
+    # limit to 150 KB per broker, as the consumer doesn't keep up with the producer and the producer is loading the brokers CPU when not throttled.
+    "producer_byte_rate" = "153600"
+  }
 }
 
 module "historical_bigquery_connector" {

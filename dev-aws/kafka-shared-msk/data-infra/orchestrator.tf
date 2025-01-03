@@ -5,9 +5,9 @@ resource "kafka_topic" "e2e_proto" {
   config = {
     # this is a test, and we need minimum and non-durable resources
     "remote.storage.enable" = "false"
-    # 1 day
+    # keep data for 1 day
     "retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -21,9 +21,9 @@ resource "kafka_topic" "e2e_json" {
   config = {
     # this is a test, and we need minimum and non-durable resources
     "remote.storage.enable" = "false"
-    # 1 day
+    # keep data for 1 day
     "retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -37,9 +37,9 @@ resource "kafka_topic" "e2e_multi" {
   config = {
     # this is a test, and we need minimum and non-durable resources
     "remote.storage.enable" = "false"
-    # 1 day
+    # keep data for 1 day
     "retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -53,9 +53,9 @@ resource "kafka_topic" "e2e_multi_dpd" {
   config = {
     # this is a test, and we need minimum and non-durable resources
     "remote.storage.enable" = "false"
-    # 1 day
+    # keep data for 1 day
     "retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -69,14 +69,31 @@ resource "kafka_topic" "e2e_non_std_envelope" {
   config = {
     # this is a test, and we need minimum and non-durable resources
     "remote.storage.enable" = "false"
-    # 1 day
+    # keep data for 1 day
     "retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
 }
+
+resource "kafka_topic" "e2e_multi_project" {
+  name               = "data-infra.e2e.multi_project"
+  replication_factor = 3
+  partitions         = 1
+  config = {
+    # this is a test, and we need minimum and non-durable resources
+    "remote.storage.enable" = "false"
+    # keep data for 1 day
+    "retention.ms" = "86400000"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 
 module "orchestrator" {
   source         = "../../../modules/tls-app"
@@ -90,7 +107,8 @@ module "orchestrator" {
     kafka_topic.e2e_proto.name,
     kafka_topic.e2e_json.name,
     kafka_topic.e2e_multi_dpd.name,
-    kafka_topic.e2e_non_std_envelope.name
+    kafka_topic.e2e_non_std_envelope.name,
+    kafka_topic.e2e_multi_project.name
   ]
   cert_common_name = "data-infra/orchestrator"
 }
@@ -146,4 +164,13 @@ module "kafka_source_non_std_envelope" {
     "data-infra.kafka-source-non-std-envelope-dev-gcp",
   ]
   cert_common_name = "data-infra/kafka-source-non-std-envelope"
+}
+
+module "kafka_source_bq_multi_project" {
+  source         = "../../../modules/tls-app"
+  consume_topics = [kafka_topic.e2e_multi_project.name]
+  consume_groups = [
+    "data-infra.kafka-source-multi-project-dev-gcp",
+  ]
+  cert_common_name = "data-infra/kafka-source-multi-project"
 }

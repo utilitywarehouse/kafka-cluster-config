@@ -7,11 +7,11 @@ resource "kafka_topic" "uswitch_data_v1" {
   # infinte retention
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    # keep data locally for 1 hour
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    "retention.ms"          = "-1" # keep data forever
+    # keep data in primary storage for 1 hour
     "local.retention.ms" = "3600000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -27,11 +27,32 @@ resource "kafka_topic" "uswitch_events_v2" {
   # infinte retention
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    # keep data locally for 1 hour
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    "retention.ms"          = "-1" # keep data forever
+    # keep data in primary storage for 1 hour
     "local.retention.ms" = "3600000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
+
+resource "kafka_topic" "service_status_v3" {
+  name = "customer-proposition.service-status.events.v3"
+
+  replication_factor = 3
+  partitions         = 15
+
+  # infinte retention
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    "retention.ms"          = "-1" # keep data forever
+    # keep data in primary storage for 1 hour
+    "local.retention.ms" = "3600000"
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"

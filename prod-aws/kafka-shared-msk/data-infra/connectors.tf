@@ -4,11 +4,11 @@ resource "kafka_topic" "events_end" {
   partitions         = 15
   config = {
     "remote.storage.enable" = "true"
-    # infinite retention
+    # keep data forever
     "retention.ms" = "-1"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -21,11 +21,11 @@ resource "kafka_topic" "dlq_requeue" {
   partitions         = 1
   config = {
     "remote.storage.enable" = "true"
-    # 1 month
+    # keep data for 1 month
     "retention.ms" = "2629800000"
-    # 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -38,11 +38,11 @@ resource "kafka_topic" "dlq" {
   partitions         = 1
   config = {
     "remote.storage.enable" = "true"
-    # 1 month
+    # keep data for 1 month
     "retention.ms" = "2629800000"
-    # 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -55,11 +55,11 @@ resource "kafka_topic" "dlq_alerts" {
   partitions         = 1
   config = {
     "remote.storage.enable" = "true"
-    #3 days
+    # keep data for 3 days
     "retention.ms" = "259200001"
-    # 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -89,14 +89,6 @@ module "di_bigquery_connector" {
   cert_common_name = "data-infra/di-bigquery-connector"
 }
 
-module "di_troubleshoot_pla_1381" {
-  source         = "../../../modules/tls-app"
-  consume_topics = [kafka_topic.events.name]
-  consume_groups = [
-    "data-infra.di_troubleshoot-pla-1381"
-  ]
-  cert_common_name = "data-infra/di_troubleshoot-pla-1381"
-}
 
 module "di_braze_connector" {
   source         = "../../../modules/tls-app"

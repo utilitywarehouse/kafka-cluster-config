@@ -3,11 +3,11 @@ resource "kafka_topic" "iam_cerbos_audit_v1" {
   replication_factor = 3
   partitions         = 10
   config = {
-    # retain 100MB on each partition
+    # keep on each partition 100MiB
     "retention.bytes" = "104857600"
     # keep data for 2 days
     "retention.ms" = "172800000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -35,13 +35,13 @@ resource "kafka_topic" "iam_credentials_v1" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # retain 100MB on each partition
+    # keep on each partition 100MiB
     "retention.bytes" = "104857600"
-    # keep data for 60 days
+    # keep data for 2 months
     "retention.ms" = "5184000000"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -81,13 +81,13 @@ resource "kafka_topic" "iam_dpd_v1" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # retain 100MB on each partition
+    # keep on each partition 100MiB
     "retention.bytes" = "104857600"
     # keep data for 7 days
     "retention.ms" = "604800000"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -100,6 +100,13 @@ module "iam_dpd_mapper" {
   consume_topics   = [(kafka_topic.iam_credentials_v1.name)]
   consume_groups   = ["iam.dpd-mapper"]
   cert_common_name = "auth-customer/dpd-mapper"
+}
+
+module "account_identity_di_kafka_source_verification" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [(kafka_topic.iam_dpd_v1.name)]
+  consume_groups   = ["account-identity.di-kafka-source-verification"]
+  cert_common_name = "auth-customer/di-verification"
 }
 
 module "iam_dpd_di_kafka_source_customer_login_succeeded" {
@@ -180,13 +187,13 @@ resource "kafka_topic" "iam_identitydb_v1" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # retain 100MB on each partition
+    # keep on each partition 100MiB
     "retention.bytes" = "104857600"
-    # keep data for 30 days
+    # keep data for 1 month
     "retention.ms" = "2592000000"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow max 5 MB for a message
+    # allow for a batch of records maximum 5MiB
     "max.message.bytes" = "5242880"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -244,13 +251,13 @@ resource "kafka_topic" "iam_revoked_v1" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # retain 100MB on each partition
+    # keep on each partition 100MiB
     "retention.bytes" = "104857600"
-    # keep data for 60 days
+    # keep data for 2 months
     "retention.ms" = "5184000000"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -264,13 +271,13 @@ resource "kafka_topic" "iam_credentials_v1_public" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # retain 100MB on each partition
+    # keep on each partition 100MiB
     "retention.bytes" = "104857600"
-    # keep data for 60 days
+    # keep data for 2 months
     "retention.ms" = "5184000000"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -290,4 +297,10 @@ module "castle_processor" {
   cert_common_name = "auth-customer/castle-processor"
   consume_topics   = [(kafka_topic.iam_credentials_v1.name)]
   consume_groups   = ["iam.castle-processor"]
+}
+
+module "cbc_fraud_detection_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.iam_credentials_v1_public.name]
+  cert_common_name = "cbc/cbc-fraud-detection-consumer"
 }

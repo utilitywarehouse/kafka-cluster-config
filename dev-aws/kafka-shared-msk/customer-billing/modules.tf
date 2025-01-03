@@ -15,16 +15,23 @@ module "billing_fulfilment_public_events_translator" {
 module "fulfilment_router" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/fulfilment-router"
-  consume_topics   = [(kafka_topic.invoice_fulfillment_deadletter.name)]
-  consume_groups   = ["bex.fulfilment-router"]
+  produce_topics   = [kafka_topic.transition_bex_fulfilment_request.name]
+  consume_topics = [
+    kafka_topic.invoice_fulfillment_deadletter.name,
+    kafka_topic.internal_invoice_fulfilment_deadletter.name
+  ]
+  consume_groups = ["bex.fulfilment-router"]
 }
 
 module "mail_sender" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/mail-sender"
-  produce_topics   = [kafka_topic.mail_sender_deadletter.name]
-  consume_topics   = [(kafka_topic.invoice_fulfillment.name)]
-  consume_groups   = ["bex.mail-sender"]
+  produce_topics = [
+    kafka_topic.mail_sender_deadletter.name,
+    kafka_topic.mail_sender_reprint_deadletter.name
+  ]
+  consume_topics = [(kafka_topic.invoice_fulfillment.name)]
+  consume_groups = ["bex.mail-sender"]
 }
 
 module "invoice_generator" {
@@ -36,13 +43,48 @@ module "invoice_generator" {
 module "invoice_fulfillment" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/invoice-fulfillment"
-  produce_topics   = [kafka_topic.invoice_fulfillment.name, kafka_topic.invoice_fulfillment_deadletter.name]
+  produce_topics = [
+    kafka_topic.invoice_fulfillment.name,
+    kafka_topic.internal_bex_fulfilment_retry_1.name,
+    kafka_topic.internal_bex_fulfilment_retry_2.name,
+    kafka_topic.internal_bex_fulfilment_large_invoice.name,
+    kafka_topic.invoice_fulfillment_deadletter.name,
+    kafka_topic.internal_invoice_fulfilment_deadletter.name,
+    kafka_topic.internal_bex_bill_regeneration_retry_1.name,
+    kafka_topic.internal_bex_bill_regeneration_retry_2.name,
+    kafka_topic.internal_bex_bill_regeneration_large_invoice.name,
+    kafka_topic.internal_bex_bill_regeneration_deadletter.name
+  ]
+  consume_topics = [
+    kafka_topic.transition_bex_fulfilment_request.name,
+    kafka_topic.internal_bex_fulfilment_retry_1.name,
+    kafka_topic.internal_bex_fulfilment_retry_2.name,
+    kafka_topic.internal_bex_fulfilment_large_invoice.name,
+    kafka_topic.internal_bex_bill_regeneration.name,
+    kafka_topic.internal_bex_bill_regeneration_retry_1.name,
+    kafka_topic.internal_bex_bill_regeneration_retry_2.name,
+    kafka_topic.internal_bex_bill_regeneration_large_invoice.name
+  ]
+  consume_groups = [
+    "bex.invoice-fulfillment",
+    "bex.invoice-fulfilment-retry-1",
+    "bex.invoice-fulfilment-retry-2",
+    "bex.invoice-fulfilment-large-invoice",
+    "bex.invoice-fulfillment-regen",
+    "bex.invoice-fulfillment-regen-retry-1",
+    "bex.invoice-fulfillment-regen-retry-2",
+    "bex.invoice-fulfillment-regen-large-invoice"
+  ]
 }
 
 module "dashboard" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/bex-dashboard"
-  produce_topics   = [kafka_topic.invoice_fulfillment.name]
+  produce_topics = [
+    kafka_topic.invoice_fulfillment.name,
+    kafka_topic.internal_bex_bill_regeneration.name,
+    kafka_topic.transition_bex_fulfilment_request.name
+  ]
 }
 
 module "invoice_delivery_orchestrator" {
@@ -82,4 +124,10 @@ module "bex_fulfilment_events_replicator" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/bex-fulfilment-events-replicator"
   produce_topics   = [kafka_topic.public_fulfilment_events.name]
+}
+
+module "invoice_api" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "customer-billing/invoice-api"
+  produce_topics   = [kafka_topic.bex_legacy_invoice_api.name]
 }

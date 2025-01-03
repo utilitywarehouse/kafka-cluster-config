@@ -7,10 +7,10 @@ resource "kafka_topic" "FraudEvents" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -24,10 +24,10 @@ resource "kafka_topic" "data_product_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
+    "retention.bytes"       = "-1"         # keep on each partition unlimited data
     "retention.ms"          = "2629746000" # keep data for 1 month
-    "local.retention.ms"    = "18000000"   # keep data locally for 5 hours
-    "max.message.bytes"     = "2097152"    # allow max 2MB for a message
+    "local.retention.ms"    = "18000000"   # keep data in primary storage for 5 hours
+    "max.message.bytes"     = "2097152"    # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -41,10 +41,10 @@ resource "kafka_topic" "rating_events_v3" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -58,10 +58,10 @@ resource "kafka_topic" "challenge_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -75,10 +75,10 @@ resource "kafka_topic" "charges_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -92,10 +92,10 @@ resource "kafka_topic" "lifecycle_events_v2" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -109,10 +109,10 @@ resource "kafka_topic" "topup_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -126,10 +126,10 @@ resource "kafka_topic" "transaction_events_v3" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -143,10 +143,10 @@ resource "kafka_topic" "openbanking_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -160,10 +160,10 @@ resource "kafka_topic" "order_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -177,10 +177,10 @@ resource "kafka_topic" "paymentology_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -194,10 +194,10 @@ resource "kafka_topic" "sodexo_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -211,10 +211,10 @@ resource "kafka_topic" "verification_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -228,10 +228,10 @@ resource "kafka_topic" "customer_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -245,10 +245,10 @@ resource "kafka_topic" "migration_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -262,10 +262,10 @@ resource "kafka_topic" "network_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -279,10 +279,10 @@ resource "kafka_topic" "mdes_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -296,10 +296,10 @@ resource "kafka_topic" "service_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -313,10 +313,10 @@ resource "kafka_topic" "crm_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -330,10 +330,10 @@ resource "kafka_topic" "legacy_account_events_v2" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -347,10 +347,10 @@ resource "kafka_topic" "eqdb_loader_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"
-    "retention.ms"          = "-1"
-    "local.retention.ms"    = "3600000" # keep data locally for 1 hour
-    "max.message.bytes"     = "2097152" # allow max 2MB for a message
+    "retention.bytes"       = "-1"      # keep on each partition unlimited data
+    "retention.ms"          = "-1"      # keep data forever
+    "local.retention.ms"    = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152" # allow for a batch of records maximum 2MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -365,16 +365,47 @@ module "cbc_fraud_detection_api" {
 module "cbc_fraud_detection_consumer" {
   source = "../../../modules/tls-app"
   consume_topics = [
-    "auth-customer.iam-credentials-v1-public",
     kafka_topic.FraudEvents.name,
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.topup_events_v1.name,
     kafka_topic.legacy_account_events_v2.name,
+    kafka_topic.mdes_events_v1.name,
     kafka_topic.transaction_events_v3.name
   ]
-  produce_topics   = [kafka_topic.FraudEvents.name]
-  consume_groups   = ["cbc.cbc-fraud-detection-consumer-v1"]
+  produce_topics = [kafka_topic.FraudEvents.name]
+  consume_groups = [
+    "cbc.cbc-fraud-detection-consumer-v1",
+  ]
   cert_common_name = "cbc/cbc-fraud-detection-consumer"
+}
+
+module "cbc_events_indexer_v2" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.FraudEvents.name,
+    kafka_topic.rating_events_v3.name,
+    kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.charges_events_v1.name,
+    kafka_topic.challenge_events_v1.name,
+    kafka_topic.topup_events_v1.name,
+    kafka_topic.transaction_events_v3.name,
+    kafka_topic.openbanking_events_v1.name,
+    kafka_topic.order_events_v1.name,
+    kafka_topic.paymentology_events_v1.name,
+    kafka_topic.sodexo_events_v1.name,
+    kafka_topic.migration_events_v1.name,
+    kafka_topic.mdes_events_v1.name,
+    kafka_topic.network_events_v1.name,
+    kafka_topic.crm_events_v1.name,
+    kafka_topic.legacy_account_events_v2.name,
+    kafka_topic.eqdb_loader_events_v1.name,
+    kafka_topic.service_events_v1.name,
+    kafka_topic.verification_events_v1.name,
+    kafka_topic.data_product_events_v1.name,
+    kafka_topic.customer_events_v1.name
+  ]
+  consume_groups   = ["cbc.cbc-events-indexer-v2"]
+  cert_common_name = "cbc/cbc-events-indexer-v2"
 }
 
 module "cbc_events_indexer" {
@@ -466,7 +497,10 @@ module "cbc_transaction_notification_mapper" {
     kafka_topic.transaction_events_v3.name,
     kafka_topic.paymentology_events_v1.name
   ]
-  consume_groups = ["cbc.cbc-transaction-notification-mapper-v2"]
+  consume_groups = [
+    "cbc.cbc-transaction-notification-mapper-v2",
+    "cbc.local-test-consumer-v1",
+  ]
   produce_topics = [
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.transaction_events_v3.name
@@ -726,7 +760,9 @@ module "cbc_mdes_projector" {
   consume_topics = [
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.legacy_account_events_v2.name,
-    kafka_topic.mdes_events_v1.name
+    kafka_topic.transaction_events_v3.name,
+    kafka_topic.mdes_events_v1.name,
+    kafka_topic.rating_events_v3.name,
   ]
   consume_groups   = ["cbc.cbc-mdes-projector"]
   cert_common_name = "cbc/cbc-mdes-projector"
@@ -772,6 +808,7 @@ module "cbc_topup_projector" {
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.topup_events_v1.name,
     kafka_topic.legacy_account_events_v2.name,
+    kafka_topic.charges_events_v1.name,
     kafka_topic.transaction_events_v3.name
   ]
   consume_groups   = ["cbc.cbc-topup-projector-v1"]
@@ -1041,6 +1078,9 @@ module "cbc_dispute_credits_consumer" {
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.transaction_events_v3.name
   ]
+  produce_topics = [
+    kafka_topic.transaction_events_v3.name
+  ]
   consume_groups   = ["cbc.cbc-dispute-credits-consumer-v1"]
   cert_common_name = "cbc/cbc-dispute-credits-consumer"
 }
@@ -1050,7 +1090,8 @@ module "cbc_dispute_credits_projector" {
   consume_topics = [
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.legacy_account_events_v2.name,
-    kafka_topic.transaction_events_v3.name
+    kafka_topic.transaction_events_v3.name,
+    kafka_topic.mdes_events_v1.name,
   ]
   consume_groups   = ["cbc.cbc-dispute-credits-projector-v3"]
   cert_common_name = "cbc/cbc-dispute-credits-projector"
@@ -1089,7 +1130,10 @@ module "cbc_customer_projector" {
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.customer_events_v1.name
   ]
-  consume_groups   = ["cbc.cbc-customer-api-v1"]
+  consume_groups = [
+    "cbc.cbc-customer-api-v1",
+    "cbc.cbc-customer-api-v1-tmp"
+  ]
   cert_common_name = "cbc/cbc-customer-projector"
 }
 
@@ -1208,9 +1252,15 @@ module "cbc_ordering_api" {
 }
 
 module "cbc_onfido_projector" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.verification_events_v1.name]
-  consume_groups   = ["cbc.cbc-onfido-projector-v2"]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.verification_events_v1.name,
+    kafka_topic.order_events_v1.name
+  ]
+  consume_groups = [
+    "cbc.cbc-onfido-projector-v2",
+    "cbc.cbc-onfido-projector-v2-tmp"
+  ]
   cert_common_name = "cbc/cbc-onfido-projector"
 }
 
@@ -1314,9 +1364,38 @@ module "cbc_data_infra_adapter_consumer" {
 
 module "cbc_data_infra_exporter" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.data_product_events_v1.name, ]
+  consume_topics   = [kafka_topic.data_product_events_v1.name]
   consume_groups   = ["cbc.cbc-data-infra-exporter-v1"]
   cert_common_name = "cbc/cbc-data-infra-exporter"
+}
+
+module "cbc_bill_integration_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.legacy_account_events_v2.name
+  ]
+  consume_groups   = ["cbc.cbc-bill-integration-projector-v2"]
+  cert_common_name = "cbc/cbc-bill-integration-projector"
+}
+
+module "cbc_bill_integration_consumer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.legacy_account_events_v2.name
+  ]
+  consume_groups   = ["cbc.cbc-bill-integration-consumer-v2"]
+  cert_common_name = "cbc/cbc-bill-integration-consumer"
+}
+
+module "cbc_crm_services_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.crm_events_v1.name
+  ]
+  consume_groups   = ["cbc.cbc-service-projector-v1"]
+  cert_common_name = "cbc/crm-services-projector"
 }
 
 module "cbc_proximo_tls" {

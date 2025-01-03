@@ -4,11 +4,11 @@ resource "kafka_topic" "events_end" {
   partitions         = 15
   config = {
     "remote.storage.enable" = "true"
-    # infinite retention
+    # keep data forever
     "retention.ms" = "-1"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -22,11 +22,11 @@ resource "kafka_topic" "dlq_requeue" {
   config = {
 
     "remote.storage.enable" = "true"
-    # 1 month
+    # keep data for 1 month
     "retention.ms" = "2629800000"
-    # 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -39,11 +39,11 @@ resource "kafka_topic" "dlq" {
   partitions         = 1
   config = {
     "remote.storage.enable" = "true"
-    # 1 month
+    # keep data for 1 month
     "retention.ms" = "2629800000"
-    # 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
@@ -56,11 +56,11 @@ resource "kafka_topic" "dlq_alerts" {
   partitions         = 1
   config = {
     "remote.storage.enable" = "true"
-    #3 days
+    # keep data for 3 days
     "retention.ms" = "259200001"
-    # 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow max 1 MB for a message
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"

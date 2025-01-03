@@ -4,10 +4,10 @@ resource "kafka_topic" "openbanking_v1_internal_payments" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384"
+    "retention.bytes"  = "3758096384" # keep on each partition 3.5GiB
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
     "retention.ms"   = "31557600000"
@@ -21,10 +21,10 @@ resource "kafka_topic" "openbanking_deadletter_v1_internal_payments" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384"
+    "retention.bytes"  = "3758096384" # keep on each partition 3.5GiB
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
     "retention.ms"   = "31557600000"
@@ -38,10 +38,10 @@ resource "kafka_topic" "openbanking_v1_internal_payment_methods" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384"
+    "retention.bytes"  = "3758096384" # keep on each partition 3.5GiB
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
     "retention.ms"   = "31557600000"
@@ -55,10 +55,10 @@ resource "kafka_topic" "openbanking_deadletter_v1_internal_payment_methods" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384"
+    "retention.bytes"  = "3758096384" # keep on each partition 3.5GiB
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
     "retention.ms"   = "31557600000"
@@ -99,4 +99,22 @@ module "openbanking_crond" {
     kafka_topic.payment_v1_events.name
   ]
   cert_common_name = "payment-platform/openbanking-crond"
+}
+
+module "payment_deadletterd" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.payment_v1_events.name,
+    kafka_topic.payment_method_v1_events.name,
+    kafka_topic.openbanking_v1_internal_payments.name,
+    kafka_topic.openbanking_v1_internal_payment_methods.name,
+  ]
+  consume_topics = [
+    kafka_topic.payment_deadletter_v1_events.name,
+    kafka_topic.payment_method_deadletter_v1_events.name,
+    kafka_topic.openbanking_deadletter_v1_internal_payments.name,
+    kafka_topic.openbanking_deadletter_v1_internal_payment_methods.name,
+  ]
+  consume_groups   = ["payment-platform.payment-deadletterd"]
+  cert_common_name = "payment-platform/payment-deadletterd"
 }

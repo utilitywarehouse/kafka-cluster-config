@@ -4,10 +4,10 @@ resource "kafka_topic" "payment_analysis_payment_method" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384"
+    "retention.bytes"  = "3758096384" # keep on each partition 3.5GiB
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in hot storage for 2 days
+    # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # keep data for 1 year
     "retention.ms"   = "31557600000"
