@@ -124,14 +124,14 @@ resource "kafka_topic" "account_history_v1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data in hot storage for 1 day
+    # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # enable remote storage
     "remote.storage.enable" = "true"
-    # retention of 7 days
+    # keep data for 7 days
     "retention.ms" = "604800000"
   }
-  name               = "account.history.v1"
+  name               = "account-identity.history.v1"
   partitions         = 15
   replication_factor = 3
 }
