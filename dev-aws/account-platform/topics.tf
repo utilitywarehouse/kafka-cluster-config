@@ -271,4 +271,3 @@ resource "kafka_topic" "account_management_events" {
   partitions         = 15
   replication_factor = 3
 }
-
