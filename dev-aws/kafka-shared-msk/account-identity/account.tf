@@ -148,6 +148,14 @@ resource "kafka_topic" "account_identity_account_history_v1" {
   replication_factor = 3
 }
 
+
+module "account_identity_account_history_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_history_v1.name]
+  consume_groups   = ["account-identity.account-history-projector"]
+  cert_common_name = "account-platform/account_history_projector"
+}
+
 moved {
   from = kafka_topic.account_identity_accunt_bill_writes_public
   to   = kafka_topic.account_identity_account_bill_writes_public
