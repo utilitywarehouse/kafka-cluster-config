@@ -152,6 +152,31 @@ resource "kafka_topic" "account_identity_account_bill_writes_public" {
   replication_factor = 3
 }
 
+
+resource "kafka_topic" "account_identity_account_history_v1" {
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data forever
+    "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 1 day
+    "local.retention.ms" = "86400000"
+  }
+  name               = "account-identity.account.history.v1"
+  partitions         = 15
+  replication_factor = 3
+}
+
+
+module "account_identity_account_history_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_history_v1.name]
+  consume_groups   = ["account-identity.account-history-projector"]
+  cert_common_name = "account-platform/account_history_projector"
+}
+
 moved {
   from = kafka_topic.account_identity_accunt_bill_writes_public
   to   = kafka_topic.account_identity_account_bill_writes_public
