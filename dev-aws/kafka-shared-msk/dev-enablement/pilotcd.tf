@@ -26,3 +26,10 @@ module "dev_enablement_pilotcd_worker" {
   consume_groups   = ["dev-enablement.pilotcd.worker"]
   cert_common_name = "dev-enablement/pilotcd-worker"
 }
+
+module "dev_enablement_mono_releaser" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.dev_enablement_pilotcd_v1.name]
+  consume_groups   = ["dev-enablement.mono.releaser"]
+  cert_common_name = "dev-enablement/mono-releaser"
+}
