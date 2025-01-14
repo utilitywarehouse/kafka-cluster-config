@@ -35,7 +35,6 @@ module "account_identity_di_legacy_account" {
     "account-identity.di-kafka-source-correspondence-name",
     "account-identity.di-kafka-source-legacy-account",
     "account-identity.di-kafka-source-legacy-account-braze",
-    "account-identity.di-kafka-source-residential-account-created",
     "account-identity.di-kafka-source-supply-address",
     "account-identity.di-kafka-source-supply-email",
     "account-identity.di-kafka-source-supply-landline",
@@ -46,9 +45,9 @@ module "account_identity_di_legacy_account" {
   cert_common_name = "account-platform/di_legacy_account"
 }
 
-module "account_identity_di_business_events" {
+module "account_identity_di_account_creation" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_account_events_v2.name]
-  consume_groups   = ["account-identity.di-kafka-source-business-events"]
-  cert_common_name = "account-platform/di_business_events"
+  consume_groups   = ["account-identity.di-kafka-source-account-creation"]
+  cert_common_name = "account-platform/di_account_creation"
 }
