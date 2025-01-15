@@ -356,6 +356,7 @@ module "agent_state_service" {
   source           = "../../../modules/tls-app"
   cert_common_name = "contact-channels/agent-state-service"
   consume_topics   = [kafka_topic.interactions_state_events.name]
+  produce_topics   = [kafka_topic.interactions_state_events.name]
 }
 
 # Consume from contact-channels.genesys_eb_events (ES Topic Indexer)
