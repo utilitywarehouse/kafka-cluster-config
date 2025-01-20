@@ -181,6 +181,12 @@ module "account_identity_account_api" {
   cert_common_name = "account-platform/account_api"
 }
 
+module "account_identity_home_move_notifications" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_public_account_events.name]
+  cert_common_name = "account-platform/home_moves"
+}
+
 module "account_identity_account_atomic_to_internal" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
