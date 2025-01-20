@@ -99,3 +99,14 @@ resource "kafka_topic" "card_deadletter_v1_internal_payment_methods" {
     "cleanup.policy" = "delete"
   }
 }
+
+module "card_apid" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.card_v1_internal.name,
+    kafka_topic.card_v1_internal_3ds.name,
+    kafka_topic.card_v1_internal_payment_methods.name,
+    kafka_topic.payment_v1_events.name
+  ]
+  cert_common_name = "payment-platform/card-apid"
+}
