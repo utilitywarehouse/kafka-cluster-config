@@ -54,6 +54,7 @@ module "account_identity_di_account_creation" {
 module "account_identity_di_move_out_notifications" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_public_account_events.name]
+  produce_topics   = [kafka_topic.account_identity_public_account_events.name]
   consume_groups   = ["account-identity.di-kafka-source-move-out"]
   cert_common_name = "account-platform/di_home_moves"
 }
