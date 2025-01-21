@@ -401,3 +401,11 @@ module "quoting_platform_account_projector" {
   consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
   consume_groups   = ["quoting-platform.account-projector"]
 }
+
+module "account_identity_move_out_notifications" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_public_account_events.name]
+  produce_topics   = [kafka_topic.account_identity_public_account_events.name]
+  consume_groups   = ["account-identity.di-kafka-source-move-out"]
+  cert_common_name = "account-platform/di_home_moves"
+}
