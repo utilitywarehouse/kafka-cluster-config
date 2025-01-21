@@ -409,3 +409,10 @@ module "account_identity_move_out_notifications" {
   consume_groups   = ["account-identity.di-kafka-source-move-out"]
   cert_common_name = "account-platform/di_home_moves"
 }
+
+module "account_identity_public_account_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_public_account_events.name]
+  consume_groups   = ["account-identity.prod-public-account-events-indexer"]
+  cert_common_name = "account-platform/public_account_events_indexer"
+}
