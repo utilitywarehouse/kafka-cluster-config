@@ -100,7 +100,7 @@ resource "kafka_topic" "card_deadletter_v1_internal_payment_methods" {
   }
 }
 
-module "card_apid" {
+module "card_api" {
   source = "../../../modules/tls-app"
   produce_topics = [
     kafka_topic.card_v1_internal.name,
@@ -108,5 +108,5 @@ module "card_apid" {
     kafka_topic.card_v1_internal_payment_methods.name,
     kafka_topic.payment_v1_events.name
   ]
-  cert_common_name = "payment-platform/card-apid"
+  cert_common_name = "payment-platform/card-api"
 }
