@@ -17,9 +17,3 @@ resource "kafka_topic" "meter_reads" {
 }
 
 
-module "mirror_maker" {
-  source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.meter_reads.name]
-  cert_common_name = "energy-platfrom/mirror-maker"
-}
-
