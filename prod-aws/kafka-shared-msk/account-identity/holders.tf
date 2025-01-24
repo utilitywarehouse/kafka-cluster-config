@@ -16,7 +16,7 @@ resource "kafka_topic" "account_identity_legacy_account_holder_events_compacted"
 module "account_identity_update_holders" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.account_identity_legacy_account_holder_events_compacted.name)]
-  consume_groups   = ["account-identity.update-holders-projector"]
+  consume_groups   = ["account-identity.update-holders-projector", "account-identity.update-holders-projector-replica"]
   cert_common_name = "account-platform/update-holders-projector"
 }
 
