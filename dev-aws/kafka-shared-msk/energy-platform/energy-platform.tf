@@ -1,5 +1,5 @@
 resource "kafka_topic" "meter_reads" {
-  name               = "energy-platform.meter-reads"
+  name               = "energy-platform.meter.read.events.v3"
   replication_factor = 3
   partitions         = 15
   config = {
@@ -15,5 +15,3 @@ resource "kafka_topic" "meter_reads" {
     "cleanup.policy"    = "delete"
   }
 }
-
-
