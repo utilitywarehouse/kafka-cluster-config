@@ -44,9 +44,10 @@ resource "kafka_topic" "account_identity_legacy_account_events" {
 resource "kafka_topic" "account_identity_legacy_account_change_events_compacted" {
   config = {
     "cleanup.policy" = "compact"
-    # allow not compacted keys maximum for 7 days
-    "max.compaction.lag.ms" = "604800000"
-    "compression.type"      = "zstd"
+    # allow not compacted keys maximum for 1 hour
+    "max.compaction.lag.ms"     = "3600000"
+    "compression.type"          = "zstd"
+    "min.cleanable.dirty.ratio" = "0.01"
   }
   name               = "account-identity.legacy.account.change.events.compacted"
   partitions         = 50
