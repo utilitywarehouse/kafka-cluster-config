@@ -818,7 +818,7 @@ module "cbc_topup_projector" {
 module "cbc_topup_refund_retrier" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.topup_events_v1.name]
-  cert_common_name = "cbc/cbc-topup-refund-retrier"
+  cert_common_name = "cbc/cbc-topup-refund-retrier-job"
 }
 
 module "cbc_topup_scheduled_topup_job" {
