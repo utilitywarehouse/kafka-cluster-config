@@ -66,6 +66,23 @@ resource "kafka_topic" "mail_sender_deadletter" {
   }
 }
 
+resource "kafka_topic" "email_sender_deadletter" {
+  name               = "bex.internal.email_sender_deadletter"
+  replication_factor = 3
+  partitions         = 1
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 1 day
+    "local.retention.ms" = "86400000"
+    # keep data for 28 days
+    "retention.ms" = "2419200000"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 resource "kafka_topic" "mail_sender_reprint_deadletter" {
   name               = "bex.internal.mail_sender_reprint_deadletter"
   replication_factor = 3
