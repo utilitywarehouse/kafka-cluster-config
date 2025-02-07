@@ -1,3 +1,4 @@
+
 resource "kafka_topic" "account_identity_account_events_v2" {
   config = {
     "cleanup.policy"   = "delete"
@@ -198,7 +199,7 @@ module "account_identity_account_api_business_validation_projector" {
 module "account_identity_account_api_atomic_projector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
-  consume_groups   = ["account-identity.account-api-atomic-projector-cdb"]
+  consume_groups   = ["account-identity.account-api-atomic-projector-cdb", "account-identity.account-api-atomic-projector-cdb-replica"]
   cert_common_name = "account-platform/account_api_atomic_projector"
 }
 
