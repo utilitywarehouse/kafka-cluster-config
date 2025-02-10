@@ -153,7 +153,10 @@ module "invoice_fulfilment_dlq_job" {
     "bex.invoice-fulfilment-dlq-job",
     "bex.mail-sender-dlq-job"
   ]
-  produce_topics = [kafka_topic.transition_bex_fulfilment_request.name]
+  produce_topics = [
+    kafka_topic.transition_bex_fulfilment_request.name,
+    kafka_topic.transition_exstream_fulfilment_request.name
+  ]
 }
 
 module "invoice_api" {
