@@ -147,11 +147,9 @@ module "invoice_fulfilment_dlq_job" {
   cert_common_name = "customer-billing/invoice-fulfilment-dlq-job"
   consume_topics = [
     kafka_topic.internal_invoice_fulfilment_deadletter.name,
-    kafka_topic.mail_sender_deadletter.name,
   ]
   consume_groups = [
     "bex.invoice-fulfilment-dlq-job",
-    "bex.mail-sender-dlq-job"
   ]
   produce_topics = [kafka_topic.transition_bex_fulfilment_request.name]
 }
