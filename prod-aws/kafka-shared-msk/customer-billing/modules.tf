@@ -156,6 +156,17 @@ module "invoice_fulfilment_dlq_job" {
   produce_topics = [kafka_topic.transition_bex_fulfilment_request.name]
 }
 
+module "mail_sender_dlq_job" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "customer-billing/mail-sender-dlq-job"
+  consume_topics = [
+    kafka_topic.mail_sender_deadletter.name,
+  ]
+  consume_groups = [
+    "bex.mail-sender-dlq-job"
+  ]
+}
+
 module "invoice_api" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/invoice-api"
