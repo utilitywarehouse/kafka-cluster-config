@@ -350,6 +350,14 @@ module "account_identity_account_api_change_notifier" {
   cert_common_name = "account-platform/account_api_change_notifier"
 }
 
+module "account_identity_account_api_history" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
+  consume_groups   = ["account-identity.account-api-history"]
+  produce_topics   = [kafka_topic.account_identity_account_history_v1.name]
+  cert_common_name = "account-platform/account_api_history"
+}
+
 module "account_identity_account_events_compaction_relay" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
