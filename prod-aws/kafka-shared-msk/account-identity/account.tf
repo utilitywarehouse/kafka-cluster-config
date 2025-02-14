@@ -203,6 +203,13 @@ module "account_identity_account_api_atomic_projector" {
   cert_common_name = "account-platform/account_api_atomic_projector"
 }
 
+module "account_identity_update_unified_account_projector_corr" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["account-identity.update-account-projector-corr"]
+  cert_common_name = "account-platform/update_account_projector_unified_corr"
+}
+
 module "account_identity_create_account_projector" {
   source = "../../../modules/tls-app"
   consume_topics = [kafka_topic.account_identity_account_events_v2.name
