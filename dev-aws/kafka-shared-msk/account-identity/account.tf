@@ -405,7 +405,14 @@ module "account_identity_events_anonymizer" {
 module "account_identity_update_account_projector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_legacy_account_change_events_compacted.name]
-  consume_groups   = ["account-identity.update-account-projector-aws", "account-identity.update-account-projector-corr"]
+  consume_groups   = ["account-identity.update-account-projector-aws"]
+  cert_common_name = "account-platform/update_account_projector"
+}
+
+module "account_identity_update_unified_account_projector_corr" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["account-identity.update-account-projector-corr"]
   cert_common_name = "account-platform/update_account_projector"
 }
 
