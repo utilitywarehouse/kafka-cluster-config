@@ -413,7 +413,7 @@ module "account_identity_update_unified_account_projector_corr" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
   consume_groups   = ["account-identity.update-account-projector-corr"]
-  cert_common_name = "account-platform/update_account_projector"
+  cert_common_name = "account-platform/update_account_projector_unified_corr"
 }
 
 # Consume from account-identity.account.unified.events
