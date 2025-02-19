@@ -68,3 +68,10 @@ module "otel_tail_sampling_collector" {
   consume_groups   = ["otel.tail-sampling-collector"]
   cert_common_name = "otel/tail-sampling-collector"
 }
+
+module "otel_gc_forwarding_collector" {
+  source           = "../../modules/tls-app"
+  consume_topics   = [kafka_topic.otlp_sampled_spans.name]
+  consume_groups   = ["otel.gc-forwarding-collector"]
+  cert_common_name = "otel/gc-forwarding-collector"
+}
