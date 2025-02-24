@@ -44,6 +44,16 @@ module "email_sender" {
   consume_groups = ["bex.email-sender"]
 }
 
+module "bill_delivery_request_job" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "customer-billing/bill-delivery-request-job"
+  produce_topics = [
+    # bill-delivery-events (currently exists in bitnami)
+  ]
+  consume_topics = []
+  consume_groups = []
+}
+
 module "invoice_generator" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/invoice-generator"
