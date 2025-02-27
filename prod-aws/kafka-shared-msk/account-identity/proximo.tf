@@ -46,6 +46,7 @@ module "account_identity_proximo" {
     "account-identity.invoice-payment-engine-accounts",
     "account-identity.leads-api-conversion-v1",
     "account-identity.leads-api-indexer-v1",
+    "account-identity.leads-platform-state-updater-v1",
     "account-identity.mobile-accounts-fraud-events-1",
     "account-identity.mobile-accounts-legacy-events-1",
     "account-identity.ordering-platform-adapter",
