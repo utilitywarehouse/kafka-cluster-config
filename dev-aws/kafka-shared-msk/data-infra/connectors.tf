@@ -158,3 +158,19 @@ module "di_dlq_manager" {
   ]
   cert_common_name = "data-infra/di-dlq-manager"
 }
+
+module "di_postgres_connector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.events.name,
+    kafka_topic.dlq_requeue.name
+  ]
+  consume_groups = [
+    "data-infra.di-postgres-connector"
+  ]
+  produce_topics = [
+    kafka_topic.events_end.name,
+    kafka_topic.dlq.name
+  ]
+  cert_common_name = "data-infra/di-postgres-connector"
+}
