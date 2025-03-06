@@ -18,54 +18,54 @@ resource "kafka_topic" "meter_reads" {
 
 module "smart_reads_translator" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.meter_reads]
+  produce_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-smart/smart_reads_translator"
 }
 
 module "meter-events-indexer" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.meter_reads]
+  consume_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/meter-events-indexer"
 }
 
 module "meter-reads-fabricator" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.meter_reads]
+  produce_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/meter-reads-fabricator"
 }
 
 module "meter-reads-fabricator-projector" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.meter_reads]
+  consume_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/meter-reads-fabricator-projector"
 }
 
 module "meter-reads-api-queue" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.meter_reads]
+  produce_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/meter-reads-api-queue"
 }
 
 module "meter-reads-api-projector" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.meter_reads]
+  consume_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/meter-reads-api-projector"
 }
 
 module "meter-reads-bq-connector" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.meter_reads]
+  consume_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/meter-reads-bq-connector"
 }
 
 module "crm-adapter" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.meter_reads]
+  consume_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/crm-adapter"
 }
 
 module "bill-reads-producer-projector" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.meter_reads]
+  consume_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/bill-reads-producer-projector"
 }
