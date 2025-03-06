@@ -15,3 +15,57 @@ resource "kafka_topic" "meter_reads" {
     "cleanup.policy"    = "delete"
   }
 }
+
+module "smart_reads_translator" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.meter_reads.name]
+  cert_common_name = "energy-smart/smart_reads_translator"
+}
+
+module "meter_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.meter_reads.name]
+  cert_common_name = "energy-platform/meter-events-indexer"
+}
+
+module "meter_reads_fabricator" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.meter_reads.name]
+  cert_common_name = "energy-platform/meter-reads-fabricator"
+}
+
+module "meter_reads_fabricator_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.meter_reads.name]
+  cert_common_name = "energy-platform/meter-reads-fabricator-projector"
+}
+
+module "meter_reads_api_queue" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.meter_reads.name]
+  cert_common_name = "energy-platform/meter-reads-api-queue"
+}
+
+module "meter_reads_api_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.meter_reads.name]
+  cert_common_name = "energy-platform/meter-reads-api-projector"
+}
+
+module "meter_reads_bq_connector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.meter_reads.name]
+  cert_common_name = "energy-platform/meter-reads-bq-connector"
+}
+
+module "crm_adapter" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.meter_reads.name]
+  cert_common_name = "energy-platform/crm-adapter"
+}
+
+module "bill_reads_producer_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.meter_reads.name]
+  cert_common_name = "energy-platform/bill-reads-producer-projector"
+}
