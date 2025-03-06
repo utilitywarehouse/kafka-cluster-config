@@ -22,49 +22,49 @@ module "smart_reads_translator" {
   cert_common_name = "energy-platform/smart_reads_translator"
 }
 
-module "meter-events-indexer" {
+module "meter_events_indexer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/meter-events-indexer"
 }
 
-module "meter-reads-fabricator" {
+module "meter_reads_fabricator" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/meter-reads-fabricator"
 }
 
-module "meter-reads-fabricator-projector" {
+module "meter_reads_fabricator_projector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/meter-reads-fabricator-projector"
 }
 
-module "meter-reads-api-queue" {
+module "meter_reads_api_queue" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/meter-reads-api-queue"
 }
 
-module "meter-reads-api-projector" {
+module "meter_reads_api_projector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/meter-reads-api-projector"
 }
 
-module "meter-reads-bq-connector" {
+module "meter_reads_bq_connector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/meter-reads-bq-connector"
 }
 
-module "crm-adapter" {
+module "crm_adapter" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/crm-adapter"
 }
 
-module "bill-reads-producer-projector" {
+module "bill_reads_producer_projector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.meter_reads.name]
   cert_common_name = "energy-platform/bill-reads-producer-projector"
