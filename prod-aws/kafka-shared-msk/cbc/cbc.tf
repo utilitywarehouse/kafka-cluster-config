@@ -828,7 +828,10 @@ module "cbc_topup_projector" {
     kafka_topic.charges_events_v1.name,
     kafka_topic.transaction_events_v3.name
   ]
-  consume_groups   = ["cbc.cbc-topup-projector-v1"]
+  consume_groups = [
+    "cbc.cbc-topup-projector-v1",
+    "cbc.cbc-topup-projector-filtered-v1",
+  ]
   cert_common_name = "cbc/cbc-topup-projector"
 }
 
