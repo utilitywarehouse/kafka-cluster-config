@@ -26,3 +26,10 @@ module "iam_click_v2_di" {
   consume_groups   = ["iam.click-v2-di"]
   cert_common_name = "auth/iam-click-v2-di"
 }
+
+module "iam_click_v2_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [(kafka_topic.iam_click_v2.name)]
+  consume_groups   = ["auth.click-v2-events-indexer"]
+  cert_common_name = "auth/click-v2-events-indexer"
+}
