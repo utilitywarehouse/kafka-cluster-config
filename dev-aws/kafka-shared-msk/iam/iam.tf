@@ -74,6 +74,7 @@ module "iam_customer_auth_provider" {
   cert_common_name = "clubhouse/auth-provider"
 }
 
+
 resource "kafka_topic" "iam_dpd_v1" {
   name               = "auth-customer.iam-dpd-v1"
   replication_factor = 3
@@ -304,4 +305,11 @@ module "cbc_fraud_detection_consumer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.iam_credentials_v1_public.name]
   cert_common_name = "cbc/cbc-fraud-detection-consumer"
+}
+
+
+module "account_identity_login_service" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "auth-customer/login-service"
+  produce_topics   = [kafka_topic.iam_credentials_v1.name]
 }
