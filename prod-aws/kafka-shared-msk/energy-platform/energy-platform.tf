@@ -72,6 +72,6 @@ module "crm_adapter" {
 module "bill_reads_producer_projector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.meter_reads.name]
-  consume_groups   = ["energy-platform.bill-reads-producer-projector"]
+  consume_groups   = ["energy-platform.bill-reads-producer"]
   cert_common_name = "energy-platform/bill-reads-producer-projector"
 }
