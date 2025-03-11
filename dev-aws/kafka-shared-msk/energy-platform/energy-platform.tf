@@ -19,7 +19,7 @@ resource "kafka_topic" "meter_reads" {
 module "smart_reads_translator" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.meter_reads.name]
-  cert_common_name = "energy-smart/smart_reads_translator"
+  cert_common_name = "energy-smart/smart-reads-translator"
 }
 
 module "meter_reads_fabricator" {
