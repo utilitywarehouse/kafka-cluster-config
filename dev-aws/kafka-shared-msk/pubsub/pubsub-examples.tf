@@ -50,7 +50,7 @@ module "es_topic_indexer" {
 
 module "kafka_connect_pubsub_examples" {
   source           = "../../../modules/tls-app"
-  consume_topics   = ["kafka_topic.pubsub_examples.name"]
+  consume_topics   = [kafka_topic.pubsub_examples.name]
   consume_groups   = ["dev-enablement.kafka-connect-consumer-group"]
   cert_common_name = "dev-enablement/kafka-connect"
 }
