@@ -67,11 +67,13 @@ module "invoice_fulfillment" {
     kafka_topic.invoice_fulfillment.name,
     kafka_topic.internal_bex_fulfilment_retry_1.name,
     kafka_topic.internal_bex_fulfilment_retry_2.name,
+    kafka_topic.internal_bex_fulfilment_print.name,
     kafka_topic.internal_bex_fulfilment_large_invoice.name,
     kafka_topic.invoice_fulfillment_deadletter.name,
     kafka_topic.internal_invoice_fulfilment_deadletter.name,
     kafka_topic.internal_bex_bill_regeneration_retry_1.name,
     kafka_topic.internal_bex_bill_regeneration_retry_2.name,
+    kafka_topic.internal_bex_bill_regeneration_print.name,
     kafka_topic.internal_bex_bill_regeneration_large_invoice.name,
     kafka_topic.internal_bex_bill_regeneration_deadletter.name
   ]
@@ -79,20 +81,24 @@ module "invoice_fulfillment" {
     kafka_topic.transition_bex_fulfilment_request.name,
     kafka_topic.internal_bex_fulfilment_retry_1.name,
     kafka_topic.internal_bex_fulfilment_retry_2.name,
+    kafka_topic.internal_bex_fulfilment_print.name,
     kafka_topic.internal_bex_fulfilment_large_invoice.name,
     kafka_topic.internal_bex_bill_regeneration.name,
     kafka_topic.internal_bex_bill_regeneration_retry_1.name,
     kafka_topic.internal_bex_bill_regeneration_retry_2.name,
+    kafka_topic.internal_bex_bill_regeneration_print.name,
     kafka_topic.internal_bex_bill_regeneration_large_invoice.name
   ]
   consume_groups = [
     "bex.invoice-fulfillment",
     "bex.invoice-fulfilment-retry-1",
     "bex.invoice-fulfilment-retry-2",
+    "bex.invoice-fulfilment-print",
     "bex.invoice-fulfilment-large-invoice",
     "bex.invoice-fulfillment-regen",
     "bex.invoice-fulfillment-regen-retry-1",
     "bex.invoice-fulfillment-regen-retry-2",
+    "bex.invoice-fulfillment-regen-print",
     "bex.invoice-fulfillment-regen-large-invoice"
   ]
 }
