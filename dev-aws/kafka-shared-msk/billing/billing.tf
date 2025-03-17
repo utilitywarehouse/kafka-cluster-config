@@ -53,6 +53,24 @@ resource "kafka_topic" "core_bill_rectifications" {
   }
 }
 
+resource "kafka_topic" "billing_engine_events" {
+  name               = "billing.engine-events"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    # store data zstd compressed
+    "compression.type" = "zstd"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 1 day
+    "local.retention.ms" = "86400000"
+    # keep data forever
+    "retention.ms" = "-1"
+    # delete old data
+    "cleanup.policy" = "delete"
+  }
+}
+
 # ACLs
 module "invoice_engine" {
   source = "../../../modules/tls-app"
