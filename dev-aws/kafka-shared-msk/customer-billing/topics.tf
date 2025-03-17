@@ -362,3 +362,20 @@ resource "kafka_topic" "internal_bex_bill_regeneration_deadletter" {
   }
 }
 
+resource "kafka_topic" "internal_bex_replicated-billing-engine-events" {
+  name               = "bex.internal.replicated-billing-engine-events"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 1 day
+    "local.retention.ms" = "86400000"
+    # keep data forever
+    "retention.ms" = "-1"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
