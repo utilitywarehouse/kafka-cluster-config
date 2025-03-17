@@ -362,8 +362,8 @@ resource "kafka_topic" "internal_bex_bill_regeneration_deadletter" {
   }
 }
 
-resource "kafka_topic" "internal_bex_replicated-billing-engine-events" {
-  name               = "bex.internal.replicated-billing-engine-events"
+resource "kafka_topic" "internal_bex_replicated_billing_engine_events" {
+  name               = "bex.internal.replicated_billing_engine_events"
   replication_factor = 3
   partitions         = 10
   config = {
