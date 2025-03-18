@@ -54,7 +54,7 @@ resource "kafka_topic" "core_bill_rectifications" {
 }
 
 resource "kafka_topic" "billing_engine_events" {
-  name               = "billing.engine-events"
+  name               = "billing.billing-engine-events"
   replication_factor = 3
   partitions         = 10
   config = {
