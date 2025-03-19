@@ -51,3 +51,23 @@ resource "kafka_topic" "msk_backup_target1" {
     "cleanup.policy"    = "delete"
   }
 }
+
+resource "kafka_topic" "service_status_v3_restore" {
+  name = "dev-enablement.restore.customer-proposition.service-status.events.v3"
+
+  replication_factor = 3
+  partitions         = 15
+
+  # infinte retention
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    "retention.ms"          = "-1" # keep data forever
+    # keep data in primary storage for 1 hour
+    "local.retention.ms" = "3600000"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
