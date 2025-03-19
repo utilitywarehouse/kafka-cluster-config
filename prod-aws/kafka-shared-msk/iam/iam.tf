@@ -304,3 +304,9 @@ module "cbc_fraud_detection_consumer" {
   consume_topics   = [kafka_topic.iam_credentials_v1_public.name]
   cert_common_name = "cbc/cbc-fraud-detection-consumer"
 }
+
+module "account_identity_login_service" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "auth-customer/login-service"
+  produce_topics   = [kafka_topic.iam_credentials_v1.name]
+}
