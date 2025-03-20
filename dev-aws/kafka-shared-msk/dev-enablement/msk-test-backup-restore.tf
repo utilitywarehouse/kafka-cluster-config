@@ -71,3 +71,22 @@ resource "kafka_topic" "service_status_v3_restore" {
     "cleanup.policy"    = "delete"
   }
 }
+
+resource "kafka_topic" "data_staged_events_finance_restore" {
+  name               = "dev-enablement.restore.billing.DataStagedEventsFinance"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "compression.type" = "zstd"
+    # keep on each partition 750GiB
+    "retention.bytes" = "805306368000"
+    # allow for a batch of records maximum 100MiB
+    "max.message.bytes" = "104857600"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 2 days
+    "local.retention.ms" = "172800000"
+    "retention.ms"       = "-1" # keep data forever
+    "cleanup.policy"     = "delete"
+  }
+}

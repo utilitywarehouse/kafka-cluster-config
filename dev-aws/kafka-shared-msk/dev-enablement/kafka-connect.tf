@@ -42,7 +42,7 @@ resource "kafka_topic" "connect_status" {
 module "kafka_connect_full_internal_topics" {
   source           = "../../../modules/tls-app"
   consume_topics   = ["dev-enablement.connect-configs", "dev-enablement.connect-offsets", "dev-enablement.connect-status", "dev-enablement.msk-backup-source1", "dev-enablement.msk-backup-source2"]
-  produce_topics   = ["dev-enablement.connect-configs", "dev-enablement.connect-offsets", "dev-enablement.connect-status", "dev-enablement.msk-backup-target1", "dev-enablement.restore.customer-proposition.service-status.events.v3"]
+  produce_topics   = ["dev-enablement.connect-configs", "dev-enablement.connect-offsets", "dev-enablement.connect-status", "dev-enablement.msk-backup-target1", "dev-enablement.restore.customer-proposition.service-status.events.v3", "dev-enablement.restore.billing.DataStagedEventsFinance"]
   consume_groups   = ["dev-enablement.kafka-connect-group", "dev-enablement.kafka-connect-worker-group", "dev-enablement.kafka-connect-backup-all", "dev-enablement.kafka-connect-backup-parquet-select"]
   cert_common_name = "dev-enablement/kafka-connect"
 }
