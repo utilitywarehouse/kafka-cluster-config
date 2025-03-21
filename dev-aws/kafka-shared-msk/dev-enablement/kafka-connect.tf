@@ -13,7 +13,7 @@ resource "kafka_topic" "connect_configs" {
 
 resource "kafka_topic" "connect_offsets" {
   name               = "dev-enablement.connect-offsets"
-  partitions         = 25
+  partitions         = 1
   replication_factor = 3
 
   config = {
@@ -25,7 +25,7 @@ resource "kafka_topic" "connect_offsets" {
 
 resource "kafka_topic" "connect_status" {
   name               = "dev-enablement.connect-status"
-  partitions         = 5
+  partitions         = 1
   replication_factor = 3
 
   config = {
