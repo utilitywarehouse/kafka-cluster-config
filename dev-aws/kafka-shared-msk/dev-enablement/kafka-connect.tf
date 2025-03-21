@@ -41,9 +41,9 @@ resource "kafka_topic" "connect_status" {
 # Allow Kafka Connect full access to internal topics
 module "kafka_connect_full_internal_topics" {
   source           = "../../../modules/tls-app"
-  consume_topics   = ["dev-enablement.connect-configs", "dev-enablement.connect-offsets", "dev-enablement.connect-status", "dev-enablement.msk-backup-source1", "dev-enablement.msk-backup-source2"]
-  produce_topics   = ["dev-enablement.connect-configs", "dev-enablement.connect-offsets", "dev-enablement.connect-status", "dev-enablement.msk-backup-target1", "dev-enablement.restore.customer-proposition.service-status.events.v3", "dev-enablement.restore.billing.DataStagedEventsFinance"]
-  consume_groups   = ["dev-enablement.kafka-connect-group", "dev-enablement.kafka-connect-worker-group", "dev-enablement.kafka-connect-backup-all", "dev-enablement.kafka-connect-backup-parquet-select"]
+  consume_topics   = ["dev-enablement.connect-configs", "dev-enablement.connect-offsets", "dev-enablement.connect-status"]
+  produce_topics   = ["dev-enablement.connect-configs", "dev-enablement.connect-offsets", "dev-enablement.connect-status"]
+  consume_groups   = ["dev-enablement.kafka-connect-group", "dev-enablement.kafka-connect-worker-group"]
   cert_common_name = "dev-enablement/kafka-connect"
 }
 
@@ -53,16 +53,6 @@ resource "kafka_acl" "kafka_connect_describe_topic_all" {
   acl_principal       = "User:CN=dev-enablement/kafka-connect"
   acl_host            = "*"
   acl_operation       = "Describe"
-  acl_permission_type = "Allow"
-}
-
-/* temporary permission to backup all the topics in the cluster */
-resource "kafka_acl" "kafka_connect_read_topic_all" {
-  resource_name       = "*"
-  resource_type       = "Topic"
-  acl_principal       = "User:CN=dev-enablement/kafka-connect"
-  acl_host            = "*"
-  acl_operation       = "Read"
   acl_permission_type = "Allow"
 }
 
