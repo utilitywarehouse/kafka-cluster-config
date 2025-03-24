@@ -89,8 +89,6 @@ module "invoice_fulfillment" {
     "bex.invoice-fulfillment",
     "bex.invoice-fulfilment-retry-1",
     "bex.invoice-fulfilment-retry-2",
-    # a temporary consumer group for testing bill run pipeline with pdf flattening
-    "bex.invoice-fulfilment-pdf-flattening-test",
     "bex.invoice-fulfilment-large-invoice",
     "bex.invoice-fulfillment-regen",
     "bex.invoice-fulfillment-regen-retry-1",
