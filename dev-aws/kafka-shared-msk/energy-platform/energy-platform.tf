@@ -25,7 +25,7 @@ module "smart_reads_translator" {
 module "meter_read_events_indexer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.meter_reads.name]
-  consume_groups   = ["energy-platform.meter-read-events-v3-indexer"]
+  consume_groups   = ["energy-platform.meter-read-events-v3-indexer", "energy-platform.meter-read-events-v3-new-indexer"]
   cert_common_name = "energy-platform/meter-read-events-indexer"
 }
 
