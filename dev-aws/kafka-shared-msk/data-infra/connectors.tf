@@ -174,3 +174,17 @@ module "di_postgres_connector" {
   ]
   cert_common_name = "data-infra/di-postgres-connector"
 }
+
+module "di_cockroach_db_connector_help_and_support" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.events.name
+  ]
+  consume_groups = [
+    "data-infra.di-cockroach-db-connector-help-and-support"
+  ]
+  produce_topics = [
+    kafka_topic.events_end.name
+  ]
+  cert_common_name = "help-and-support/di-cockroach-db-connector"
+}
