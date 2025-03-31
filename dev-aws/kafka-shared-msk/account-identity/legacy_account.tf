@@ -166,6 +166,12 @@ module "account_identity_from_prod_relay" {
   cert_common_name = "account-platform/from_prod_relay"
 }
 
+module "account_identity_from_prod_from_aws_relay" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_from_prod_account_events_anonymized_v0.name]
+  cert_common_name = "account-platform/from_prod_from_aws_relay"
+}
+
 module "account_identity_private_to_public_relay" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name]
