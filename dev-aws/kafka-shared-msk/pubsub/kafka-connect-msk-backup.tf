@@ -42,14 +42,14 @@ resource "kafka_topic" "msk_backup_connect_status" {
 module "kafka_connect_full_internal_topics" {
   source           = "../../../modules/tls-app"
   produce_topics   = ["pubsub.msk-backup.connect-configs", "pubsub.msk-backup.connect-offsets", "pubsub.msk-backup.connect-status"]
-  consume_groups   = ["pubsub.kafka-connect-msk-backup"]
-  cert_common_name = "pubsub/kafka-connect-msk-backup"
+  consume_groups   = ["pubsub.msk-backup-kafka-connect"]
+  cert_common_name = "pubsub/msk-backup-kafka-connect"
 }
 
 resource "kafka_acl" "kafka_connect_read_topic_all" {
   resource_name       = "*"
   resource_type       = "Topic"
-  acl_principal       = "User:CN=pubsub/kafka-connect-msk-backup"
+  acl_principal       = "User:CN=pubsub/msk-backup-kafka-connect"
   acl_host            = "*"
   acl_operation       = "Read"
   acl_permission_type = "Allow"
@@ -58,7 +58,7 @@ resource "kafka_acl" "kafka_connect_read_topic_all" {
 resource "kafka_acl" "kafka_connect_describe_group_all" {
   resource_name       = "*"
   resource_type       = "Group"
-  acl_principal       = "User:CN=pubsub/kafka-connect-msk-backup"
+  acl_principal       = "User:CN=pubsub/msk-backup-kafka-connect"
   acl_host            = "*"
   acl_operation       = "Describe"
   acl_permission_type = "Allow"
@@ -69,7 +69,7 @@ resource "kafka_acl" "kafka_connect_describe_group_all" {
 # resource "kafka_acl" "kafka_connect_write_topic_all" {
 #   resource_name       = "*"
 #   resource_type       = "Topic"
-#   acl_principal       = "User:CN=pubsub/kafka-connect-msk-backup"
+#   acl_principal       = "User:CN=pubsub/msk-backup-kafka-connect"
 #   acl_host            = "*"
 #   acl_operation       = "Write"
 #   acl_permission_type = "Allow"
