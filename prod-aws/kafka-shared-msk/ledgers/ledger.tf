@@ -1,6 +1,6 @@
 # Topics
-resource "kafka_topic" "account_balance_change_v3" {
-  name               = "ledgers.account-balance-change-v3"
+resource "kafka_topic" "account_balance_events" {
+  name               = "ledgers.account-balance.events"
   replication_factor = 3
   partitions         = 10
   config = {
@@ -18,8 +18,8 @@ resource "kafka_topic" "account_balance_change_v3" {
   }
 }
 
-resource "kafka_topic" "transaction_committed_events" {
-  name               = "ledgers.transaction-committed-events"
+resource "kafka_topic" "transaction_events" {
+  name               = "ledgers.transaction.events"
   replication_factor = 3
   partitions         = 10
   config = {
@@ -41,8 +41,8 @@ resource "kafka_topic" "transaction_committed_events" {
 module "ledger_api" {
   source = "../../../modules/tls-app"
   produce_topics = [
-    kafka_topic.account_balance_change_v3.name,
-    kafka_topic.transaction_committed_events.name,
+    kafka_topic.account_balance_events.name,
+    kafka_topic.transaction_events.name,
   ]
   cert_common_name = "ledgers/ledger-api"
 }
