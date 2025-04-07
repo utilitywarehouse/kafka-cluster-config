@@ -10,8 +10,6 @@ resource "kafka_topic" "account_balance_change_v3" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep on each partition unlimited data
-    "retention.bytes" = "-1"
     # keep data for 1 month
     "retention.ms" = "2629800000"
     # delete old data
@@ -19,8 +17,8 @@ resource "kafka_topic" "account_balance_change_v3" {
   }
 }
 
-resource "kafka_topic" "transaction_log_v4" {
-  name               = "ledgers.transaction-log-v4"
+resource "kafka_topic" "transaction_committed_events" {
+  name               = "ledgers.transaction-committed-events"
   replication_factor = 3
   partitions         = 10
   config = {
@@ -30,8 +28,6 @@ resource "kafka_topic" "transaction_log_v4" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep on each partition unlimited data
-    "retention.bytes" = "-1"
     # keep data for 1 month
     "retention.ms" = "2629800000"
     # delete old data
@@ -44,7 +40,7 @@ module "ledger_api" {
   source = "../../../modules/tls-app"
   produce_topics = [
     kafka_topic.account_balance_change_v3.name,
-    kafka_topic.transaction_log_v4.name,
+    kafka_topic.transaction_committed_events.name,
   ]
   cert_common_name = "ledgers/ledger-api"
 }
