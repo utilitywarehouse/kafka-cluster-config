@@ -6,44 +6,44 @@
     cert_common_name = "unicom/caps_consent_projector"
   }
     
-    module "unicom_1132_unit_sender_letter_go_inspire" {
+    module "unicom_unit_sender_letter_go_inspire" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1132_unit_sender_letter_go_inspire"
+    cert_common_name = "unicom/unit_sender_letter_go_inspire"
   }
     
-    module "unicom_1132_unit_sender_email" {
+    module "unicom_unit_sender_email" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1132_unit_sender_email"
+    cert_common_name = "unicom/unit_sender_email"
   }
     
-    module "unicom_1170_mock_clx_report" {
+    module "unicom_mock_clx_report" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1170_mock_clx_report"
+    cert_common_name = "unicom/mock_clx_report"
   }
     
-    module "unicom_1070_bounce_projector" {
+    module "unicom_bounce_projector" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1070_bounce_projector"
+    cert_common_name = "unicom/bounce_projector"
   }
     
-    module "unicom_1150_tracking_v2" {
+    module "unicom_tracking_v2" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1150_tracking_v2"
+    cert_common_name = "unicom/tracking_v2"
   }
     
     module "unicom_comms_fallback_sender" {
@@ -54,52 +54,52 @@
     cert_common_name = "unicom/comms_fallback_sender"
   }
     
-    module "unicom_1132_unit_sender_push_notification" {
+    module "unicom_unit_sender_push_notification" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1132_unit_sender_push_notification"
+    cert_common_name = "unicom/unit_sender_push_notification"
   }
     
-    module "unicom_9201_failed_retrigger" {
+    module "unicom_failed_retrigger" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/9201_failed_retrigger"
+    cert_common_name = "unicom/failed_retrigger"
   }
     
-    module "unicom_2022_rendered_letter_fabricator" {
+    module "unicom_rendered_letter_fabricator" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/2022_rendered_letter_fabricator"
+    cert_common_name = "unicom/rendered_letter_fabricator"
   }
     
-    module "unicom_1134_batch_projector" {
+    module "unicom_batch_projector" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1134_batch_projector"
+    cert_common_name = "unicom/batch_projector"
   }
     
-    module "unicom_1193_otc_reporting_webhook" {
+    module "unicom_otc_reporting_webhook" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1193_otc_reporting_webhook"
+    cert_common_name = "unicom/otc_reporting_webhook"
   }
     
-    module "unicom_1160_clx_report" {
+    module "unicom_clx_report" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1160_clx_report"
+    cert_common_name = "unicom/clx_report"
   }
     
     module "unicom_consumer" {
@@ -110,68 +110,68 @@
     cert_common_name = "unicom/consumer"
   }
     
-    module "unicom_1132_unit_sender_letter_stannp" {
+    module "unicom_unit_sender_letter_stannp" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1132_unit_sender_letter_stannp"
+    cert_common_name = "unicom/unit_sender_letter_stannp"
   }
     
-    module "unicom_1135_batch_releaser" {
+    module "unicom_batch_releaser" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1135_batch_releaser"
+    cert_common_name = "unicom/batch_releaser"
   }
     
-    module "unicom_1190_router" {
+    module "unicom_router" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1190_router"
+    cert_common_name = "unicom/router"
   }
     
-    module "unicom_1120_ses_mock" {
+    module "unicom_ses_mock" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1120_ses_mock"
+    cert_common_name = "unicom/ses_mock"
   }
     
-    module "unicom_1195_stannp_reporting" {
+    module "unicom_stannp_reporting" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1195_stannp_reporting"
+    cert_common_name = "unicom/stannp_reporting"
   }
     
-    module "unicom_1141_schedule" {
+    module "unicom_schedule" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1141_schedule"
+    cert_common_name = "unicom/schedule"
   }
     
-    module "unicom_1090_es_connector" {
+    module "unicom_es_connector" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1090_es_connector"
+    cert_common_name = "unicom/es_connector"
   }
     
-    module "unicom_1132_unit_sender_sms" {
+    module "unicom_unit_sender_sms" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1132_unit_sender_sms"
+    cert_common_name = "unicom/unit_sender_sms"
   }
     
     module "unicom_outbound_call_api" {
@@ -182,12 +182,12 @@
     cert_common_name = "unicom/outbound_call_api"
   }
     
-    module "unicom_1001_api" {
+    module "unicom_api" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1001_api"
+    cert_common_name = "unicom/api"
   }
     
     module "unicom_outbound_calls_bq_connector" {
@@ -198,44 +198,44 @@
     cert_common_name = "unicom/outbound_calls_bq_connector"
   }
     
-    module "unicom_1020_bq_connector" {
+    module "unicom_bq_connector" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1020_bq_connector"
+    cert_common_name = "unicom/bq_connector"
   }
     
-    module "unicom_1194_otc_letter_cancellation" {
+    module "unicom_otc_letter_cancellation" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1194_otc_letter_cancellation"
+    cert_common_name = "unicom/otc_letter_cancellation"
   }
     
-    module "unicom_1060_sqs_relay" {
+    module "unicom_sqs_relay" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1060_sqs_relay"
+    cert_common_name = "unicom/sqs_relay"
   }
     
-    module "unicom_1132_unit_sender_letter_otc" {
+    module "unicom_unit_sender_letter_otc" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1132_unit_sender_letter_otc"
+    cert_common_name = "unicom/unit_sender_letter_otc"
   }
     
-    module "unicom_1132_unit_sender_email_mock" {
+    module "unicom_unit_sender_email_mock" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1132_unit_sender_email_mock"
+    cert_common_name = "unicom/unit_sender_email_mock"
   }
     
     module "unicom_consumer_api" {
@@ -246,44 +246,44 @@
     cert_common_name = "unicom/consumer_api"
   }
     
-    module "unicom_1121_probe" {
+    module "unicom_probe" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1121_probe"
+    cert_common_name = "unicom/probe"
   }
     
-    module "unicom_1150_tracking" {
+    module "unicom_tracking" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1150_tracking"
+    cert_common_name = "unicom/tracking"
   }
     
-    module "unicom_1132_unit_sender_letter" {
+    module "unicom_unit_sender_letter" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1132_unit_sender_letter"
+    cert_common_name = "unicom/unit_sender_letter"
   }
     
-    module "unicom_1133_batch_sender" {
+    module "unicom_batch_sender" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1133_batch_sender"
+    cert_common_name = "unicom/batch_sender"
   }
     
-    module "unicom_1010_filter_cancellation" {
+    module "unicom_filter_cancellation" {
     source           = "../../../modules/tls-app"
     consume_topics   = ["dev-enablement.example-topic1", "dev-enablement.example-topic2"]
     consume_groups   = ["dev-enablement.example-consumer-group1", "dev-enablement.example-consumer-group2"]
     produce_topics   = ["dev-enablement.example-produce-topic"]
-    cert_common_name = "unicom/1010_filter_cancellation"
+    cert_common_name = "unicom/filter_cancellation"
   }
     
     module "unicom_external_comms_api" {
