@@ -12,7 +12,7 @@ resource "kafka_topic" "data_staged_events_finance" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    "retention.ms"       = "-1" # keep data forever
+    "retention.ms"       = "604800000" # keep data for 7 days
     "cleanup.policy"     = "delete"
   }
 }
