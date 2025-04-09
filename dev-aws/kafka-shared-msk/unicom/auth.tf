@@ -5,24 +5,6 @@ module "unicom_caps_consent_projector" {
   cert_common_name = "unicom/caps_consent_projector"
 }
 
-module "unicom_unit_sender_letter_go_inspire" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
-    "unicom.letter-released-critical.1",
-    "unicom.letter-released-important.1",
-    "unicom.letter-released.1"
-  ]
-  consume_groups = ["unicom.unit-sender-letter-go-inspire"]
-  produce_topics = [
-    "unicom.letter-status.1",
-    "unicom.tests", "unicom.cost-calculated.1",
-    "unicom.rendered.1",
-    "unicom.failed",
-    "unicom.comms-fallback.1"
-  ]
-  cert_common_name = "unicom/unit_sender_letter_go_inspire"
-}
-
 module "unicom_unit_sender_email" {
   source = "../../../modules/tls-app"
   consume_topics = [
