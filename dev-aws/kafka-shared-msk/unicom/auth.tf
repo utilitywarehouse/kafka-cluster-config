@@ -1,6 +1,6 @@
 module "unicom_caps_consent_projector" {
   source           = "../../../modules/tls-app"
-  consume_topics   = ['unicom.caps']
+  consume_topics   = ["unicom.caps"]
   consume_groups   = ["unicom.caps-consent-projector"]
   cert_common_name = "unicom/caps_consent_projector"
 }
@@ -12,7 +12,7 @@ module "unicom_unit_sender_letter_go_inspire" {
     "unicom.letter-released-important.1",
     "unicom.letter-released.1"
   ]
-  consume_groups = ['unicom.unit-sender-letter-go-inspire']
+  consume_groups = ["unicom.unit-sender-letter-go-inspire"]
   produce_topics = [
     "unicom.unicom-letter-status.1",
     "unicom.tests", "unicom.cost-calculated.1",
