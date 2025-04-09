@@ -14,9 +14,9 @@ module "unicom_unit_sender_letter_go_inspire" {
   ]
   consume_groups = ["unicom.unit-sender-letter-go-inspire"]
   produce_topics = [
-    "unicom.unicom-letter-status.1",
+    "unicom.letter-status.1",
     "unicom.tests", "unicom.cost-calculated.1",
-    "unicom.unicom-rendered.1",
+    "unicom.rendered.1",
     "unicom.failed",
     "unicom.comms-fallback"
   ]
@@ -35,7 +35,7 @@ module "unicom_unit_sender_email" {
     "unicom.email-status.1",
     "unicom.tests",
     "unicom.cost-calculated.1",
-    "unicom.unicom-rendered.1",
+    "unicom.rendered.1",
     "unicom.failed",
     "unicom.comms-fallback"
   ]
@@ -70,7 +70,7 @@ module "unicom_tracking_v2" {
     "unicom.sms-released-important.1",
     "unicom.sms-released.1",
     "unicom.sms-status.1",
-    "unicom.unicom-email-post-delivery.1",
+    "unicom.email-post-delivery.1",
     "unicom.rendered.1",
     "unicom.letter-released-critical.1",
     "unicom.letter-released-important.1",
@@ -101,7 +101,7 @@ module "unicom_unit_sender_push_notification" {
     "unicom.push-notification-status.1",
     "unicom.tests",
     "unicom.cost-calculated.1",
-    "unicom.unicom-rendered.1",
+    "unicom.rendered.1",
     "unicom.failed",
     "unicom.comms-fallback.1"
   ]
@@ -146,7 +146,7 @@ module "unicom_batch_projector" {
     "unicom.letter-status.1",
     "unicom.tests",
     "unicom.cost-calculated.1",
-    "unicom.unicom-rendered.1",
+    "unicom.rendered.1",
     "unicom.failed",
     "unicom.comms-fallback.1",
   ]
@@ -182,10 +182,10 @@ module "unicom_unit_sender_letter_stannp" {
   ]
   consume_groups   = ["unicom.unit-sender-letter-stannp"]
   produce_topics   = [
-    "unicom.unicom-letter-status.1",
+    "unicom.letter-status.1",
     "unicom.tests",
     "unicom.cost-calculated.1",
-    "unicom.unicom-rendered.1",
+    "unicom.rendered.1",
     "unicom.failed",
     "unicom.comms-fallback"
   ]
@@ -258,7 +258,7 @@ module "unicom_es_connector" {
     "unicom.push-notification-released.1",
     "unicom.push-notification-status.1",
     "unicom.cost-calculated.1",
-    "unicom.unicom-email-post-delivery.1",
+    "unicom.email-post-delivery.1",
     "unicom.go-inspire-letter-status.1",
     "unicom.cancel-status.1"
   ]
@@ -278,7 +278,7 @@ module "unicom_unit_sender_sms" {
     "unicom.sms-status.1",
     "unicom.tests",
     "unicom.cost-calculated.1",
-    "unicom.unicom-rendered.1",
+    "unicom.rendered.1",
     "unicom.failed",
     "unicom.comms-fallback"]
   cert_common_name = "unicom/unit_sender_sms"
@@ -369,10 +369,10 @@ module "unicom_unit_sender_letter_otc" {
     "unicom.letter-released.1"]
   consume_groups   = ["unicom.unit-sender-letter-otc"]
   produce_topics   = [
-    "unicom.unicom-letter-status.1",
+    "unicom.letter-status.1",
     "unicom.tests",
     "unicom.cost-calculated.1",
-    "unicom.unicom-rendered.1",
+    "unicom.rendered.1",
     "unicom.failed",
     "unicom.comms-fallback.1"
   ]
@@ -391,7 +391,7 @@ module "unicom_unit_sender_email_mock" {
     "unicom.email-status.1",
     "unicom.tests",
     "unicom.cost-calculated.1",
-    "unicom.unicom-rendered.1",
+    "unicom.rendered.1",
     "unicom.failed",
     "unicom.comms-fallback.1"]
   cert_common_name = "unicom/unit_sender_email_mock"
@@ -447,10 +447,10 @@ module "unicom_unit_sender_letter" {
   ]
   consume_groups   = ["unicom.unit-sender-letter"]
   produce_topics   = [
-    "unicom.unicom-letter-status.1",
+    "unicom.letter-status.1",
     "unicom.tests",
     "unicom.cost-calculated.1",
-    "unicom.unicom-rendered.1",
+    "unicom.rendered.1",
     "unicom.failed",
     "unicom.comms-fallback.1"
   ]
@@ -469,7 +469,7 @@ module "unicom_batch_sender" {
   "unicom.letter-status.1",
     "unicom.tests",
     "unicom.cost-calculated.1",
-    "unicom.unicom-rendered.1",
+    "unicom.rendered.1",
     "unicom.failed",
     "unicom.comms-fallback.1"
     ]
