@@ -4,14 +4,14 @@ resource "kafka_topic" "unicom_bill_events" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -21,14 +21,14 @@ resource "kafka_topic" "unicom_bounce_2019_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -38,14 +38,14 @@ resource "kafka_topic" "unicom_caps" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -55,14 +55,14 @@ resource "kafka_topic" "unicom_caps_consent" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -72,14 +72,14 @@ resource "kafka_topic" "unicom_failed" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -89,14 +89,14 @@ resource "kafka_topic" "unicom_cancel_status_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -106,14 +106,14 @@ resource "kafka_topic" "unicom_cancellation_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -123,14 +123,14 @@ resource "kafka_topic" "unicom_clx_report" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -140,14 +140,14 @@ resource "kafka_topic" "unicom_comms_fallback_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -157,14 +157,14 @@ resource "kafka_topic" "unicom_cost_calculated_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -174,14 +174,14 @@ resource "kafka_topic" "unicom_email_batch_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -191,14 +191,14 @@ resource "kafka_topic" "unicom_email_post_delivery_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -208,14 +208,14 @@ resource "kafka_topic" "unicom_email_released_critical_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -225,14 +225,14 @@ resource "kafka_topic" "unicom_email_released_important_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -242,14 +242,116 @@ resource "kafka_topic" "unicom_email_released_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
+  }
+}
+
+resource "kafka_topic" "unicom_email_released_mock_critical_1" {
+  name               = "unicom.email-released-mock-critical.1"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data forever
+    "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+  }
+}
+
+resource "kafka_topic" "unicom_email_released_mock_important_1" {
+  name               = "unicom.email-released-mock-important.1"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data forever
+    "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+  }
+}
+
+resource "kafka_topic" "unicom_email_released_mock_1" {
+  name               = "unicom.email-released-mock.1"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data forever
+    "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+  }
+}
+
+resource "kafka_topic" "unicom_email_released_ses_critical_1" {
+  name               = "unicom.email-released-ses-critical.1"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data forever
+    "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+  }
+}
+
+resource "kafka_topic" "unicom_email_released_ses_important_1" {
+  name               = "unicom.email-released-ses-important.1"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data forever
+    "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+  }
+}
+
+resource "kafka_topic" "unicom_email_released_ses_1" {
+  name               = "unicom.email-released-ses.1"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data forever
+    "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -259,14 +361,14 @@ resource "kafka_topic" "unicom_email_status_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -276,14 +378,14 @@ resource "kafka_topic" "unicom_go_inspire_letter_status_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -293,14 +395,14 @@ resource "kafka_topic" "unicom_letter_batch_critical_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -310,14 +412,14 @@ resource "kafka_topic" "unicom_letter_batch_important_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -327,14 +429,14 @@ resource "kafka_topic" "unicom_letter_batch_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -344,14 +446,14 @@ resource "kafka_topic" "unicom_letter_released_critical_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -361,14 +463,14 @@ resource "kafka_topic" "unicom_letter_released_important_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -378,14 +480,14 @@ resource "kafka_topic" "unicom_letter_released_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -395,14 +497,14 @@ resource "kafka_topic" "unicom_letter_status_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -412,14 +514,14 @@ resource "kafka_topic" "unicom_mparticle_output_integration" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -429,14 +531,14 @@ resource "kafka_topic" "unicom_orchestration_entity_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -446,14 +548,14 @@ resource "kafka_topic" "unicom_orchestration_rule_execution_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -463,14 +565,14 @@ resource "kafka_topic" "unicom_outbound_call_request" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -480,14 +582,14 @@ resource "kafka_topic" "unicom_push_notification_released_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -497,14 +599,31 @@ resource "kafka_topic" "unicom_push_notification_status_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
+  }
+}
+
+resource "kafka_topic" "unicom_rejected" {
+  name               = "unicom.rejected"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data forever
+    "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -514,14 +633,31 @@ resource "kafka_topic" "unicom_rendered_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
+  }
+}
+
+resource "kafka_topic" "unicom_requests" {
+  name               = "unicom.requests"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data forever
+    "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -531,14 +667,14 @@ resource "kafka_topic" "unicom_scheduled_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -548,14 +684,14 @@ resource "kafka_topic" "unicom_send_notification_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -565,14 +701,14 @@ resource "kafka_topic" "unicom_sms_batch_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -582,14 +718,14 @@ resource "kafka_topic" "unicom_sms_released_critical_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -599,14 +735,14 @@ resource "kafka_topic" "unicom_sms_released_important_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -616,14 +752,14 @@ resource "kafka_topic" "unicom_sms_released_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -633,14 +769,14 @@ resource "kafka_topic" "unicom_sms_status_1" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -650,14 +786,14 @@ resource "kafka_topic" "unicom_status" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -667,14 +803,14 @@ resource "kafka_topic" "unicom_status_bill_email_connector" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -684,14 +820,14 @@ resource "kafka_topic" "unicom_status_energy_smets1_notifier" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -701,14 +837,14 @@ resource "kafka_topic" "unicom_status_finance_email_delivery_engine" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -718,14 +854,14 @@ resource "kafka_topic" "unicom_status_v2" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
 
@@ -735,13 +871,13 @@ resource "kafka_topic" "unicom_tests" {
   replication_factor = 3
 
   config = {
-    "cleanup.policy"        = "delete"
-    "compression.type"      = "zstd"
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
     # keep data forever
-    "retention.ms"          = "-1"
+    "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
-    "local.retention.ms"    = "259200000"
+    "local.retention.ms" = "259200000"
   }
 }
