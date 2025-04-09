@@ -576,40 +576,6 @@ resource "kafka_topic" "unicom_outbound_call_request" {
   }
 }
 
-resource "kafka_topic" "unicom_push_notification_released_1" {
-  name               = "unicom.push-notification-released.1"
-  partitions         = 15
-  replication_factor = 3
-
-  config = {
-    "cleanup.policy"   = "delete"
-    "compression.type" = "zstd"
-    # keep data forever
-    "retention.ms" = "-1"
-    # enable remote storage
-    "remote.storage.enable" = "true"
-    # keep data in primary storage for 3 days
-    "local.retention.ms" = "259200000"
-  }
-}
-
-resource "kafka_topic" "unicom_push_notification_status_1" {
-  name               = "unicom.push-notification-status.1"
-  partitions         = 15
-  replication_factor = 3
-
-  config = {
-    "cleanup.policy"   = "delete"
-    "compression.type" = "zstd"
-    # keep data forever
-    "retention.ms" = "-1"
-    # enable remote storage
-    "remote.storage.enable" = "true"
-    # keep data in primary storage for 3 days
-    "local.retention.ms" = "259200000"
-  }
-}
-
 resource "kafka_topic" "unicom_rejected" {
   name               = "unicom.rejected"
   partitions         = 15

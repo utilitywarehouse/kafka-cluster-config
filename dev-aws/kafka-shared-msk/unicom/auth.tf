@@ -89,25 +89,6 @@ module "unicom_comms_fallback_sender" {
   cert_common_name = "unicom/comms_fallback_sender"
 }
 
-module "unicom_unit_sender_push_notification" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
-    "unicom.letter-released-critical.1",
-    "unicom.letter-released-important.1",
-    "unicom.letter-released.1"
-  ]
-  consume_groups = ["unicom.unit-sender-letter"]
-  produce_topics = [
-    "unicom.push-notification-status.1",
-    "unicom.tests",
-    "unicom.cost-calculated.1",
-    "unicom.rendered.1",
-    "unicom.failed",
-    "unicom.comms-fallback.1"
-  ]
-  cert_common_name = "unicom/unit_sender_push_notification"
-}
-
 module "unicom_failed_retrigger" {
   source         = "../../../modules/tls-app"
   consume_topics = ["unicom.failed"]
@@ -115,7 +96,6 @@ module "unicom_failed_retrigger" {
   produce_topics = [
     "unicom.email-released.1",
     "unicom.sms-released.1",
-    "unicom.push-notification-released.1",
     "unicom.letter-released.1"
   ]
   cert_common_name = "unicom/failed_retrigger"
@@ -255,8 +235,6 @@ module "unicom_es_connector" {
     "unicom.letter-released-important.1",
     "unicom.letter-released.1",
     "unicom.letter-status.1",
-    "unicom.push-notification-released.1",
-    "unicom.push-notification-status.1",
     "unicom.cost-calculated.1",
     "unicom.email-post-delivery.1",
     "unicom.go-inspire-letter-status.1",
@@ -301,7 +279,6 @@ module "unicom_api" {
     "unicom.sms-released-important.1",
     "unicom.sms-released.1",
     "unicom.scheduled.1",
-    "unicom.push-notification-released.1",
     "unicom.letter-released-critical.1",
     "unicom.letter-released-important.1",
     "unicom.letter-released.1",
@@ -333,8 +310,6 @@ module "unicom_bq_connector" {
     "unicom.letter-released-important.1",
     "unicom.letter-released.1",
     "unicom.letter-status.1",
-    "unicom.push-notification-released.1",
-    "unicom.push-notification-status.1",
     "unicom.bounce.2019.1",
     "unicom.email-post-delivery.1",
     "unicom.rendered.1",
