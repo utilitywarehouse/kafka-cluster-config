@@ -472,3 +472,11 @@ module "account_identity_move_out_notifications" {
   consume_groups   = ["account-identity.di-kafka-source-move-out"]
   cert_common_name = "account-platform/di_home_moves"
 }
+
+module "account_identity_atomic_to_braze" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
+  consume_groups   = ["account-identity.account-atomic-to-braze"]
+  produce_topics   = [kafka_topic.account_identity_legacy_account_braze_events_compacted.name]
+  cert_common_name = "account-platform/atomic_to_braze"
+}
