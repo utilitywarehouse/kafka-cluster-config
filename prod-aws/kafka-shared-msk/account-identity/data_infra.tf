@@ -54,7 +54,7 @@ module "account_identity_di_account_creation" {
 
 module "account_identity_di_account_primary_holder_email_deleted" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.account_identity_account_atomic_v1.name]
+  consume_topics   = [kafka_topic.account_identity_legacy_account_braze_events_compacted.name]
   consume_groups   = ["account-identity.di-kafka-source-account-primary-holder-email-deleted"]
   cert_common_name = "account-platform/di_account_primary_holder_email_deleted"
 }
