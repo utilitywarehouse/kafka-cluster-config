@@ -8,9 +8,9 @@ module "unicom_caps_consent_projector" {
 module "unicom_unit_sender_email" {
   source = "../../../modules/tls-app"
   consume_topics = [
-    "unicom.email-released-ses-critical.1",
-    "unicom.email-released-ses-important.1",
-    "unicom.email-released-ses.1"
+    "unicom.email-released-critical.1",
+    "unicom.email-released-important.1",
+    "unicom.email-released.1"
   ]
   consume_groups = ["unicom.unit-sender-email"]
   produce_topics = [
@@ -72,7 +72,7 @@ module "unicom_stannp_reporting" {
 module "unicom_failed_retrigger" {
   source         = "../../../modules/tls-app"
   consume_topics = ["unicom.failed"]
-  consume_groups = ["unicom.failed-retrigger"]
+  consume_groups = ["unicom.failed"]
   produce_topics = [
     "unicom.email-released.1",
     "unicom.sms-released.1",
@@ -84,7 +84,7 @@ module "unicom_failed_retrigger" {
 module "unicom_rendered_letter_fabricator" {
   source         = "../../../modules/tls-app"
   consume_topics = ["unicom.letter-status.1"]
-  consume_groups = ["unicom.rendered-letter-fabricator"]
+  consume_groups = ["unicom.letter-fabricator"]
   produce_topics = [
     "unicom.rendered.1",
     "unicom.cost-calculated.1",
@@ -135,7 +135,17 @@ module "unicom_batch_releaser" {
   cert_common_name = "unicom/batch_releaser"
 }
 
-# TODO monitoring-clx-reporting
+module "unicom_monitoring_clx_report" {
+  source         = "../../../modules/tls-app"
+  consume_topics = ["unicom.clx-report"]
+  consume_groups = ["unicom.monitoring-clx-report"]
+  produce_topics = [
+    "unicom.sms-status.1",
+    "unicom.bounce.2019.1",
+    "unicom.cost-calculated.1"
+  ]
+  cert_common_name = "unicom/schedule"
+}
 
 module "unicom_schedule" {
   source           = "../../../modules/tls-app"
@@ -324,7 +334,6 @@ module "unicom_filter_cancellation" {
   cert_common_name = "unicom/filter_cancellation"
 }
 
-# TODO is the below: prod-aws/unicom/unicom/1132-unit-sender-letter-otc-new.yaml
 module "unicom_unit_sender_letter_otc" {
   source = "../../../modules/tls-app"
   consume_topics = [
