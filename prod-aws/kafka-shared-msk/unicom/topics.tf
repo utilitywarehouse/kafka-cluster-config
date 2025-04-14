@@ -6,8 +6,8 @@ resource "kafka_topic" "unicom_bill_events" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -23,8 +23,8 @@ resource "kafka_topic" "unicom_bounce_2019_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -40,8 +40,8 @@ resource "kafka_topic" "unicom_caps" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -57,8 +57,8 @@ resource "kafka_topic" "unicom_caps_consent" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -74,8 +74,8 @@ resource "kafka_topic" "unicom_failed" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -91,8 +91,8 @@ resource "kafka_topic" "unicom_cancel_status_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -108,8 +108,8 @@ resource "kafka_topic" "unicom_cancellation_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -125,8 +125,8 @@ resource "kafka_topic" "unicom_clx_report" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -142,8 +142,8 @@ resource "kafka_topic" "unicom_comms_fallback_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -159,8 +159,8 @@ resource "kafka_topic" "unicom_cost_calculated_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -176,8 +176,8 @@ resource "kafka_topic" "unicom_email_batch_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -193,8 +193,8 @@ resource "kafka_topic" "unicom_email_post_delivery_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -210,8 +210,8 @@ resource "kafka_topic" "unicom_email_released_critical_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -227,8 +227,8 @@ resource "kafka_topic" "unicom_email_released_important_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -244,8 +244,8 @@ resource "kafka_topic" "unicom_email_released_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -261,8 +261,8 @@ resource "kafka_topic" "unicom_email_status_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -278,8 +278,8 @@ resource "kafka_topic" "unicom_go_inspire_letter_status_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -295,8 +295,8 @@ resource "kafka_topic" "unicom_letter_batch_critical_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -312,8 +312,8 @@ resource "kafka_topic" "unicom_letter_batch_important_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -329,8 +329,8 @@ resource "kafka_topic" "unicom_letter_batch_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -346,8 +346,8 @@ resource "kafka_topic" "unicom_letter_released_critical_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -363,8 +363,8 @@ resource "kafka_topic" "unicom_letter_released_important_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -380,8 +380,8 @@ resource "kafka_topic" "unicom_letter_released_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -397,8 +397,8 @@ resource "kafka_topic" "unicom_letter_status_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -414,8 +414,8 @@ resource "kafka_topic" "unicom_mparticle_output_integration" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -431,8 +431,8 @@ resource "kafka_topic" "unicom_orchestration_entity_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -448,8 +448,8 @@ resource "kafka_topic" "unicom_orchestration_rule_execution_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -465,8 +465,8 @@ resource "kafka_topic" "unicom_outbound_call_request" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -482,8 +482,8 @@ resource "kafka_topic" "unicom_rendered_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -499,8 +499,8 @@ resource "kafka_topic" "unicom_requests" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -516,8 +516,8 @@ resource "kafka_topic" "unicom_scheduled_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -533,8 +533,8 @@ resource "kafka_topic" "unicom_send_notification_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -550,8 +550,8 @@ resource "kafka_topic" "unicom_sms_batch_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -567,8 +567,8 @@ resource "kafka_topic" "unicom_sms_released_critical_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -584,8 +584,8 @@ resource "kafka_topic" "unicom_sms_released_important_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -601,8 +601,8 @@ resource "kafka_topic" "unicom_sms_released_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -618,8 +618,8 @@ resource "kafka_topic" "unicom_sms_status_1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -635,8 +635,8 @@ resource "kafka_topic" "unicom_status" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -652,8 +652,8 @@ resource "kafka_topic" "unicom_status_bill_email_connector" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -669,8 +669,8 @@ resource "kafka_topic" "unicom_status_energy_smets1_notifier" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -686,8 +686,8 @@ resource "kafka_topic" "unicom_status_finance_email_delivery_engine" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -703,8 +703,8 @@ resource "kafka_topic" "unicom_status_v2" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -720,8 +720,8 @@ resource "kafka_topic" "unicom_tests" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15768000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
