@@ -144,7 +144,7 @@ module "unicom_monitoring_clx_report" {
     "unicom.bounce.2019.1",
     "unicom.cost-calculated.1"
   ]
-  cert_common_name = "unicom/schedule"
+  cert_common_name = "unicom/monitoring-clx-report"
 }
 
 module "unicom_schedule" {
