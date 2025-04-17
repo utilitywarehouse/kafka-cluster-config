@@ -55,5 +55,6 @@ module "ledger_operational" {
   consume_topics = [
     kafka_topic.account_balance_events.name,
   ]
+  consume_groups   = ["ledgers.ledger-operational"]
   cert_common_name = "ledgers/ledger-operational"
 }
