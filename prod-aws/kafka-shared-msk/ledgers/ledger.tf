@@ -46,3 +46,14 @@ module "ledger_api" {
   ]
   cert_common_name = "ledgers/ledger-api"
 }
+
+module "ledger_operational" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.account_balance_events.name,
+  ]
+  consume_topics = [
+    kafka_topic.account_balance_events.name,
+  ]
+  cert_common_name = "ledgers/ledger-operational"
+}
