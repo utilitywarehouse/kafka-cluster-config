@@ -75,3 +75,21 @@ module "bill_reads_producer_projector" {
   consume_groups   = ["energy-platform.bill-reads-producer"]
   cert_common_name = "energy-platform/bill-reads-producer-projector"
 }
+
+resource "kafka_topic" "gentrack_meter_reads" {
+  name               = "energy-platform.gentrack.meter.read.events"
+  replication_factor = 3
+  partitions         = 15
+  config = {
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data for 1 month
+    "retention.ms" = "2628992000"
+    # keep data in primary storage for 2 days
+    "local.retention.ms" = "172800000"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
