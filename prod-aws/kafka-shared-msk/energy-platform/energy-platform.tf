@@ -77,7 +77,7 @@ module "bill_reads_producer_projector" {
 }
 
 resource "kafka_topic" "gentrack_meter_reads" {
-  name               = "gentrack.meter.read.events"
+  name               = "energy-platform.gentrack.meter.read.events"
   replication_factor = 3
   partitions         = 15
   config = {

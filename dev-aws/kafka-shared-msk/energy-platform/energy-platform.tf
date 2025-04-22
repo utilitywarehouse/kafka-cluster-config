@@ -77,13 +77,13 @@ module "bill_reads_producer_projector" {
 }
 
 resource "kafka_topic" "gentrack_meter_reads" {
-  name               = "gentrack.meter.read.events"
+  name               = "energy-platform.gentrack.meter.read.events"
   replication_factor = 3
   partitions         = 15
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data for 3 months
+    # keep data for 1 month
     "retention.ms" = "2628992000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
