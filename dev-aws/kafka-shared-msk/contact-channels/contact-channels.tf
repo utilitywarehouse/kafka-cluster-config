@@ -414,7 +414,7 @@ module "dsar_job_fulfiller" {
 }
 
 # Producer to contact-channels.tracking_events
-module "survey_response" {
+module "survey_response_collector" {
   source           = "../../../modules/tls-app"
   cert_common_name = "contact-channels/survey-response-collector"
   produce_topics   = [kafka_topic.tracking_events.name]
