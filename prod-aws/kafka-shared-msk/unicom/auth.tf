@@ -361,3 +361,11 @@ module "unicom_external_comms_api" {
   ]
   cert_common_name = "unicom/external_comms_api"
 }
+
+module "unicom_bill_failed_retrigger" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    "unicom.bill-failed",
+  ]
+  cert_common_name = "unicom/bill-failed-retrigger"
+}
