@@ -412,3 +412,10 @@ module "dsar_job_fulfiller" {
   consume_topics   = [kafka_topic.dsar_job.name]
   consume_groups   = ["contact-channels.dsar-job-fulfiller"]
 }
+
+# Producer to contact-channels.tracking_events
+module "survey_response_collector" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/survey-response-collector"
+  produce_topics   = [kafka_topic.tracking_events.name]
+}
