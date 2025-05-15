@@ -12,7 +12,7 @@ resource "kafka_topic" "unicom_bill_events" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -31,7 +31,7 @@ resource "kafka_topic" "unicom_bill_failed" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -50,7 +50,7 @@ resource "kafka_topic" "unicom_bounce_2019_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -69,7 +69,7 @@ resource "kafka_topic" "unicom_caps" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -88,7 +88,7 @@ resource "kafka_topic" "unicom_caps_consent" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -107,7 +107,7 @@ resource "kafka_topic" "unicom_failed" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -126,7 +126,7 @@ resource "kafka_topic" "unicom_cancel_status_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -145,7 +145,7 @@ resource "kafka_topic" "unicom_cancellation_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -164,7 +164,7 @@ resource "kafka_topic" "unicom_clx_report" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -183,7 +183,7 @@ resource "kafka_topic" "unicom_comms_fallback_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -202,7 +202,7 @@ resource "kafka_topic" "unicom_cost_calculated_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -221,7 +221,7 @@ resource "kafka_topic" "unicom_email_batch_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -240,7 +240,7 @@ resource "kafka_topic" "unicom_email_post_delivery_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -259,7 +259,7 @@ resource "kafka_topic" "unicom_email_released_critical_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -278,7 +278,7 @@ resource "kafka_topic" "unicom_email_released_important_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -297,7 +297,7 @@ resource "kafka_topic" "unicom_email_released_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -316,7 +316,7 @@ resource "kafka_topic" "unicom_email_released_mock_critical_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -335,7 +335,7 @@ resource "kafka_topic" "unicom_email_released_mock_important_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -354,7 +354,7 @@ resource "kafka_topic" "unicom_email_released_mock_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -373,7 +373,7 @@ resource "kafka_topic" "unicom_email_released_ses_critical_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -392,7 +392,7 @@ resource "kafka_topic" "unicom_email_released_ses_important_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -411,7 +411,7 @@ resource "kafka_topic" "unicom_email_released_ses_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -430,7 +430,7 @@ resource "kafka_topic" "unicom_email_status_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -449,7 +449,7 @@ resource "kafka_topic" "unicom_go_inspire_letter_status_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -468,7 +468,7 @@ resource "kafka_topic" "unicom_letter_batch_critical_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -487,7 +487,7 @@ resource "kafka_topic" "unicom_letter_batch_important_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -506,7 +506,7 @@ resource "kafka_topic" "unicom_letter_batch_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -525,7 +525,7 @@ resource "kafka_topic" "unicom_letter_released_critical_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -544,7 +544,7 @@ resource "kafka_topic" "unicom_letter_released_important_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -563,7 +563,7 @@ resource "kafka_topic" "unicom_letter_released_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -582,7 +582,7 @@ resource "kafka_topic" "unicom_letter_status_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -601,7 +601,7 @@ resource "kafka_topic" "unicom_mparticle_output_integration" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -620,7 +620,7 @@ resource "kafka_topic" "unicom_orchestration_entity_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -639,7 +639,7 @@ resource "kafka_topic" "unicom_orchestration_rule_execution_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -658,7 +658,7 @@ resource "kafka_topic" "unicom_outbound_call_request" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -677,7 +677,7 @@ resource "kafka_topic" "unicom_rejected" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -696,7 +696,7 @@ resource "kafka_topic" "unicom_rendered_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -715,7 +715,7 @@ resource "kafka_topic" "unicom_requests" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -734,7 +734,7 @@ resource "kafka_topic" "unicom_scheduled_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -753,7 +753,7 @@ resource "kafka_topic" "unicom_send_notification_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -772,7 +772,7 @@ resource "kafka_topic" "unicom_sms_batch_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -791,7 +791,7 @@ resource "kafka_topic" "unicom_sms_released_critical_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -810,7 +810,7 @@ resource "kafka_topic" "unicom_sms_released_important_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -829,7 +829,7 @@ resource "kafka_topic" "unicom_sms_released_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -848,7 +848,7 @@ resource "kafka_topic" "unicom_sms_status_1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -867,7 +867,7 @@ resource "kafka_topic" "unicom_status" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -886,7 +886,7 @@ resource "kafka_topic" "unicom_status_bill_email_connector" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -905,7 +905,7 @@ resource "kafka_topic" "unicom_status_energy_smets1_notifier" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -924,7 +924,7 @@ resource "kafka_topic" "unicom_status_finance_email_delivery_engine" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -943,7 +943,7 @@ resource "kafka_topic" "unicom_status_v2" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
@@ -962,7 +962,7 @@ resource "kafka_topic" "unicom_tests" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow max 512 MB for a message
+    # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
 }
