@@ -1,7 +1,7 @@
 resource "kafka_topic" "card_v1_internal" {
   name               = "payment-platform.card.v1.internal"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 15
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "-1" # keep on each partition unlimited data
@@ -18,7 +18,7 @@ resource "kafka_topic" "card_v1_internal" {
 resource "kafka_topic" "card_deadletter_v1_internal" {
   name               = "payment-platform.card-deadletter.v1.internal"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 15
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "-1" # keep on each partition unlimited data
@@ -35,7 +35,7 @@ resource "kafka_topic" "card_deadletter_v1_internal" {
 resource "kafka_topic" "card_v1_internal_payment_methods" {
   name               = "payment-platform.card.v1.internal.payment-methods"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 15
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "-1" # keep on each partition unlimited data
@@ -52,7 +52,7 @@ resource "kafka_topic" "card_v1_internal_payment_methods" {
 resource "kafka_topic" "card_deadletter_v1_internal_payment_methods" {
   name               = "payment-platform.card-deadletter.v1.internal.payment-methods"
   replication_factor = 3
-  partitions         = 5
+  partitions         = 15
   config = {
     "compression.type" = "zstd"
     "retention.bytes"  = "-1" # keep on each partition unlimited data
