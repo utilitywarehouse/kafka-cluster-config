@@ -9,8 +9,8 @@ resource "kafka_topic" "card_v1_internal" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 1 month
-    "retention.ms"   = "2592000000"
+    # keep data for 1 year
+    "retention.ms"   = "31557600000"
     "cleanup.policy" = "delete"
   }
 }
@@ -26,8 +26,8 @@ resource "kafka_topic" "card_deadletter_v1_internal" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 1 month
-    "retention.ms"   = "2592000000"
+    # keep data for 1 year
+    "retention.ms"   = "31557600000"
     "cleanup.policy" = "delete"
   }
 }
@@ -43,8 +43,8 @@ resource "kafka_topic" "card_v1_internal_payment_methods" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 1 month
-    "retention.ms"   = "2592000000"
+    # keep data for 1 year
+    "retention.ms"   = "31557600000"
     "cleanup.policy" = "delete"
   }
 }
@@ -60,8 +60,8 @@ resource "kafka_topic" "card_deadletter_v1_internal_payment_methods" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 1 month
-    "retention.ms"   = "2592000000"
+    # keep data for 1 year
+    "retention.ms"   = "31557600000"
     "cleanup.policy" = "delete"
   }
 }
