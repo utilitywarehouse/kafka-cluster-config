@@ -226,25 +226,6 @@ module "unicom_es_connector" {
   cert_common_name = "unicom/es_connector"
 }
 
-module "unicom_unit_sender_sms" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
-    "unicom.sms-released-critical.1",
-    "unicom.sms-released-important.1",
-    "unicom.sms-released.1"
-  ]
-  consume_groups = ["unicom.unit-sender-sms"]
-  produce_topics = [
-    "unicom.sms-status.1",
-    "unicom.tests",
-    "unicom.cost-calculated.1",
-    "unicom.rendered.1",
-    "unicom.failed",
-    "unicom.comms-fallback.1"
-  ]
-  cert_common_name = "unicom/unit_sender_sms"
-}
-
 module "unicom_outbound_call_api" {
   source           = "../../../modules/tls-app"
   produce_topics   = ["unicom.outbound-call-request"]
@@ -267,6 +248,7 @@ module "unicom_api" {
     "unicom.cancellation.1",
   ]
   cert_common_name = "unicom/api"
+  consume_groups   = ["unicom.api"]
 }
 
 module "unicom_outbound_calls_bq_connector" {
