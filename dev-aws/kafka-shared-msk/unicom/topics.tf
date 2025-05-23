@@ -983,6 +983,6 @@ module "unit_sender_sms" {
     kafka_topic.unicom_comms_fallback_1.name,
 
   ]
-  consume_groups   = ["unit-sender-sms"]
+  consume_groups   = ["unicom.unit-sender-sms"]
   cert_common_name = "unicom/unit-sender-sms"
 }
