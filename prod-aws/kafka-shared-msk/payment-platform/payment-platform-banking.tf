@@ -6,6 +6,6 @@ module "payment_platform_banking_deadletterd" {
   consume_topics = [
     kafka_topic.card_deadletter_v1_internal_payment_methods.name
   ]
-  consume_groups   = ["payment-platform-banking.payment-platform-banking-deadletterd"]
-  cert_common_name = "payment-platform-banking/payment-platform-banking-deadletterd"
+  consume_groups   = ["payment-platform-banking.payment-deadletterd"]
+  cert_common_name = "payment-platform-banking/payment-deadletterd"
 }
