@@ -399,6 +399,26 @@ module "unicom_unit_sender_letter" {
   cert_common_name = "unicom/unit_sender_letter"
 }
 
+module "unicom_unit_sms_sender" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    "unicom.sms-released-critical.1",
+    "unicom.sms-released-important.1",
+    "unicom.sms-released.1"
+  ]
+  produce_topics = [
+    "unicom.sms-status.1",
+    "unicom.tests",
+    "unicom.cost-calculated.1",
+    "unicom.rendered.1",
+    "unicom.failed",
+    "unicom.comms-fallback.1"
+
+  ]
+  consume_groups   = ["unicom.unit-sms-sender"]
+  cert_common_name = "unicom/unit-sms-sender"
+}
+
 module "unicom_batch_sender" {
   source = "../../../modules/tls-app"
   consume_topics = [
