@@ -222,8 +222,8 @@ module "unicom_es_connector" {
     "unicom.go-inspire-letter-status.1",
     "unicom.cancel-status.1"
   ]
-  consume_groups   = ["unicom.es_connector"]
-  cert_common_name = "unicom/es_connector"
+  consume_groups   = ["unicom.es-connector"]
+  cert_common_name = "unicom/es-connector"
 }
 
 module "unicom_outbound_call_api" {
