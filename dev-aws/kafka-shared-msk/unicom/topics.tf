@@ -967,7 +967,7 @@ resource "kafka_topic" "unicom_tests" {
   }
 }
 
-module "unit_sender_sms" {
+module "unicom_unit_sms_sender" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.unicom_sms_released_critical_1.name,
@@ -983,8 +983,8 @@ module "unit_sender_sms" {
     kafka_topic.unicom_comms_fallback_1.name,
 
   ]
-  consume_groups   = ["unicom.unit-sender-sms"]
-  cert_common_name = "unicom/unit-sender-sms"
+  consume_groups   = ["unicom.unit-sms-sender"]
+  cert_common_name = "unicom/unit-sms-sender"
 }
 
 module "unit_sender_email" {
