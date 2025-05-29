@@ -20,7 +20,7 @@ resource "kafka_topic" "internal_energy_billing_billing_adapter_deadletter" {
 resource "kafka_topic" "internal_energy_billing_billing_adapter_retry_1" {
   name               = "energy-billing.internal.billing-adapter-retry-1"
   replication_factor = 3
-  partitions         = 1
+  partitions         = 5
   config = {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 1 day
@@ -40,7 +40,7 @@ resource "kafka_topic" "internal_energy_billing_billing_adapter_retry_1" {
 resource "kafka_topic" "internal_energy_billing_billing_adapter_retry_2" {
   name               = "energy-billing.internal.billing-adapter-retry-2"
   replication_factor = 3
-  partitions         = 1
+  partitions         = 5
   config = {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 1 day
