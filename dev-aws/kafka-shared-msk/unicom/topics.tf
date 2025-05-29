@@ -967,29 +967,6 @@ resource "kafka_topic" "unicom_tests" {
   }
 }
 
-/*
-module "unit_sms_sender" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
-    kafka_topic.unicom_sms_released_critical_1.name,
-    kafka_topic.unicom_sms_released_important_1.name,
-    kafka_topic.unicom_sms_released_1.name,
-  ]
-  produce_topics = [
-    kafka_topic.unicom_cost_calculated_1.name,
-    kafka_topic.unicom_tests.name,
-    kafka_topic.unicom_sms_status_1.name,
-    kafka_topic.unicom_rendered_1.name,
-    kafka_topic.unicom_failed.name,
-    kafka_topic.unicom_comms_fallback_1.name,
-
-  ]
-  consume_groups   = ["unicom.unit-sms-sender"]
-  cert_common_name = "unicom/unit-sms-sender"
-}
-*/
-
-
 module "unit_sender_email" {
   source = "../../../modules/tls-app"
   consume_topics = [
