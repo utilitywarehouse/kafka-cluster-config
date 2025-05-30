@@ -247,6 +247,7 @@ module "unicom_api" {
     "unicom.letter-released-important.1",
     "unicom.letter-released.1",
     "unicom.cancellation.1",
+    "unicom.push-notification-released.1",
   ]
   cert_common_name = "unicom/api"
   consume_groups   = ["unicom.api"]
