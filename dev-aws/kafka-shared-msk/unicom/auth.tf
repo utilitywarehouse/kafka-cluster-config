@@ -220,7 +220,8 @@ module "unicom_es_connector" {
     "unicom.cost-calculated.1",
     "unicom.email-post-delivery.1",
     "unicom.go-inspire-letter-status.1",
-    "unicom.cancel-status.1"
+    "unicom.cancel-status.1",
+    "unicom.rendered.1"
   ]
   consume_groups   = ["unicom.es-connector"]
   cert_common_name = "unicom/es-connector"
