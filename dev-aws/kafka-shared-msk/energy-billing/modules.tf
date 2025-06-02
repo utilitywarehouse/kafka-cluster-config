@@ -2,6 +2,10 @@ module "energy_platform" {
   source = "../energy-platform"
 }
 
+output "gentrack_billing_events_topic_name" {
+  value = module.energy_platform.gentrack_billing_events_topic_name
+}
+
 module "billing_adapter" {
   source           = "../../../modules/tls-app"
   cert_common_name = "energy-billing/billing-adapter"
