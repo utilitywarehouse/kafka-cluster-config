@@ -1254,6 +1254,16 @@ module "cbc_ordering_api" {
   cert_common_name = "cbc/cbc-ordering-api"
 }
 
+module "cbc_ordering_api_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.order_events_v1.name,
+    kafka_topic.lifecycle_events_v2.name
+  ]
+  consume_groups   = ["cbc.cbc-ordering-api-v2"]
+  cert_common_name = "cbc/cbc-ordering-api-projector"
+}
+
 module "cbc_onfido_projector" {
   source = "../../../modules/tls-app"
   consume_topics = [
