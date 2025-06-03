@@ -1433,6 +1433,5 @@ module "cbc_graphql" {
     kafka_topic.challenge_events_v1.name,
     kafka_topic.transaction_events_v3.name
   ]
-  consume_groups   = []
   cert_common_name = "cbc/cbc-graphql-consumer"
 }
