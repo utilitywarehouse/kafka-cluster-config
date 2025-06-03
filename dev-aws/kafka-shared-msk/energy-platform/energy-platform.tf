@@ -112,6 +112,9 @@ resource "kafka_topic" "gentrack_billing_events" {
   }
 }
 
-output "gentrack_billing_events_topic_name" {
-  value = kafka_topic.gentrack_billing_events.name
+module "billing_adapter" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.gentrack_billing_events.name]
+  consume_groups   = ["energy-billing.billing-adapter"]
+  cert_common_name = "energy-billing/billing-adapter"
 }
