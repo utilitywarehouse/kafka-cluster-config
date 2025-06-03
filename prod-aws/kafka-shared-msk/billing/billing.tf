@@ -54,12 +54,12 @@ resource "kafka_topic" "core_bill_rectifications" {
 }
 
 # ACLs
-module "invoice_engine" {
+module "bill-composition_engine" {
   source = "../../../modules/tls-app"
   produce_topics = [
     kafka_topic.fixed_width_file_deadletter.name,
     kafka_topic.fixed_width_file_load_errors.name,
     kafka_topic.core_bill_rectifications.name,
   ]
-  cert_common_name = "billing/invoice-engine"
+  cert_common_name = "billing/bill-composition-engine"
 }
