@@ -1426,3 +1426,13 @@ module "cbc_proximo_tls" {
   ]
   cert_common_name = "cbc/proximo-tls"
 }
+
+module "cbc_graphql" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.challenge_events_v1.name,
+    kafka_topic.transaction_events_v3.name
+  ]
+  consume_groups   = []
+  cert_common_name = "cbc/cbc-graphql-consumer"
+}
