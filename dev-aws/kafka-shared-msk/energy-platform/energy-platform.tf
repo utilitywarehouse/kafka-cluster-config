@@ -111,3 +111,7 @@ resource "kafka_topic" "gentrack_billing_events" {
     "cleanup.policy"    = "delete"
   }
 }
+
+output "gentrack_billing_events_topic_name" {
+  value = kafka_topic.gentrack_billing_events.name
+}
