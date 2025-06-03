@@ -111,3 +111,10 @@ resource "kafka_topic" "gentrack_billing_events" {
     "cleanup.policy"    = "delete"
   }
 }
+
+module "billing_adapter" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.gentrack_billing_events.name]
+  consume_groups   = ["energy-billing.billing-adapter"]
+  cert_common_name = "energy-billing/billing-adapter"
+}
