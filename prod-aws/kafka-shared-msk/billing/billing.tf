@@ -54,7 +54,7 @@ resource "kafka_topic" "core_bill_rectifications" {
 }
 
 # ACLs
-module "bill-composition_engine" {
+module "bill_composition_engine" {
   source = "../../../modules/tls-app"
   produce_topics = [
     kafka_topic.fixed_width_file_deadletter.name,
