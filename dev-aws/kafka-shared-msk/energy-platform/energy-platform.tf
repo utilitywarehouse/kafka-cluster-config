@@ -118,3 +118,9 @@ module "billing_adapter" {
   consume_groups   = ["energy-billing.billing-adapter"]
   cert_common_name = "energy-billing/billing-adapter"
 }
+
+module "gentrack_billing_test_producer" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.gentrack_billing_events.name]
+  cert_common_name = "energy-billing/gentrack-billing-test-producer"
+}
