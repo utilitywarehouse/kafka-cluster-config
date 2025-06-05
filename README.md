@@ -7,6 +7,9 @@ Aggregates resources for different teams willing to migrate from the [kafka topi
 ## Contributing
 See [Contributing doc](./CONTRIBUTING.md)
 
+## Public?
+Yes, it's intentional
+
 ## Structure
 At the root of the repo there are folders for each cluster and environment the config applies to, like dev-aws, dev-merit, prod-aws, etc.
 
