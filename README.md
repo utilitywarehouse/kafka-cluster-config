@@ -8,7 +8,7 @@ Aggregates resources for different teams willing to migrate from the [kafka topi
 See [Contributing doc](./CONTRIBUTING.md)
 
 ## Public?
-Yes, it's intentional
+Yes, it's intentional - [previous discussion](https://utilitywarehouse.slack.com/archives/C0536L8V7EU/p1707810174765299)
 
 ## Structure
 At the root of the repo there are folders for each cluster and environment the config applies to, like dev-aws, dev-merit, prod-aws, etc.
