@@ -121,6 +121,6 @@ module "billing_adapter" {
 
 module "energy_platform_event_builder" {
   source           = "../../../modules/tls-app"
-  produce_topics = [kafka_topic.gentrack_billing_events.name]
+  produce_topics   = [kafka_topic.gentrack_billing_events.name]
   cert_common_name = "energy-platform/platform-event-builder"
 }
