@@ -1,4 +1,4 @@
-# tflint-ignore: terraform_naming_convention
+# --- List of public insurance topics ---
 resource "kafka_topic" "public_policies_v1" {
   name = "insurance.public.policies.v1"
 
@@ -16,6 +16,7 @@ resource "kafka_topic" "public_policies_v1" {
   }
 }
 
+# --- Auth config for internal producers and consumers ---
 module "insurance_event_relay_public" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.public_policies_v1.name]
@@ -36,3 +37,5 @@ module "insurance_proximo" {
   consume_groups   = ["insurance.event-log"]
   cert_common_name = "insurance/proximo"
 }
+
+# --- Auth config for external producers and consumers ---
