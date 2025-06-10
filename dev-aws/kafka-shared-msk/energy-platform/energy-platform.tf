@@ -113,8 +113,8 @@ resource "kafka_topic" "gentrack_billing_events" {
 }
 
 module "gentrack_adapter_webhook_processor" {
-  source           = "../../../modules/tls-app"
-  produce_topics   = [
+  source = "../../../modules/tls-app"
+  produce_topics = [
     kafka_topic.gentrack_meter_reads.name,
     kafka_topic.gentrack_billing_events.name
   ]
