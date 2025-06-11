@@ -16,6 +16,13 @@ resource "kafka_topic" "gentrack_meter_read_events" {
   }
 }
 
+module "gentrack_meter_read_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.gentrack_meter_read_events.name]
+  consume_groups   = ["energy-platform.gentrack-meter-read-indexer"]
+  cert_common_name = "energy-platform/gentrack-meter-read-indexer"
+}
+
 resource "kafka_topic" "gentrack_billing_events" {
   name               = "energy-platform.gentrack.billing.events"
   replication_factor = 3
@@ -32,6 +39,13 @@ resource "kafka_topic" "gentrack_billing_events" {
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
+}
+
+module "gentrack_billing_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.gentrack_billing_events.name]
+  consume_groups   = ["energy-platform.gentrack-billing-indexer"]
+  cert_common_name = "energy-platform/gentrack-billing-indexer"
 }
 
 module "gentrack_adapter_webhook_processor" {
