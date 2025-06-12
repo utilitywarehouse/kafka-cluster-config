@@ -35,8 +35,8 @@ resource "kafka_topic" "gentrack_billing_events" {
 }
 
 module "gentrack_topic_indexer" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [
+  source = "../../../modules/tls-app"
+  consume_topics = [
     kafka_topic.gentrack_meter_read_events.name,
     kafka_topic.gentrack_billing_events.name
   ]
