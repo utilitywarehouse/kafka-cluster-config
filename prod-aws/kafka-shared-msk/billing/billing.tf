@@ -53,6 +53,24 @@ resource "kafka_topic" "core_bill_rectifications" {
   }
 }
 
+resource "kafka_topic" "unified_bill_ready_events" {
+  name               = "billing.unified-bill-ready-events"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    # store data zstd compressed
+    "compression.type" = "zstd"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 1 day
+    "local.retention.ms" = "86400000"
+    # keep data forever
+    "retention.ms" = "-1"
+    # delete old data
+    "cleanup.policy" = "delete"
+  }
+}
+
 # ACLs
 module "bill_composition_engine" {
   source = "../../../modules/tls-app"
@@ -60,6 +78,16 @@ module "bill_composition_engine" {
     kafka_topic.fixed_width_file_deadletter.name,
     kafka_topic.fixed_width_file_load_errors.name,
     kafka_topic.core_bill_rectifications.name,
+    kafka_topic.unified_bill_ready_events.name,
   ]
   cert_common_name = "billing/bill-composition-engine"
+}
+
+module "unified_bill_ready_events_indexer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.unified_bill_ready_events.name,
+  ]
+  consume_groups   = ["billing.unified-bill-ready-events-indexer"]
+  cert_common_name = "billing/unified-bill-ready-events-indexer"
 }
