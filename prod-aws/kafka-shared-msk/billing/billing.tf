@@ -25,3 +25,12 @@ module "bill_composition_engine" {
   ]
   cert_common_name = "billing/bill-composition-engine"
 }
+
+module "fixed_width_file_processing_events_indexer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.fixed_width_file_processing_events.name,
+  ]
+  consume_groups   = ["billing.fixed-width-file-processing-events-indexer"]
+  cert_common_name = "billing/fixed-width-file-processing-events-indexer"
+}
