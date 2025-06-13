@@ -49,8 +49,11 @@ module "meter_reads_api_queue" {
 }
 
 module "meter_reads_api_projector" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.meter_reads.name]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.meter_reads.name,
+    kafka_topic.gentrack_meter_read_events.name
+  ]
   consume_groups   = ["energy-platform.meter-reads-api-projector"]
   cert_common_name = "energy-platform/meter-reads-api-projector"
 }
