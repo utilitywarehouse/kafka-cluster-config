@@ -34,6 +34,16 @@ resource "kafka_topic" "gentrack_billing_events" {
   }
 }
 
+module "gentrack_topic_indexer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.gentrack_meter_read_events.name,
+    kafka_topic.gentrack_billing_events.name
+  ]
+  consume_groups   = ["energy-platform.gentrack-topic-indexer"]
+  cert_common_name = "energy-platform/gentrack-topic-indexer"
+}
+
 module "gentrack_adapter_webhook_processor" {
   source = "../../../modules/tls-app"
   produce_topics = [
