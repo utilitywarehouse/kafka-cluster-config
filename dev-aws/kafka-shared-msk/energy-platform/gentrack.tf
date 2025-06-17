@@ -42,7 +42,7 @@ resource "kafka_topic" "gentrack_migration_events" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data for approx 6 month
+    # keep data for approx 6 months
     "retention.ms" = "15552000000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
