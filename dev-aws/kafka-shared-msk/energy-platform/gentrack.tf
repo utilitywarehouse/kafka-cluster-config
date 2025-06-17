@@ -96,16 +96,14 @@ module "gentrack_adapter_webhook_processor" {
 }
 
 module "gentrack_migration" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.gentrack_migration_events.name]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.gentrack_migration_events.name,
+    kafka_topic.gentrack_registration_events.name
+  ]
   cert_common_name = "energy-platform/gentrack-migration"
 }
 
-module "gentrack_registration" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.gentrack_registration_events.name]
-  cert_common_name = "energy-platform/gentrack-registration"
-}
 
 module "billing_adapter" {
   source           = "../../../modules/tls-app"
