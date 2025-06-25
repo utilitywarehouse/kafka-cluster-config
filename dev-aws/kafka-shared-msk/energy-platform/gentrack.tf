@@ -53,8 +53,8 @@ resource "kafka_topic" "gentrack_migration_events" {
   }
 }
 
-resource "kafka_topic" "gentrack_registration_events" {
-  name               = "energy-platform.gentrack.registration.events"
+resource "kafka_topic" "gentrack_market_interactions_events" {
+  name               = "energy-platform.gentrack.market_interactions.events"
   replication_factor = 3
   partitions         = 15
 
@@ -78,7 +78,7 @@ module "gentrack_topic_indexer" {
     kafka_topic.gentrack_meter_read_events.name,
     kafka_topic.gentrack_billing_events.name,
     kafka_topic.gentrack_migration_events.name,
-    kafka_topic.gentrack_registration_events.name
+    kafka_topic.gentrack_market_interactions_events.name
   ]
   consume_groups   = ["energy-platform.gentrack-topic-indexer"]
   cert_common_name = "energy-platform/gentrack-topic-indexer"
@@ -90,7 +90,7 @@ module "gentrack_adapter_webhook_processor" {
     kafka_topic.gentrack_meter_read_events.name,
     kafka_topic.gentrack_billing_events.name,
     kafka_topic.gentrack_migration_events.name,
-    kafka_topic.gentrack_registration_events.name
+    kafka_topic.gentrack_market_interactions_events.name
   ]
   cert_common_name = "energy-platform/gentrack-adapter-webhook-processor"
 }
@@ -99,7 +99,7 @@ module "gentrack_migration" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.gentrack_migration_events.name,
-    kafka_topic.gentrack_registration_events.name
+    kafka_topic.gentrack_market_interactions_events.name
   ]
   cert_common_name = "energy-platform/gentrack-migration"
 }
