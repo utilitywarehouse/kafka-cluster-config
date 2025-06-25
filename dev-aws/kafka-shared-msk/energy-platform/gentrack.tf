@@ -53,6 +53,7 @@ resource "kafka_topic" "gentrack_migration_events" {
   }
 }
 
+
 resource "kafka_topic" "gentrack_market_interactions_events" {
   name               = "energy-platform.gentrack.market_interactions.events"
   replication_factor = 3
@@ -90,6 +91,7 @@ module "gentrack_adapter_webhook_processor" {
     kafka_topic.gentrack_meter_read_events.name,
     kafka_topic.gentrack_billing_events.name,
     kafka_topic.gentrack_migration_events.name,
+
     kafka_topic.gentrack_market_interactions_events.name
   ]
   cert_common_name = "energy-platform/gentrack-adapter-webhook-processor"
