@@ -14,11 +14,11 @@ resource "kafka_topic" "pubsub_examples" {
   }
 }
 
-module "example_producer" {
-  source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.pubsub_examples.name]
-  cert_common_name = "pubsub/example-producer"
-}
+# module "example_producer" {
+#   source           = "../../../modules/tls-app"
+#   produce_topics   = [kafka_topic.pubsub_examples.name]
+#   cert_common_name = "pubsub/example-producer"
+# }
 
 module "example_process_individually_consumer" {
   source           = "../../../modules/tls-app"
