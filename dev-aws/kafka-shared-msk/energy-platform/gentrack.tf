@@ -74,9 +74,9 @@ resource "kafka_topic" "gentrack_market_interactions_events" {
 }
 
 resource "kafka_topic" "gentrack_meterpoint_events" {
-  name = "energy-platform.gentrack.meterpoint.events"
+  name               = "energy-platform.gentrack.meterpoint.events"
   replication_factor = 3
-  partitions = 15
+  partitions         = 15
 
   config = {
     # Use tiered storage
