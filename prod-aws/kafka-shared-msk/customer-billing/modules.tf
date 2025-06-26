@@ -176,6 +176,21 @@ module "mail_sender_dlq_job" {
   produce_topics = [kafka_topic.invoice_fulfillment.name]
 }
 
+module "email_sender_dlq_job" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "customer-billing/email-sender-dlq-job"
+  consume_topics = [
+    kafka_topic.email_sender_deadletter.name,
+  ]
+  consume_groups = [
+    "bex.email-sender-dlq-job"
+  ]
+  produce_topics = [
+    # bill-delivery-events (currently exists in bitnami)
+  ]
+}
+
+
 module "invoice_api" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/invoice-api"
