@@ -3,5 +3,5 @@ module "meterpoint_gentrack_meterpoint_projector" {
   consume_topics = [
     kafka_topic.gentrack_meterpoint_events.name,
   ]
-  cert_common_name = "energy-platform/meterpoint_gentrack_meterpoint_projector"
+  cert_common_name = "energy-platform/meterpoint-gentrack-meterpoint-projector"
 }
