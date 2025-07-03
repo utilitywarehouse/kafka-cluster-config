@@ -123,6 +123,7 @@ module "gentrack_migration" {
     kafka_topic.gentrack_migration_events.name,
     kafka_topic.gentrack_market_interactions_events.name
   ]
+  consume_groups   = ["energy-platform.gentrack-migration-consumer"]
   cert_common_name = "energy-platform/gentrack-migration-consumer"
 }
 
