@@ -35,8 +35,9 @@ resource "kafka_topic" "finserv_check_status_events" {
 }
 
 module "finserv_nats_to_msk_forwarder" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
+  source         = "../../../modules/tls-app"
+  consume_topics = []
+  produce_topics = [
     kafka_topic.finserv_check_status_events.name,
     kafka_topic.finserv_check_events.name,
     kafka_topic.finserv_account_changed_events.name,
