@@ -135,6 +135,12 @@ module "billing_adapter" {
   cert_common_name = "energy-billing/billing-adapter"
 }
 
+module "billing_sqs_processor" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.gentrack_billing_events.name]
+  cert_common_name = "energy-billing/billing-sqs-processor"
+}
+
 module "gentrack_billing_test_producer" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.gentrack_billing_events.name]
