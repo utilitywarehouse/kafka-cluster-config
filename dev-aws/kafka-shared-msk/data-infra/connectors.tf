@@ -50,23 +50,6 @@ resource "kafka_topic" "dlq" {
   }
 }
 
-resource "kafka_topic" "bill_event_bridge_dlq" {
-  name               = "data-infra.bill_event_bridge.dlq"
-  replication_factor = 3
-  partitions         = 1
-  config = {
-    "remote.storage.enable" = "true"
-    # keep data for 1 month
-    "retention.ms" = "2629800000"
-    # keep data in primary storage for 1 day
-    "local.retention.ms" = "86400000"
-    # allow for a batch of records maximum 1MiB
-    "max.message.bytes" = "1048576"
-    "compression.type"  = "zstd"
-    "cleanup.policy"    = "delete"
-  }
-}
-
 resource "kafka_topic" "dlq_alerts" {
   name               = "data-infra.product.v1.events.dlq.alerts"
   replication_factor = 3
@@ -204,15 +187,4 @@ module "di_cockroach_db_connector_help_and_support" {
     kafka_topic.events_end.name
   ]
   cert_common_name = "help-and-support/di-cockroach-db-connector"
-}
-
-
-module "di_bill_event_bridge" {
-  source = "../../../modules/tls-app"
-
-  produce_topics = [
-    kafka_topic.bill_event_bridge_dlq
-  ]
-
-  cert_common_name = "data-infra/bill-event-bridge"
 }
