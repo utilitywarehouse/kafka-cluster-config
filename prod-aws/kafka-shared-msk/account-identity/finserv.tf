@@ -45,3 +45,21 @@ module "finserv_nats_to_msk_forwarder" {
   consume_groups   = ["cbc.finserv-nats-to-msk-forwarder-v1"]
   cert_common_name = "cbc/nats-to-msk-forwarder"
 }
+
+module "cbc_bigquery_exporter" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.finserv_check_status_events.name
+  ]
+  consume_groups   = ["cbc.cbc-bigquery-exporter-v1"]
+  cert_common_name = "cbc/cbc-bigquery-exporter"
+}
+
+module "cbc_pep_checker" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.finserv_check_status_events.name
+  ]
+  consume_groups   = ["cbc.cbc-pep-checker-v8"]
+  cert_common_name = "cbc/cbc-pep-checker"
+}
