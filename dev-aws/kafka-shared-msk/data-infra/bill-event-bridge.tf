@@ -21,5 +21,5 @@ module "di_bill_event_bridge" {
 
   produce_topics = [kafka_topic.bill_event_bridge_dlq.name]
 
-  cert_common_name = "data-infra/bill-event-bridge"
+  cert_common_name = "bill-integration/bill-event-bridge"
 }
