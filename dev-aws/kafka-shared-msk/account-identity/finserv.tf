@@ -89,6 +89,17 @@ module "finserv_account_service_screening_worker" {
   consume_topics = [
     kafka_topic.finserv_account_changed_events.name
   ]
+  produce_topics = [
+    kafka_topic.finserv_check_events.name
+  ]
   consume_groups   = ["finserv.finserv-pep-sanctions-screening-worker-ace"]
   cert_common_name = "finserv/pep-sanctions-screening-worker"
+}
+
+module "finserv_pep_sanctions_api" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.finserv_check_events.name
+  ]
+  cert_common_name = "finserv/pep-sanctions-api"
 }
