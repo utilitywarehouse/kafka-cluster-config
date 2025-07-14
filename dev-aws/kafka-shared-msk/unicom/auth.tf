@@ -201,6 +201,16 @@ module "unicom_schedule" {
   cert_common_name = "unicom/schedule"
 }
 
+module "unicom_schedule_releaser" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [
+    "unicom.email-released.1",
+    "unicom.sms-released.1",
+    "unicom.letter-released.1"
+  ]
+  cert_common_name = "unicom/schedule-releaser"
+}
+
 module "unicom_es_connector" {
   source = "../../../modules/tls-app"
   consume_topics = [
