@@ -202,8 +202,8 @@ module "unicom_schedule" {
 }
 
 module "unicom_schedule_releaser" {
-  source           = "../../../modules/tls-app"
-  produce_topics   = [
+  source = "../../../modules/tls-app"
+  produce_topics = [
     "unicom.email-released.1",
     "unicom.sms-released.1",
     "unicom.letter-released.1"
