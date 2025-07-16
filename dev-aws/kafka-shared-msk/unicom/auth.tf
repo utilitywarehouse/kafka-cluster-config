@@ -27,7 +27,7 @@ module "unicom_unit_sender_email" {
 module "unicom_mock_clx_report" {
   source           = "../../../modules/tls-app"
   consume_topics   = ["unicom.clx-report"]
-  consume_groups   = ["unicom.clx-report"]
+  consume_groups   = ["unicom.mock-clx-report"]
   produce_topics   = ["unicom.tests"]
   cert_common_name = "unicom/mock_clx_report"
 }
@@ -298,7 +298,7 @@ module "unicom_bq_connector" {
 module "unicom_otc_letter_cancellation" {
   source           = "../../../modules/tls-app"
   consume_topics   = ["unicom.cancel-status.1"]
-  consume_groups   = ["unicom.otc_letter_cancellation"]
+  consume_groups   = ["unicom.otc-letter-cancellation"]
   produce_topics   = ["unicom.cancel-status.1"]
   cert_common_name = "unicom/otc_letter_cancellation"
 }
@@ -441,7 +441,7 @@ module "unicom_batch_sender" {
     "unicom.letter-batch-important.1",
     "unicom.letter-batch.1"
   ]
-  consume_groups = ["unicom.batch_sender"]
+  consume_groups = ["unicom.batch-sender"]
   produce_topics = [
     "unicom.letter-status.1",
     "unicom.tests",
@@ -486,32 +486,28 @@ module "unicom_bill_failed_retrigger" {
 }
 
 module "unicom_bill_email_connector" {
-  source         = "../../../modules/tls-app"
-  consume_topics = []
-  consume_groups = ["unicom.bill-email-connector"]
-  produce_topics = [
+  source = "../../../modules/tls-app"
+  consume_topics = [
     "unicom.bill-failed"
   ]
+  consume_groups   = ["unicom.bill-email-connector"]
   cert_common_name = "unicom/bill_email_connector"
 }
 
-module "unicom_bill_letter_connector" {
-  source         = "../../../modules/tls-app"
-  consume_topics = []
-  consume_groups = ["unicom.bill-letter-connector"]
-  produce_topics = [
-    "unicom.bill-failed"
-  ]
-  cert_common_name = "unicom/bill_letter_connector"
-}
-
 module "unicom_bill_sms_connector" {
-  source         = "../../../modules/tls-app"
-  consume_topics = []
-  consume_groups = ["unicom.bill-sms-connector"]
-  produce_topics = [
+  source = "../../../modules/tls-app"
+  consume_topics = [
     "unicom.bill-failed"
   ]
+  consume_groups   = ["unicom.bill-sms-connector"]
   cert_common_name = "unicom/bill_sms_connector"
 }
 
+module "unicom_bill_letter_connector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    "unicom.bill-failed"
+  ]
+  consume_groups   = ["unicom.bill-letter-connector"]
+  cert_common_name = "unicom/bill_letter_connector"
+}
