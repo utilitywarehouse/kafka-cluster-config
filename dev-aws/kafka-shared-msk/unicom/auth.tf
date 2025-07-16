@@ -318,7 +318,10 @@ module "unicom_unit_sender_letter_otc" {
   consume_topics = [
     "unicom.letter-released-critical.1",
     "unicom.letter-released-important.1",
-    "unicom.letter-released.1"
+    "unicom.letter-released.1",
+    "unicom.letter-released-mock-critical.1",
+    "unicom.letter-released-mock-important.1",
+    "unicom.letter-released-mock.1"
   ]
   consume_groups = ["unicom.unit-sender-letter-otc"]
   produce_topics = [
@@ -480,5 +483,35 @@ module "unicom_bill_failed_retrigger" {
     "unicom.bill-failed",
   ]
   cert_common_name = "unicom/bill-failed-retrigger"
+}
+
+module "unicom_bill_email_connector" {
+  source         = "../../../modules/tls-app"
+  consume_topics = []
+  consume_groups = ["unicom.bill-email-connector"]
+  produce_topics = [
+    "unicom.bill-failed"
+  ]
+  cert_common_name = "unicom/bill_email_connector"
+}
+
+module "unicom_bill_letter_connector" {
+  source         = "../../../modules/tls-app"
+  consume_topics = []
+  consume_groups = ["unicom.bill-letter-connector"]
+  produce_topics = [
+    "unicom.bill-failed"
+  ]
+  cert_common_name = "unicom/bill_letter_connector"
+}
+
+module "unicom_bill_sms_connector" {
+  source         = "../../../modules/tls-app"
+  consume_topics = []
+  consume_groups = ["unicom.bill-sms-connector"]
+  produce_topics = [
+    "unicom.bill-failed"
+  ]
+  cert_common_name = "unicom/bill_sms_connector"
 }
 
