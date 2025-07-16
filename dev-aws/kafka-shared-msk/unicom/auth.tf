@@ -318,7 +318,10 @@ module "unicom_unit_sender_letter_otc" {
   consume_topics = [
     "unicom.letter-released-critical.1",
     "unicom.letter-released-important.1",
-    "unicom.letter-released.1"
+    "unicom.letter-released.1",
+    "unicom.letter-released-mock-critical.1",
+    "unicom.letter-released-mock-important.1",
+    "unicom.letter-released-mock.1"
   ]
   consume_groups = ["unicom.unit-sender-letter-otc"]
   produce_topics = [
