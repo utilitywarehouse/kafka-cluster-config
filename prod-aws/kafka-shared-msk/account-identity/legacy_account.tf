@@ -248,6 +248,14 @@ module "account_identity_legacy_account_braze_relay" {
   cert_common_name = "account-platform/legacy_account_braze_relay"
 }
 
+module "account_identity_legacy_account_braze_backfill_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["account-identity.legacy-account-braze-backfill-relay"]
+  produce_topics   = [kafka_topic.account_identity_legacy_account_braze_events_compacted.name]
+  cert_common_name = "account-platform/legacy_account_braze_backfill_relay"
+}
+
 module "account_identity_legacy_events_compaction_relay" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
