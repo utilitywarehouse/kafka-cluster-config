@@ -74,7 +74,13 @@ module "unicom_comms_fallback_sender" {
 module "unicom_failed_retrigger" {
   source         = "../../../modules/tls-app"
   consume_topics = ["unicom.failed"]
-  consume_groups = ["unicom.failed-retrigger"]
+  consume_groups = [
+    "unicom.failed-retrigger",
+    "unicom.push-notification-released.1",
+    "unicom.email-released.1",
+    "unicom.sms-released.1",
+    "unicom.letter-released.1"
+  ]
   produce_topics = [
     "unicom.email-released.1",
     "unicom.sms-released.1",
@@ -290,6 +296,7 @@ module "unicom_bq_connector" {
     "unicom.email-post-delivery.1",
     "unicom.rendered.1",
     "unicom.cost-calculated.1",
+    "unicom.push-notification-released.1"
   ]
   consume_groups   = ["unicom.bq-connector"]
   cert_common_name = "unicom/bq_connector"
