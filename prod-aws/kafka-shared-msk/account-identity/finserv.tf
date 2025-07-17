@@ -63,3 +63,53 @@ module "cbc_pep_checker" {
   consume_groups   = ["cbc.cbc-pep-checker-v8"]
   cert_common_name = "cbc/cbc-pep-checker"
 }
+
+module "finserv_account_service_consumer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.account_identity_legacy_account_events.name
+  ]
+  produce_topics = [
+    kafka_topic.finserv_account_changed_events.name
+  ]
+  consume_groups   = ["finserv.account-service-consumer"]
+  cert_common_name = "finserv/account-service-consumer"
+}
+
+module "finserv_account_service" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.finserv_account_changed_events.name
+  ]
+  cert_common_name = "finserv/account-service"
+}
+
+module "finserv_pep_sanctions_screening_worker" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.finserv_account_changed_events.name
+  ]
+  produce_topics = [
+    kafka_topic.finserv_check_events.name,
+    kafka_topic.finserv_check_status_events.name
+  ]
+  consume_groups   = ["finserv.finserv-pep-sanctions-screening-worker-ace"]
+  cert_common_name = "finserv/pep-sanctions-screening-worker"
+}
+
+module "finserv_pep_sanctions_api" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.finserv_check_events.name,
+    kafka_topic.finserv_check_status_events.name
+  ]
+  cert_common_name = "finserv/pep-sanctions-api"
+}
+
+module "finserv_pep_sanctions_listener" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.finserv_check_status_events.name
+  ]
+  cert_common_name = "finserv/pep-sanctions-listener"
+}
