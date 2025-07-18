@@ -296,7 +296,8 @@ module "unicom_bq_connector" {
     "unicom.email-post-delivery.1",
     "unicom.rendered.1",
     "unicom.cost-calculated.1",
-    "unicom.push-notification-released.1"
+    "unicom.push-notification-released.1",
+    "unicom.push-notification-status.1"
   ]
   consume_groups   = ["unicom.bq-connector"]
   cert_common_name = "unicom/bq_connector"
