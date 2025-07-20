@@ -8,9 +8,9 @@ module "unicom_caps_consent_projector" {
 module "unicom_unit_sender_email" {
   source = "../../../modules/tls-app"
   consume_topics = [
-    "unicom.email-released-critical.1",
-    "unicom.email-released-important.1",
-    "unicom.email-released.1"
+    "unicom.email-released-ses-critical.1",
+    "unicom.email-released-ses-important.1",
+    "unicom.email-released-ses.1",
   ]
   consume_groups = ["unicom.unit-sender-email"]
   produce_topics = [
