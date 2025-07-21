@@ -15,7 +15,7 @@
 /**/iam-audit/                 @utilitywarehouse/account-identity
 /**/insurance/                 @utilitywarehouse/org-insurance
 /**/ledgers/                   @utilitywarehouse/ledgers
-/**/otel/                      @utilitywarehouse/otel
+/**/otel/                      @utilitywarehouse/otel @utilitywarehouse/system
 /**/payment-platform/          @utilitywarehouse/payments-maintainers
 /**/unicom/                    @utilitywarehouse/org-communications
 /**/workplace-infrastructure/  @utilitywarehouse/workplace-infrastructure
