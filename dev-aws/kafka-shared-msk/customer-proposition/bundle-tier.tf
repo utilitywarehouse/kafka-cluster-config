@@ -1,5 +1,5 @@
-resource "kafka_topic" "bundeltier_events_compacted_v1" {
-  name = "customer-proposition.public.bundeltier.events.compacted.v1"
+resource "kafka_topic" "bundletier_events_compacted_v1" {
+  name = "customer-proposition.public.bundletier.events.compacted.v1"
 
   replication_factor = 3
   partitions         = 15
@@ -12,8 +12,8 @@ resource "kafka_topic" "bundeltier_events_compacted_v1" {
   }
 }
 
-resource "kafka_topic" "bundeltier_events_v1" {
-  name = "customer-proposition.public.bundeltier.events.v1"
+resource "kafka_topic" "bundletier_events_v1" {
+  name = "customer-proposition.public.bundletier.events.v1"
 
   replication_factor = 3
   partitions         = 15
@@ -32,16 +32,16 @@ resource "kafka_topic" "bundeltier_events_v1" {
   }
 }
 
-module "bundeltier_event_forwarder" {
+module "bundletier_event_forwarder" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.bundeltier_events_compacted_v1.name, kafka_topic.bundeltier_events_v1.name]
+  produce_topics   = [kafka_topic.bundletier_events_compacted_v1.name, kafka_topic.bundletier_events_v1.name]
   consume_groups   = ["customer-proposition.bundletier-public-event-forwarder"]
   cert_common_name = "customer-proposition/bundletier-public-event-forwarder"
 }
 
 module "es_indexer_bundletier_events_v1" {
   source           = "../../../modules/tls-app"
-  consume_groups   = ["customer-proposition.es-indexer-bundeltier.events.v1"]
-  consume_topics   = [kafka_topic.bundeltier_events_compacted_v1.name, kafka_topic.bundeltier_events_v1.name]
-  cert_common_name = "customer-proposition/es-indexer-bundeltier-events-v1"
+  consume_groups   = ["customer-proposition.es-indexer-bundletier.events.v1"]
+  consume_topics   = [kafka_topic.bundletier_events_compacted_v1.name, kafka_topic.bundletier_events_v1.name]
+  cert_common_name = "customer-proposition/es-indexer-bundletier-events-v1"
 }
