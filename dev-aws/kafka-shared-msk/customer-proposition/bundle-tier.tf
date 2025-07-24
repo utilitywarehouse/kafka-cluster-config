@@ -42,6 +42,13 @@ module "bundletier_event_forwarder" {
 module "es_indexer_bundletier_events_v1" {
   source           = "../../../modules/tls-app"
   consume_groups   = ["customer-proposition.es-indexer-bundletier.events.v1"]
-  consume_topics   = [kafka_topic.bundletier_events_compacted_v1.name, kafka_topic.bundletier_events_v1.name]
+  consume_topics   = [kafka_topic.bundletier_events_v1.name]
   cert_common_name = "customer-proposition/es-indexer-bundletier-events-v1"
+}
+
+module "es_indexer_bundletier_events_compacted_v1" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["customer-proposition.es-indexer-bundletier.events.compacted.v1"]
+  consume_topics   = [kafka_topic.bundletier_events_compacted_v1.name]
+  cert_common_name = "customer-proposition/es-indexer-bundletier-events-compacted-v1"
 }
