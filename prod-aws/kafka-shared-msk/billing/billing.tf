@@ -8,8 +8,8 @@ resource "kafka_topic" "fixed_width_file_processing_events" {
     "compression.type" = "zstd"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in primary storage for 7 days
-    "local.retention.ms" = "604800000"
+    # keep data in primary storage for 2 days
+    "local.retention.ms" = "172800000"
     # keep data for 1 month
     "retention.ms" = "2629800000"
     # delete old data
