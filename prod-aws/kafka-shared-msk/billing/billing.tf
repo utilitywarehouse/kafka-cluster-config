@@ -53,8 +53,8 @@ resource "kafka_topic" "unified_bill_ready_events" {
   }
 }
 
-resource "kafka_topic" "billing_engine_events_bill_composition_engine_deadletter" {
-  name               = "billing.billing-engine-events-bill-composition-engine-deadletter"
+resource "kafka_topic" "billing_engine_events_bce_deadletter" {
+  name               = "billing.billing-engine-events-bce-deadletter"
   replication_factor = 3
   partitions         = 2
   config = {
@@ -109,11 +109,11 @@ module "unified_bill_ready_events_indexer" {
   cert_common_name = "billing/unified-bill-ready-events-indexer"
 }
 
-module "billing_engine_events_bill_composition_engine_deadletter_indexer" {
+module "billing_engine_events_bce_deadletter_indexer" {
   source = "../../../modules/tls-app"
   consume_topics = [
-    kafka_topic.billing_engine_events_bill_composition_engine_deadletter.name,
+    kafka_topic.billing_engine_events_bce_deadletter.name,
   ]
-  consume_groups   = ["billing.billing-engine-events-bill-composition-engine-deadletter-indexer"]
-  cert_common_name = "billing/billing-engine-events-bill-composition-engine-deadletter-indexer"
+  consume_groups   = ["billing.billing-engine-events-bce-deadletter-indexer"]
+  cert_common_name = "billing/billing-engine-events-bce-deadletter-indexer"
 }
