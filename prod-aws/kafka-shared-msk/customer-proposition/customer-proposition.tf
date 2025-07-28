@@ -135,9 +135,9 @@ module "es_indexer_uswitch_events_v2" {
   cert_common_name = "customer-proposition/es-indexer-uswitch-events-v2"
 }
 
-module "service_status_v4" {
+module "bundle-service" {
   source           = "../../../modules/tls-app"
-  consume_groups   = ["customer-proposition.service-status.events.v4"]
+  consume_groups   = ["customer-proposition.bundle-service-service-status.events.v4"]
   consume_topics   = [kafka_topic.service_status_v4.name]
-  cert_common_name = "customer-proposition/service-status-v4"
+  cert_common_name = "customer-proposition/bundle-service-service-status-events-v4"
 }
