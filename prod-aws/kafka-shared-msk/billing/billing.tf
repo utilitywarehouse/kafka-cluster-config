@@ -8,8 +8,8 @@ resource "kafka_topic" "fixed_width_file_processing_events" {
     "compression.type" = "zstd"
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data in primary storage for 7 days
-    "local.retention.ms" = "604800000"
+    # keep data in primary storage for 2 days
+    "local.retention.ms" = "172800000"
     # keep data for 1 month
     "retention.ms" = "2629800000"
     # delete old data
@@ -53,6 +53,24 @@ resource "kafka_topic" "unified_bill_ready_events" {
   }
 }
 
+resource "kafka_topic" "billing_engine_events_bce_deadletter" {
+  name               = "billing.billing-engine-events-bce-deadletter"
+  replication_factor = 3
+  partitions         = 2
+  config = {
+    # store data zstd compressed
+    "compression.type" = "zstd"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 2 days
+    "local.retention.ms" = "172800000"
+    # keep data for 1 month
+    "retention.ms" = "2629800000"
+    # delete old data
+    "cleanup.policy" = "delete"
+  }
+}
+
 # ACLs
 module "bill_composition_engine" {
   source = "../../../modules/tls-app"
@@ -89,4 +107,13 @@ module "unified_bill_ready_events_indexer" {
   ]
   consume_groups   = ["billing.unified-bill-ready-events-indexer"]
   cert_common_name = "billing/unified-bill-ready-events-indexer"
+}
+
+module "billing_engine_events_bce_deadletter_indexer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.billing_engine_events_bce_deadletter.name,
+  ]
+  consume_groups   = ["billing.billing-engine-events-bce-deadletter-indexer"]
+  cert_common_name = "billing/billing-engine-events-bce-deadletter-indexer"
 }
