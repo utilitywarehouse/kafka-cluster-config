@@ -38,6 +38,26 @@ resource "kafka_topic" "uswitch_events_v2" {
   }
 }
 
+resource "kafka_topic" "service_status_v4" {
+  name = "customer-proposition.service-status.events.v4"
+
+  replication_factor = 3
+  partitions         = 15
+
+  # infinite retention
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    "retention.ms"          = "-1" # keep data forever
+    # keep data in primary storage for 1 hour
+    "local.retention.ms" = "3600000"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 module "uswitch_event_forwarder" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.uswitch_events_v2.name]
@@ -113,4 +133,11 @@ module "es_indexer_uswitch_events_v2" {
   consume_groups   = ["customer-proposition.es-indexer-uswitch.events.v2"]
   consume_topics   = [kafka_topic.uswitch_events_v2.name]
   cert_common_name = "customer-proposition/es-indexer-uswitch-events-v2"
+}
+
+module "bundle_service" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["customer-proposition.bundle-service-service-status.events.v4"]
+  consume_topics   = [kafka_topic.service_status_v4.name]
+  cert_common_name = "customer-proposition/bundle-service"
 }
