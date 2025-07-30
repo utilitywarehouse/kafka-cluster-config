@@ -78,6 +78,7 @@ module "bill_composition_engine" {
     kafka_topic.fixed_width_file_processing_events.name,
     kafka_topic.bill_reconciliation_error_events.name,
     kafka_topic.unified_bill_ready_events.name,
+    kafka_topic.billing_engine_events_bce_deadletter.name,
   ]
   cert_common_name = "billing/bill-composition-engine"
 }
