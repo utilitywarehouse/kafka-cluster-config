@@ -141,3 +141,10 @@ module "bundle_service" {
   consume_topics   = [kafka_topic.service_status_v4.name]
   cert_common_name = "customer-proposition/bundle-service"
 }
+
+module "cbc_loader_service" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["customer-proposition.cbc-loader-service-service-status.events.v4"]
+  consume_topics   = [kafka_topic.service_status_v4.name]
+  cert_common_name = "customer-proposition/cbc-loader-service"
+}
