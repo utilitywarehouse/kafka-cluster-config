@@ -746,7 +746,7 @@ resource "kafka_topic" "unicom_tests" {
   }
 }
 
-resource "kafka_topic" "unicom_letter-send-adare" {
+resource "kafka_topic" "unicom_letter_send_adare" {
   name               = "unicom.letter-send-adare"
   partitions         = 15
   replication_factor = 3

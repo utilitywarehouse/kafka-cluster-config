@@ -372,7 +372,7 @@ module "unicom_bill_failed_retrigger" {
 }
 
 
-module "unicom_letter-zipper" {
+module "unicom_letter_zipper" {
   source = "../../../modules/tls-app"
   consume_topics = [
     "unicom.letter-send-adare"

@@ -521,7 +521,7 @@ module "unicom_bill_letter_connector" {
   cert_common_name = "unicom/bill_letter_connector"
 }
 
-module "unicom_letter-zipper" {
+module "unicom_letter_zipper" {
   source = "../../../modules/tls-app"
   consume_topics = [
     "unicom.letter-send-adare"
