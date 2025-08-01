@@ -526,7 +526,7 @@ module "unicom_letter_zipper" {
   consume_topics = [
     "unicom.letter-send-adare"
   ]
-  consume_groups   = ["unicom.letter-zipper"]
+  consume_groups = ["unicom.letter-zipper"]
   produce_topics = [
     "unicom.rejected",
     "unicom.failed",

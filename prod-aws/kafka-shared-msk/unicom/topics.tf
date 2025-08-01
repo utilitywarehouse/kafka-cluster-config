@@ -764,3 +764,22 @@ resource "kafka_topic" "unicom_letter_send_adare" {
     "max.message.bytes" = "536870912"
   }
 }
+
+resource "kafka_topic" "unicom_rejected" {
+  name               = "unicom.rejected"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data for 3 months
+    "retention.ms" = "7889400000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+    # allow for a batch of records maximum 512MiB
+    "max.message.bytes" = "536870912"
+  }
+}
