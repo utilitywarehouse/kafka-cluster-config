@@ -348,7 +348,8 @@ module "unicom_unit_sender_letter_otc" {
     "unicom.cost-calculated.1",
     "unicom.rendered.1",
     "unicom.failed",
-    "unicom.comms-fallback.1"
+    "unicom.comms-fallback.1",
+    "unicom.letter-send-adare"
   ]
   cert_common_name = "unicom/unit_sender_letter_otc"
 }
@@ -368,4 +369,18 @@ module "unicom_bill_failed_retrigger" {
     "unicom.bill-failed",
   ]
   cert_common_name = "unicom/bill-failed-retrigger"
+}
+
+
+module "unicom_letter_zipper" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    "unicom.letter-send-adare"
+  ]
+  consume_groups = ["unicom.letter-zipper"]
+  produce_topics = [
+    "unicom.rejected",
+    "unicom.failed",
+  ]
+  cert_common_name = "unicom/letter-zipper"
 }
