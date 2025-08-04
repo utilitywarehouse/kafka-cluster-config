@@ -188,3 +188,9 @@ module "cbc_loader_service" {
   produce_topics   = [kafka_topic.service_status_v4.name]
   cert_common_name = "customer-proposition/cbc-loader-service"
 }
+
+module "mobile_loader" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.service_status_v4.name, kafka_topic.service_status_deadletter_v4.name]
+  cert_common_name = "customer-proposition/mobile-loader"
+}
