@@ -38,13 +38,13 @@ resource "kafka_topic" "payment_method_v2_events" {
   partitions         = 15
   config = {
     "compression.type" = "zstd"
-    "retention.bytes"  = "3758096384" # keep on each partition 3.5GiB
+    "retention.bytes"  = "-1" # keep on each partition unlimited data
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 1 year
-    "retention.ms"   = "31557600000"
+    # keep data for 1 month
+    "retention.ms"   = "2592000000"
     "cleanup.policy" = "delete"
   }
 }
@@ -166,6 +166,7 @@ module "payment_query_service_downstream" {
   ]
   consume_topics = [
     kafka_topic.payment_v1_events.name,
+    kafka_topic.payment_method_v1_events.name,
     kafka_topic.payment_method_v2_events.name,
     kafka_topic.card_v1_internal_payment_methods.name
   ]
@@ -185,7 +186,12 @@ module "payment_query_service" {
     # integration topics have to go there
     kafka_topic.payment_v1_public_events_cbc_topup_v3.name
   ]
-  consume_topics   = [kafka_topic.payment_v1_events.name, kafka_topic.payment_method_v2_events.name]
+  consume_topics   = [
+    kafka_topic.payment_v1_events.name,
+    kafka_topic.payment_method_v1_events.name,
+    kafka_topic.payment_method_v2_events.name
+  ]
+
   consume_groups   = ["payment-platform.payment_query_service"]
   cert_common_name = "payment-platform/payment-query-service"
 }
@@ -232,6 +238,7 @@ module "cbc_topup_processor" {
 
 module "kafka_debugger" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.payment_deadletter_v1_events.name, kafka_topic.payment_method_v2_events.name, kafka_topic.payment_v1_events.name]
+  produce_topics   = [
+    kafka_topic.payment_deadletter_v1_events.name, kafka_topic.payment_method_v1_events.name, kafka_topic.payment_v1_events.name]
   cert_common_name = "payment-platform/kafka-debugger"
 }
