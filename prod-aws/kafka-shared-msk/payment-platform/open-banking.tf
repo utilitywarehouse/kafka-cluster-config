@@ -143,7 +143,7 @@ module "payment_deadletterd" {
   source = "../../../modules/tls-app"
   produce_topics = [
     kafka_topic.payment_v1_events.name,
-    kafka_topic.payment_method_v1_events.name,
+    kafka_topic.payment_method_v2_events.name,
     kafka_topic.openbanking_v1_internal_payments.name,
     kafka_topic.openbanking_v1_internal_payment_methods.name,
     kafka_topic.openbanking_v1_internal_settlements.name
