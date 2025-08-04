@@ -72,7 +72,7 @@ module "card_api" {
     kafka_topic.card_v1_internal.name,
     kafka_topic.card_v1_internal_payment_methods.name,
     kafka_topic.payment_v1_events.name,
-    kafka_topic.payment_method_v1_events.name
+    kafka_topic.payment_method_v1_events.name,
     kafka_topic.payment_method_v2_events.name
   ]
   consume_groups   = ["payment-platform.card-api"]
