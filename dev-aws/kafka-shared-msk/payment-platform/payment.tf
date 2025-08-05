@@ -32,23 +32,6 @@ resource "kafka_topic" "payment_method_v1_events" {
   }
 }
 
-resource "kafka_topic" "payment_method_v2_events" {
-  name               = "payment-platform.payment-method.v2.events"
-  replication_factor = 3
-  partitions         = 15
-  config = {
-    "compression.type" = "zstd"
-    "retention.bytes"  = "-1" # keep on each partition unlimited data
-    # Use tiered storage
-    "remote.storage.enable" = "true"
-    # keep data in primary storage for 2 days
-    "local.retention.ms" = "172800000"
-    # keep data for 1 month
-    "retention.ms"   = "2592000000"
-    "cleanup.policy" = "delete"
-  }
-}
-
 resource "kafka_topic" "payment_deadletter_v1_events" {
   name               = "payment-platform.payment-deadletter.v1.events"
   replication_factor = 3
