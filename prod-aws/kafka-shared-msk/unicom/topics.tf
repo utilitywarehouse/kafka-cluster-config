@@ -287,6 +287,23 @@ resource "kafka_topic" "unicom_email_status_1" {
   }
 }
 
+resource "kafka_topic" "unicom_push_notification_status_1" {
+  name               = "unicom.push-notification-status.1"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data for 6 months
+    "retention.ms" = "15552000000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+  }
+}
+
 resource "kafka_topic" "unicom_go_inspire_letter_status_1" {
   name               = "unicom.go-inspire-letter-status.1"
   partitions         = 15
@@ -476,6 +493,23 @@ resource "kafka_topic" "unicom_orchestration_rule_execution_1" {
 
 resource "kafka_topic" "unicom_outbound_call_request" {
   name               = "unicom.outbound-call-request"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data for 6 months
+    "retention.ms" = "15552000000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+  }
+}
+
+resource "kafka_topic" "unicom_rejected" {
+  name               = "unicom.rejected"
   partitions         = 15
   replication_factor = 3
 
@@ -746,6 +780,117 @@ resource "kafka_topic" "unicom_tests" {
   }
 }
 
+module "unit_sender_email" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.unicom_email_released_critical_1.name,
+    kafka_topic.unicom_email_released_important_1.name,
+    kafka_topic.unicom_email_released_1.name,
+  ]
+  produce_topics = [
+    kafka_topic.unicom_cost_calculated_1.name,
+    kafka_topic.unicom_tests.name,
+    kafka_topic.unicom_email_status_1.name,
+    kafka_topic.unicom_rendered_1.name,
+    kafka_topic.unicom_failed.name,
+    kafka_topic.unicom_comms_fallback_1.name,
+
+  ]
+  consume_groups   = ["unicom.unit-sender-email"]
+  cert_common_name = "unicom/unit-sender-email"
+}
+
+module "unit_sender_letter" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.unicom_letter_released_critical_1.name,
+    kafka_topic.unicom_letter_released_important_1.name,
+    kafka_topic.unicom_letter_released_1.name,
+  ]
+  produce_topics = [
+    kafka_topic.unicom_cost_calculated_1.name,
+    kafka_topic.unicom_tests.name,
+    kafka_topic.unicom_letter_status_1.name,
+    kafka_topic.unicom_rendered_1.name,
+    kafka_topic.unicom_failed.name,
+    kafka_topic.unicom_comms_fallback_1.name,
+
+  ]
+  consume_groups   = ["unicom.unit-sender-letter"]
+  cert_common_name = "unicom/unit-sender-letter"
+}
+
+module "batch_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.unicom_letter_released_critical_1.name,
+    kafka_topic.unicom_letter_released_important_1.name,
+    kafka_topic.unicom_letter_released_1.name,
+  ]
+
+  produce_topics = [
+    kafka_topic.unicom_letter_status_1.name,
+    kafka_topic.unicom_tests.name,
+    kafka_topic.unicom_cost_calculated_1.name,
+    kafka_topic.unicom_rendered_1.name,
+    kafka_topic.unicom_failed.name,
+    kafka_topic.unicom_comms_fallback_1.name,
+  ]
+  consume_groups   = ["unicom.batch-projector"]
+  cert_common_name = "unicom/batch-projector"
+}
+
+module "batch_releaser" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+  ]
+
+  produce_topics = [
+    kafka_topic.unicom_email_batch_1.name,
+    kafka_topic.unicom_sms_batch_1.name,
+    kafka_topic.unicom_letter_batch_1.name,
+  ]
+  consume_groups   = ["unicom.batch-releaser"]
+  cert_common_name = "unicom/batch-releaser"
+}
+
+module "batch_sender" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.unicom_letter_batch_critical_1.name,
+    kafka_topic.unicom_letter_batch_important_1.name,
+    kafka_topic.unicom_letter_batch_1.name,
+  ]
+
+  produce_topics = [
+    kafka_topic.unicom_letter_status_1.name,
+    kafka_topic.unicom_tests.name,
+    kafka_topic.unicom_cost_calculated_1.name,
+    kafka_topic.unicom_rendered_1.name,
+    kafka_topic.unicom_failed.name,
+    kafka_topic.unicom_comms_fallback_1.name,
+  ]
+  consume_groups   = ["unicom.batch-sender"]
+  cert_common_name = "unicom/batch-sender"
+}
+
+resource "kafka_topic" "unicom_push_notification_released_1" {
+  name               = "unicom.push-notification-released.1"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data for 6 months
+    "retention.ms" = "15552000000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+  }
+}
+
 resource "kafka_topic" "unicom_letter_send_adare" {
   name               = "unicom.letter-send-adare"
   partitions         = 15
@@ -754,32 +899,11 @@ resource "kafka_topic" "unicom_letter_send_adare" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 6 months
+    "retention.ms" = "15552000000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
-    # allow for a batch of records maximum 512MiB
-    "max.message.bytes" = "536870912"
-  }
-}
-
-resource "kafka_topic" "unicom_rejected" {
-  name               = "unicom.rejected"
-  partitions         = 15
-  replication_factor = 3
-
-  config = {
-    "cleanup.policy"   = "delete"
-    "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
-    # enable remote storage
-    "remote.storage.enable" = "true"
-    # keep data in primary storage for 3 days
-    "local.retention.ms" = "259200000"
-    # allow for a batch of records maximum 512MiB
-    "max.message.bytes" = "536870912"
   }
 }
