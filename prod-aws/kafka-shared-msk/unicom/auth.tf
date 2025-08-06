@@ -64,15 +64,16 @@ module "unicom_comms_fallback_sender" {
 }
 
 module "unicom_failed_retrigger" {
-  source         = "../../../modules/tls-app"
-  consume_topics = ["unicom.failed"]
-  consume_groups = [
-    "unicom.failed-retrigger",
+  source = "../../../modules/tls-app"
+  consume_topics = [
     "unicom.push-notification-released.1",
     "unicom.email-released.1",
     "unicom.sms-released.1",
     "unicom.letter-released.1",
     "unicom.failed"
+  ]
+  consume_groups = [
+    "unicom.failed-retrigger"
   ]
   produce_topics = [
     "unicom.email-released.1",
