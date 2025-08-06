@@ -197,6 +197,6 @@ module "mobile_loader" {
 
 module "telecom_fixed_line_loader_service" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.service_status_v4.name]
+  produce_topics   = [kafka_topic.service_status_v4.name, kafka_topic.service_status_deadletter_v4.name]
   cert_common_name = "customer-proposition/telecom-fixed-line-loader-service"
 }
