@@ -63,16 +63,18 @@ module "unicom_comms_fallback_sender" {
   cert_common_name = "unicom/comms_fallback_sender"
 }
 
-module "unicom_stannp_reporting" {
-  source           = "../../../modules/tls-app"
-  produce_topics   = ["unicom.letter-status.1", "unicom.cost-calculated.1"]
-  cert_common_name = "unicom/stannp_reporting"
-}
-
 module "unicom_failed_retrigger" {
-  source         = "../../../modules/tls-app"
-  consume_topics = ["unicom.failed"]
-  consume_groups = ["unicom.failed"]
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    "unicom.push-notification-released.1",
+    "unicom.email-released.1",
+    "unicom.sms-released.1",
+    "unicom.letter-released.1",
+    "unicom.failed"
+  ]
+  consume_groups = [
+    "unicom.failed-retrigger"
+  ]
   produce_topics = [
     "unicom.email-released.1",
     "unicom.sms-released.1",
@@ -125,6 +127,33 @@ module "unicom_clx_report" {
   cert_common_name = "unicom/clx_report"
 }
 
+module "unicom_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = ["unicom.requests"]
+  consume_groups   = ["unicom.consumer"]
+  produce_topics   = ["unicom.rejected"]
+  cert_common_name = "unicom/consumer"
+}
+
+module "unicom_unit_sender_letter_stannp" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    "unicom.letter-released-critical.1",
+    "unicom.letter-released-important.1",
+    "unicom.letter-released.1"
+  ]
+  consume_groups = ["unicom.unit-sender-letter-stannp"]
+  produce_topics = [
+    "unicom.letter-status.1",
+    "unicom.tests",
+    "unicom.cost-calculated.1",
+    "unicom.rendered.1",
+    "unicom.failed",
+    "unicom.comms-fallback.1"
+  ]
+  cert_common_name = "unicom/unit_sender_letter_stannp"
+}
+
 module "unicom_batch_releaser" {
   source = "../../../modules/tls-app"
   produce_topics = [
@@ -147,11 +176,33 @@ module "unicom_monitoring_clx_report" {
   cert_common_name = "unicom/monitoring-clx-report"
 }
 
+module "unicom_ses_mock" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = ["unicom.tests"]
+  cert_common_name = "unicom/ses_mock"
+}
+
+module "unicom_stannp_reporting" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = ["unicom.letter-status.1", "unicom.cost-calculated.1"]
+  cert_common_name = "unicom/stannp_reporting"
+}
+
 module "unicom_schedule" {
   source           = "../../../modules/tls-app"
   consume_topics   = ["unicom.scheduled.1"]
   consume_groups   = ["unicom.schedule_projector"]
   cert_common_name = "unicom/schedule"
+}
+
+module "unicom_schedule_releaser" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    "unicom.email-released.1",
+    "unicom.sms-released.1",
+    "unicom.letter-released.1"
+  ]
+  cert_common_name = "unicom/schedule-releaser"
 }
 
 module "unicom_es_connector" {
@@ -173,7 +224,8 @@ module "unicom_es_connector" {
     "unicom.cost-calculated.1",
     "unicom.email-post-delivery.1",
     "unicom.go-inspire-letter-status.1",
-    "unicom.cancel-status.1"
+    "unicom.cancel-status.1",
+    "unicom.rendered.1"
   ]
   consume_groups   = ["unicom.es_connector"]
   cert_common_name = "unicom/es_connector"
@@ -218,8 +270,10 @@ module "unicom_api" {
     "unicom.letter-released-important.1",
     "unicom.letter-released.1",
     "unicom.cancellation.1",
+    "unicom.push-notification-released.1",
   ]
   cert_common_name = "unicom/api"
+  consume_groups   = ["unicom.api"]
 }
 
 module "unicom_outbound_calls_bq_connector" {
@@ -249,6 +303,8 @@ module "unicom_bq_connector" {
     "unicom.email-post-delivery.1",
     "unicom.rendered.1",
     "unicom.cost-calculated.1",
+    "unicom.push-notification-released.1",
+    "unicom.push-notification-status.1"
   ]
   consume_groups   = ["unicom.bq-connector"]
   cert_common_name = "unicom/bq_connector"
@@ -270,6 +326,32 @@ module "unicom_sqs_relay" {
     "unicom.email-post-delivery.1"
   ]
   cert_common_name = "unicom/sqs_relay"
+}
+
+module "unicom_unit_sender_letter_otc" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    "unicom.letter-released-critical.1",
+    "unicom.letter-released-important.1",
+    "unicom.letter-released.1"
+  ]
+  consume_groups = ["unicom.unit-sender-letter-otc"]
+  produce_topics = [
+    "unicom.letter-status.1",
+    "unicom.tests",
+    "unicom.cost-calculated.1",
+    "unicom.rendered.1",
+    "unicom.failed",
+    "unicom.comms-fallback.1",
+    "unicom.letter-send-adare"
+  ]
+  cert_common_name = "unicom/unit_sender_letter_otc"
+}
+
+module "unicom_consumer_api" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = ["unicom.requests"]
+  cert_common_name = "unicom/consumer_api"
 }
 
 module "unicom_tracking" {
@@ -294,10 +376,49 @@ module "unicom_tracking" {
   ]
   consume_groups = ["unicom.tracking"]
   produce_topics = [
-    "unicom.status-v2",
+    "unicom.status-v2", # TODO
     "unicom.status",
   ]
   cert_common_name = "unicom/tracking"
+}
+
+module "unicom_unit_sender_letter" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    "unicom.letter-released-critical.1",
+    "unicom.letter-released-important.1",
+    "unicom.letter-released.1"
+  ]
+  consume_groups = ["unicom.unit-sender-letter"]
+  produce_topics = [
+    "unicom.letter-status.1",
+    "unicom.tests",
+    "unicom.cost-calculated.1",
+    "unicom.rendered.1",
+    "unicom.failed",
+    "unicom.comms-fallback.1"
+  ]
+  cert_common_name = "unicom/unit_sender_letter"
+}
+
+module "unicom_unit_sms_sender" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    "unicom.sms-released-critical.1",
+    "unicom.sms-released-important.1",
+    "unicom.sms-released.1"
+  ]
+  produce_topics = [
+    "unicom.sms-status.1",
+    "unicom.tests",
+    "unicom.cost-calculated.1",
+    "unicom.rendered.1",
+    "unicom.failed",
+    "unicom.comms-fallback.1"
+
+  ]
+  consume_groups   = ["unicom.unit-sms-sender"]
+  cert_common_name = "unicom/unit-sms-sender"
 }
 
 module "unicom_batch_sender" {
@@ -334,26 +455,6 @@ module "unicom_filter_cancellation" {
   cert_common_name = "unicom/filter_cancellation"
 }
 
-module "unicom_unit_sender_letter_otc" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
-    "unicom.letter-released-critical.1",
-    "unicom.letter-released-important.1",
-    "unicom.letter-released.1"
-  ]
-  consume_groups = ["unicom.unit-sender-letter-otc"]
-  produce_topics = [
-    "unicom.letter-status.1",
-    "unicom.tests",
-    "unicom.cost-calculated.1",
-    "unicom.rendered.1",
-    "unicom.failed",
-    "unicom.comms-fallback.1",
-    "unicom.letter-send-adare"
-  ]
-  cert_common_name = "unicom/unit_sender_letter_otc"
-}
-
 module "unicom_external_comms_api" {
   source = "../../../modules/tls-app"
   produce_topics = [
@@ -371,6 +472,32 @@ module "unicom_bill_failed_retrigger" {
   cert_common_name = "unicom/bill-failed-retrigger"
 }
 
+module "unicom_bill_email_connector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    "unicom.bill-failed"
+  ]
+  consume_groups   = ["unicom.bill-email-connector"]
+  cert_common_name = "unicom/bill_email_connector"
+}
+
+module "unicom_bill_sms_connector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    "unicom.bill-failed"
+  ]
+  consume_groups   = ["unicom.bill-sms-connector"]
+  cert_common_name = "unicom/bill_sms_connector"
+}
+
+module "unicom_bill_letter_connector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    "unicom.bill-failed"
+  ]
+  consume_groups   = ["unicom.bill-letter-connector"]
+  cert_common_name = "unicom/bill_letter_connector"
+}
 
 module "unicom_letter_zipper" {
   source = "../../../modules/tls-app"
