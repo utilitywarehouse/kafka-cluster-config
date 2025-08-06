@@ -428,7 +428,7 @@ module "unicom_batch_sender" {
     "unicom.letter-batch-important.1",
     "unicom.letter-batch.1"
   ]
-  consume_groups = ["unicom.batch_sender"]
+  consume_groups = ["unicom.batch-sender"]
   produce_topics = [
     "unicom.letter-status.1",
     "unicom.tests",
