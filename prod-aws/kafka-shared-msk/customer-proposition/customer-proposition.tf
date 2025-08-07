@@ -58,6 +58,26 @@ resource "kafka_topic" "service_status_v4" {
   }
 }
 
+resource "kafka_topic" "service_status_deadletter_v4" {
+  name = "customer-proposition.service-status.events.deadletter.v4"
+
+  replication_factor = 3
+  partitions         = 1
+
+  # infinite retention
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    "retention.ms"          = "-1" # keep data forever
+    # keep data in primary storage for 1 hour
+    "local.retention.ms" = "3600000"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 module "uswitch_event_forwarder" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.uswitch_events_v2.name]
@@ -144,7 +164,7 @@ module "bundle_service" {
 
 module "cbc_loader_service" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.service_status_v4.name]
+  produce_topics   = [kafka_topic.service_status_v4.name, kafka_topic.service_status_deadletter_v4.name]
   cert_common_name = "customer-proposition/cbc-loader-service"
 }
 
