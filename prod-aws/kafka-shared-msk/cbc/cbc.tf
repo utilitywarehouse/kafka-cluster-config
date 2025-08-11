@@ -1424,3 +1424,22 @@ module "cbc_graphql" {
   ]
   cert_common_name = "cbc/cbc-graphql-consumer"
 }
+
+module "cbc_incentives_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.order_events_v1.name
+  ]
+  consume_groups   = ["cbc.cbc-incentives-projector-v1"]
+  cert_common_name = "cbc/cbc-incentives-projector"
+}
+
+module "cbc_incentives_consumer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.lifecycle_events_v2.name
+  ]
+  consume_groups   = ["cbc.cbc-incentives-consumer-v1"]
+  cert_common_name = "cbc/cbc-incentives-consumer"
+}
