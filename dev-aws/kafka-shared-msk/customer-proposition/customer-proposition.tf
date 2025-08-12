@@ -205,5 +205,5 @@ module "es_indexer_service_status_v4" {
   source           = "../../../modules/tls-app"
   consume_groups   = ["customer-proposition.es-indexer-service-status.events.v4"]
   consume_topics   = [kafka_topic.service_status_v4.name]
-  cert_common_name = "customer-proposition/es-indexer-service-status.events.v4"
+  cert_common_name = "customer-proposition/es-indexer-service-status-events-v4"
 }
