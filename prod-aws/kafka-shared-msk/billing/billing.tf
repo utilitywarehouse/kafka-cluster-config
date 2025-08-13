@@ -20,7 +20,7 @@ resource "kafka_topic" "fixed_width_file_processing_events" {
 resource "kafka_topic" "bill_reconciliation_error_events" {
   name               = "billing.bill-reconciliation-error-events"
   replication_factor = 3
-  partitions         = 2
+  partitions         = 10
   config = {
     # store data zstd compressed
     "compression.type" = "zstd"
@@ -56,7 +56,7 @@ resource "kafka_topic" "unified_bill_ready_events" {
 resource "kafka_topic" "billing_engine_events_bce_deadletter" {
   name               = "billing.billing-engine-events-bce-deadletter"
   replication_factor = 3
-  partitions         = 2
+  partitions         = 10
   config = {
     # store data zstd compressed
     "compression.type" = "zstd"
