@@ -173,7 +173,10 @@ module "mail_sender_dlq_job" {
   consume_groups = [
     "bex.mail-sender-dlq-job"
   ]
-  produce_topics = [kafka_topic.invoice_fulfillment.name]
+  produce_topics = [
+    kafka_topic.invoice_fulfillment.name,
+    kafka_topic.transition_bex_fulfilment_request.name,
+  ]
 }
 
 module "email_sender_dlq_job" {
