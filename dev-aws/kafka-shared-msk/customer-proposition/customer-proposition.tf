@@ -184,8 +184,8 @@ module "bundle_service" {
 }
 
 module "cbc_loader_service" {
-  source           = "../../../modules/tls-app"
-  consume_groups   = [
+  source = "../../../modules/tls-app"
+  consume_groups = [
     "cbc.customer-proposition-cbc-loader-8",
     "cbc.customer-proposition-cbc-loader-6",
   ]
