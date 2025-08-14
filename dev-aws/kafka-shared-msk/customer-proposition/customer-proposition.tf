@@ -185,7 +185,12 @@ module "bundle_service" {
 
 module "cbc_loader_service" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.service_status_v4.name, kafka_topic.service_status_deadletter_v4.name, kafka_topic.lifecycle_events_v2.name]
+  consume_groups   = [
+    "cbc.customer-proposition-cbc-loader-8",
+    "cbc.customer-proposition-cbc-loader-6",
+  ]
+  consume_topics   = ["cbc.LifecycleEvents_v2"]
+  produce_topics   = [kafka_topic.service_status_v4.name, kafka_topic.service_status_deadletter_v4.name]
   cert_common_name = "customer-proposition/cbc-loader-service"
 }
 
