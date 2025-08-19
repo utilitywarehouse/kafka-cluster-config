@@ -1130,6 +1130,7 @@ module "cbc_customer_api" {
 module "cbc_customer_consumer" {
   source = "../../../modules/tls-app"
   consume_topics = [
+    kafka_topic.transaction_events_v3.name,
     kafka_topic.legacy_account_events_v2.name
   ]
   produce_topics   = [kafka_topic.lifecycle_events_v2.name]

@@ -1117,6 +1117,7 @@ module "cbc_customer_consumer" {
     kafka_topic.verification_events_v1.name,
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.customer_events_v1.name,
+    kafka_topic.transaction_events_v3.name,
     kafka_topic.legacy_account_events_v2.name
   ]
   produce_topics   = [kafka_topic.lifecycle_events_v2.name]
