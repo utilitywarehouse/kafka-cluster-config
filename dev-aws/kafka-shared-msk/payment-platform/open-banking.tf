@@ -147,7 +147,8 @@ module "payment_deadletterd" {
     kafka_topic.openbanking_v1_internal_payment_methods.name,
     kafka_topic.openbanking_v1_internal_settlements.name,
     kafka_topic.card_v1_internal.name,
-    kafka_topic.card_deadletter_v1_internal_payment_methods.name
+    kafka_topic.card_deadletter_v1_internal_payment_methods.name,
+    kafka_topic.card_v1_internal_notifications.name
   ]
   consume_topics = [
     kafka_topic.payment_deadletter_v1_events.name,
@@ -156,7 +157,8 @@ module "payment_deadletterd" {
     kafka_topic.openbanking_deadletter_v1_internal_payment_methods.name,
     kafka_topic.openbanking_deadletter_v1_internal_settlements.name,
     kafka_topic.card_deadletter_v1_internal.name,
-    kafka_topic.card_deadletter_v1_internal_payment_methods.name
+    kafka_topic.card_deadletter_v1_internal_payment_methods.name,
+    kafka_topic.card_deadletter_v1_internal_notifications.name
   ]
   consume_groups   = ["payment-platform.payment-deadletterd"]
   cert_common_name = "payment-platform/payment-deadletterd"
