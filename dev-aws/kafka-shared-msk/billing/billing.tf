@@ -38,7 +38,7 @@ resource "kafka_topic" "bill_reconciliation_error_events" {
 resource "kafka_topic" "unified_bill_ready_events" {
   name               = "billing.unified-bill-ready-events"
   replication_factor = 3
-  partitions         = 10
+  partitions         = 2
   config = {
     # store data zstd compressed
     "compression.type" = "zstd"
