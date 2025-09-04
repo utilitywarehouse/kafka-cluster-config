@@ -237,7 +237,8 @@ module "unicom_es_connector" {
     "unicom.email-post-delivery.1",
     "unicom.go-inspire-letter-status.1",
     "unicom.cancel-status.1",
-    "unicom.rendered.1"
+    "unicom.rendered.1",
+    "unicom.sftp-status"
   ]
   consume_groups   = ["unicom.es-connector"]
   cert_common_name = "unicom/es-connector"
@@ -297,7 +298,8 @@ module "unicom_bq_connector" {
     "unicom.rendered.1",
     "unicom.cost-calculated.1",
     "unicom.push-notification-released.1",
-    "unicom.push-notification-status.1"
+    "unicom.push-notification-status.1",
+    "unicom.sftp-status"
   ]
   consume_groups   = ["unicom.bq-connector"]
   cert_common_name = "unicom/bq_connector"
@@ -530,6 +532,7 @@ module "unicom_letter_zipper" {
   produce_topics = [
     "unicom.rejected",
     "unicom.failed",
+    "unicom.sftp-status"
   ]
   cert_common_name = "unicom/letter-zipper"
 }
