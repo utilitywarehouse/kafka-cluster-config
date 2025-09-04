@@ -1023,7 +1023,10 @@ module "cbc_order_processor" {
     kafka_topic.order_events_v1.name,
     kafka_topic.verification_events_v1.name
   ]
-  consume_groups = ["cbc.cbc-order-processor-v1"]
+  consume_groups = [
+    "cbc.cbc-order-processor-v1",
+    "cbc.local-test-consumer-v1",
+  ]
   produce_topics = [
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.order_events_v1.name
