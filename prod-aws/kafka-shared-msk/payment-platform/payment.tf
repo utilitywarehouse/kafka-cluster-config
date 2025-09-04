@@ -205,6 +205,13 @@ module "payment_method_v1_events_indexer" {
   cert_common_name = "payment-platform/payment-method-v1-events-indexer"
 }
 
+module "card_v1_notification_events_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["payment-platform.card.v1.internal.notifications-indexer"]
+  consume_topics   = [kafka_topic.card_v1_internal_notifications.name]
+  cert_common_name = "payment-platform/card-v1-notification-events-indexer"
+}
+
 module "cbc_topup_processor" {
   source           = "../../../modules/tls-app"
   consume_groups   = ["cbc.cbc-topup-processor-v1"]
