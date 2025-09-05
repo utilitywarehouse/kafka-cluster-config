@@ -16,11 +16,11 @@ module "meterpoints_v2_gentrack_supply_loss_projector" {
   cert_common_name = "energy-platform/meterpoints-v2-gentrack-supply-loss-projector"
 }
 
-module "meterpoints_v2_gentrack_registration_consumer" {
+module "meterpoints_v2_gentrack_supply_state_projector" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.gentrack_market_interactions_events.name,
   ]
-  consume_groups   = ["energy-platform.meterpoints-v2-gentrack-registration-consumer"]
-  cert_common_name = "energy-platform/meterpoints-v2-gentrack-registration-consumer"
+  consume_groups   = ["energy-platform.meterpoints-v2-gentrack-supply-state-projector"]
+  cert_common_name = "energy-platform/meterpoints-v2-gentrack-supply-state-projector"
 }
