@@ -907,3 +907,20 @@ resource "kafka_topic" "unicom_letter_send_adare" {
     "local.retention.ms" = "259200000"
   }
 }
+
+resource "kafka_topic" "unicom_sftp_status" {
+  name               = "unicom.sftp-status"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data for 6 months
+    "retention.ms" = "15552000000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+  }
+}
