@@ -49,7 +49,7 @@ module "meter_reads_api_queue" {
 }
 
 module "meter_reads_api_projector" {
-  source           = "../../../modules/tls-app"
+  source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.meter_reads.name,
     kafka_topic.gentrack_meter_read_events.name,
