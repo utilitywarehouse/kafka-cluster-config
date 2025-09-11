@@ -100,23 +100,6 @@ resource "kafka_topic" "mail_sender_reprint_deadletter" {
   }
 }
 
-resource "kafka_topic" "invoice_generator" {
-  name               = "bex.internal.invoices"
-  replication_factor = 3
-  partitions         = 10
-  config = {
-    "remote.storage.enable" = "true"
-    # keep data in primary storage for 1 day
-    "local.retention.ms" = "86400000"
-    # keep data for 7 days
-    "retention.ms" = "604800000"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
-    "compression.type"  = "zstd"
-    "cleanup.policy"    = "delete"
-  }
-}
-
 resource "kafka_topic" "invoice_ready_notifier_deadletter" {
   name               = "bex.internal.invoice_ready_notifier_deadletter"
   replication_factor = 3
@@ -129,23 +112,6 @@ resource "kafka_topic" "invoice_ready_notifier_deadletter" {
     "retention.ms" = "1209600000"
     # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
-    "compression.type"  = "zstd"
-    "cleanup.policy"    = "delete"
-  }
-}
-
-resource "kafka_topic" "bex_invoice_api" {
-  name               = "bex.internal.bex_invoice_produced"
-  replication_factor = 3
-  partitions         = 10
-  config = {
-    "remote.storage.enable" = "true"
-    # keep data in primary storage for 1 day
-    "local.retention.ms" = "86400000"
-    # keep data for 7 days
-    "retention.ms" = "604800000"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
