@@ -154,7 +154,7 @@ resource "kafka_topic" "replicated-billing-engine-events" {
     "retention.bytes"  = "-1"
     "retention.ms"     = "-1"
     # allow max 1MB for a message
-    "max.message.bytes" = "1048588"
+    "max.message.bytes" = "104857600"
     "cleanup.policy"    = "delete"
   }
 }
