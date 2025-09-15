@@ -154,6 +154,20 @@ resource "kafka_topic" "interactions_state_events" {
   }
 }
 
+resource "kafka_topic" "emitted_gql_states" {
+  name = "contact-channels.emitted_gql_states"
+
+  replication_factor = 3
+  partitions         = 3
+
+  config = {
+    "retention.ms"      = "86400000" # keep data for 1 day
+    "max.message.bytes" = "1048576"  # allow for a batch of records maximum 1MiB
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 resource "kafka_topic" "dsar" {
   name = "contact-channels.dsar"
 
@@ -342,13 +356,20 @@ module "survey_responses_bq_projector" {
   consume_groups   = ["contact-channels.survey-responses-bq-projector"]
 }
 
-# Consume from contact-channels.tracking_events
+# Consume and produce from contact-channels.tracking_events
 module "agent_state_builder" {
   source           = "../../../modules/tls-app"
   cert_common_name = "contact-channels/agent-state-builder"
   consume_topics   = [kafka_topic.genesys_eb_events.name]
   consume_groups   = ["contact-channels.eb-kafka-agent-state-builder"]
   produce_topics   = [kafka_topic.interactions_state_events.name]
+}
+
+# Produce to contact-channels.emitted_gql_states
+module "graphql_service" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/graphql-service"
+  produce_topics   = [kafka_topic.emitted_gql_states.name]
 }
 
 # Consume from contact-channels.interactions_state_events
@@ -373,6 +394,14 @@ module "interactions_state_events_es_indexer" {
   cert_common_name = "contact-channels/interactions-state-events-indexer"
   consume_topics   = [kafka_topic.interactions_state_events.name]
   consume_groups   = ["contact-channels.interactions-state-events-indexer"]
+}
+
+# Consume from contact-channels.emitted_gql_states (ES Topic Indexer)
+module "emitted_gql_states_es_indexer" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/emitted-gql-states-indexer"
+  consume_topics   = [kafka_topic.emitted_gql_states.name]
+  consume_groups   = ["contact-channels.emitted-gql-states-indexer"]
 }
 
 # Produce to contact-channels.dsar
