@@ -154,8 +154,8 @@ resource "kafka_topic" "interactions_state_events" {
   }
 }
 
-resource "kafka_topic" "emitted_gql_states" {
-  name = "contact-channels.emitted_gql_states"
+resource "kafka_topic" "sent_agent_states" {
+  name = "contact-channels.sent_agent_states"
 
   replication_factor = 3
   partitions         = 3
@@ -365,19 +365,12 @@ module "agent_state_builder" {
   produce_topics   = [kafka_topic.interactions_state_events.name]
 }
 
-# Produce to contact-channels.emitted_gql_states
-module "graphql_service" {
-  source           = "../../../modules/tls-app"
-  cert_common_name = "contact-channels/graphql-service"
-  produce_topics   = [kafka_topic.emitted_gql_states.name]
-}
-
 # Consume from contact-channels.interactions_state_events
 module "agent_state_service" {
   source           = "../../../modules/tls-app"
   cert_common_name = "contact-channels/agent-state-service"
   consume_topics   = [kafka_topic.interactions_state_events.name]
-  produce_topics   = [kafka_topic.interactions_state_events.name]
+  produce_topics   = [kafka_topic.interactions_state_events.name, kafka_topic.sent_agent_states.name]
 }
 
 # Consume from contact-channels.genesys_eb_events (ES Topic Indexer)
@@ -396,12 +389,12 @@ module "interactions_state_events_es_indexer" {
   consume_groups   = ["contact-channels.interactions-state-events-indexer"]
 }
 
-# Consume from contact-channels.emitted_gql_states (ES Topic Indexer)
-module "emitted_gql_states_es_indexer" {
+# Consume from contact-channels.sent_agent_states (ES Topic Indexer)
+module "sent_agent_states_es_indexer" {
   source           = "../../../modules/tls-app"
-  cert_common_name = "contact-channels/emitted-gql-states-indexer"
-  consume_topics   = [kafka_topic.emitted_gql_states.name]
-  consume_groups   = ["contact-channels.emitted-gql-states-indexer"]
+  cert_common_name = "contact-channels/sent-agent-states-indexer"
+  consume_topics   = [kafka_topic.sent_agent_states.name]
+  consume_groups   = ["contact-channels.sent-agent-states-indexer"]
 }
 
 # Produce to contact-channels.dsar
