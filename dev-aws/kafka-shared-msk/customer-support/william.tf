@@ -7,7 +7,7 @@ resource "kafka_topic" "notes_v2" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # keep for 1 year
+    # keep data for 1 year
     "retention.ms" = "31557600000"
   }
   name               = "customer-support.notes_v2"
@@ -24,7 +24,7 @@ resource "kafka_topic" "ticketing_v2" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # keep for 1 year
+    # keep data for 1 year
     "retention.ms" = "31557600000"
   }
   name               = "customer-support.ticketing_v2"
