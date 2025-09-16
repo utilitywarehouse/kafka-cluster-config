@@ -1,4 +1,4 @@
-*                              @utilitywarehouse/pubsub
+*                              @utilitywarehouse/system
 /**/account-platform/          @utilitywarehouse/account-identity
 /**/account-identity/          @utilitywarehouse/account-identity
 /**/billing/                   @utilitywarehouse/billing-maintainers
@@ -9,13 +9,13 @@
 /**/customer-support/          @utilitywarehouse/customer-support
 /**/data-infra/                @utilitywarehouse/data-infra-mono-maintainers
 /**/energy-platform/           @utilitywarehouse/org-energy
-/**/energy-billing/           @utilitywarehouse/org-energy
+/**/energy-billing/            @utilitywarehouse/org-energy
 /**/finance/                   @utilitywarehouse/finance-maintainers
 /**/iam/                       @utilitywarehouse/account-identity
 /**/iam-audit/                 @utilitywarehouse/account-identity
 /**/insurance/                 @utilitywarehouse/org-insurance
 /**/ledgers/                   @utilitywarehouse/ledgers
-/**/otel/                      @utilitywarehouse/otel @utilitywarehouse/system
+/**/otel/                      @utilitywarehouse/system
 /**/payment-platform/          @utilitywarehouse/payments-maintainers
 /**/unicom/                    @utilitywarehouse/org-communications
 /**/workplace-infrastructure/  @utilitywarehouse/workplace-infrastructure
