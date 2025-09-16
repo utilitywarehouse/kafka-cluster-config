@@ -6,12 +6,13 @@ resource "kafka_topic" "fraud_events" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -40,12 +41,13 @@ resource "kafka_topic" "rating_events_v3" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -57,12 +59,13 @@ resource "kafka_topic" "challenge_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -74,12 +77,13 @@ resource "kafka_topic" "charges_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -91,12 +95,13 @@ resource "kafka_topic" "lifecycle_events_v2" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -108,12 +113,13 @@ resource "kafka_topic" "topup_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -125,12 +131,13 @@ resource "kafka_topic" "transaction_events_v3" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -142,12 +149,13 @@ resource "kafka_topic" "openbanking_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -159,12 +167,13 @@ resource "kafka_topic" "order_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -176,12 +185,13 @@ resource "kafka_topic" "paymentology_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -193,12 +203,13 @@ resource "kafka_topic" "sodexo_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -210,12 +221,13 @@ resource "kafka_topic" "verification_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -227,12 +239,13 @@ resource "kafka_topic" "customer_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -244,12 +257,13 @@ resource "kafka_topic" "migration_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -261,12 +275,13 @@ resource "kafka_topic" "network_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -278,12 +293,13 @@ resource "kafka_topic" "mdes_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -295,12 +311,13 @@ resource "kafka_topic" "service_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -312,12 +329,13 @@ resource "kafka_topic" "crm_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -329,12 +347,13 @@ resource "kafka_topic" "legacy_account_events_v2" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 
@@ -346,12 +365,13 @@ resource "kafka_topic" "eqdb_loader_events_v1" {
 
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1"       # keep on each partition unlimited data
-    "retention.ms"          = "-1"       # keep data forever
-    "local.retention.ms"    = "18000000" # keep data in primary storage for 5 hours
-    "max.message.bytes"     = "2097152"  # allow for a batch of records maximum 2MiB
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"       # keep data forever
+    "local.retention.ms" = "18000000" # keep data in primary storage for 5 hours
+    "max.message.bytes"  = "2097152"  # allow for a batch of records maximum 2MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
   }
 }
 

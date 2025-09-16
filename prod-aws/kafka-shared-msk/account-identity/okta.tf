@@ -3,6 +3,7 @@ resource "kafka_topic" "account_identity_staff_okta_v6" {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"

@@ -8,6 +8,7 @@ resource "kafka_topic" "coffee_account_history_v1" {
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
   }
   name               = "customer-support.coffee_account_history_v1"
@@ -25,6 +26,7 @@ resource "kafka_topic" "coffee_services" {
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
   }
   name               = "customer-support.coffee_services"

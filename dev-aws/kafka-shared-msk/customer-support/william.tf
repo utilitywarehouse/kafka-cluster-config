@@ -8,6 +8,7 @@ resource "kafka_topic" "notes_v2" {
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
   }
   name               = "customer-support.notes_v2"
@@ -25,6 +26,7 @@ resource "kafka_topic" "ticketing_v2" {
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
   }
   name               = "customer-support.ticketing_v2"

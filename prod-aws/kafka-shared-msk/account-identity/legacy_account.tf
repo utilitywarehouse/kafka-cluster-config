@@ -30,6 +30,7 @@ resource "kafka_topic" "account_identity_legacy_account_events" {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
@@ -87,6 +88,7 @@ resource "kafka_topic" "account_identity_legacy_account_created_in_bill_events" 
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
@@ -103,6 +105,7 @@ resource "kafka_topic" "account_identity_legacy_account_events_private" {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
@@ -119,6 +122,7 @@ resource "kafka_topic" "account_identity_legacy_account_eqdb_events" {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
