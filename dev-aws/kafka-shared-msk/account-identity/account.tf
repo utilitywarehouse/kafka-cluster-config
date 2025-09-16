@@ -3,6 +3,7 @@ resource "kafka_topic" "account_identity_account_events_v2" {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
@@ -19,6 +20,7 @@ resource "kafka_topic" "account_identity_account_atomic_v1" {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
@@ -77,6 +79,7 @@ resource "kafka_topic" "account_identity_public_account_events" {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
@@ -137,6 +140,7 @@ resource "kafka_topic" "account_identity_account_history_v1" {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"

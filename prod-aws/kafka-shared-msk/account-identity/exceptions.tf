@@ -7,6 +7,7 @@ resource "kafka_topic" "account_identity_account_exceptions_v1" {
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
   }
   name               = "account-identity.account.exceptions.v1"
@@ -69,6 +70,7 @@ resource "kafka_topic" "account_identity_land_registry_check_events" {
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
   }
   name               = "account-identity.land-registry.check.events"
@@ -97,6 +99,7 @@ resource "kafka_topic" "account_identity_land_registry_check_events_test" {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"

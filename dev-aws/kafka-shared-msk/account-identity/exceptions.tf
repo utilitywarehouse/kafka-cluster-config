@@ -7,6 +7,7 @@ resource "kafka_topic" "account_identity_account_exceptions_v1" {
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
   }
   name               = "account-identity.account.exceptions.v1"
@@ -35,6 +36,7 @@ resource "kafka_topic" "account_identity_supply_address_exception_check_events" 
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms"     = "-1"
     "compression.type" = "zstd"
 
@@ -52,6 +54,7 @@ resource "kafka_topic" "account_identity_supply_address_debt_exception_check_eve
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms"     = "-1"
     "compression.type" = "zstd"
   }
@@ -68,6 +71,7 @@ resource "kafka_topic" "account_identity_correspondence_address_exception_check_
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms"     = "-1"
     "compression.type" = "zstd"
   }
@@ -85,6 +89,7 @@ resource "kafka_topic" "account_identity_land_registry_check_events" {
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
   }
   name               = "account-identity.land-registry.check.events"
@@ -100,6 +105,7 @@ resource "kafka_topic" "account_identity_correspondence_address_debt_exception_c
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms"     = "-1"
     "compression.type" = "zstd"
   }

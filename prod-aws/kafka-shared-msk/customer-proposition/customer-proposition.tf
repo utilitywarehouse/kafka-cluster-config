@@ -8,7 +8,8 @@ resource "kafka_topic" "uswitch_data_v1" {
   config = {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1" # keep on each partition unlimited data
-    "retention.ms"          = "-1" # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms" = "-1" # keep data forever
     # keep data in primary storage for 1 hour
     "local.retention.ms" = "3600000"
     # allow for a batch of records maximum 1MiB
@@ -28,7 +29,8 @@ resource "kafka_topic" "uswitch_events_v2" {
   config = {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1" # keep on each partition unlimited data
-    "retention.ms"          = "-1" # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms" = "-1" # keep data forever
     # keep data in primary storage for 1 hour
     "local.retention.ms" = "3600000"
     # allow for a batch of records maximum 1MiB
@@ -48,7 +50,8 @@ resource "kafka_topic" "service_status_v4" {
   config = {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1" # keep on each partition unlimited data
-    "retention.ms"          = "-1" # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms" = "-1" # keep data forever
     # keep data in primary storage for 1 hour
     "local.retention.ms" = "3600000"
     # allow for a batch of records maximum 1MiB
@@ -68,7 +71,8 @@ resource "kafka_topic" "service_status_deadletter_v4" {
   config = {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1" # keep on each partition unlimited data
-    "retention.ms"          = "-1" # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms" = "-1" # keep data forever
     # keep data in primary storage for 1 hour
     "local.retention.ms" = "3600000"
     # allow for a batch of records maximum 1MiB

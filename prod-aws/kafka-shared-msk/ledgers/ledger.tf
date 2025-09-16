@@ -12,6 +12,7 @@ resource "kafka_topic" "account_balance_events" {
     "local.retention.ms" = "172800000"
     # TODO revisit
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # delete old data
     "cleanup.policy" = "delete"
@@ -31,6 +32,7 @@ resource "kafka_topic" "transaction_events" {
     "local.retention.ms" = "172800000"
     # TODO revisit
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # delete old data
     "cleanup.policy" = "delete"

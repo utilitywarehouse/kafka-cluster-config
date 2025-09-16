@@ -176,7 +176,8 @@ resource "kafka_topic" "public_fulfilment_events" {
     "remote.storage.enable" = "true"
     # keep on each partition unlimited data
     "retention.bytes" = "-1"
-    "retention.ms"    = "-1" # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms" = "-1" # keep data forever
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # allow for a batch of records maximum 1MiB
