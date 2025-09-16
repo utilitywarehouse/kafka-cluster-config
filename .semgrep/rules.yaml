@@ -1,4 +1,10 @@
 rules:
+  # Do not allow ignoring all
+  - id: tflint-no-ignore-all
+    pattern-regex: tflint-ignore.*all
+    message: "Only selective ignores are allowed with tflint."
+    languages: [terraform]
+    severity: ERROR
   # Do not allow ignoring the msk_topic_name rule
   - id: enforce-msk-topic-name
     pattern-regex: tflint-ignore.*msk_topic_name
@@ -8,6 +14,11 @@ rules:
   - id: enforce-msk-app-topics
     pattern-regex: tflint-ignore.*msk_app_topics
     message: "TLS apps in the MSK configuration must be defined the module they produce/consume on"
+    languages: [terraform]
+    severity: ERROR
+  - id: enforce-msk-topics-configs
+    pattern-regex: tflint-ignore.*msk_topic_config
+    message: "MSK topics must follow recommended configurations"
     languages: [terraform]
     severity: ERROR
   - id: enforce-msk-app-consume-groups
