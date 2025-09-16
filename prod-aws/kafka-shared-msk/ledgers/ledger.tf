@@ -11,9 +11,8 @@ resource "kafka_topic" "account_balance_events" {
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # TODO revisit
-    # keep data forever
-    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
-    "retention.ms" = "-1"
+    # keep data for 1 year
+    "retention.ms" = "31556952000"
     # delete old data
     "cleanup.policy" = "delete"
   }
@@ -31,9 +30,8 @@ resource "kafka_topic" "transaction_events" {
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
     # TODO revisit
-    # keep data forever
-    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
-    "retention.ms" = "-1"
+    # keep data for 1 year
+    "retention.ms" = "31556952000"
     # delete old data
     "cleanup.policy" = "delete"
   }
