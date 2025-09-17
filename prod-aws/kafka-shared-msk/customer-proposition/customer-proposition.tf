@@ -197,3 +197,10 @@ module "es_indexer_service_status_dl_v4" {
   consume_topics   = [kafka_topic.service_status_deadletter_v4.name]
   cert_common_name = "customer-proposition/es-indexer-service-status-events-dl-v4"
 }
+
+module "service_status_api_projector" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["customer-proposition.service-status-api-projector.events.v4"]
+  consume_topics   = [kafka_topic.service_status_v4.name]
+  cert_common_name = "customer-proposition/service-status-api-projector"
+}
