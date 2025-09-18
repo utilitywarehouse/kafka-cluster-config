@@ -128,11 +128,11 @@ module "gentrack_migration" {
 }
 
 
-module "billing_adapter" {
+module "billing_s3_event_consumer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.gentrack_billing_events.name]
-  consume_groups   = ["energy-billing.billing-adapter"]
-  cert_common_name = "energy-billing/billing-adapter"
+  consume_groups   = ["energy-billing.billing-s3-event-consumer"]
+  cert_common_name = "energy-billing/billing-s3-event-consumer"
 }
 
 module "billing_sqs_processor" {
