@@ -7,9 +7,8 @@ resource "kafka_topic" "payments_audit_log_v1" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # keep data forever
-    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
-    "retention.ms" = "-1"
+    # keep data for 7 years
+    "retention.ms" = "220898664000"
   }
   name               = "customer-support.payments_audit_log_v1"
   partitions         = 10
