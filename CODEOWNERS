@@ -3,7 +3,7 @@
 /**/account-identity/          @utilitywarehouse/account-identity
 /**/billing/                   @utilitywarehouse/billing-maintainers
 /**/cbc/                       @utilitywarehouse/org-cashback
-/**/contact-channels/          @utilitywarehouse/org-contact-channels
+/**/contact-channels/          @utilitywarehouse/org-help-experience
 /**/customer-billing/          @utilitywarehouse/org-billing-experience
 /**/customer-proposition/      @utilitywarehouse/org-multi-service-innovation
 /**/customer-support/          @utilitywarehouse/customer-support
