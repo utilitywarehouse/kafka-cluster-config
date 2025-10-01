@@ -1,8 +1,12 @@
-# Applying configuration to the exp cluster
+# Experimental MSK cluster
+This module holds the configuration of the experimental MSK cluster.
 
-These module holds the configuration to the experimental MSK cluster. Since
-this temporary and inteded for experimentation, the configuraiton is applied
-manually via the `msk-admin-client`.
+Full instructions on how to setup and use the experiental MSK cluster at
+[here](https://github.com/utilitywarehouse/documentation/blob/master/infra/operational/kafka-upgrade.md)
+
+## Applying configuration to the exp cluster
+Since this is temporary and inteded for experimentation, the configuration is
+applied manually via the `msk-admin-client`.
 
 The setup is very close the shared-msk cluster, so these steps are based on the
 [TERRAFORM_DEBUG](https://github.com/utilitywarehouse/kafka-cluster-config/tree/master/prod-aws/kafka-shared-msk/TERRAFORM_DEBUG.md)
