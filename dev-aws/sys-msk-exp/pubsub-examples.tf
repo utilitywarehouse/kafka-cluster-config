@@ -15,27 +15,27 @@ resource "kafka_topic" "pubsub_examples" {
 }
 
 module "example_producer" {
-  source           = "../../../modules/tls-app"
+  source           = "../../modules/tls-app"
   produce_topics   = [kafka_topic.pubsub_examples.name]
   cert_common_name = "pubsub/example-producer"
 }
 
 module "example_process_individually_consumer" {
-  source           = "../../../modules/tls-app"
+  source           = "../../modules/tls-app"
   consume_topics   = [(kafka_topic.pubsub_examples.name)]
   consume_groups   = ["pubsub.example-consume-process-individually"]
   cert_common_name = "pubsub/example-consume-process-individually"
 }
 
 module "example_process_concurrently_consumer" {
-  source           = "../../../modules/tls-app"
+  source           = "../../modules/tls-app"
   consume_topics   = [(kafka_topic.pubsub_examples.name)]
   consume_groups   = ["pubsub.example-consume-process-concurrently"]
   cert_common_name = "pubsub/example-consume-process-concurrently"
 }
 
 module "example_process_batch_consumer" {
-  source           = "../../../modules/tls-app"
+  source           = "../../modules/tls-app"
   consume_topics   = [(kafka_topic.pubsub_examples.name)]
   consume_groups   = ["pubsub.example-consume-process-batch"]
   cert_common_name = "pubsub/example-consume-process-batch"
