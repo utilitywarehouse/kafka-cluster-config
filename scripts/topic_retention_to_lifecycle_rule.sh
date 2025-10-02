@@ -1,7 +1,8 @@
-
 #!/usr/bin/env bash
 
-root_cluster=$1
+env=$1
+
+root_cluster="../${env}-aws/kafka-shared-msk"
 S3_PREFIX="msk-backup-parquet"
 OUTPUT_DIR="${root_cluster}/msk-backup-bucket-retention"
 OUTPUT_FILE="${OUTPUT_DIR}/retention.tf"
@@ -36,7 +37,7 @@ find "${root_cluster}" -name "*.tf" -print0 | xargs -0 awk '
     # Process at end of resource block
     total_resources++
     
-    if(topic=="") {
+    if(topic == "") {
       empty_name_topics++
       print "WARNING: Empty topic name for resource: " resource_name > "/dev/stderr"
     }
@@ -71,7 +72,7 @@ find "${root_cluster}" -name "*.tf" -print0 | xargs -0 awk '
 mkdir -p "$OUTPUT_DIR"
 
 # Print lifecycle rules - one rule per topic
-awk -F= -v s3_prefix="$S3_PREFIX" '
+awk -F= -v s3_prefix="$S3_PREFIX" -v env="$env" '
 {
   topic=$1
   days=$2
@@ -84,7 +85,7 @@ END {
   print "#################################"
   print ""
   print "resource \"aws_s3_bucket_lifecycle_configuration\" \"msk_topics_retention\" {"
-  print "  bucket = \"uw-dev-pubsub-msk-backup\""
+  print "  bucket = \"uw-" env "-pubsub-msk-backup\""
   print ""
 
   # Sort topics alphabetically
