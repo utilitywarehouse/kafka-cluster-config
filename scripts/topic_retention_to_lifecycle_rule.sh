@@ -1,3 +1,4 @@
+
 #!/usr/bin/env bash
 
 root_cluster=$1
@@ -20,11 +21,12 @@ find ${root_cluster} -name "*.tf" | xargs awk '
 # Create output directory if it doesn't exist
 mkdir -p "$OUTPUT_DIR"
 
-# Merge by retention and print lifecycle rules
+# Print lifecycle rules - one rule per topic
 awk -F= -v s3_prefix="$S3_PREFIX" '
 {
+  topic=$1
   days=$2
-  topics[days] = topics[days] ? topics[days]" "$1 : $1
+  topics[topic]=days
 }
 END {
   # Print header
@@ -36,40 +38,32 @@ END {
   print "  bucket = \"uw-dev-pubsub-msk-backup\""
   print ""
 
-  # Collect and sort retention days ascending
+  # Sort topics alphabetically
   n=0
-  for(d in topics) days_arr[++n]=d
+  for(t in topics) topics_arr[++n]=t
   for(i=1;i<=n;i++){
     for(j=i+1;j<=n;j++){
-      if(days_arr[i]+0>days_arr[j]+0){tmp=days_arr[i];days_arr[i]=days_arr[j];days_arr[j]=tmp}
+      if(topics_arr[i]>topics_arr[j]){tmp=topics_arr[i];topics_arr[i]=topics_arr[j];topics_arr[j]=tmp}
     }
   }
 
+  # Generate one rule per topic
   for(i=1;i<=n;i++){
-    d=days_arr[i]
-    split(topics[d], arr, " ")
-    # Manual bubble sort instead of asort()
-    arr_len=length(arr)
-    for(m=1;m<=arr_len;m++){
-      for(k=m+1;k<=arr_len;k++){
-        if(arr[m]>arr[k]){tmp_arr=arr[m];arr[m]=arr[k];arr[k]=tmp_arr}
-      }
-    }
+    topic=topics_arr[i]
+    d=topics[topic]
+    s3_path=topic; gsub("_",".",s3_path)
     printf "  rule {\n"
-    printf "    id     = \"retention_%d\"\n", d
+    printf "    id     = \"%s\"\n", topic
     printf "    status = \"Enabled\"\n"
     printf "    expiration { days = %d }\n", d
-    for(j=1;j<=arr_len;j++){
-      s3_path=arr[j]; gsub("_",".",s3_path)
-      printf "    filter { prefix = \"%s/%s/\" }\n", s3_prefix, s3_path
-    }
-    print "  }"
+    printf "    filter { prefix = \"%s/%s/\" }\n", s3_prefix, s3_path
+    printf "  }\n\n"
   }
 
   # Print closing brace
   print "}"
 }' "$TMP" > "$OUTPUT_FILE"
 
-rm "$TMP"
-
+#rm "$TMP"
+echo "TMP file is at $TMP"
 echo "Generated: $OUTPUT_FILE"
