@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# --- START VALIDATION ---
+# Ensure exactly one argument is provided and it's either "dev" or "prod".
+if [[ "$#" -ne 1 || ("$1" != "dev" && "$1" != "prod") ]]; then
+  echo "Usage: $0 <dev|prod>" >&2
+  echo "Error: Please provide a single environment argument: 'dev' or 'prod'." >&2
+  exit 1
+fi
+# --- END VALIDATION ---
+
 env=$1
 
 root_cluster="../${env}-aws/kafka-shared-msk"
@@ -17,14 +26,14 @@ find "${root_cluster}" -name "*.tf" -print0 | xargs -0 awk '
     no_retention_topics=0
     empty_name_topics=0
   }
-  /resource "kafka_topic"/ { 
+  /resource "kafka_topic"/ {
     in_resource=1
     topic=""
     retention_ms=""
     resource_name=$3
     gsub(/"/,"",resource_name)
   }
-  in_resource && /name[ ]*=/ { 
+  in_resource && /name[ ]*=/ {
     topic=$NF
     gsub(/"/,"",topic)
     gsub(/[ \t]/,"",topic)
@@ -33,15 +42,15 @@ find "${root_cluster}" -name "*.tf" -print0 | xargs -0 awk '
     retention_ms=$3
     gsub(/[^0-9-]/,"",retention_ms)
   }
-  in_resource && /^}/ { 
+  in_resource && /^}/ {
     # Process at end of resource block
     total_resources++
-    
+
     if(topic == "") {
       empty_name_topics++
       print "WARNING: Empty topic name for resource: " resource_name > "/dev/stderr"
     }
-    
+
     if(retention_ms == "") {
       no_retention_topics++
     } else if(retention_ms+0 <= 0) {
@@ -53,7 +62,7 @@ find "${root_cluster}" -name "*.tf" -print0 | xargs -0 awk '
         print topic "=" d
       }
     }
-    
+
     in_resource=0
     topic=""
     retention_ms=""
@@ -64,7 +73,7 @@ find "${root_cluster}" -name "*.tf" -print0 | xargs -0 awk '
     print "Topics with infinite retention (retention.ms <= 0): " infinite_topics > "/dev/stderr"
     print "Topics without retention.ms (compacted topics): " no_retention_topics > "/dev/stderr"
     print "Topics with empty name: " empty_name_topics > "/dev/stderr"
-    print "Topics with valid retention: " (total_resources - infinite_topics - no_retention_topics) > "/dev/stderr"
+    print "Topics with associated bucket rules: " (total_resources - infinite_topics - no_retention_topics) > "/dev/stderr"
   }
 ' > "$TMP"
 
