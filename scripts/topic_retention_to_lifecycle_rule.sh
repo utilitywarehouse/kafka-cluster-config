@@ -9,24 +9,44 @@ TMP=$(mktemp)
 
 # Extract topic=days from name attribute, skip retention.ms <= 0
 find ${root_cluster} -name "*.tf" | xargs awk '
-  /resource "kafka_topic"/ { in_resource=1; topic="" }
-  in_resource && /name[ ]*=/ {
-    topic=$NF;
-    gsub(/"/,"",topic);
+  /resource "kafka_topic"/ { 
+    in_resource=1
+    topic=""
+    retention_ms=""
+    resource_name=$3
+    gsub(/"/,"",resource_name)
+  }
+  in_resource && /name[ ]*=/ { 
+    topic=$NF
+    gsub(/"/,"",topic)
     gsub(/[ \t]/,"",topic)
   }
   in_resource && /"retention.ms"/ {
-    ms=$3; gsub(/[^0-9-]/,"",ms)
-    # Skip if retention.ms is <= 0 (infinite or invalid retention)
-    if(ms+0 <= 0) {
-      in_resource=0
-      next
-    }
-    d=int(ms/86400000)
-    if(d>0 && topic!="") print topic "=" d
-    in_resource=0
+    retention_ms=$3
+    gsub(/[^0-9-]/,"",retention_ms)
   }
-  in_resource && /^}/ { in_resource=0 }
+  in_resource && /^}/ {
+    # Process at end of resource block
+    if(topic== "" ) {
+      print "WARNING: Empty topic name for resource: " resource_name > "/dev/stderr"
+    }
+    if(retention_ms == "") {
+      print "WARNING: Empty retention.ms for resource: " resource_name > "/dev/stderr"
+    }
+    if(retention_ms != "" && topic != "") {
+      # Skip if retention.ms is <= 0 (infinite or invalid retention)
+      if(retention_ms+0 > 0) {
+        # add 1 day to topic retention for safety
+        d=int(retention_ms/86400000) + 1
+        print topic "=" d
+      } else {
+        print "INFO: Skipping infinite retention topic for resource " resource_name " (retention.ms=" retention_ms ")" > "/dev/stderr"
+      }
+    }
+    in_resource=0
+    topic=""
+    retention_ms=""
+  }
 ' > "$TMP"
 
 # Create output directory if it doesn't exist
