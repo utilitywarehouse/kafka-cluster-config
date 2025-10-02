@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 
 root_cluster=$1
@@ -8,14 +7,26 @@ OUTPUT_FILE="${OUTPUT_DIR}/retention.tf"
 
 TMP=$(mktemp)
 
-# Extract topic=days
+# Extract topic=days from name attribute, skip retention.ms <= 0
 find ${root_cluster} -name "*.tf" | xargs awk '
-  /resource "kafka_topic"/ { t=$3; gsub(/"/,"",t) }
-  /"retention.ms"/ {
-    ms=$3; gsub(/[^0-9]/,"",ms)
-    d=int(ms/86400000)
-    if(d>0) print t "=" d
+  /resource "kafka_topic"/ { in_resource=1; topic="" }
+  in_resource && /name[ ]*=/ {
+    topic=$NF;
+    gsub(/"/,"",topic);
+    gsub(/[ \t]/,"",topic)
   }
+  in_resource && /"retention.ms"/ {
+    ms=$3; gsub(/[^0-9-]/,"",ms)
+    # Skip if retention.ms is <= 0 (infinite or invalid retention)
+    if(ms+0 <= 0) {
+      in_resource=0
+      next
+    }
+    d=int(ms/86400000)
+    if(d>0 && topic!="") print topic "=" d
+    in_resource=0
+  }
+  in_resource && /^}/ { in_resource=0 }
 ' > "$TMP"
 
 # Create output directory if it doesn't exist
