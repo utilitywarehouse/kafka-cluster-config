@@ -55,7 +55,9 @@ END {
         if(arr[m]>arr[k]){tmp_arr=arr[m];arr[m]=arr[k];arr[k]=tmp_arr}
       }
     }
-    printf "  rule { \n id = \"retention_%d\"\n status = \"Enabled\"\n", d
+    printf "  rule {\n"
+    printf "    id     = \"retention_%d\"\n", d
+    printf "    status = \"Enabled\"\n"
     printf "    expiration { days = %d }\n", d
     for(j=1;j<=arr_len;j++){
       s3_path=arr[j]; gsub("_",".",s3_path)
@@ -67,11 +69,6 @@ END {
   # Print closing brace
   print "}"
 }' "$TMP" > "$OUTPUT_FILE"
-
-# Format with terraform fmt if available
-if command -v terraform &> /dev/null; then
-  terraform fmt "$OUTPUT_FILE"
-fi
 
 rm "$TMP"
 
