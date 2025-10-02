@@ -1,3 +1,4 @@
+
 #!/usr/bin/env bash
 
 root_cluster=$1
@@ -8,7 +9,13 @@ OUTPUT_FILE="${OUTPUT_DIR}/retention.tf"
 TMP=$(mktemp)
 
 # Extract topic=days from name attribute, skip retention.ms <= 0
-find ${root_cluster} -name "*.tf" | xargs awk '
+find "${root_cluster}" -name "*.tf" -print0 | xargs -0 awk '
+  BEGIN {
+    total_resources=0
+    infinite_topics=0
+    no_retention_topics=0
+    empty_name_topics=0
+  }
   /resource "kafka_topic"/ { 
     in_resource=1
     topic=""
@@ -25,27 +32,38 @@ find ${root_cluster} -name "*.tf" | xargs awk '
     retention_ms=$3
     gsub(/[^0-9-]/,"",retention_ms)
   }
-  in_resource && /^}/ {
+  in_resource && /^}/ { 
     # Process at end of resource block
-    if(topic== "" ) {
+    total_resources++
+    
+    if(topic=="") {
+      empty_name_topics++
       print "WARNING: Empty topic name for resource: " resource_name > "/dev/stderr"
     }
+    
     if(retention_ms == "") {
-      print "WARNING: Empty retention.ms for resource: " resource_name > "/dev/stderr"
-    }
-    if(retention_ms != "" && topic != "") {
-      # Skip if retention.ms is <= 0 (infinite or invalid retention)
-      if(retention_ms+0 > 0) {
-        # add 1 day to topic retention for safety
-        d=int(retention_ms/86400000) + 1
+      no_retention_topics++
+    } else if(retention_ms+0 <= 0) {
+      infinite_topics++
+    } else {
+      # Valid retention with positive value
+      d=int(retention_ms/86400000) + 1
+      if(topic!="") {
         print topic "=" d
-      } else {
-        print "INFO: Skipping infinite retention topic for resource " resource_name " (retention.ms=" retention_ms ")" > "/dev/stderr"
       }
     }
+    
     in_resource=0
     topic=""
     retention_ms=""
+  }
+  END {
+    print "\n=== Statistics ===" > "/dev/stderr"
+    print "Total kafka_topic resources found: " total_resources > "/dev/stderr"
+    print "Topics with infinite retention (retention.ms <= 0): " infinite_topics > "/dev/stderr"
+    print "Topics without retention.ms (compacted topics): " no_retention_topics > "/dev/stderr"
+    print "Topics with empty name: " empty_name_topics > "/dev/stderr"
+    print "Topics with valid retention: " (total_resources - infinite_topics - no_retention_topics) > "/dev/stderr"
   }
 ' > "$TMP"
 
@@ -95,6 +113,6 @@ END {
   print "}"
 }' "$TMP" > "$OUTPUT_FILE"
 
-#rm "$TMP"
-echo "TMP file is at $TMP"
+rm "$TMP"
+
 echo "Generated: $OUTPUT_FILE"
