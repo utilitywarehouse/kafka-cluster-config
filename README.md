@@ -17,7 +17,24 @@ $ pre-commit install
 # do a test run on all the files in the repo
 $ pre-commit run --all-files
 ```
-The validations will run, from now on, **before each git commit**.
+The validations will run automatically, from now on, **before each git commit**.
+
+## MSK backup bucket retention synchronisation
+This section describes the automated process for aligning the S3 backup lifecycle with our MSK topic retention policies. For more background, see the [MSK Backup Strategy documentation](https://github.com/utilitywarehouse/documentation/blob/master/infra/operational/msk-ops.md#msk-data-backup).
+
+### Automation Workflow
+
+We use a Git pre-commit hook to ensure that the S3 lifecycle policies for our backup bucket never diverge from the Kafka topic configurations stored in this repository.
+
+When you run `git commit`, the `generate_backup_bucket_retention.sh` script is triggered automatically. This script parses the `retention.ms` setting for every topic and generates a Terraform configuration (`generated-retention.tf`). This file defines the S3 `Expiration` action for each topic's backup prefix, ensuring that backup data is deleted after the specified retention period.
+
+### Your Responsibility
+
+**Important:** For this automation to function, you must first perform the one-time configuration detailed in the [Initial setup](#initial-setup) chapter of this file. This step installs the pre-commit hook required for the script to run.
+
+Once the setup is complete, your only ongoing responsibility is to manage the retention settings in the Kafka topic configuration files. The pre-commit hook handles the task of translating that setting into the required S3 lifecycle policy, which prevents configuration drift and simplifies storage management.
+
+As an alternative, you can also manually run `make generate` before committing, so that your commit succeeds from the start.
 
 ## Why is this repository public?
 It contains standard kafka configuration and does not include confidential information
