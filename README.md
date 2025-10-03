@@ -5,7 +5,19 @@ Uses [this terraform kafka provider](https://registry.terraform.io/providers/Mon
 Aggregates resources for different teams willing to migrate from the [kafka topic applier](https://github.com/utilitywarehouse/kafka-topic-applier) or other styles of configuring topics.
 
 ## Contributing
-See [Contributing doc](./CONTRIBUTING.md)
+
+Linting & generation files is handled via `pre-commit`.
+
+### Initial setup
+Follow the [install instructions](https://pre-commit.com/#install), and additionally [install Terraform](https://developer.hashicorp.com/terraform/install) and [tflint](https://github.com/terraform-linters/tflint?tab=readme-ov-file#installation). 
+Then install and run the hooks to test:
+
+``` console
+$ pre-commit install
+# do a test run on all the files in the repo
+$ pre-commit run --all-files
+```
+The validations will run, from now on, **before each git commit**.
 
 ## Why is this repository public?
 It contains standard kafka configuration and does not include confidential information
