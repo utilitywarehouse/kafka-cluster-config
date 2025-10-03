@@ -16,8 +16,7 @@ set -o pipefail
 
 # --- GLOBAL SETUP ---
 # Determine the absolute path of the directory where the script is located.
-# This makes the script independent of the directory it's called from.
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+readonly SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # Create a temporary file and set a trap to clean it up on script exit.
 TMP_FILE=$(mktemp)
@@ -26,15 +25,18 @@ trap 'rm -f -- "$TMP_FILE"' EXIT
 # --- FUNCTION DEFINITIONS ---
 
 ##
-# Finds all kafka topic resources and extracts retention data.
+# Finds all kafka topic resources, extracts retention data, sorts it,
+# and saves it to a temporary file.
 # Globals:
 #   TMP_FILE
 # Arguments:
-#   $1: The root directory to search for Terraform files (e.g., ../dev-aws/kafka-shared-msk).
+#   $1: The root directory to search for Terraform files.
 ##
 extract_topic_retention_data() {
   local root_cluster="$1"
 
+  # Find, extract, and sort the data before writing it to the temp file.
+  # Use LC_ALL=C to ensure a consistent, portable sort order across systems.
   find "${root_cluster}" -name "*.tf" -print0 | xargs -0 awk '
     BEGIN {
       total_resources=0
@@ -87,7 +89,7 @@ extract_topic_retention_data() {
       print "Topics with empty name: " empty_name_topics > "/dev/stderr"
       print "Topics with associated bucket rules: " (total_resources - infinite_topics - no_retention_topics) > "/dev/stderr"
     }
-  ' > "$TMP_FILE"
+  ' | LC_ALL=C sort > "$TMP_FILE"
 }
 
 ##
@@ -122,7 +124,7 @@ EOF
 }
 
 ##
-# Generates and appends Terraform rules to the output file.
+# Generates and appends Terraform rules to the output file from pre-sorted data.
 # Globals:
 #   TMP_FILE
 # Arguments:
@@ -133,36 +135,20 @@ output_rules() {
   local output_file="$1"
   local s3_prefix="$2"
 
-  # Append the dynamically generated rules from the temp file.
+  # Append rules by processing the pre-sorted temp file line-by-line.
   awk -F= -v s3_prefix="$s3_prefix" '
   {
     topic=$1
     days=$2
-    topics[topic]=days
+    s3_path=topic; gsub("_",".",s3_path)
+    printf "  rule {\n"
+    printf "    id     = \"%s\"\n", topic
+    printf "    status = \"Enabled\"\n"
+    printf "    expiration { days = %d }\n", days
+    printf "    filter { prefix = \"%s/%s/\" }\n", s3_prefix, s3_path
+    printf "  }\n\n"
   }
-  END {
-    # Sort topics alphabetically: portable manual sort for macOS compatibility.
-    n=0
-    for(t in topics) topics_arr[++n]=t
-    for(i=1;i<=n;i++){
-      for(j=i+1;j<=n;j++){
-        if(topics_arr[i]>topics_arr[j]){tmp_sort=topics_arr[i];topics_arr[i]=topics_arr[j];topics_arr[j]=tmp_sort}
-      }
-    }
-
-    # Generate one rule per topic
-    for(i=1;i<=n;i++){
-      topic=topics_arr[i]
-      d=topics[topic]
-      s3_path=topic; gsub("_",".",s3_path)
-      printf "  rule {\n"
-      printf "    id     = \"%s\"\n", topic
-      printf "    status = \"Enabled\"\n"
-      printf "    expiration { days = %d }\n", d
-      printf "    filter { prefix = \"%s/%s/\" }\n", s3_prefix, s3_path
-      printf "  }\n\n"
-    }
-  }' "$TMP_FILE" >> "$output_file"
+  ' "$TMP_FILE" >> "$output_file"
 
   # Append the final closing brace.
   echo "}" >> "$output_file"
@@ -171,13 +157,12 @@ output_rules() {
 # --- MAIN LOGIC ---
 main() {
   local env="$1"
-  # Construct the path relative to the script's actual location.
   local root_cluster="${SCRIPT_DIR}/../${env}-aws/kafka-shared-msk"
   local s3_prefix="msk-backup-parquet"
   local output_dir="${root_cluster}/msk-backup-bucket-retention"
   local output_file="${output_dir}/retention.tf"
 
-  # Step 1: Extract data into a temporary file.
+  # Step 1: Extract and sort data into a temporary file.
   extract_topic_retention_data "$root_cluster"
 
   # Step 2: Generate the Terraform configuration file.

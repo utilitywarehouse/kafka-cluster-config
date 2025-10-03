@@ -65,17 +65,17 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "auth-customer.iam-credentials-v1"
-    status = "Enabled"
-    expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/auth-customer.iam-credentials-v1/" }
-  }
-
-  rule {
     id     = "auth-customer.iam-credentials-v1-public"
     status = "Enabled"
     expiration { days = 8 }
     filter { prefix = "msk-backup-parquet/auth-customer.iam-credentials-v1-public/" }
+  }
+
+  rule {
+    id     = "auth-customer.iam-credentials-v1"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "msk-backup-parquet/auth-customer.iam-credentials-v1/" }
   }
 
   rule {
@@ -478,17 +478,17 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "data-infra.e2e.multi"
-    status = "Enabled"
-    expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/data-infra.e2e.multi/" }
-  }
-
-  rule {
     id     = "data-infra.e2e.multi-dpd"
     status = "Enabled"
     expiration { days = 2 }
     filter { prefix = "msk-backup-parquet/data-infra.e2e.multi-dpd/" }
+  }
+
+  rule {
+    id     = "data-infra.e2e.multi"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "msk-backup-parquet/data-infra.e2e.multi/" }
   }
 
   rule {
@@ -513,17 +513,17 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "data-infra.product.v1.events.dlq"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.product.v1.events.dlq/" }
-  }
-
-  rule {
     id     = "data-infra.product.v1.events.dlq.alerts"
     status = "Enabled"
     expiration { days = 4 }
     filter { prefix = "msk-backup-parquet/data-infra.product.v1.events.dlq.alerts/" }
+  }
+
+  rule {
+    id     = "data-infra.product.v1.events.dlq"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/data-infra.product.v1.events.dlq/" }
   }
 
   rule {
@@ -639,13 +639,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "payment-platform.card-deadletter.v1.internal"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.card-deadletter.v1.internal/" }
-  }
-
-  rule {
     id     = "payment-platform.card-deadletter.v1.internal.payment-methods"
     status = "Enabled"
     expiration { days = 31 }
@@ -653,10 +646,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "payment-platform.card.v1.internal"
+    id     = "payment-platform.card-deadletter.v1.internal"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.card.v1.internal/" }
+    filter { prefix = "msk-backup-parquet/payment-platform.card-deadletter.v1.internal/" }
   }
 
   rule {
@@ -671,6 +664,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 31 }
     filter { prefix = "msk-backup-parquet/payment-platform.card.v1.internal.payment-methods/" }
+  }
+
+  rule {
+    id     = "payment-platform.card.v1.internal"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/payment-platform.card.v1.internal/" }
   }
 
   rule {
@@ -786,17 +786,17 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "payment-platform.payment.gateway.reconciliation"
-    status = "Enabled"
-    expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.gateway.reconciliation/" }
-  }
-
-  rule {
     id     = "payment-platform.payment.gateway.reconciliation.status-changed"
     status = "Enabled"
     expiration { days = 366 }
     filter { prefix = "msk-backup-parquet/payment-platform.payment.gateway.reconciliation.status-changed/" }
+  }
+
+  rule {
+    id     = "payment-platform.payment.gateway.reconciliation"
+    status = "Enabled"
+    expiration { days = 366 }
+    filter { prefix = "msk-backup-parquet/payment-platform.payment.gateway.reconciliation/" }
   }
 
   rule {
@@ -835,13 +835,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "payment-platform.payment.v1.public.events"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.v1.public.events/" }
-  }
-
-  rule {
     id     = "payment-platform.payment.v1.public.events.cbc_topup_v3"
     status = "Enabled"
     expiration { days = 31 }
@@ -853,6 +846,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 31 }
     filter { prefix = "msk-backup-parquet/payment-platform.payment.v1.public.events.pp.test/" }
+  }
+
+  rule {
+    id     = "payment-platform.payment.v1.public.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/payment-platform.payment.v1.public.events/" }
   }
 
   rule {
@@ -905,17 +905,17 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "unicom.caps"
-    status = "Enabled"
-    expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.caps/" }
-  }
-
-  rule {
     id     = "unicom.caps-consent"
     status = "Enabled"
     expiration { days = 92 }
     filter { prefix = "msk-backup-parquet/unicom.caps-consent/" }
+  }
+
+  rule {
+    id     = "unicom.caps"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "msk-backup-parquet/unicom.caps/" }
   }
 
   rule {
@@ -1234,13 +1234,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "unicom.status"
-    status = "Enabled"
-    expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.status/" }
-  }
-
-  rule {
     id     = "unicom.status-bill-email-connector"
     status = "Enabled"
     expiration { days = 92 }
@@ -1266,6 +1259,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 92 }
     filter { prefix = "msk-backup-parquet/unicom.status-v2/" }
+  }
+
+  rule {
+    id     = "unicom.status"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "msk-backup-parquet/unicom.status/" }
   }
 
   rule {
