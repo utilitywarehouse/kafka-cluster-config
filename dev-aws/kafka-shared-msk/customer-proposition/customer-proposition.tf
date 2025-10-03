@@ -188,6 +188,13 @@ module "bundle_service" {
   cert_common_name = "customer-proposition/bundle-service"
 }
 
+module "bundle_evaluator" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["customer-proposition.bundle-tier-evaluator.v1"]
+  consume_topics   = [kafka_topic.service_status_v4.name]
+  cert_common_name = "customer-proposition/bundle-evaluator"
+}
+
 module "cbc_loader_service" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.service_status_v4.name, kafka_topic.service_status_deadletter_v4.name]
