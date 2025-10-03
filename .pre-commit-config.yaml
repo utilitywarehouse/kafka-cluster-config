@@ -48,5 +48,6 @@ repos:
       name: Generate dev backup bucket retention
       entry: scripts/generate_backup_bucket_retention.sh
       language: script
-      args: [dev]
+      args: ['dev']
+      pass_filenames: false
       files: "^.*dev-aws/kafka-shared-msk/.+/.*$"

@@ -15,8 +15,11 @@ set -u
 set -o pipefail
 
 # --- GLOBAL SETUP ---
+# Determine the absolute path of the directory where the script is located.
+# This makes the script independent of the directory it's called from.
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 # Create a temporary file and set a trap to clean it up on script exit.
-# This is done globally to avoid function scope issues with the trap.
 TMP_FILE=$(mktemp)
 trap 'rm -f -- "$TMP_FILE"' EXIT
 
@@ -168,7 +171,8 @@ output_rules() {
 # --- MAIN LOGIC ---
 main() {
   local env="$1"
-  local root_cluster="../${env}-aws/kafka-shared-msk"
+  # Construct the path relative to the script's actual location.
+  local root_cluster="${SCRIPT_DIR}/../${env}-aws/kafka-shared-msk"
   local s3_prefix="msk-backup-parquet"
   local output_dir="${root_cluster}/msk-backup-bucket-retention"
   local output_file="${output_dir}/retention.tf"
