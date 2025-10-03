@@ -6,6 +6,16 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   bucket = "uw-dev-pubsub-msk-backup"
 
   rule {
+    id     = "default-to-intelligent-tiering"
+    status = "Enabled"
+    filter {}
+    transition {
+      days          = 0
+      storage_class = "INTELLIGENT_TIERING"
+    }
+  }
+
+  rule {
     id     = "account-identity.account-management-events"
     status = "Enabled"
     expiration { days = 8 }
