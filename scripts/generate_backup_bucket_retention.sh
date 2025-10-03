@@ -45,9 +45,8 @@ main() {
       gsub(/"/,"",resource_name)
     }
     in_resource && /name[ ]*=/ {
-      topic=$NF
+      topic=$3
       gsub(/"/,"",topic)
-      gsub(/[ \t]/,"",topic)
     }
     in_resource && /"retention.ms"/ {
       retention_ms=$3
