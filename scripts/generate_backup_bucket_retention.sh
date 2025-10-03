@@ -160,7 +160,7 @@ main() {
   local root_cluster="${SCRIPT_DIR}/../${env}-aws/kafka-shared-msk"
   local s3_prefix="msk-backup-parquet"
   local output_dir="${root_cluster}/msk-backup-bucket-retention"
-  local output_file="${output_dir}/retention.tf"
+  local output_file="${output_dir}/generated-retention.tf"
 
   # Step 1: Extract and sort data into a temporary file.
   extract_topic_retention_data "$root_cluster"
