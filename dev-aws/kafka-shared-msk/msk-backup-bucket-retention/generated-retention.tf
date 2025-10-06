@@ -856,13 +856,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "pubsub.examples3"
-    status = "Enabled"
-    expiration { days = 1 }
-    filter { prefix = "msk-backup-parquet/pubsub.examples3/" }
-  }
-
-  rule {
     id     = "pubsub.examples"
     status = "Enabled"
     expiration { days = 1 }

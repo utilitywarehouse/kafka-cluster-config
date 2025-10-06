@@ -14,22 +14,6 @@ resource "kafka_topic" "pubsub_examples" {
   }
 }
 
-resource "kafka_topic" "pubsub_examples3" {
-  name               = "pubsub.examples3"
-  replication_factor = 3
-  partitions         = 3
-  config = {
-    # keep on each partition 9.8GiB
-    "retention.bytes" = "10485760000"
-    # keep data for 6 hours
-    "retention.ms" = "21600000"
-    # allow for a batch of records maximum 1MiB
-    "max.message.bytes" = "1048576"
-    "compression.type"  = "zstd"
-    "cleanup.policy"    = "delete"
-  }
-}
-
 module "example_producer" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.pubsub_examples.name]
