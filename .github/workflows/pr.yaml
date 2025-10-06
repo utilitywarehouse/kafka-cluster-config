@@ -22,7 +22,14 @@ jobs:
       run: |
         make generate
         git add .
-        # The following command will fail if there are any staged changes.
-        # The '||' operator ensures that if the git diff command fails,
-        # we print a custom error message and then exit with an error code.
-        git diff --staged --exit-code || (echo "The generated files must be updated part of your PR. You must run \`make generate\` and commit the changed generated files" && exit 1)
+        # If git diff finds staged changes, it will exit with a non-zero status code.
+        # The '||' operator will then execute the commands on the right, printing
+        # a detailed, multi-line error message before failing the step.
+        git diff --staged --exit-code || ( \
+          printf '%s\n' \
+            "----------------------------------------------------------------------" \
+            "FAILURE REASON: The generated files must be updated part of your PR." \
+            "HOW TO FIX: You must run \`make generate\` and commit the changed generated files" \
+            "----------------------------------------------------------------------"; \
+          exit 1; \
+        )
