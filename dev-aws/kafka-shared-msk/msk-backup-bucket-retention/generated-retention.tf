@@ -117,126 +117,126 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     id     = "bex.internal.accountreadytobefulfilled_deadletter"
     status = "Enabled"
     expiration { days = 15 }
-    filter { prefix = "msk-backup-parquet/bex.internal.accountreadytobefulfilled.deadletter/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.accountreadytobefulfilled_deadletter/" }
   }
 
   rule {
     id     = "bex.internal.bill_fulfilled"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/bex.internal.bill.fulfilled/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.bill_fulfilled/" }
   }
 
   rule {
     id     = "bex.internal.bill_regeneration"
     status = "Enabled"
     expiration { days = 15 }
-    filter { prefix = "msk-backup-parquet/bex.internal.bill.regeneration/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.bill_regeneration/" }
   }
 
   rule {
     id     = "bex.internal.bill_regeneration_deadletter"
     status = "Enabled"
     expiration { days = 15 }
-    filter { prefix = "msk-backup-parquet/bex.internal.bill.regeneration.deadletter/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.bill_regeneration_deadletter/" }
   }
 
   rule {
     id     = "bex.internal.bill_regeneration_large_invoice"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/bex.internal.bill.regeneration.large.invoice/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.bill_regeneration_large_invoice/" }
   }
 
   rule {
     id     = "bex.internal.bill_regeneration_retry_1"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/bex.internal.bill.regeneration.retry.1/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.bill_regeneration_retry_1/" }
   }
 
   rule {
     id     = "bex.internal.bill_regeneration_retry_2"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/bex.internal.bill.regeneration.retry.2/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.bill_regeneration_retry_2/" }
   }
 
   rule {
     id     = "bex.internal.email_sender_deadletter"
     status = "Enabled"
     expiration { days = 15 }
-    filter { prefix = "msk-backup-parquet/bex.internal.email.sender.deadletter/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.email_sender_deadletter/" }
   }
 
   rule {
     id     = "bex.internal.exstream_invoice_produced"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/bex.internal.exstream.invoice.produced/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.exstream_invoice_produced/" }
   }
 
   rule {
     id     = "bex.internal.fulfilment_deadletter"
     status = "Enabled"
     expiration { days = 29 }
-    filter { prefix = "msk-backup-parquet/bex.internal.fulfilment.deadletter/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.fulfilment_deadletter/" }
   }
 
   rule {
     id     = "bex.internal.fulfilment_large_invoice"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/bex.internal.fulfilment.large.invoice/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.fulfilment_large_invoice/" }
   }
 
   rule {
     id     = "bex.internal.fulfilment_retry_1"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/bex.internal.fulfilment.retry.1/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.fulfilment_retry_1/" }
   }
 
   rule {
     id     = "bex.internal.fulfilment_retry_2"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/bex.internal.fulfilment.retry.2/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.fulfilment_retry_2/" }
   }
 
   rule {
     id     = "bex.internal.invoice_ready_notifier_deadletter"
     status = "Enabled"
     expiration { days = 15 }
-    filter { prefix = "msk-backup-parquet/bex.internal.invoice.ready.notifier.deadletter/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.invoice_ready_notifier_deadletter/" }
   }
 
   rule {
     id     = "bex.internal.mail_sender_deadletter"
     status = "Enabled"
     expiration { days = 15 }
-    filter { prefix = "msk-backup-parquet/bex.internal.mail.sender.deadletter/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.mail_sender_deadletter/" }
   }
 
   rule {
     id     = "bex.internal.mail_sender_reprint_deadletter"
     status = "Enabled"
     expiration { days = 15 }
-    filter { prefix = "msk-backup-parquet/bex.internal.mail.sender.reprint.deadletter/" }
+    filter { prefix = "msk-backup-parquet/bex.internal.mail_sender_reprint_deadletter/" }
   }
 
   rule {
     id     = "bex.public.fulfilment_events"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/bex.public.fulfilment.events/" }
+    filter { prefix = "msk-backup-parquet/bex.public.fulfilment_events/" }
   }
 
   rule {
     id     = "bex.transition.fulfilment_request"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/bex.transition.fulfilment.request/" }
+    filter { prefix = "msk-backup-parquet/bex.transition.fulfilment_request/" }
   }
 
   rule {
@@ -299,7 +299,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     id     = "contact-channels.article_feedback_v1"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/contact-channels.article.feedback.v1/" }
+    filter { prefix = "msk-backup-parquet/contact-channels.article_feedback_v1/" }
   }
 
   rule {
@@ -313,161 +313,161 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     id     = "contact-channels.dsar_conversation"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/contact-channels.dsar.conversation/" }
+    filter { prefix = "msk-backup-parquet/contact-channels.dsar_conversation/" }
   }
 
   rule {
     id     = "contact-channels.dsar_job"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/contact-channels.dsar.job/" }
+    filter { prefix = "msk-backup-parquet/contact-channels.dsar_job/" }
   }
 
   rule {
     id     = "contact-channels.finished_conversations"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/contact-channels.finished.conversations/" }
+    filter { prefix = "msk-backup-parquet/contact-channels.finished_conversations/" }
   }
 
   rule {
     id     = "contact-channels.finished_segments"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/contact-channels.finished.segments/" }
+    filter { prefix = "msk-backup-parquet/contact-channels.finished_segments/" }
   }
 
   rule {
     id     = "contact-channels.finished_transcriptions"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/contact-channels.finished.transcriptions/" }
+    filter { prefix = "msk-backup-parquet/contact-channels.finished_transcriptions/" }
   }
 
   rule {
     id     = "contact-channels.genesys_eb_events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/contact-channels.genesys.eb.events/" }
+    filter { prefix = "msk-backup-parquet/contact-channels.genesys_eb_events/" }
   }
 
   rule {
     id     = "contact-channels.intents_v2"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/contact-channels.intents.v2/" }
+    filter { prefix = "msk-backup-parquet/contact-channels.intents_v2/" }
   }
 
   rule {
     id     = "contact-channels.interactions_state_events"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/contact-channels.interactions.state.events/" }
+    filter { prefix = "msk-backup-parquet/contact-channels.interactions_state_events/" }
   }
 
   rule {
     id     = "contact-channels.messenger_transcript_events"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/contact-channels.messenger.transcript.events/" }
+    filter { prefix = "msk-backup-parquet/contact-channels.messenger_transcript_events/" }
   }
 
   rule {
     id     = "contact-channels.messenger_transcript_events_dlq"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/contact-channels.messenger.transcript.events.dlq/" }
+    filter { prefix = "msk-backup-parquet/contact-channels.messenger_transcript_events_dlq/" }
   }
 
   rule {
     id     = "contact-channels.sent_agent_states"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/contact-channels.sent.agent.states/" }
+    filter { prefix = "msk-backup-parquet/contact-channels.sent_agent_states/" }
   }
 
   rule {
     id     = "contact-channels.tracking_events"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/contact-channels.tracking.events/" }
+    filter { prefix = "msk-backup-parquet/contact-channels.tracking_events/" }
   }
 
   rule {
     id     = "contact-channels.validated_intents_v2"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/contact-channels.validated.intents.v2/" }
+    filter { prefix = "msk-backup-parquet/contact-channels.validated_intents_v2/" }
   }
 
   rule {
     id     = "customer-support.account_history_eqdb_notifications_v1"
     status = "Enabled"
     expiration { days = 1 }
-    filter { prefix = "msk-backup-parquet/customer-support.account.history.eqdb.notifications.v1/" }
+    filter { prefix = "msk-backup-parquet/customer-support.account_history_eqdb_notifications_v1/" }
   }
 
   rule {
     id     = "customer-support.coffee_account_history_v1"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/customer-support.coffee.account.history.v1/" }
+    filter { prefix = "msk-backup-parquet/customer-support.coffee_account_history_v1/" }
   }
 
   rule {
     id     = "customer-support.coffee_services"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/customer-support.coffee.services/" }
+    filter { prefix = "msk-backup-parquet/customer-support.coffee_services/" }
   }
 
   rule {
     id     = "customer-support.notes_v2"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/customer-support.notes.v2/" }
+    filter { prefix = "msk-backup-parquet/customer-support.notes_v2/" }
   }
 
   rule {
     id     = "customer-support.payments_audit_log_v1"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/customer-support.payments.audit.log.v1/" }
+    filter { prefix = "msk-backup-parquet/customer-support.payments_audit_log_v1/" }
   }
 
   rule {
     id     = "customer-support.reminders_notifications_v1"
     status = "Enabled"
     expiration { days = 1 }
-    filter { prefix = "msk-backup-parquet/customer-support.reminders.notifications.v1/" }
+    filter { prefix = "msk-backup-parquet/customer-support.reminders_notifications_v1/" }
   }
 
   rule {
     id     = "customer-support.reminders_v1"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/customer-support.reminders.v1/" }
+    filter { prefix = "msk-backup-parquet/customer-support.reminders_v1/" }
   }
 
   rule {
     id     = "customer-support.ticketing_v2"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/customer-support.ticketing.v2/" }
+    filter { prefix = "msk-backup-parquet/customer-support.ticketing_v2/" }
   }
 
   rule {
     id     = "customer-support.vulnerability_v7"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/customer-support.vulnerability.v7/" }
+    filter { prefix = "msk-backup-parquet/customer-support.vulnerability_v7/" }
   }
 
   rule {
     id     = "data-infra.bill_event_bridge.dlq"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.bill.event.bridge.dlq/" }
+    filter { prefix = "msk-backup-parquet/data-infra.bill_event_bridge.dlq/" }
   }
 
   rule {
@@ -495,7 +495,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     id     = "data-infra.e2e.multi_project"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/data-infra.e2e.multi.project/" }
+    filter { prefix = "msk-backup-parquet/data-infra.e2e.multi_project/" }
   }
 
   rule {
@@ -579,7 +579,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     id     = "energy-platform.gentrack.market_interactions.events"
     status = "Enabled"
     expiration { days = 181 }
-    filter { prefix = "msk-backup-parquet/energy-platform.gentrack.market.interactions.events/" }
+    filter { prefix = "msk-backup-parquet/energy-platform.gentrack.market_interactions.events/" }
   }
 
   rule {
@@ -838,14 +838,14 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     id     = "payment-platform.payment.v1.public.events.cbc_topup_v3"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.v1.public.events.cbc.topup.v3/" }
+    filter { prefix = "msk-backup-parquet/payment-platform.payment.v1.public.events.cbc_topup_v3/" }
   }
 
   rule {
     id     = "payment-platform.payment.v1.public.events.pp_test"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.v1.public.events.pp.test/" }
+    filter { prefix = "msk-backup-parquet/payment-platform.payment.v1.public.events.pp_test/" }
   }
 
   rule {

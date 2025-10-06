@@ -140,7 +140,7 @@ output_rules() {
   {
     topic=$1
     days=$2
-    s3_path=topic; gsub("_",".",s3_path)
+    s3_path=topic;
     printf "  rule {\n"
     printf "    id     = \"%s\"\n", topic
     printf "    status = \"Enabled\"\n"
