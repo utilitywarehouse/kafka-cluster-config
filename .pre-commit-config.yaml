@@ -41,13 +41,3 @@ repos:
   hooks:
     - id: semgrep-ci
       args: ['--config', '.semgrep/rules.yaml', '--error', '--skip-unknown-extensions']
-
-- repo: local
-  hooks:
-    - id: generate-dev-backup-bucket-retention
-      name: Generate dev backup bucket retention
-      entry: scripts/generate_backup_bucket_retention.sh
-      language: script
-      args: ['dev']
-      pass_filenames: false
-      files: "^.*dev-aws/kafka-shared-msk/.+/.*$"

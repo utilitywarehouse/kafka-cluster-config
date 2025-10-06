@@ -2,4 +2,4 @@ lint:
 	pre-commit run
 
 generate:
-	pre-commit run generate-dev-backup-bucket-retention
+	./scripts/generate_backup_bucket_retention.sh dev

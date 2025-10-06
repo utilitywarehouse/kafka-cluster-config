@@ -6,9 +6,10 @@ Aggregates resources for different teams willing to migrate from the [kafka topi
 
 ## Contributing
 
-Linting & generation files is handled via `pre-commit`.
+### Linting
+Linting is handled via `pre-commit`.
 
-### Initial setup
+#### Initial setup
 Follow the [install instructions](https://pre-commit.com/#install), and additionally [install Terraform](https://developer.hashicorp.com/terraform/install) and [tflint](https://github.com/terraform-linters/tflint?tab=readme-ov-file#installation). 
 Then install and run the hooks to test:
 
@@ -19,22 +20,20 @@ $ pre-commit run --all-files
 ```
 The validations will run automatically, from now on, **before each git commit**.
 
-## MSK backup bucket retention synchronisation
-This section describes the automated process for aligning the S3 backup lifecycle with our MSK topic retention policies. For more background, see the [MSK Backup Strategy documentation](https://github.com/utilitywarehouse/documentation/blob/master/infra/operational/msk-ops.md#msk-data-backup).
+### Synchronizing S3 Backup Retention with MSK Topics
 
-### Automation Workflow
+**Action Required:** When adding or removing a new MSK topic, or updating the `retention.ms` configuration for an existing one, you must run `make generate` and commit the updated `generated-retention.tf` file.
 
-We use a Git pre-commit hook to ensure that the S3 lifecycle policies for our backup bucket never diverge from the Kafka topic configurations stored in this repository.
+#### Overview
 
-When you run `git commit`, the `generate_backup_bucket_retention.sh` script is triggered automatically. This script parses the `retention.ms` setting for every topic and generates a Terraform configuration (`generated-retention.tf`). This file defines the S3 `Expiration` action for each topic's backup prefix, ensuring that backup data is deleted after the specified retention period.
+We back up MSK topic data to an S3 bucket. To align the S3 data lifecycle with the source topic's retention policy, we automatically generate Terraform configuration that sets the expiration for backed-up data.
 
-### Your Responsibility
+The `make generate` command executes the [scripts/generate_backup_bucket_retention.sh](scripts/generate_backup_bucket_retention.sh) script. This script:
+1.  Parses the `retention.ms` value for every topic.
+2.  Generates the `generated-retention.tf` file.
+3.  This file defines an S3 Lifecycle expiration rule for each topic's backup prefix, ensuring S3 objects are automatically deleted after the topic's retention period expires.
 
-**Important:** For this automation to function, you must first perform the one-time configuration detailed in the [Initial setup](#initial-setup) chapter of this file. This step installs the pre-commit hook required for the script to run.
-
-Once the setup is complete, your only ongoing responsibility is to manage the retention settings in the Kafka topic configuration files. The pre-commit hook handles the task of translating that setting into the required S3 lifecycle policy, which prevents configuration drift and simplifies storage management.
-
-As an alternative, you can also manually run `make generate` before committing, so that your commit succeeds from the start.
+For more context, see the full [MSK Backup Strategy documentation](https://github.com/utilitywarehouse/documentation/blob/master/infra/operational/msk-ops.md#msk-data-backup).
 
 ## Why is this repository public?
 It contains standard kafka configuration and does not include confidential information
