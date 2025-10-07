@@ -1,5 +1,6 @@
 resource "kafka_topic" "self_serve_form_submissions" {
   name = "help-and-support.self_serve_form_submissions"
+
   replication_factor = 3
   partitions         = 5
 
@@ -15,6 +16,7 @@ resource "kafka_topic" "self_serve_form_submissions" {
 
 resource "kafka_topic" "self_serve_form_submissions_dlq" {
   name = "help-and-support.self_serve_form_submissions_dlq"
+
   replication_factor = 3
   partitions         = 5
 
