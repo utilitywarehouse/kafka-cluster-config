@@ -4,7 +4,7 @@
 # topic backups based on the retention settings defined in Kafka topic
 # resource files.
 #
-# Usage: ./your_script_name.sh <dev|prod>
+# Usage: ./your_script_name.sh <dev|prod> [--diff]
 
 # --- START PRE-FLIGHT CHECKS ---
 # Exit immediately if a command exits with a non-zero status.
@@ -157,10 +157,20 @@ output_rules() {
 # --- MAIN LOGIC ---
 main() {
   local env="$1"
+  local diff_mode="$2"
   local root_cluster="${SCRIPT_DIR}/../${env}-aws/kafka-shared-msk"
   local s3_prefix="msk-backup-parquet"
   local output_dir="${root_cluster}/msk-backup-bucket-retention"
-  local output_file="${output_dir}/generated-retention.tf"
+  local original_file="${output_dir}/generated-retention.tf"
+  local temp_file="${original_file}.tmp"
+
+  # Decide the output file based on whether --diff was passed
+  local output_file
+  if [[ "$diff_mode" == "true" ]]; then
+    output_file="$temp_file"
+  else
+    output_file="$original_file"
+  fi
 
   # Step 1: Extract and sort data into a temporary file.
   extract_topic_retention_data "$root_cluster"
@@ -170,15 +180,73 @@ main() {
   output_header "$output_file" "$env"
   output_rules "$output_file" "$s3_prefix"
 
-  echo "Generated: $output_file"
+  # Step 3: If in diff mode, compare files. Otherwise, confirm generation.
+  if [[ "$diff_mode" == "true" ]]; then
+    # Check if original file exists to diff against.
+    if [[ ! -f "$original_file" ]]; then
+      echo "Error: Original file '$original_file' not found for comparison." >&2
+      echo "Generated content is in '$temp_file'." >&2
+      exit 1
+    fi
+
+    # Compare the files and capture the output. The `|| true` prevents `set -e`
+    # from exiting if `diff` finds differences (which returns exit code 1).
+    diff_output=$(diff -u "$original_file" "$temp_file" || true)
+    rm -f "$temp_file" # Clean up the temporary file
+
+    if [[ -n "$diff_output" ]]; then
+      # The '%s\n' format string prints each subsequent argument on a new line.
+      # This is a highly portable and safe way to print multi-line messages.
+      (
+        printf '%s\n' \
+          "----------------------------------------------------------------------" \
+          "FAILURE REASON: The generated file $original_file must be updated." \
+          "HOW TO FIX: Run \`make generate\` and commit the changed generated files" \
+          "----------------------------------------------------------------------" \
+          "--- DETECTED DRIFT ---" \
+          "$diff_output"
+      ) >&2
+      exit 1
+    else
+      echo "✅ No configuration changes detected. Files are up-to-date."
+    fi
+  else
+    echo "Generated: $output_file"
+  fi
 }
 
 # --- SCRIPT EXECUTION ---
-# Validate input first, then run main.
-if [[ "$#" -ne 1 || ("$1" != "dev" && "$1" != "prod") ]]; then
-  echo "Usage: $0 <dev|prod>" >&2
+# Initialize variables for argument parsing
+env=""
+diff_mode="false"
+
+# Parse arguments. This allows the optional flag to be in any position.
+for arg in "$@"; do
+  case $arg in
+    dev|prod)
+      if [[ -n "$env" ]]; then
+        echo "Error: Environment specified more than once. Use either 'dev' or 'prod'." >&2
+        exit 1
+      fi
+      env="$arg"
+      ;;
+    --diff)
+      diff_mode="true"
+      ;;
+    *)
+      echo "Error: Unrecognized argument '$arg'" >&2
+      echo "Usage: $0 <dev|prod> [--diff]" >&2
+      exit 1
+      ;;
+  esac
+done
+
+# Validate that the required environment argument was provided.
+if [[ -z "$env" ]]; then
+  echo "Usage: $0 <dev|prod> [--diff]" >&2
   echo "Error: Please provide a single environment argument: 'dev' or 'prod'." >&2
   exit 1
 fi
 
-main "$@"
+# Run the main function with the parsed arguments.
+main "$env" "$diff_mode"
