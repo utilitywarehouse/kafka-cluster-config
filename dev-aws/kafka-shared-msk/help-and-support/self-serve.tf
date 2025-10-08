@@ -28,14 +28,11 @@ resource "kafka_topic" "self_serve_submissions_dlq" {
   }
 }
 
-# Produce to help-and-support.self_serve_submissions & help-and-support.self_serve_submissions_dlq
+# Produce to help-and-support.self_serve_submissions
 module "self_serve_service" {
   source           = "../../../modules/tls-app"
   cert_common_name = "help-and-support/self-serve-service"
-  produce_topics = [
-    kafka_topic.self_serve_submissions.name,
-    kafka_topic.self_serve_submissions_dlq.name
-  ]
+  produce_topics   = [kafka_topic.self_serve_submissions.name]
 }
 
 # Consume from help-and-support.self_serve_submissions & help-and-support.self_serve_submissions_dlq
@@ -50,4 +47,5 @@ module "self_serve_submission_consumer" {
     "help-and-support.self-serve-submission-consumer",
     "help-and-support.self-serve-submission-consumer-dlq"
   ]
+  produce_topics = [kafka_topic.self_serve_submissions_dlq.name]
 }
