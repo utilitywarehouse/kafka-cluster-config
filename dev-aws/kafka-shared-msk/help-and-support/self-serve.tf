@@ -1,5 +1,5 @@
-resource "kafka_topic" "self_serve_form_submissions" {
-  name = "help-and-support.self_serve_form_submissions"
+resource "kafka_topic" "self_serve_submissions" {
+  name = "help-and-support.self_serve_submissions"
 
   replication_factor = 3
   partitions         = 5
@@ -13,8 +13,8 @@ resource "kafka_topic" "self_serve_form_submissions" {
   }
 }
 
-resource "kafka_topic" "self_serve_form_submissions_dlq" {
-  name = "help-and-support.self_serve_form_submissions_dlq"
+resource "kafka_topic" "self_serve_submissions_dlq" {
+  name = "help-and-support.self_serve_submissions_dlq"
 
   replication_factor = 3
   partitions         = 5
@@ -28,32 +28,26 @@ resource "kafka_topic" "self_serve_form_submissions_dlq" {
   }
 }
 
-# Produce to help-and-support.self_serve_form_submissions
-module "self_serve_form_submissions_producer" {
+# Produce to help-and-support.self_serve_submissions & help-and-support.self_serve_submissions_dlq
+module "self_serve_service" {
   source           = "../../../modules/tls-app"
-  cert_common_name = "help-and-support/self-serve-form-submissions-producer"
-  produce_topics   = [kafka_topic.self_serve_form_submissions.name]
+  cert_common_name = "help-and-support/self-serve-service"
+  produce_topics   = [
+    kafka_topic.self_serve_submissions.name,
+    kafka_topic.self_serve_submissions_dlq.name
+  ]
 }
 
-# Consume from help-and-support.self_serve_form_submissions
-module "self_serve_form_submissions_consumer" {
+# Consume from help-and-support.self_serve_submissions & help-and-support.self_serve_submissions_dlq
+module "self_serve_submission_consumer" {
   source           = "../../../modules/tls-app"
-  cert_common_name = "help-and-support/self-serve-form-submissions-consumer"
-  consume_topics   = [kafka_topic.self_serve_form_submissions.name]
-  consume_groups   = ["help-and-support.self-serve-form-submissions-consumer"]
-}
-
-# Produce to help-and-support.self_serve_form_submissions_dlq
-module "self_serve_form_submissions_producer_dlq" {
-  source           = "../../../modules/tls-app"
-  cert_common_name = "help-and-support/self-serve-form-submissions-dlq-producer"
-  produce_topics   = [kafka_topic.self_serve_form_submissions_dlq.name]
-}
-
-# Consume from help-and-support.self_serve_form_submissions_dlq
-module "self_serve_form_submissions_dlq_consumer" {
-  source           = "../../../modules/tls-app"
-  cert_common_name = "help-and-support/self-serve-form-submissions-dlq-consumer"
-  consume_topics   = [kafka_topic.self_serve_form_submissions_dlq.name]
-  consume_groups   = ["help-and-support.self-serve-form-submissions-dlq-consumer"]
+  cert_common_name = "help-and-support/self-serve-submission-consumer"
+  consume_topics   = [
+    kafka_topic.self_serve_submissions.name,
+    kafka_topic.self_serve_submissions_dlq.name
+  ]
+  consume_groups   = [
+    "help-and-support.self-serve-submission-consumer",
+    "help-and-support.self-serve-submission-consumer-dlq"
+  ]
 }
