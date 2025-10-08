@@ -611,6 +611,20 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "help-and-support.self_serve_submissions"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/help-and-support.self_serve_submissions/" }
+  }
+
+  rule {
+    id     = "help-and-support.self_serve_submissions_dlq"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/help-and-support.self_serve_submissions_dlq/" }
+  }
+
+  rule {
     id     = "iam-audit.ingest-v1"
     status = "Enabled"
     expiration { days = 31 }
