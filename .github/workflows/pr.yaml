@@ -7,6 +7,15 @@ on:
 
 jobs:
   lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3.0.0
+      - uses: actions/setup-python@v5.0.0
+      - uses: terraform-linters/setup-tflint@v4
+      - uses: pre-commit/action@v3.0.1
+
+  generate:
     permissions:
       contents: write # Granting only the permission needed to commit and push
     runs-on: ubuntu-latest
@@ -26,11 +35,7 @@ jobs:
               git config user.name "GITHUB ACTIONS AUTOMATED USER"
               git config user.email "noreply@uw.co.uk"
               git commit -m "[AUTOMATED]: generate files"
-              git push
-          
-              # Stop the job. The push will trigger a new workflow run.
-              echo "Stopping job because generated files were updated."
-              exit 1
+              git push          
             else
               # On the 'main' branch, fail the build instead of auto-committing
               printf '%s\n' \
@@ -43,8 +48,3 @@ jobs:
           else
             echo "Generated files are up to date."
           fi
-
-      - uses: hashicorp/setup-terraform@v3.0.0
-      - uses: actions/setup-python@v5.0.0
-      - uses: terraform-linters/setup-tflint@v4
-      - uses: pre-commit/action@v3.0.1
