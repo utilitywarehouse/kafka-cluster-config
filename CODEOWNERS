@@ -1,4 +1,8 @@
 *                              @utilitywarehouse/system
+
+# generated files are not owned by anybody
+dev-aws/kafka-shared-msk/msk-backup-bucket-retention/generated-retention.tf
+
 /**/account-platform/          @utilitywarehouse/account-identity
 /**/account-identity/          @utilitywarehouse/account-identity
 /**/billing/                   @utilitywarehouse/billing-maintainers
