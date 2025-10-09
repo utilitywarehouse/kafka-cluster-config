@@ -7,10 +7,30 @@ on:
 
 jobs:
   lint:
+    permissions:
+      contents: write # Granting only the permission needed to commit and push
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: hashicorp/setup-terraform@v3.0.0
-    - uses: actions/setup-python@v5.0.0
-    - uses: terraform-linters/setup-tflint@v4
-    - uses: pre-commit/action@v3.0.1
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{github.head_ref}}
+      - name: Check if we need to update generated files
+        run: |
+          make generate
+          git add .
+          # Check if there are any staged changes
+          if ! git diff --staged --exit-code; then
+            echo "Generated files are out of date on branch '${{ github.ref_name }}'. Committing and pushing changes."
+            git config user.name "GITHUB ACTIONS AUTOMATED USER"
+            git config user.email "noreply@uw.co.uk"
+            # The commit & push will not trigger a new workflow run as they're using the default GITHUB_TOKEN.           
+            git commit -m "[AUTOMATED]: generate files"
+            git push
+          else
+            echo "Generated files are up to date."
+          fi
+
+      - uses: hashicorp/setup-terraform@v3.0.0
+      - uses: actions/setup-python@v5.0.0
+      - uses: terraform-linters/setup-tflint@v4
+      - uses: pre-commit/action@v3.0.1
