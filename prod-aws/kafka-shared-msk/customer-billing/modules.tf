@@ -193,6 +193,20 @@ module "email_sender_dlq_job" {
   ]
 }
 
+module "invoice_ready_notifier_dlq_job" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "customer-billing/invoice-ready-notifier-dlq-job"
+  consume_topics = [
+    kafka_topic.invoice_ready_notifier_deadletter.name,
+  ]
+  consume_groups = [
+    "bex.invoice-ready-notifier-dlq-job"
+  ]
+  produce_topics = [ # bex.internal.bill_fulfilled
+    kafka_topic.invoice_fulfillment.name,
+  ]
+}
+
 
 module "invoice_api" {
   source           = "../../../modules/tls-app"
