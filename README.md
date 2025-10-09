@@ -31,8 +31,6 @@ $ pre-commit install
 
 ### Synchronizing S3 Backup Retention with MSK Topics
 
-**Action Required:** When adding or removing a new MSK topic, or updating the `retention.ms` configuration for an existing one, you must run `make generate` and commit the updated `generated-retention.tf` file.
-
 #### Overview
 
 We back up MSK topic data to an S3 bucket. To align the S3 data lifecycle with the source topic's retention policy, we automatically generate Terraform configuration that sets the expiration for backed-up data.
@@ -43,6 +41,9 @@ The `make generate` command executes the [scripts/generate_backup_bucket_retenti
 3.  This file defines an S3 Lifecycle expiration rule for each topic's backup prefix, ensuring S3 objects are automatically deleted after the topic's retention period expires.
 
 For more context, see the full [MSK Backup Strategy documentation](https://github.com/utilitywarehouse/documentation/blob/master/infra/operational/msk-ops.md#msk-data-backup).
+
+#### CI automation
+CI updates the generated files when they drift through automated commits on feature branches.
 
 ## Why is this repository public?
 It contains standard kafka configuration and does not include confidential information

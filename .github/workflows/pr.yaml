@@ -23,6 +23,7 @@ jobs:
             echo "Generated files are out of date on branch '${{ github.ref_name }}'. Committing and pushing changes."
             git config user.name "GITHUB ACTIONS AUTOMATED USER"
             git config user.email "noreply@uw.co.uk"
+            # The commit & push will not trigger a new workflow run as they're using the default GITHUB_TOKEN.           
             git commit -m "[AUTOMATED]: generate files"
             git push
           else
