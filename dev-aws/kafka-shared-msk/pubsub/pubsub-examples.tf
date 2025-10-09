@@ -36,6 +36,12 @@ module "example_producer" {
   cert_common_name = "pubsub/example-producer"
 }
 
+module "example_producer2" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.pubsub_examples2.name]
+  cert_common_name = "pubsub/example-producer2"
+}
+
 module "example_process_individually_consumer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [(kafka_topic.pubsub_examples.name)]
