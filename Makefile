@@ -3,3 +3,4 @@ lint:
 
 generate:
 	./scripts/generate_backup_bucket_retention.sh dev
+	./scripts/generate_backup_bucket_retention.sh prod
