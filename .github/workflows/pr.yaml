@@ -12,32 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check if we need to generate files
+      - name: Check if we need to update generated files
         run: |
           make generate
           git add .
           # Check if there are any staged changes
           if ! git diff --staged --exit-code; then
-            # If there are changes, check if the current branch is NOT 'main'
-            if [[ "${{ github.ref_name }}" != "main" ]]; then
-              echo "Generated files are out of date on branch '${{ github.ref_name }}'. Committing and pushing changes."
-              git config user.name "GITHUB ACTIONS AUTOMATED USER"
-              git config user.email "noreply@uw.co.uk"
-              git commit -m "[AUTOMATED]: generate files"
-              git push
-          
-              # Stop the job. The push will trigger a new workflow run.
-              echo "Stopping job because generated files were updated."
-              exit 1
-            else
-              # On the 'main' branch, fail the build instead of auto-committing
-              printf '%s\n' \
-                "----------------------------------------------------------------------" \
-                "FAILURE: Generated files on the 'main' branch are out of date." \
-                "HOW TO FIX: Run 'make generate' locally, commit the changes to a feature branch, and open a PR." \
-                "----------------------------------------------------------------------"
-              exit 1
-            fi
+            echo "Generated files are out of date on branch '${{ github.ref_name }}'. Committing and pushing changes."
+            git config user.name "GITHUB ACTIONS AUTOMATED USER"
+            git config user.email "noreply@uw.co.uk"
+            git commit -m "[AUTOMATED]: generate files"
+            git push
           else
             echo "Generated files are up to date."
           fi
