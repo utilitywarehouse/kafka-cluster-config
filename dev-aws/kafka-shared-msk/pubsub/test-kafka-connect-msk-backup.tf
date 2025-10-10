@@ -39,14 +39,14 @@ resource "kafka_topic" "test_msk_backup_connect_status" {
 # https://docs.confluent.io/platform/7.8/connect/security.html#worker-acl-requirements
 
 # Allow Kafka Connect full access to internal topics
-module "exp_kafka_connect_full_internal_topics" {
+module "test_kafka_connect_full_internal_topics" {
   source           = "../../../modules/tls-app"
   produce_topics   = ["pubsub.test-msk-backup.connect-configs", "pubsub.test-msk-backup.connect-offsets", "pubsub.test-msk-backup.connect-status"]
   consume_groups   = ["pubsub.test-msk-backup-kafka-connect", "pubsub.test-msk-backup-kafka-connect-worker-group", "pubsub.test-msk-backup-kafka-connect-debug"]
   cert_common_name = "pubsub/test-msk-backup-kafka-connect"
 }
 
-resource "kafka_acl" "exp_kafka_connect_read_topic_all" {
+resource "kafka_acl" "test_kafka_connect_read_topic_all" {
   resource_name       = "*"
   resource_type       = "Topic"
   acl_principal       = "User:CN=pubsub/test-msk-backup-kafka-connect"
@@ -55,7 +55,7 @@ resource "kafka_acl" "exp_kafka_connect_read_topic_all" {
   acl_permission_type = "Allow"
 }
 
-resource "kafka_acl" "exp_kafka_connect_describe_group_all" {
+resource "kafka_acl" "test_kafka_connect_describe_group_all" {
   resource_name       = "*"
   resource_type       = "Group"
   acl_principal       = "User:CN=pubsub/test-msk-backup-kafka-connect"
@@ -66,7 +66,7 @@ resource "kafka_acl" "exp_kafka_connect_describe_group_all" {
 
 # Enable only when we need to restore
 #
-# resource "kafka_acl" "exp_kafka_connect_write_topic_all" {
+# resource "kafka_acl" "test_kafka_connect_write_topic_all" {
 #   resource_name       = "*"
 #   resource_type       = "Topic"
 #   acl_principal       = "User:CN=pubsub/test-msk-backup-kafka-connect"
