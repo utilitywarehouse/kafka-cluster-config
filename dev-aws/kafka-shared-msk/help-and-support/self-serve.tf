@@ -9,7 +9,7 @@ resource "kafka_topic" "self_serve_submissions" {
     "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
     "retention.ms"          = "2629800000" # keep data for 1 month
     "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    "cleanup.policy"        = "compact"
   }
 }
 
