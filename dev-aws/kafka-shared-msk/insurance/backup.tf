@@ -1,6 +1,9 @@
 # --- Auth config for the backup of insurance kafka topics ---
 module "insurance_event_relay_backup" {
   source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.private_policies_v1.name,
+  ]
   produce_topics = [
     kafka_topic.private_policies_v1.name,
   ]
