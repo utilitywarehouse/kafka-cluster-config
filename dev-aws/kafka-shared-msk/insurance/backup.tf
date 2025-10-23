@@ -4,6 +4,7 @@ module "insurance_event_relay_backup" {
   consume_topics = [
     kafka_topic.private_policies_v1.name,
   ]
+  consume_groups = ["insurance.event-relay-backup"]
   produce_topics = [
     kafka_topic.private_policies_v1.name,
   ]
