@@ -54,6 +54,8 @@ resource "kafka_topic" "restore_service_status_v3" {
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
+    # allow writing older messages
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
   }
 }
 
