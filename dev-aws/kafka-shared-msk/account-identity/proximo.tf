@@ -53,7 +53,8 @@ module "account_identity_proximo" {
     "account-identity.postgres-indexer-customer-24-09-11",
     "account-identity.public-api-v1",
     "account-identity.referral-portal-221116",
-    "account-identity.telecom-accounts-legacy-events"
+    "account-identity.telecom-accounts-legacy-events",
+    "account-identity.partner-portal-indexer-v1"
   ]
   produce_topics   = [kafka_topic.account_identity_internal_legacy_account_events.name, kafka_topic.account_identity_account_management_events.name]
   cert_common_name = "account-platform/proximo"
