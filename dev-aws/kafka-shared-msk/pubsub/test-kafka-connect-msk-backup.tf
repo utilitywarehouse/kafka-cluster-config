@@ -59,13 +59,35 @@ resource "kafka_topic" "restore_service_status_v3" {
   }
 }
 
+resource "kafka_topic" "restore_unicom_tests" {
+  name               = "pubsub.restore-test.unicom.tests"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data for 3 months
+    "retention.ms" = "7889400000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+    # allow for a batch of records maximum 512MiB
+    "max.message.bytes" = "536870912"
+
+    # allow writing older messages
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
+  }
+}
+
 
 # https://docs.confluent.io/platform/7.8/connect/security.html#worker-acl-requirements
 
 # Allow Kafka Connect full access to internal topics
 module "test_kafka_connect_full_internal_topics" {
   source           = "../../../modules/tls-app"
-  produce_topics   = ["pubsub.test-msk-backup.connect-configs", "pubsub.test-msk-backup.connect-offsets", "pubsub.test-msk-backup.connect-status", "pubsub.restore-test.customer-proposition.service-status.events.v3"]
+  produce_topics   = ["pubsub.test-msk-backup.connect-configs", "pubsub.test-msk-backup.connect-offsets", "pubsub.test-msk-backup.connect-status", "pubsub.restore-test.customer-proposition.service-status.events.v3", "pubsub.restore-test.unicom.tests"]
   consume_groups   = ["pubsub.test-msk-backup-kafka-connect", "pubsub.test-msk-backup-kafka-connect-worker-group", "pubsub.test-msk-backup-kafka-connect-debug", "pubsub.test-msk-backup-kafka-connect-frequent"]
   cert_common_name = "pubsub/test-msk-backup-kafka-connect"
 }
