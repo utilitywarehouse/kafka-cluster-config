@@ -59,13 +59,38 @@ resource "kafka_topic" "restore_service_status_v3" {
   }
 }
 
+resource "kafka_topic" "restore_meter_reads" {
+  name               = "pubsub.restore-test.energy-platform.meter.read.events.v3"
+  replication_factor = 3
+  partitions         = 15
+  config = {
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data for 3 months
+    "retention.ms" = "7889238000"
+    # keep data in primary storage for 2 days
+    "local.retention.ms" = "172800000"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+    # allow writing older messages
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
+  }
+}
 
 # https://docs.confluent.io/platform/7.8/connect/security.html#worker-acl-requirements
 
 # Allow Kafka Connect full access to internal topics
 module "test_kafka_connect_full_internal_topics" {
-  source           = "../../../modules/tls-app"
-  produce_topics   = ["pubsub.test-msk-backup.connect-configs", "pubsub.test-msk-backup.connect-offsets", "pubsub.test-msk-backup.connect-status", "pubsub.restore-test.customer-proposition.service-status.events.v3"]
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    "pubsub.test-msk-backup.connect-configs",
+    "pubsub.test-msk-backup.connect-offsets",
+    "pubsub.test-msk-backup.connect-status",
+    "pubsub.restore-test.customer-proposition.service-status.events.v3",
+    "pubsub.restore-test.energy-platform.meter.read.events.v3"
+  ]
   consume_groups   = ["pubsub.test-msk-backup-kafka-connect", "pubsub.test-msk-backup-kafka-connect-worker-group", "pubsub.test-msk-backup-kafka-connect-debug", "pubsub.test-msk-backup-kafka-connect-frequent"]
   cert_common_name = "pubsub/test-msk-backup-kafka-connect"
 }
