@@ -884,6 +884,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "pubsub.restore-test.energy-platform.meter.read.events.v3"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "msk-backup-parquet/pubsub.restore-test.energy-platform.meter.read.events.v3/" }
+  }
+
+  rule {
     id     = "unicom.bill-events"
     status = "Enabled"
     expiration { days = 92 }
