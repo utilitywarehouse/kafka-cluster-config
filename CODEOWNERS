@@ -23,5 +23,6 @@ prod-aws/kafka-shared-msk/msk-backup-bucket-retention/generated-retention.tf
 /**/ledgers/                   @utilitywarehouse/ledgers
 /**/otel/                      @utilitywarehouse/system
 /**/payment-platform/          @utilitywarehouse/payments-maintainers
+/**/quoting-platform/          @utilitywarehouse/org-multi-service-innovation @utilitywarehouse/org-partner-acquisition
 /**/unicom/                    @utilitywarehouse/org-communications
 /**/workplace-infrastructure/  @utilitywarehouse/workplace-infrastructure
