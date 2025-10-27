@@ -1451,6 +1451,7 @@ module "cbc_incentives_projector" {
   consume_topics = [
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.legacy_account_events_v2.name,
+    kafka_topic.transaction_events_v3.name,
     kafka_topic.order_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-incentives-projector-v1"]
