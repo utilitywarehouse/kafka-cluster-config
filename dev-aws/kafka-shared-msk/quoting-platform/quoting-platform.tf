@@ -1,7 +1,6 @@
 # Topics
 resource "kafka_topic" "basket_v1" {
   name               = "quoting-platform.basket.events.v1"
-
   replication_factor = 3
   partitions         = 15
 
