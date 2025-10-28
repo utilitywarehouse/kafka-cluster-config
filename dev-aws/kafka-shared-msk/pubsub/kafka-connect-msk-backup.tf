@@ -42,7 +42,7 @@ resource "kafka_topic" "msk_backup_connect_status" {
 module "kafka_connect_full_internal_topics" {
   source           = "../../../modules/tls-app"
   produce_topics   = ["pubsub.msk-backup.connect-configs", "pubsub.msk-backup.connect-offsets", "pubsub.msk-backup.connect-status"]
-  consume_groups   = ["pubsub.msk-backup-kafka-connect", "pubsub.msk-backup-kafka-connect-daily-batch", "pubsub.msk-backup-kafka-connect-frequent-batch", "pubsub.msk-backup-kafka-connect-worker-group", "pubsub.msk-backup-kafka-connect-debug"]
+  consume_groups   = ["pubsub.msk-backup-kafka-connect", "pubsub.msk-backup-kafka-connect-cold", "pubsub.msk-backup-kafka-connect-hot", "pubsub.msk-backup-kafka-connect-worker-group", "pubsub.msk-backup-kafka-connect-debug"]
   cert_common_name = "pubsub/msk-backup-kafka-connect"
 }
 
