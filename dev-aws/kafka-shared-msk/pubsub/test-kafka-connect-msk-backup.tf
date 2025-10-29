@@ -91,7 +91,13 @@ module "test_kafka_connect_full_internal_topics" {
     "pubsub.restore-test.customer-proposition.service-status.events.v3",
     "pubsub.restore-test.energy-platform.meter.read.events.v3"
   ]
-  consume_groups   = ["pubsub.test-msk-backup-kafka-connect", "pubsub.test-msk-backup-kafka-connect-worker-group", "pubsub.test-msk-backup-kafka-connect-debug", "pubsub.test-msk-backup-kafka-connect-frequent"]
+  consume_groups = [
+    "pubsub.test-msk-backup-kafka-connect",
+    "pubsub.test-msk-backup-kafka-connect-worker-group",
+    "pubsub.test-msk-backup-kafka-connect-debug",
+    "pubsub.test-msk-backup-kafka-connect-cold",
+    "pubsub.test-msk-backup-kafka-connect-hot"
+  ]
   cert_common_name = "pubsub/test-msk-backup-kafka-connect"
 }
 
