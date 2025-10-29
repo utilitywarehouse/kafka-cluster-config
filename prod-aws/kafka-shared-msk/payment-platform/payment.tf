@@ -238,7 +238,7 @@ module "cbc_topup_processor" {
   cert_common_name = "cbc/cbc-topup-processor"
 }
 
-module "debt-api" {
+module "debt_api" {
   source           = "../../../modules/tls-app"
   consume_groups   = ["debt.debt-api"]
   consume_topics   = [kafka_topic.payment_v1_public_events_debt.name]
