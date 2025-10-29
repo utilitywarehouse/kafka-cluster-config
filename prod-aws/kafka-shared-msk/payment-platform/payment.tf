@@ -76,7 +76,8 @@ module "payment_query_service" {
     kafka_topic.payment_v1_public_events.name,
     kafka_topic.payment_method_v1_public_events.name,
     # integration topics have to go there
-    kafka_topic.payment_v1_public_events_cbc_topup_v3.name
+    kafka_topic.payment_v1_public_events_cbc_topup_v3.name,
+    kafka_topic.payment_v1_public_events_debt.name
   ]
   consume_topics   = [kafka_topic.payment_v1_events.name, kafka_topic.payment_method_v1_events.name]
   consume_groups   = ["payment-platform.payment_query_service"]
@@ -104,6 +105,23 @@ resource "kafka_topic" "payment_v1_public_events_pp_test" {
 
 resource "kafka_topic" "payment_v1_public_events_cbc_topup_v3" {
   name               = "payment-platform.payment.v1.public.events.cbc_topup_v3"
+  replication_factor = 3
+  partitions         = 15
+  config = {
+    "compression.type" = "zstd"
+    "retention.bytes"  = "-1" # keep on each partition unlimited data
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 2 days
+    "local.retention.ms" = "172800000"
+    # keep data for 1 month
+    "retention.ms"   = "2592000000"
+    "cleanup.policy" = "delete"
+  }
+}
+
+resource "kafka_topic" "payment_v1_public_events_debt" {
+  name               = "payment-platform.payment.v1.public.events.debt"
   replication_factor = 3
   partitions         = 15
   config = {
@@ -162,7 +180,8 @@ module "payment_query_service_downstream" {
     kafka_topic.payment_v1_public_events.name,
     kafka_topic.payment_method_v1_public_events.name,
     # integration topics have to go there
-    kafka_topic.payment_v1_public_events_cbc_topup_v3.name
+    kafka_topic.payment_v1_public_events_cbc_topup_v3.name,
+    kafka_topic.payment_v1_public_events_debt.name
   ]
   consume_topics = [
     kafka_topic.payment_v1_events.name,
@@ -217,4 +236,11 @@ module "cbc_topup_processor" {
   consume_groups   = ["cbc.cbc-topup-processor-v1"]
   consume_topics   = [kafka_topic.payment_v1_public_events_cbc_topup_v3.name]
   cert_common_name = "cbc/cbc-topup-processor"
+}
+
+module "debt-api" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["debt.debt-api"]
+  consume_topics   = [kafka_topic.payment_v1_public_events_debt.name]
+  cert_common_name = "debt/debt-api"
 }
