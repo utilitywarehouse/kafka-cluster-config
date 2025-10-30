@@ -395,6 +395,14 @@ module "contact_channels_account_events_consumer" {
   consume_groups   = ["contact-channels.account-events-consumer"]
 }
 
+# Consume from account-identity.account.unified.events
+module "contact_channels_external_contacts_account_consumer" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/genesys-external-contacts-account-consumer"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["contact-channels.genesys-external-contacts-account-consumer"]
+}
+
 # Consume from account-identity.legacy.account.events
 module "customer_support_crm" {
   source           = "../../../modules/tls-app"
