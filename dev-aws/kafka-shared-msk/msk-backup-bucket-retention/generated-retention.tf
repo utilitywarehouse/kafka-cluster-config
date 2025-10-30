@@ -891,55 +891,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "pubsub.restore-test.auth-customer.iam-credentials-v1"
-    status = "Enabled"
-    expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/pubsub.restore-test.auth-customer.iam-credentials-v1/" }
-  }
-
-  rule {
-    id     = "pubsub.restore-test.auth.iam-identitydb-v1"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/pubsub.restore-test.auth.iam-identitydb-v1/" }
-  }
-
-  rule {
-    id     = "pubsub.restore-test.billing.bill-reconciliation-error-events"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/pubsub.restore-test.billing.bill-reconciliation-error-events/" }
-  }
-
-  rule {
-    id     = "pubsub.restore-test.billing.billing-engine-events-bce-deadletter"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/pubsub.restore-test.billing.billing-engine-events-bce-deadletter/" }
-  }
-
-  rule {
-    id     = "pubsub.restore-test.billing.fixed-width-file-processing-events"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/pubsub.restore-test.billing.fixed-width-file-processing-events/" }
-  }
-
-  rule {
-    id     = "pubsub.restore-test.energy-platform.meter.read.events.v3"
-    status = "Enabled"
-    expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/pubsub.restore-test.energy-platform.meter.read.events.v3/" }
-  }
-
-  rule {
-    id     = "pubsub.restore-test.unicom.tests"
-    status = "Enabled"
-    expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/pubsub.restore-test.unicom.tests/" }
-  }
-
-  rule {
     id     = "unicom.bill-events"
     status = "Enabled"
     expiration { days = 92 }
