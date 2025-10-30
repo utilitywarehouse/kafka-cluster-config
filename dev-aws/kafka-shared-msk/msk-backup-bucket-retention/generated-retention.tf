@@ -639,10 +639,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "ledgers.synthetic-account-balance.events"
+    id     = "ledgers.account.migrated.events"
     status = "Enabled"
     expiration { days = 1 }
-    filter { prefix = "msk-backup-parquet/ledgers.synthetic-account-balance.events/" }
+    filter { prefix = "msk-backup-parquet/ledgers.account.migrated.events/" }
   }
 
   rule {
