@@ -49,7 +49,7 @@ module "account_identity_proximo" {
     "account-identity.ordering-platform-william-account-history",
     "account-identity.partner-bq-customer-account-indexer-v1",
     "account-identity.partner-customer-account-number-api-v1",
-    "account-identity.partner-portal-indexer-v1"
+    "account-identity.partner-portal-indexer-v1",
     "account-identity.partner-registration-indexer-v1",
     "account-identity.postgres-indexer-customer-24-09-11",
     "account-identity.public-api-v1",
