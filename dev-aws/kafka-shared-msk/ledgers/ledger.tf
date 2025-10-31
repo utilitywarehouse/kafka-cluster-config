@@ -35,8 +35,8 @@ resource "kafka_topic" "transaction_events" {
   }
 }
 
-resource "kafka_topic" "synthetic_account_balance_events" {
-  name               = "ledgers.synthetic-account-balance.events"
+resource "kafka_topic" "account_migrated_events" {
+  name               = "ledgers.account.migrated.events"
   replication_factor = 3
   partitions         = 10
   config = {
@@ -55,19 +55,19 @@ module "ledger_api" {
   produce_topics = [
     kafka_topic.account_balance_events.name,
     kafka_topic.transaction_events.name,
-    kafka_topic.synthetic_account_balance_events.name,
+    kafka_topic.account_migrated_events.name,
   ]
   cert_common_name = "ledgers/ledger-api"
 }
 
-module "ledger_operational" {
+module "ledger_consumer" {
   source = "../../../modules/tls-app"
   produce_topics = [
-    kafka_topic.account_balance_events.name,
+    kafka_topic.account_migrated_events.name,
   ]
   consume_topics = [
-    kafka_topic.synthetic_account_balance_events.name,
+    kafka_topic.account_migrated_events.name,
   ]
-  consume_groups   = ["ledgers.ledger-operational"]
-  cert_common_name = "ledgers/ledger-operational"
+  consume_groups   = ["ledgers.ledger-consumer"]
+  cert_common_name = "ledgers/ledger-consumer"
 }
