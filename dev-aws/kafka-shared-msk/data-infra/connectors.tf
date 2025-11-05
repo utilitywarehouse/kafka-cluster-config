@@ -189,3 +189,17 @@ module "di_cockroach_db_connector_help_and_support" {
   ]
   cert_common_name = "help-and-support/di-cockroach-db-connector"
 }
+
+module "di_cockroach_db_connector_energy_platform" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.events.name
+  ]
+  consume_groups = [
+    "data-infra.di-cockroach-db-connector-energy-platform"
+  ]
+  produce_topics = [
+    kafka_topic.events_end.name
+  ]
+  cert_common_name = "energy-platform/di-cockroach-db-connector"
+}
