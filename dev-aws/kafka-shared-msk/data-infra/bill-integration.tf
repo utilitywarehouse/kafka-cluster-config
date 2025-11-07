@@ -33,7 +33,7 @@ resource "kafka_topic" "bill_integration_bill_telemetry" {
 }
 
 resource "kafka_topic" "bill_integration_bill_to_kubernetes" {
-  name               = "data_infra.bill_integration.bill_to_kubernetes"
+  name               = "data-infra.bill_integration.bill_to_kubernetes"
   replication_factor = 3
   partitions         = 15
   config = {
