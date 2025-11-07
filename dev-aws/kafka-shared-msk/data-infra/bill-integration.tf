@@ -25,9 +25,9 @@ resource "kafka_topic" "bill_integration_bill_telemetry" {
     "retention.ms" = "2628000000"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow for a batch of records maximum 1MiB
+    # allow for a batch of records maximum 1.9MiB
     "max.message.bytes" = "2000012"
-    "compression.type"  = "producer"
+    "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
 }
@@ -42,9 +42,9 @@ resource "kafka_topic" "bill_integration_bill_to_kubernetes" {
     "retention.ms" = "2628000000"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow for a batch of records maximum 1MiB
+    # allow for a batch of records maximum 1.9MiB
     "max.message.bytes" = "2000012"
-    "compression.type"  = "producer"
+    "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
 }
@@ -59,9 +59,9 @@ resource "kafka_topic" "bill_integration_kubernetes_to_bill" {
     "retention.ms" = "2628000000"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow for a batch of records maximum 1MiB
+    # allow for a batch of records maximum 1.9MiB
     "max.message.bytes" = "2000012"
-    "compression.type"  = "producer"
+    "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
 }
@@ -76,9 +76,9 @@ resource "kafka_topic" "bill_integration_kubernetes_to_bill_energy_meter_reading
     "retention.ms" = "2628000000"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow for a batch of records maximum 1MiB
+    # allow for a batch of records maximum 1.9MiB
     "max.message.bytes" = "2000012"
-    "compression.type"  = "producer"
+    "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
 }
@@ -93,9 +93,9 @@ resource "kafka_topic" "bill_integration_mm2_test" {
     "retention.ms" = "2628000000"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # allow for a batch of records maximum 1MiB
+    # allow for a batch of records maximum 1.9MiB
     "max.message.bytes" = "2000012"
-    "compression.type"  = "producer"
+    "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
 }
