@@ -692,6 +692,8 @@ resource "kafka_topic" "unicom_status" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
+    # allow for a batch of records maximum 512MiB
+    "max.message.bytes" = "536870912"
   }
 }
 
@@ -709,6 +711,8 @@ resource "kafka_topic" "unicom_status_bill_email_connector" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
+    # allow for a batch of records maximum 512MiB
+    "max.message.bytes" = "536870912"
   }
 }
 
@@ -726,6 +730,8 @@ resource "kafka_topic" "unicom_status_energy_smets1_notifier" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
+    # allow for a batch of records maximum 512MiB
+    "max.message.bytes" = "536870912"
   }
 }
 
@@ -743,6 +749,8 @@ resource "kafka_topic" "unicom_status_finance_email_delivery_engine" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
+    # allow for a batch of records maximum 512MiB
+    "max.message.bytes" = "536870912"
   }
 }
 
@@ -760,6 +768,8 @@ resource "kafka_topic" "unicom_status_v2" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
+    # allow for a batch of records maximum 512MiB
+    "max.message.bytes" = "536870912"
   }
 }
 
