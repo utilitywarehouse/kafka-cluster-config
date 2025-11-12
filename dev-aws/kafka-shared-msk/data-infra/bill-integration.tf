@@ -112,7 +112,11 @@ module "bill_integration_mm2" {
   source = "../../../modules/tls-app"
 
   produce_topics = [
-    kafka_topic.bill_integration_mm2_test.name
+    kafka_topic.bill_integration_mm2_test.name,
+    kafka_topic.bill_integration_bill_telemetry.name,
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+    kafka_topic.bill_integration_kubernetes_to_bill_energy_meter_reading.name,
   ]
 
   consume_topics = [
@@ -120,7 +124,23 @@ module "bill_integration_mm2" {
   ]
 
   consume_groups = [
-    "data-infra.bill-integration.mm2_test"
+    "data-infra.bill-integration.mm2_test",
+    "data-infra.gmm-bill-email-connector",
+    "data-infra.gmm-bill-proximo-metrics-exporter",
+    "data-infra.gmm-payment-bill-remove-card-service",
+    "data-infra.gmm-bill-budget-plan-proximo-reader",
+    "data-infra.gmm-bill-event-reconciler-inbound",
+    "data-infra.gmm-bill-event-reconciler-outbound",
+    "data-infra.gmm-bill-letter-connector",
+    "data-infra.gmm-bill-sms-connector",
+    "data-infra.gmm-equinox-proximo",
+    "data-infra.gmm-gentrack-migration-bill-consumer",
+    "data-infra.gmm-kubernetes-to-bill",
+    "data-infra.gmm-mobile-bill-to-kubernetes-kafka2kafka",
+    "data-infra.gmm-order-platform-bill-application-releaser",
+    "data-infra.gmm-uw-bill-telemetry-bq-connector",
+    "data-infra.gmm-payment-ddm-bill-writer",
+    "data-infra.gmm-telecom-bill-to-kubernetes-kafka2kafka",
   ]
 
   cert_common_name = "bill-integration/mm2_test"
