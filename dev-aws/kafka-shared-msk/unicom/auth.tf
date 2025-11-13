@@ -536,3 +536,11 @@ module "unicom_letter_zipper" {
   ]
   cert_common_name = "unicom/letter-zipper"
 }
+
+# Customer Support comms projector for William
+module "unicom_customer_support_comms_projector" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "crm/comms-projector"
+  consume_topics   = [kafka_topic.unicom_status.name]
+  consume_groups   = ["customer-support.comms-projector"]
+}
