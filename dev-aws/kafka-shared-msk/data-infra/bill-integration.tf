@@ -158,7 +158,7 @@ module "bill_integration_mm2" {
 
 
 resource "kafka_acl" "group_alter_bill_integration_mm2_test" {
-  resource_name       =  kafka_topic.bill_integration_mm2_test.name
+  resource_name       = kafka_topic.bill_integration_mm2_test.name
   resource_type       = "Group"
   acl_principal       = "User:bill-integration/mm2_test"
   acl_host            = "*"
@@ -167,7 +167,7 @@ resource "kafka_acl" "group_alter_bill_integration_mm2_test" {
 }
 
 resource "kafka_acl" "group_alter_bill_integration_kubernetes_to_bill" {
-  resource_name       =  kafka_topic.bill_integration_kubernetes_to_bill.name
+  resource_name       = kafka_topic.bill_integration_kubernetes_to_bill.name
   resource_type       = "Group"
   acl_principal       = "User:bill-integration/mm2_test"
   acl_host            = "*"
