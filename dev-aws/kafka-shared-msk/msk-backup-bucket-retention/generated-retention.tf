@@ -1292,35 +1292,35 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   rule {
     id     = "unicom.status-bill-email-connector"
     status = "Enabled"
-    expiration { days = 92 }
+    expiration { days = 8 }
     filter { prefix = "msk-backup-parquet/unicom.status-bill-email-connector/" }
   }
 
   rule {
     id     = "unicom.status-energy-smets1-notifier"
     status = "Enabled"
-    expiration { days = 92 }
+    expiration { days = 8 }
     filter { prefix = "msk-backup-parquet/unicom.status-energy-smets1-notifier/" }
   }
 
   rule {
     id     = "unicom.status-finance-email-delivery-engine"
     status = "Enabled"
-    expiration { days = 92 }
+    expiration { days = 8 }
     filter { prefix = "msk-backup-parquet/unicom.status-finance-email-delivery-engine/" }
   }
 
   rule {
     id     = "unicom.status-v2"
     status = "Enabled"
-    expiration { days = 92 }
+    expiration { days = 8 }
     filter { prefix = "msk-backup-parquet/unicom.status-v2/" }
   }
 
   rule {
     id     = "unicom.status"
     status = "Enabled"
-    expiration { days = 92 }
+    expiration { days = 8 }
     filter { prefix = "msk-backup-parquet/unicom.status/" }
   }
 
