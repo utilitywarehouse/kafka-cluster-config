@@ -158,18 +158,20 @@ module "bill_integration_mm2" {
 
 
 resource "kafka_acl" "group_alter_bill_integration_mm2_test" {
-  resource_name       = kafka_topic.bill_integration_mm2_test.name
+  resource_name       = "data-infra.bill-integration.mm2_test"
   resource_type       = "Group"
-  acl_principal       = "User:bill-integration/mm2_test"
+  acl_principal       = "User:CN=bill-integration/mm2_test"
   acl_host            = "*"
   acl_operation       = "Alter"
   acl_permission_type = "Allow"
 }
 
+
+
 resource "kafka_acl" "group_alter_bill_integration_kubernetes_to_bill" {
-  resource_name       = kafka_topic.bill_integration_kubernetes_to_bill.name
+  resource_name       = "data-infra.gmm-kubernetes-to-bill"
   resource_type       = "Group"
-  acl_principal       = "User:bill-integration/mm2_test"
+  acl_principal       = "User:CN=bill-integration/mm2_test"
   acl_host            = "*"
   acl_operation       = "Alter"
   acl_permission_type = "Allow"
