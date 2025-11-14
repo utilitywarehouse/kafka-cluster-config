@@ -464,6 +464,27 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "data-infra.bill-integration.checkpoints.internal"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/data-infra.bill-integration.checkpoints.internal/" }
+  }
+
+  rule {
+    id     = "data-infra.bill-integration.heartbeats"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/data-infra.bill-integration.heartbeats/" }
+  }
+
+  rule {
+    id     = "data-infra.bill-integration.mm2-offsets.source.internal"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/data-infra.bill-integration.mm2-offsets.source.internal/" }
+  }
+
+  rule {
     id     = "data-infra.bill_event_bridge.dlq"
     status = "Enabled"
     expiration { days = 31 }
