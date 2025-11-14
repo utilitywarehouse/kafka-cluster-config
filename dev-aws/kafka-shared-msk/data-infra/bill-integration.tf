@@ -112,7 +112,7 @@ resource "kafka_topic" "bill_integration_mm2_test" {
 
 resource "kafka_topic" "bill_integration_mm2_offsets" {
   name               = "data-infra.bill-integration.mm2-offsets.source.internal"
-  replication_factor = 31
+  replication_factor = 3
   partitions         = 1
   config = {
     "remote.storage.enable" = "true"
