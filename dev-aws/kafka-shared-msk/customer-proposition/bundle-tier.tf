@@ -48,7 +48,7 @@ resource "kafka_topic" "bundletier_events_compacted_v2" {
 }
 
 resource "kafka_topic" "bundletier_events_v2" {
-  name = "customer-proposition.public.bundletier.events.v1"
+  name = "customer-proposition.public.bundletier.events.v2"
 
   replication_factor = 3
   partitions         = 15
