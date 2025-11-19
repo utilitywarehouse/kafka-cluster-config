@@ -464,27 +464,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "data-infra.bill-integration.checkpoints.internal"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.bill-integration.checkpoints.internal/" }
-  }
-
-  rule {
-    id     = "data-infra.bill-integration.heartbeats"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.bill-integration.heartbeats/" }
-  }
-
-  rule {
-    id     = "data-infra.bill-integration.mm2-offsets.source.internal"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.bill-integration.mm2-offsets.source.internal/" }
-  }
-
-  rule {
     id     = "data-infra.bill_event_bridge.dlq"
     status = "Enabled"
     expiration { days = 31 }
@@ -517,13 +496,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 31 }
     filter { prefix = "msk-backup-parquet/data-infra.bill_integration.kubernetes_to_bill_energy_meter_reading/" }
-  }
-
-  rule {
-    id     = "data-infra.bill_integration.mm2_test"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.bill_integration.mm2_test/" }
   }
 
   rule {
