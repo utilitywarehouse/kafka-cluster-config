@@ -75,6 +75,12 @@ module "bundletier_event_forwarder" {
   cert_common_name = "customer-proposition/bundletier-public-event-forwarder"
 }
 
+module "bundletier_csc_cron" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.bundletier_events_compacted_v1.name, kafka_topic.bundletier_events_v1.name]
+  cert_common_name = "customer-proposition/bundle-tier-csc-cron"
+}
+
 module "es_indexer_bundletier_events_v1" {
   source           = "../../../modules/tls-app"
   consume_groups   = ["customer-proposition.es-indexer-bundletier.events.v1"]
