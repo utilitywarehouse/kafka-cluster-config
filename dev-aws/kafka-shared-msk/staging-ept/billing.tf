@@ -46,6 +46,7 @@ resource "kafka_topic" "unified_bill_ready_events" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
+    # tflint-ignore: msk_topic_no_infinite_retention
     # keep data forever
     "retention.ms" = "-1"
     # delete old data
