@@ -5,12 +5,57 @@ on:
       - main
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   lint:
+    permissions:
+      contents: write # Granting only the permission needed to commit and push
+      statuses: write
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: hashicorp/setup-terraform@v3.0.0
-    - uses: actions/setup-python@v5.0.0
-    - uses: terraform-linters/setup-tflint@v4
-    - uses: pre-commit/action@v3.0.1
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{github.head_ref}}
+      - name: Check if we need to update generated files
+        id: update-generated-file
+        run: |
+          make generate
+          git add .
+          # Check if there are any staged changes
+          if ! git diff --staged --exit-code; then
+            echo "Generated files are out of date on branch '${{ github.ref_name }}'. Committing and pushing changes."
+            git config user.name "GITHUB ACTIONS AUTOMATED USER"
+            git config user.email "noreply@uw.co.uk"
+            # The commit & push will not trigger a new workflow run as they're using the default GITHUB_TOKEN.
+            git commit -m "[AUTOMATED]: generate files"
+            git push
+            echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+          else
+            echo "Generated files are up to date."
+          fi
+
+      - uses: hashicorp/setup-terraform@v3.0.0
+      - uses: actions/setup-python@v5.0.0
+      - uses: terraform-linters/setup-tflint@v4
+      - uses: pre-commit/action@v3.0.1
+      - name: Create commit status
+        if: steps.update-generated-file.outputs.sha != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/${{ github.repository }}/statuses/${{ steps.update-generated-file.outputs.sha }} \
+            -f 'target_url=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}' \
+            -f 'context=${{ github.job }}' \
+            -f 'state=${{ steps.update-generated-file.outcome && 'success' || 'failure' }}' \
+            -f 'description=${{ steps.update-generated-file.outcome }}'

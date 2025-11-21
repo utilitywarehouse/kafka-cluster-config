@@ -5,6 +5,7 @@ resource "kafka_topic" "events_end" {
   config = {
     "remote.storage.enable" = "true"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
@@ -187,4 +188,18 @@ module "di_cockroach_db_connector_help_and_support" {
     kafka_topic.events_end.name
   ]
   cert_common_name = "help-and-support/di-cockroach-db-connector"
+}
+
+module "di_cockroach_db_connector_energy_platform" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.events.name
+  ]
+  consume_groups = [
+    "data-infra.di-cockroach-db-connector-energy-platform"
+  ]
+  produce_topics = [
+    kafka_topic.events_end.name
+  ]
+  cert_common_name = "energy-platform/di-cockroach-db-connector"
 }

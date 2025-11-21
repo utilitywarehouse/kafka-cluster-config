@@ -8,7 +8,8 @@ resource "kafka_topic" "uswitch_data_v1" {
   config = {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1" # keep on each partition unlimited data
-    "retention.ms"          = "-1" # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms" = "-1" # keep data forever
     # keep data in primary storage for 1 hour
     "local.retention.ms" = "3600000"
     # allow for a batch of records maximum 1MiB
@@ -28,7 +29,8 @@ resource "kafka_topic" "uswitch_events_v2" {
   config = {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1" # keep on each partition unlimited data
-    "retention.ms"          = "-1" # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms" = "-1" # keep data forever
     # keep data in primary storage for 1 hour
     "local.retention.ms" = "3600000"
     # allow for a batch of records maximum 1MiB
@@ -48,7 +50,8 @@ resource "kafka_topic" "service_status_v4" {
   config = {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1" # keep on each partition unlimited data
-    "retention.ms"          = "-1" # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms" = "-1" # keep data forever
     # keep data in primary storage for 1 hour
     "local.retention.ms" = "3600000"
     # allow for a batch of records maximum 1MiB
@@ -68,7 +71,8 @@ resource "kafka_topic" "service_status_deadletter_v4" {
   config = {
     "remote.storage.enable" = "true"
     "retention.bytes"       = "-1" # keep on each partition unlimited data
-    "retention.ms"          = "-1" # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms" = "-1" # keep data forever
     # keep data in primary storage for 1 hour
     "local.retention.ms" = "3600000"
     # allow for a batch of records maximum 1MiB
@@ -162,6 +166,13 @@ module "bundle_service" {
   cert_common_name = "customer-proposition/bundle-service"
 }
 
+module "bundle_evaluator" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["customer-proposition.bundle-tier-evaluator.v1"]
+  consume_topics   = [kafka_topic.service_status_v4.name]
+  cert_common_name = "customer-proposition/bundle-evaluator"
+}
+
 module "cbc_loader_service" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.service_status_v4.name, kafka_topic.service_status_deadletter_v4.name]
@@ -192,4 +203,11 @@ module "es_indexer_service_status_dl_v4" {
   consume_groups   = ["customer-proposition.es-indexer-service-status.events.deadletter.v4"]
   consume_topics   = [kafka_topic.service_status_deadletter_v4.name]
   cert_common_name = "customer-proposition/es-indexer-service-status-events-dl-v4"
+}
+
+module "service_status_api_projector" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["customer-proposition.service-status-api-projector.events.v4"]
+  consume_topics   = [kafka_topic.service_status_v4.name]
+  cert_common_name = "customer-proposition/service-status-api-projector"
 }

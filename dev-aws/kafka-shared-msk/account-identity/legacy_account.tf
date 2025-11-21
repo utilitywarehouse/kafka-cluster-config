@@ -29,6 +29,7 @@ resource "kafka_topic" "account_identity_legacy_account_events" {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
@@ -81,6 +82,7 @@ resource "kafka_topic" "account_identity_legacy_account_created_in_bill_events" 
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
@@ -97,6 +99,7 @@ resource "kafka_topic" "account_identity_legacy_account_events_private" {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
     # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
     "retention.ms" = "-1"
     # enable remote storage
     "remote.storage.enable" = "true"
@@ -264,4 +267,12 @@ module "account_identity_legacy_acount_change_event_uswitch_reporter" {
   ]
   consume_groups   = ["account-identity.uswitch-reporter"]
   cert_common_name = "customer-proposition/uswitch-reporter-account-consumer"
+}
+
+
+module "create_account_projector_anonymized" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_from_prod_account_events_anonymized_v0.name]
+  consume_groups   = ["account-identity.create-account-projector-anonymized"]
+  cert_common_name = "account-platform/create_account_projector_anonymized"
 }

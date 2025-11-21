@@ -46,8 +46,8 @@ resource "kafka_topic" "unified_bill_ready_events" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    # keep data forever
-    "retention.ms" = "-1"
+    # keep data for 1 month
+    "retention.ms" = "2629800000"
     # delete old data
     "cleanup.policy" = "delete"
   }

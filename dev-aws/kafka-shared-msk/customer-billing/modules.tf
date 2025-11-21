@@ -54,12 +54,6 @@ module "bill_delivery_request_job" {
   consume_groups = []
 }
 
-module "invoice_generator" {
-  source           = "../../../modules/tls-app"
-  cert_common_name = "customer-billing/invoice-generator"
-  produce_topics   = [kafka_topic.invoice_generator.name]
-}
-
 module "invoice_fulfillment" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/invoice-fulfillment"
@@ -122,19 +116,10 @@ module "invoice_ready_notifier" {
   consume_groups   = ["bex.invoice-ready-notifier"]
 }
 
-module "bex_invoice_api" {
-  source           = "../../../modules/tls-app"
-  cert_common_name = "customer-billing/bex-invoice-api"
-  produce_topics   = [kafka_topic.bex_invoice_api.name]
-  consume_topics   = [(kafka_topic.invoice_generator.name)]
-  consume_groups   = ["bex.bex-invoice-api"]
-}
-
 module "bex_invoice_producer_sync" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/bex-temporary-invoice-producer-sync"
   consume_topics = [
-    kafka_topic.bex_invoice_api.name,
     kafka_topic.bex_legacy_invoice_api.name
   ]
   consume_groups = ["bex.bex-invoice-producer-sync"]

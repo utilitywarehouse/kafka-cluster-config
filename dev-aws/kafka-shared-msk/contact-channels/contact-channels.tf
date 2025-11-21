@@ -154,6 +154,20 @@ resource "kafka_topic" "interactions_state_events" {
   }
 }
 
+resource "kafka_topic" "sent_agent_states" {
+  name = "contact-channels.sent_agent_states"
+
+  replication_factor = 3
+  partitions         = 3
+
+  config = {
+    "retention.ms"      = "86400000" # keep data for 1 day
+    "max.message.bytes" = "1048576"  # allow for a batch of records maximum 1MiB
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 resource "kafka_topic" "dsar" {
   name = "contact-channels.dsar"
 
@@ -342,7 +356,7 @@ module "survey_responses_bq_projector" {
   consume_groups   = ["contact-channels.survey-responses-bq-projector"]
 }
 
-# Consume from contact-channels.tracking_events
+# Consume and produce from contact-channels.tracking_events
 module "agent_state_builder" {
   source           = "../../../modules/tls-app"
   cert_common_name = "contact-channels/agent-state-builder"
@@ -356,7 +370,7 @@ module "agent_state_service" {
   source           = "../../../modules/tls-app"
   cert_common_name = "contact-channels/agent-state-service"
   consume_topics   = [kafka_topic.interactions_state_events.name]
-  produce_topics   = [kafka_topic.interactions_state_events.name]
+  produce_topics   = [kafka_topic.interactions_state_events.name, kafka_topic.sent_agent_states.name]
 }
 
 # Consume from contact-channels.genesys_eb_events (ES Topic Indexer)
@@ -373,6 +387,14 @@ module "interactions_state_events_es_indexer" {
   cert_common_name = "contact-channels/interactions-state-events-indexer"
   consume_topics   = [kafka_topic.interactions_state_events.name]
   consume_groups   = ["contact-channels.interactions-state-events-indexer"]
+}
+
+# Consume from contact-channels.sent_agent_states (ES Topic Indexer)
+module "sent_agent_states_es_indexer" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/sent-agent-states-indexer"
+  consume_topics   = [kafka_topic.sent_agent_states.name]
+  consume_groups   = ["contact-channels.sent-agent-states-indexer"]
 }
 
 # Produce to contact-channels.dsar

@@ -92,17 +92,27 @@ resource "kafka_topic" "gentrack_meterpoint_events" {
   }
 }
 
+# topic contain proto events from energy-contracts
 module "gentrack_topic_indexer" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.gentrack_meter_read_events.name,
-    kafka_topic.gentrack_billing_events.name,
     kafka_topic.gentrack_migration_events.name,
     kafka_topic.gentrack_market_interactions_events.name,
     kafka_topic.gentrack_meterpoint_events.name
   ]
   consume_groups   = ["energy-platform.gentrack-topic-indexer"]
   cert_common_name = "energy-platform/gentrack-topic-indexer"
+}
+
+# topic contain proto events from protobuf-contracts
+module "gentrack_topic_indexer_uw" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.gentrack_billing_events.name,
+  ]
+  consume_groups   = ["energy-platform.gentrack-topic-indexer-uw"]
+  cert_common_name = "energy-platform/gentrack-topic-indexer-uw"
 }
 
 module "gentrack_adapter_webhook_processor" {
@@ -128,11 +138,11 @@ module "gentrack_migration" {
 }
 
 
-module "billing_adapter" {
+module "billing_s3_event_consumer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.gentrack_billing_events.name]
-  consume_groups   = ["energy-billing.billing-adapter"]
-  cert_common_name = "energy-billing/billing-adapter"
+  consume_groups   = ["energy-billing.billing-s3-event-consumer"]
+  cert_common_name = "energy-billing/billing-s3-event-consumer"
 }
 
 module "billing_sqs_processor" {
