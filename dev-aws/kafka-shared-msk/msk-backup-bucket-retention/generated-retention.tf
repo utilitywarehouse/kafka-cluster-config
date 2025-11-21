@@ -961,6 +961,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "staging-ept.unified-bill-ready-events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/staging-ept.unified-bill-ready-events/" }
+  }
+
+  rule {
     id     = "unicom.bill-events"
     status = "Enabled"
     expiration { days = 92 }
