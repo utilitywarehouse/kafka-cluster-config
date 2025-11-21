@@ -919,6 +919,55 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "staging-ept.DataStagedEventsFinance"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "msk-backup-parquet/staging-ept.DataStagedEventsFinance/" }
+  }
+
+  rule {
+    id     = "staging-ept.bill-reconciliation-error-events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/staging-ept.bill-reconciliation-error-events/" }
+  }
+
+  rule {
+    id     = "staging-ept.billing-engine-events-bce-deadletter"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/staging-ept.billing-engine-events-bce-deadletter/" }
+  }
+
+  rule {
+    id     = "staging-ept.fixed-width-file-processing-events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/staging-ept.fixed-width-file-processing-events/" }
+  }
+
+  rule {
+    id     = "staging-ept.historical-data-staged-events-finance"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "msk-backup-parquet/staging-ept.historical-data-staged-events-finance/" }
+  }
+
+  rule {
+    id     = "staging-ept.transactions-auditor-diff.events"
+    status = "Enabled"
+    expiration { days = 61 }
+    filter { prefix = "msk-backup-parquet/staging-ept.transactions-auditor-diff.events/" }
+  }
+
+  rule {
+    id     = "staging-ept.unified-bill-ready-events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/staging-ept.unified-bill-ready-events/" }
+  }
+
+  rule {
     id     = "unicom.bill-events"
     status = "Enabled"
     expiration { days = 92 }
