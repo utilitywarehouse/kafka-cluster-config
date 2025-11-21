@@ -23,7 +23,7 @@ module "transactions_auditor_api" {
   produce_topics = [
     kafka_topic.transactions_auditor_diff_events.name,
   ]
-  cert_common_name = "billing/transactions-auditor-api"
+  cert_common_name = "staging-ept/transactions-auditor-api"
 }
 
 module "transactions_auditor_diff_events_indexer" {
@@ -31,6 +31,6 @@ module "transactions_auditor_diff_events_indexer" {
   consume_topics = [
     kafka_topic.transactions_auditor_diff_events.name,
   ]
-  consume_groups   = ["billing.transactions-auditor-events-indexer"]
-  cert_common_name = "billing/transactions-auditor-events-indexer"
+  consume_groups   = ["staging-ept.billing.transactions-auditor-events-indexer"]
+  cert_common_name = "staging-ept/transactions-auditor-events-indexer"
 }

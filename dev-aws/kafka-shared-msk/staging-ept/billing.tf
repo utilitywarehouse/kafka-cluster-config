@@ -79,7 +79,7 @@ module "bill_composition_engine" {
     kafka_topic.unified_bill_ready_events.name,
     kafka_topic.billing_engine_events_bce_deadletter.name,
   ]
-  cert_common_name = "billing/bill-composition-engine"
+  cert_common_name = "staging-ept/bill-composition-engine"
 }
 
 module "bill_adapter" {
@@ -87,7 +87,7 @@ module "bill_adapter" {
   produce_topics = [
     kafka_topic.fixed_width_file_processing_events.name,
   ]
-  cert_common_name = "billing/bill-adapter"
+  cert_common_name = "staging-ept/bill-adapter"
 }
 
 module "fixed_width_file_processing_events_indexer" {
@@ -95,8 +95,8 @@ module "fixed_width_file_processing_events_indexer" {
   consume_topics = [
     kafka_topic.fixed_width_file_processing_events.name,
   ]
-  consume_groups   = ["billing.fixed-width-file-processing-events-indexer"]
-  cert_common_name = "billing/fixed-width-file-processing-events-indexer"
+  consume_groups   = ["staging-ept.billing.fixed-width-file-processing-events-indexer"]
+  cert_common_name = "staging-ept/fixed-width-file-processing-events-indexer"
 }
 
 module "bill_reconciliation_error_events_indexer" {
@@ -104,8 +104,8 @@ module "bill_reconciliation_error_events_indexer" {
   consume_topics = [
     kafka_topic.bill_reconciliation_error_events.name,
   ]
-  consume_groups   = ["billing.bill-reconciliation-error-events-indexer"]
-  cert_common_name = "billing/bill-reconciliation-error-events-indexer"
+  consume_groups   = ["staging-ept.billing.bill-reconciliation-error-events-indexer"]
+  cert_common_name = "staging-ept/bill-reconciliation-error-events-indexer"
 }
 
 module "unified_bill_ready_events_indexer" {
@@ -113,8 +113,8 @@ module "unified_bill_ready_events_indexer" {
   consume_topics = [
     kafka_topic.unified_bill_ready_events.name,
   ]
-  consume_groups   = ["billing.unified-bill-ready-events-indexer"]
-  cert_common_name = "billing/unified-bill-ready-events-indexer"
+  consume_groups   = ["staging-ept.billing.unified-bill-ready-events-indexer"]
+  cert_common_name = "staging-ept/unified-bill-ready-events-indexer"
 }
 
 module "billing_engine_events_bce_deadletter_indexer" {
@@ -122,6 +122,6 @@ module "billing_engine_events_bce_deadletter_indexer" {
   consume_topics = [
     kafka_topic.billing_engine_events_bce_deadletter.name,
   ]
-  consume_groups   = ["billing.billing-engine-events-bce-deadletter-indexer"]
-  cert_common_name = "billing/billing-engine-events-bce-deadletter-indexer"
+  consume_groups   = ["staging-ept.billing.billing-engine-events-bce-deadletter-indexer"]
+  cert_common_name = "staging-ept/billing-engine-events-bce-deadletter-indexer"
 }

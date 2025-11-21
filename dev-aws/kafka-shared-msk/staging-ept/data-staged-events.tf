@@ -45,8 +45,8 @@ module "finance_bigquery_connector" {
   produce_topics = [
     kafka_topic.historical_data_staged_events_finance.name,
   ]
-  consume_groups   = ["billing.finance-bigquery-connector"]
-  cert_common_name = "billing/finance-bigquery-connector"
+  consume_groups   = ["staging-ept.billing.finance-bigquery-connector"]
+  cert_common_name = "staging-ept/finance-bigquery-connector"
 }
 
 module "finance_tx_log_staging_connector" {
@@ -54,7 +54,7 @@ module "finance_tx_log_staging_connector" {
   produce_topics = [
     kafka_topic.data_staged_events_finance.name,
   ]
-  cert_common_name = "billing/finance-tx-log-staging-connector"
+  cert_common_name = "staging-ept/finance-tx-log-staging-connector"
 }
 
 module "historical_bigquery_connector" {
@@ -62,6 +62,6 @@ module "historical_bigquery_connector" {
   consume_topics = [
     kafka_topic.historical_data_staged_events_finance.name,
   ]
-  consume_groups   = ["billing.historical-bigquery-connector"]
-  cert_common_name = "billing/historical-bigquery-connector"
+  consume_groups   = ["staging-ept.billing.historical-bigquery-connector"]
+  cert_common_name = "staging-ept/historical-bigquery-connector"
 }
