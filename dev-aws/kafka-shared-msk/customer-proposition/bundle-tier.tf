@@ -113,5 +113,5 @@ module "energy_platform_consumer_bundletier_events_compacted_v1" {
   source           = "../../../modules/tls-app"
   consume_groups   = ["energy-platform.energy-tariff-assignment-events-consumer"]
   consume_topics   = [kafka_topic.bundletier_events_compacted_v1.name]
-  cert_common_name = "energy-platform/bundletier-events-consumer"
+  cert_common_name = "energy-platform/energy-tariff-assignment-events-consumer"
 }
