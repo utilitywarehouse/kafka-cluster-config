@@ -1444,8 +1444,6 @@ module "cbc_proximo_tls" {
   ]
   consume_groups = [
     "cbc.partner-customer-event-emitter-reader-20220208-01",
-    "cbc.customer-proposition-cbc-loader-8",
-    "cbc.customer-proposition-cbc-loader-6",
     "cbc.cbc-service-projector-v1",
   ]
   cert_common_name = "cbc/proximo-tls"
@@ -1482,11 +1480,14 @@ module "cbc_incentives_consumer" {
   cert_common_name = "cbc/cbc-incentives-consumer"
 }
 
-module "cbc_loader_service" {
+module "cbc_customer_proposition" {
   source = "../../../modules/tls-app"
   consume_groups = [
     "customer-proposition.customer-proposition-cbc-loader-v1",
+    "customer-proposition.customer-proposition-cbc-loader-v4",
+    "cbc.customer-proposition-cbc-loader-8",
+    "cbc.customer-proposition-cbc-loader-6",
   ]
   consume_topics   = [kafka_topic.lifecycle_events_v2.name]
-  cert_common_name = "customer-proposition/cbc-loader-service"
+  cert_common_name = "customer-proposition/cbc-customer-proposition"
 }
