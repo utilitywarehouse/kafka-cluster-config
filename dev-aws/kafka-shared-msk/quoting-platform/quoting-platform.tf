@@ -27,3 +27,14 @@ module "basket_service" {
   ]
   cert_common_name = "quoting-platform/basket-service"
 }
+
+module "partner_planner" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.basket_v1.name,
+  ]
+  consume_groups = [
+    "partner-planner.basket-consumer-group-1"
+  ]
+  cert_common_name = "partner-planner/backend"
+}
