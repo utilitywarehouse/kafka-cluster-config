@@ -1485,6 +1485,7 @@ module "cbc_customer_proposition" {
   consume_groups = [
     "customer-proposition.customer-proposition-cbc-loader-v1",
     "customer-proposition.customer-proposition-cbc-loader-v4",
+    "customer-proposition.customer-proposition-cbc-loader-v4-01",
     "cbc.customer-proposition-cbc-loader-8",
     "cbc.customer-proposition-cbc-loader-6",
   ]
