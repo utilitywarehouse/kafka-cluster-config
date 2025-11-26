@@ -189,9 +189,9 @@ module "bundle_service" {
 }
 
 module "bundle_evaluator" {
-  source           = "../../../modules/tls-app"
-  consume_groups   = [
-    "customer-proposition.bundle-tier-evaluator.v1", 
+  source = "../../../modules/tls-app"
+  consume_groups = [
+    "customer-proposition.bundle-tier-evaluator.v1",
     "customer-proposition.bundle-tier-evaluator.v2",
     "customer-proposition.bundle-tier-evaluator.v3"
   ]
