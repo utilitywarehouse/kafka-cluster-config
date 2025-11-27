@@ -1467,3 +1467,12 @@ module "cbc_incentives_consumer" {
   consume_groups   = ["cbc.cbc-incentives-consumer-v1"]
   cert_common_name = "cbc/cbc-incentives-consumer"
 }
+
+module "cbc_customer_proposition" {
+  source = "../../../modules/tls-app"
+  consume_groups = [
+    "customer-proposition.customer-proposition-cbc-loader-v4-01",
+  ]
+  consume_topics   = [kafka_topic.lifecycle_events_v2.name]
+  cert_common_name = "customer-proposition/cbc-customer-proposition"
+}
