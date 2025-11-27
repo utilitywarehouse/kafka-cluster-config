@@ -189,8 +189,12 @@ module "bundle_service" {
 }
 
 module "bundle_evaluator" {
-  source           = "../../../modules/tls-app"
-  consume_groups   = ["customer-proposition.bundle-tier-evaluator.v1", "customer-proposition.bundle-tier-evaluator.v2"]
+  source = "../../../modules/tls-app"
+  consume_groups = [
+    "customer-proposition.bundle-tier-evaluator.v1",
+    "customer-proposition.bundle-tier-evaluator.v2",
+    "customer-proposition.bundle-tier-evaluator.v3"
+  ]
   consume_topics   = [kafka_topic.service_status_v4.name]
   cert_common_name = "customer-proposition/bundle-evaluator"
 }
