@@ -16,7 +16,7 @@ resource "kafka_topic" "bill_event_bridge_dlq" {
 }
 
 resource "kafka_topic" "bill_integration_bill_telemetry" {
-  name               = "data-infra.bill_integration.bill_telemetry"
+  name               = "data-infra.bill-integration.bill-telemetry"
   replication_factor = 3
   partitions         = 15
   config = {
@@ -35,7 +35,7 @@ resource "kafka_topic" "bill_integration_bill_telemetry" {
 }
 
 resource "kafka_topic" "bill_integration_bill_to_kubernetes" {
-  name               = "data-infra.bill_integration.bill_to_kubernetes"
+  name               = "data-infra.bill-integration.bill-to-kubernetes"
   replication_factor = 3
   partitions         = 15
   config = {
@@ -54,7 +54,7 @@ resource "kafka_topic" "bill_integration_bill_to_kubernetes" {
 }
 
 resource "kafka_topic" "bill_integration_kubernetes_to_bill" {
-  name               = "data-infra.bill_integration.kubernetes_to_bill"
+  name               = "data-infra.bill-integration.kubernetes-to-bill"
   replication_factor = 3
   partitions         = 15
   config = {
@@ -73,7 +73,7 @@ resource "kafka_topic" "bill_integration_kubernetes_to_bill" {
 }
 
 resource "kafka_topic" "bill_integration_kubernetes_to_bill_energy_meter_reading" {
-  name               = "data-infra.bill_integration.kubernetes_to_bill_energy_meter_reading"
+  name               = "data-infra.bill-integration.kubernetes-to-bill-energy-meter-reading"
   replication_factor = 3
   partitions         = 15
   config = {
