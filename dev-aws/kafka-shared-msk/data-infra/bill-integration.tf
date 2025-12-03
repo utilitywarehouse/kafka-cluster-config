@@ -30,7 +30,7 @@ resource "kafka_topic" "bill_integration_bill_telemetry" {
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
     # Allow timestamps up to 10 years old
-    "message.timestamp.difference.max.ms" = "315576000000"
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
   }
 }
 
@@ -49,7 +49,7 @@ resource "kafka_topic" "bill_integration_bill_to_kubernetes" {
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
     # Allow timestamps up to 10 years old
-    "message.timestamp.difference.max.ms" = "315576000000"
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
   }
 }
 
@@ -68,7 +68,7 @@ resource "kafka_topic" "bill_integration_kubernetes_to_bill" {
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
     # Allow timestamps up to 10 years old
-    "message.timestamp.difference.max.ms" = "315576000000"
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
   }
 }
 
@@ -87,7 +87,7 @@ resource "kafka_topic" "bill_integration_kubernetes_to_bill_energy_meter_reading
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
     # Allow timestamps up to 10 years old
-    "message.timestamp.difference.max.ms" = "315576000000"
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
   }
 }
 
