@@ -109,6 +109,7 @@ module "di_bill_event_bridge" {
 
   consume_groups = [
     "data-infra.bill-integration.di-bill-event-bridge",
+    "data-infra.bill-integration.equinox-proximo"
   ]
 
   cert_common_name = "bill-integration/bill-event-bridge"
