@@ -170,7 +170,14 @@ module "payment_query_service_downstream" {
     kafka_topic.payment_method_v1_events.name,
     kafka_topic.card_v1_internal_payment_methods.name
   ]
-  consume_groups   = ["payment-platform.payment_query_service_downstream", "payment-platform.payment_query_service_downstream_txlog", "payment-platform.payment_query_service_downstream_sync"]
+  consume_groups = [
+    "payment-platform.payment_query_service_downstream",
+    "payment-platform.payment_query_service_downstream_txlog",
+    "payment-platform.payment_query_service_downstream_sync",
+    "payment-platform.payment_query_service_downstream_bill",
+    "payment-platform.payment_query_service_downstream_bill-barc",
+    "payment-platform.payment_query_service_downstream_bill-exchange"
+  ]
   cert_common_name = "payment-platform/payment-query-service-downstream"
 }
 
