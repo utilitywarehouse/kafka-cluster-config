@@ -59,3 +59,10 @@ module "es_indexer_bundletier_events_compacted_v1" {
   consume_topics   = [kafka_topic.bundletier_events_compacted_v1.name]
   cert_common_name = "customer-proposition/es-indexer-bundletier-events-compacted-v1"
 }
+
+module "energy_platform_consumer_bundletier_events_compacted_v1" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["energy-platform.tariff-assignment-events-consumer"]
+  consume_topics   = [kafka_topic.bundletier_events_compacted_v1.name]
+  cert_common_name = "energy-platform/tariff-assignment-events-consumer"
+}

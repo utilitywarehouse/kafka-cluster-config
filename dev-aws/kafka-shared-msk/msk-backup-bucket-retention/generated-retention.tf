@@ -464,38 +464,38 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "data-infra.bill-integration.bill-telemetry"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/data-infra.bill-integration.bill-telemetry/" }
+  }
+
+  rule {
+    id     = "data-infra.bill-integration.bill-to-kubernetes"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/data-infra.bill-integration.bill-to-kubernetes/" }
+  }
+
+  rule {
+    id     = "data-infra.bill-integration.kubernetes-to-bill-energy-meter-reading"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/data-infra.bill-integration.kubernetes-to-bill-energy-meter-reading/" }
+  }
+
+  rule {
+    id     = "data-infra.bill-integration.kubernetes-to-bill"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "msk-backup-parquet/data-infra.bill-integration.kubernetes-to-bill/" }
+  }
+
+  rule {
     id     = "data-infra.bill_event_bridge.dlq"
     status = "Enabled"
     expiration { days = 31 }
     filter { prefix = "msk-backup-parquet/data-infra.bill_event_bridge.dlq/" }
-  }
-
-  rule {
-    id     = "data-infra.bill_integration.bill_telemetry"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.bill_integration.bill_telemetry/" }
-  }
-
-  rule {
-    id     = "data-infra.bill_integration.bill_to_kubernetes"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.bill_integration.bill_to_kubernetes/" }
-  }
-
-  rule {
-    id     = "data-infra.bill_integration.kubernetes_to_bill"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.bill_integration.kubernetes_to_bill/" }
-  }
-
-  rule {
-    id     = "data-infra.bill_integration.kubernetes_to_bill_energy_meter_reading"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.bill_integration.kubernetes_to_bill_energy_meter_reading/" }
   }
 
   rule {

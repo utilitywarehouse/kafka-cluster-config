@@ -16,7 +16,7 @@ resource "kafka_topic" "bill_event_bridge_dlq" {
 }
 
 resource "kafka_topic" "bill_integration_bill_telemetry" {
-  name               = "data-infra.bill_integration.bill_telemetry"
+  name               = "data-infra.bill-integration.bill-telemetry"
   replication_factor = 3
   partitions         = 15
   config = {
@@ -30,12 +30,12 @@ resource "kafka_topic" "bill_integration_bill_telemetry" {
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
     # Allow timestamps up to 10 years old
-    "message.timestamp.difference.max.ms" = "315576000000"
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
   }
 }
 
 resource "kafka_topic" "bill_integration_bill_to_kubernetes" {
-  name               = "data-infra.bill_integration.bill_to_kubernetes"
+  name               = "data-infra.bill-integration.bill-to-kubernetes"
   replication_factor = 3
   partitions         = 15
   config = {
@@ -49,12 +49,12 @@ resource "kafka_topic" "bill_integration_bill_to_kubernetes" {
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
     # Allow timestamps up to 10 years old
-    "message.timestamp.difference.max.ms" = "315576000000"
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
   }
 }
 
 resource "kafka_topic" "bill_integration_kubernetes_to_bill" {
-  name               = "data-infra.bill_integration.kubernetes_to_bill"
+  name               = "data-infra.bill-integration.kubernetes-to-bill"
   replication_factor = 3
   partitions         = 15
   config = {
@@ -68,12 +68,12 @@ resource "kafka_topic" "bill_integration_kubernetes_to_bill" {
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
     # Allow timestamps up to 10 years old
-    "message.timestamp.difference.max.ms" = "315576000000"
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
   }
 }
 
 resource "kafka_topic" "bill_integration_kubernetes_to_bill_energy_meter_reading" {
-  name               = "data-infra.bill_integration.kubernetes_to_bill_energy_meter_reading"
+  name               = "data-infra.bill-integration.kubernetes-to-bill-energy-meter-reading"
   replication_factor = 3
   partitions         = 15
   config = {
@@ -87,7 +87,7 @@ resource "kafka_topic" "bill_integration_kubernetes_to_bill_energy_meter_reading
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
     # Allow timestamps up to 10 years old
-    "message.timestamp.difference.max.ms" = "315576000000"
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
   }
 }
 
@@ -109,6 +109,7 @@ module "di_bill_event_bridge" {
 
   consume_groups = [
     "data-infra.bill-integration.di-bill-event-bridge",
+    "data-infra.bill-integration.equinox-proximo"
   ]
 
   cert_common_name = "bill-integration/bill-event-bridge"
