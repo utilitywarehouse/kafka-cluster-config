@@ -18,7 +18,7 @@ resource "kafka_acl" "msk_data_keep_describe_group_all" {
 
 module "msk_data_keep_group_write" {
   source           = "../../../modules/tls-app"
-  consume_groups   = ["pubsub.pubsub.msk-data-keep-backup"]
+  consume_groups   = ["pubsub.msk-data-keep-backup"]
   cert_common_name = "pubsub/msk-data-keep"
 }
 
