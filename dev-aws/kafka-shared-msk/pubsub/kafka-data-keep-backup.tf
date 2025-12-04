@@ -16,6 +16,12 @@ resource "kafka_acl" "msk_data_keep_describe_group_all" {
   acl_permission_type = "Allow"
 }
 
+module "msk_data_keep_group_write" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["pubsub.msk-backup-kafka-connect"]
+  cert_common_name = "pubsub/msk-data-keep"
+}
+
 # Enable only when we need to restore
 #
 # resource "kafka_acl" "msk_data_keep_write_topic_all" {
