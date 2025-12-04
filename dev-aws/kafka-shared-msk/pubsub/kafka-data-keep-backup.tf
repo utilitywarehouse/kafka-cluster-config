@@ -18,7 +18,7 @@ resource "kafka_acl" "msk_data_keep_describe_group_all" {
 
 module "msk_data_keep_group_write" {
   source           = "../../../modules/tls-app"
-  consume_groups   = ["pubsub.msk-backup-kafka-connect"]
+  consume_groups   = ["pubsub.pubsub.msk-data-keep-backup"]
   cert_common_name = "pubsub/msk-data-keep"
 }
 
@@ -27,7 +27,7 @@ module "msk_data_keep_group_write" {
 # resource "kafka_acl" "msk_data_keep_write_topic_all" {
 #   resource_name       = "*"
 #   resource_type       = "Topic"
-#   acl_principal       = "User:CN=pubsub/test-msk-backup-kafka-connect"
+#   acl_principal       = "User:CN=pubsub/msk-data-keep"
 #   acl_host            = "*"
 #   acl_operation       = "Write"
 #   acl_permission_type = "Allow"
