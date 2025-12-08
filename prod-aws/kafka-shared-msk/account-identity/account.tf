@@ -434,6 +434,14 @@ module "quoting_platform_account_projector" {
   consume_groups   = ["quoting-platform.account-projector"]
 }
 
+# Consume from account-identity.account.unified.events
+module "energy_platform_contact_sync" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "energy-platform/services-gentrack-contact-sync"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["energy-platform.services-gentrack-contact-sync"]
+}
+
 module "account_identity_move_out_notifications" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_public_account_events.name]
