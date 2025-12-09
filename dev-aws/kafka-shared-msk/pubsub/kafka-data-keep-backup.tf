@@ -1,19 +1,25 @@
-resource "kafka_acl" "msk_data_keep_read_topic_all" {
+resource "kafka_acl" "msk_data_keep_backup_read_topic_all" {
   resource_name       = "*"
   resource_type       = "Topic"
-  acl_principal       = "User:CN=pubsub/msk-data-keep"
+  acl_principal       = "User:CN=pubsub/msk-data-keep-backup"
   acl_host            = "*"
   acl_operation       = "Read"
   acl_permission_type = "Allow"
 }
 
-resource "kafka_acl" "msk_data_keep_describe_group_all" {
+resource "kafka_acl" "msk_data_keep_backup_describe_group_all" {
   resource_name       = "*"
   resource_type       = "Group"
-  acl_principal       = "User:CN=pubsub/msk-data-keep"
+  acl_principal       = "User:CN=pubsub/msk-data-keep-backup"
   acl_host            = "*"
   acl_operation       = "Describe"
   acl_permission_type = "Allow"
+}
+
+module "msk_data_keep_backup" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["pubsub.msk-data-keep-backup"]
+  cert_common_name = "pubsub/msk-data-keep-backup"
 }
 
 resource "kafka_topic" "plan_restore" {
@@ -487,9 +493,9 @@ resource "kafka_topic" "restore_snowplow" {
   }
 }
 
-module "msk_data_keep" {
+module "msk_data_keep_restore" {
   source         = "../../../modules/tls-app"
-  consume_groups = ["pubsub.msk-data-keep-backup", "pubsub.msk-data-keep-restore"]
+  consume_groups = ["pubsub.msk-data-keep-restore"]
   produce_topics = [
     kafka_topic.plan_restore.name,
     "pubsub.restore-test.energy-platform.meter.read.events.v3",
@@ -517,15 +523,15 @@ module "msk_data_keep" {
     "pubsub.restore-test.data-infra.uw.data-infra.pubsubbrige.snowplow"
   ]
 
-  cert_common_name = "pubsub/msk-data-keep"
+  cert_common_name = "pubsub/msk-data-keep-restore"
 }
 
 # Enable only when we need to restore
 #
-# resource "kafka_acl" "msk_data_keep_write_topic_all" {
+# resource "kafka_acl" "msk_data_keep_restore_write_topic_all" {
 #   resource_name       = "*"
 #   resource_type       = "Topic"
-#   acl_principal       = "User:CN=pubsub/msk-data-keep"
+#   acl_principal       = "User:CN=pubsub/msk-data-keep-restore"
 #   acl_host            = "*"
 #   acl_operation       = "Write"
 #   acl_permission_type = "Allow"
