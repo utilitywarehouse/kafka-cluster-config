@@ -195,3 +195,17 @@ module "di_cockroach_db_connector_energy_platform" {
   ]
   cert_common_name = "energy-platform/di-cockroach-db-connector"
 }
+
+module "di_reprocessor" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.events.name
+  ]
+  consume_groups = [
+    "data-infra.reprocessor",
+  ]
+  produce_topics = [
+    kafka_topic.events.name
+  ]
+  cert_common_name = "data-infra/reprocessor"
+}
