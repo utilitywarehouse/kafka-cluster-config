@@ -5,7 +5,7 @@ resource "kafka_topic" "eqdb_loader_service" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data for 1 week
+    # keep data for 7 days
     "retention.ms" = "604800000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
