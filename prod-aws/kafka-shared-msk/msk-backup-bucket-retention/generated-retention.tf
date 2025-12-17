@@ -557,7 +557,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   rule {
     id     = "energy-platform.eqdb-loader.service"
     status = "Enabled"
-    expiration { days = 8 }
+    expiration { days = 1 }
     filter { prefix = "msk-backup-parquet/energy-platform.eqdb-loader.service/" }
   }
 
