@@ -3,16 +3,11 @@ resource "kafka_topic" "eqdb_loader_service" {
   replication_factor = 3
   partitions         = 1
   config = {
-    # Use tiered storage
-    "remote.storage.enable" = "true"
-    # keep data for 7 days
-    "retention.ms" = "604800000"
-    # keep data in primary storage for 2 days
-    "local.retention.ms" = "172800000"
-    # allow for a batch of records maximum 1MiB
-    "max.message.bytes" = "1048576"
-    "compression.type"  = "zstd"
-    "cleanup.policy"    = "delete"
+    "cleanup.policy" = "delete"
+    # Recommended by dev-ena
+    "compression.type" = "zstd"
+    # keep data for 18 hours
+    "retention.ms" = "64800000"
   }
 }
 
