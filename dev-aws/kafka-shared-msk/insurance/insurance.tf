@@ -37,3 +37,10 @@ module "insurance_proximo" {
   consume_groups   = ["insurance.event-log"]
   cert_common_name = "insurance/proximo"
 }
+
+module "cbc_customer_information_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.public_policies_v1.name]
+  consume_groups   = ["cbc.cbc-customer-information-consumer-v1"]
+  cert_common_name = "cbc/cbc-customer-information-consumer"
+}
