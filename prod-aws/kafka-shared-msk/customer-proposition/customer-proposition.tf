@@ -182,13 +182,25 @@ module "cbc_loader_service" {
 module "insurance_loader_service" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.service_status_v4.name, kafka_topic.service_status_deadletter_v4.name]
-  cert_common_name = "customer-proposition/insurance_loader_service"
+  cert_common_name = "customer-proposition/insurance-loader-service"
+}
+
+module "mobile_loader_service" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.service_status_v4.name, kafka_topic.service_status_deadletter_v4.name]
+  cert_common_name = "customer-proposition/mobile-loader-service"
 }
 
 module "telecom_fixed_line_loader_service" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.service_status_v4.name]
+  produce_topics   = [kafka_topic.service_status_v4.name, kafka_topic.service_status_deadletter_v4.name]
   cert_common_name = "customer-proposition/telecom-fixed-line-loader-service"
+}
+
+module "energy_loader_service" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.service_status_v4.name, kafka_topic.service_status_deadletter_v4.name]
+  cert_common_name = "customer-proposition/energy-loader-service"
 }
 
 module "es_indexer_service_status_v4" {
