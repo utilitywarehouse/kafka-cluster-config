@@ -1486,6 +1486,7 @@ module "cbc_customer_proposition" {
     "customer-proposition.customer-proposition-cbc-loader-v1",
     "customer-proposition.customer-proposition-cbc-loader-v4",
     "customer-proposition.customer-proposition-cbc-loader-v4-01",
+    "customer-proposition.customer-proposition-cbc-loader-v4-02",
     "cbc.customer-proposition-cbc-loader-8",
     "cbc.customer-proposition-cbc-loader-6",
   ]
