@@ -522,3 +522,11 @@ module "unicom_customer_support_comms_projector" {
   consume_topics   = [kafka_topic.unicom_status.name]
   consume_groups   = ["customer-support.comms-projector"]
 }
+
+# Customer Support comms projector for William
+module "unicom_customer_support_comms_projector_hotfix" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "crm/comms-projector-hotfix"
+  consume_topics   = [kafka_topic.unicom_status.name]
+  consume_groups   = ["customer-support.comms-projector-hotfix"]
+}
