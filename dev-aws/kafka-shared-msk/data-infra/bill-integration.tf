@@ -124,7 +124,20 @@ module "customer_support_vulnerability_projector_bill" {
   cert_common_name = "crm/vulnerability-projector-bill"
 }
 
+module "insurance_bill_adapter" {
+  source = "../../../modules/tls-app"
 
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name
+  ]
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name
+  ]
+  consume_groups = [
+    "insurance.bill-adapter-ingress"
+  ]
+  cert_common_name = "insurance/bill-adapter-kafka-cert"
+}
 
 module "di_proximo" {
   source = "../../../modules/tls-app"
