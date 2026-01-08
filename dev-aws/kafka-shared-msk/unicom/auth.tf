@@ -544,3 +544,17 @@ module "unicom_customer_support_comms_projector" {
   consume_topics   = [kafka_topic.unicom_status.name]
   consume_groups   = ["customer-support.comms-projector"]
 }
+
+module "unicom_comms_api" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = ["unicom.comms-api-requests"]
+  consume_groups   = ["unicom.comms-api"]
+  cert_common_name = "unicom/comms-api"
+}
+
+module "unicom_comms_api_requester" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = ["unicom.comms-api-requests"]
+  consume_groups   = ["unicom.comms-api-requester"]
+  cert_common_name = "unicom/comms-api-requester"
+}
