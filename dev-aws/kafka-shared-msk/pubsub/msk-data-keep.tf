@@ -40,12 +40,18 @@ resource "kafka_topic" "plan_restore" {
 
 
 
+module "msk_data_keep_plan_restore" {
+  source         = "../../../modules/tls-app"
+  produce_topics = [kafka_topic.plan_restore.name]
+  consume_topics = [kafka_topic.plan_restore.name]
+
+  cert_common_name = "pubsub/msk-data-keep-plan-restore"
+}
+
 module "msk_data_keep_restore" {
   source         = "../../../modules/tls-app"
   consume_groups = ["pubsub.msk-data-keep-restore"]
-  produce_topics = [
-    kafka_topic.plan_restore.name,
-  ]
+  consume_topics = [kafka_topic.plan_restore.name]
 
   cert_common_name = "pubsub/msk-data-keep-restore"
 }

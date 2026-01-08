@@ -115,7 +115,11 @@ module "di_bill_event_bridge" {
   cert_common_name = "bill-integration/bill-event-bridge"
 }
 
-module "di_insurance_bill_adapter" {
+module "customer_support_vulnerability_projector_bill" {
+    cert_common_name = "crm/vulnerability-projector-bill"
+}
+  
+module "insurance_bill_adapter" {
   source = "../../../modules/tls-app"
 
   produce_topics = [
@@ -130,3 +134,28 @@ module "di_insurance_bill_adapter" {
   cert_common_name = "insurance/bill-adapter-kafka-cert"
 }
 
+module "di_proximo" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+    kafka_topic.bill_integration_bill_telemetry.name,
+  ]
+
+  consume_groups = [
+    "data-infra.bill-integration.di-bill-event-bridge",
+    "data-infra.bill-integration.equinox-proximo",
+    "data-infra.bill-integration.bill-letter-connector",
+    "data-infra.bill-integration.bill-email-connector",
+    "data-infra.bill-integration.bill-sms-connector",
+    "data-infra.bill-integration.order-platform-bill-application-releaser",
+    "data-infra.bill-integration.uw-bill-telemetry-bq-connector",
+    "data-infra.bill-integration.payment-bill-remove-card-service"
+  ]
+
+  cert_common_name = "bill-integration/proximo"
+}
