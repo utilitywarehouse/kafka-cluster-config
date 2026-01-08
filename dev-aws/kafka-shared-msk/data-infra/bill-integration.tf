@@ -116,9 +116,14 @@ module "di_bill_event_bridge" {
 }
 
 module "customer_support_vulnerability_projector_bill" {
-    cert_common_name = "crm/vulnerability-projector-bill"
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name
+  ]
+  cert_common_name = "crm/vulnerability-projector-bill"
 }
-  
+
 module "insurance_bill_adapter" {
   source = "../../../modules/tls-app"
 
