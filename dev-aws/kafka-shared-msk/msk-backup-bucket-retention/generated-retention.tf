@@ -1038,6 +1038,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "unicom.comms-api-requests"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "msk-backup-parquet/unicom.comms-api-requests/" }
+  }
+
+  rule {
     id     = "unicom.comms-fallback.1"
     status = "Enabled"
     expiration { days = 92 }
