@@ -484,6 +484,7 @@ module "unicom_external_comms_api" {
   produce_topics = [
     "unicom.status",
     "unicom.status-v2",
+    "unicom.braze_backfill"
   ]
   cert_common_name = "unicom/external_comms_api"
 }
