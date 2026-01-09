@@ -92,7 +92,7 @@ resource "kafka_topic" "bill_integration_kubernetes_to_bill_energy_meter_reading
 }
 
 
-module "insurance_bill-adapter" {
+module "insurance_bill_adapter" {
   source = "../../../modules/tls-app"
 
   produce_topics = [
