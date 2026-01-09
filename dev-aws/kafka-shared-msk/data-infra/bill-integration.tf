@@ -136,7 +136,7 @@ module "insurance_bill_adapter" {
   consume_groups = [
     "insurance.bill-adapter-ingress"
   ]
-  cert_common_name = "insurance/bill-adapter-kafka-cert"
+  cert_common_name = "insurance/bill-adapter"
 }
 
 module "di_proximo" {
