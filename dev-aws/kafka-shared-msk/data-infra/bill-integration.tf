@@ -134,7 +134,7 @@ module "insurance_bill_adapter" {
     kafka_topic.bill_integration_bill_to_kubernetes.name
   ]
   consume_groups = [
-    "insurance.bill-adapter-ingress"
+    "data-infra.bill-integration.bill-adapter-ingress"
   ]
   cert_common_name = "insurance/bill-adapter-kafka-cert"
 }
