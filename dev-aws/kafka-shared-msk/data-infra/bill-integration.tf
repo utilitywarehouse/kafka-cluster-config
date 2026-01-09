@@ -92,6 +92,25 @@ resource "kafka_topic" "bill_integration_kubernetes_to_bill_energy_meter_reading
 }
 
 
+module "insurance_bill-adapter" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name
+  ]
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+
+  consume_groups = [
+    "data-infra.bill-integration.bill-adapter-ingress",
+  ]
+
+  cert_common_name = "insurance/bill-adapter"
+}
+
+
 
 module "di_bill_event_bridge" {
   source = "../../../modules/tls-app"
