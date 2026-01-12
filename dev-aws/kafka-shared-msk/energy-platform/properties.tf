@@ -1,6 +1,6 @@
 
 resource "kafka_topic" "property_migration_events" {
-  name               = "energy-platform.propery.migration.events"
+  name               = "energy-platform.property.migration.events"
   replication_factor = 3
   partitions         = 15
 
