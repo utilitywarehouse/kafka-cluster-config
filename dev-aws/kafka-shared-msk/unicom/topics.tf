@@ -1191,3 +1191,41 @@ resource "kafka_topic" "unicom_sftp_status" {
     "local.retention.ms" = "259200000"
   }
 }
+
+resource "kafka_topic" "unicom_comms_api_requests" {
+  name               = "unicom.comms-api-requests"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data for 6 months
+    "retention.ms" = "15552000000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+    # allow for a batch of records maximum 512MiB
+    "max.message.bytes" = "536870912"
+  }
+}
+
+resource "kafka_topic" "unicom_braze_backfill" {
+  name               = "unicom.braze_backfill"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data for 6 months
+    "retention.ms" = "15552000000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+    # allow for a batch of records maximum 512MiB
+    "max.message.bytes" = "536870912"
+  }
+}

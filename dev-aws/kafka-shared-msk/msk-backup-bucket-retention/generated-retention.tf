@@ -1010,6 +1010,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "unicom.braze_backfill"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "msk-backup-parquet/unicom.braze_backfill/" }
+  }
+
+  rule {
     id     = "unicom.cancel-status.1"
     status = "Enabled"
     expiration { days = 92 }
@@ -1042,6 +1049,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 92 }
     filter { prefix = "msk-backup-parquet/unicom.clx-report/" }
+  }
+
+  rule {
+    id     = "unicom.comms-api-requests"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "msk-backup-parquet/unicom.comms-api-requests/" }
   }
 
   rule {
