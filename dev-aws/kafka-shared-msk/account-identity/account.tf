@@ -444,7 +444,14 @@ module "customer_support_crm" {
   consume_groups   = ["customer-support.account.legacy.events.v31072024"]
 }
 
-# Consume from account-identity.legacy.account.events
+# Consume from account-identity.legacy.account.events with is_staff
+module "customer_support_crm_account" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "crm/account-projector-blue"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["customer-support.account.legacy.events.v14012026"]
+}
+
 module "customer_support_crm_idv" {
   source           = "../../../modules/tls-app"
   cert_common_name = "crm/idv-projector"
