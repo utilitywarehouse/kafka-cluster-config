@@ -17,3 +17,10 @@ resource "kafka_topic" "property_migration_events" {
     "cleanup.policy"    = "delete"
   }
 }
+
+
+module "gentrack_migration_worker" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.property_migration_events.name]
+  cert_common_name = "energy-platform/gentrack-migration-worker"
+}
