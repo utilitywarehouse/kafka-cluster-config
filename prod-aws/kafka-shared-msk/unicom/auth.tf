@@ -532,14 +532,6 @@ module "unicom_customer_support_comms_projector_hotfix" {
   consume_groups   = ["customer-support.comms-projector-hotfix"]
 }
 
-# Customer Support backfill comms projector for William
-module "unicom_customer_support_comms_projector_backfill" {
-  source           = "../../../modules/tls-app"
-  cert_common_name = "crm/comms-projector-backfill"
-  consume_topics   = [kafka_topic.unicom_braze_backfill.name]
-  consume_groups   = ["customer-support.comms-projector-backfill"]
-}
-
 module "unicom_comms_api" {
   source           = "../../../modules/tls-app"
   produce_topics   = ["unicom.comms-api-requests"]
