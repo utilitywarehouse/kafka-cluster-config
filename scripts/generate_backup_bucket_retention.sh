@@ -108,7 +108,7 @@ output_header() {
 #################################
 
 resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
-  bucket = "uw-${env}-pubsub-msk-backup"
+  bucket = "uw-${env}-pubsub-msk-data-keep-backup"
 
   rule {
     id     = "default-to-intelligent-tiering"
