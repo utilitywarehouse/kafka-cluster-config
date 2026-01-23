@@ -3,7 +3,7 @@
 #################################
 
 resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
-  bucket = "uw-prod-pubsub-msk-backup"
+  bucket = "uw-prod-pubsub-msk-data-keep-backup"
 
   rule {
     id     = "default-to-intelligent-tiering"
