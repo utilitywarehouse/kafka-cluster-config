@@ -158,7 +158,7 @@ output_rules() {
 main() {
   local env="$1"
   local root_cluster="${SCRIPT_DIR}/../${env}-aws/kafka-shared-msk"
-  local s3_prefix="msk-backup-parquet"
+  local s3_prefix="kafka-backup"
   local output_dir="${root_cluster}/msk-backup-bucket-retention"
   local output_file="${output_dir}/generated-retention.tf"
 
