@@ -24,3 +24,10 @@ module "gentrack_migration_worker" {
   produce_topics   = [kafka_topic.property_migration_events.name]
   cert_common_name = "energy-platform/gentrack-migration-worker"
 }
+
+module "energy_billing_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.property_migration_events.name]
+  consume_groups   = ["energy-billing.budget-plan-events-consumer"]
+  cert_common_name = "energy-billing/budget-plan-events-consumer"
+}
