@@ -44,3 +44,10 @@ module "cbc_customer_information_consumer" {
   consume_groups   = ["cbc.cbc-customer-information-consumer-v1"]
   cert_common_name = "cbc/cbc-customer-information-consumer"
 }
+
+module "customer_proposition_insurance_loader" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.public_policies_v1.name]
+  consume_groups   = ["customer-proposition.insurance-loader-v4-01"]
+  cert_common_name = "customer-proposition/insurance-loader-service"
+}
