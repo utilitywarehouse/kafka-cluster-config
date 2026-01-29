@@ -3,7 +3,7 @@
 #################################
 
 resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
-  bucket = "uw-dev-pubsub-msk-backup"
+  bucket = "uw-dev-pubsub-msk-data-keep-backup"
 
   rule {
     id     = "default-to-intelligent-tiering"
@@ -19,1386 +19,1393 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     id     = "account-identity.account-management-events"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/account-identity.account-management-events/" }
+    filter { prefix = "kafka-backup/account-identity.account-management-events/" }
   }
 
   rule {
     id     = "account-identity.address.lookup.analytics.v1"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/account-identity.address.lookup.analytics.v1/" }
+    filter { prefix = "kafka-backup/account-identity.address.lookup.analytics.v1/" }
   }
 
   rule {
     id     = "account-identity.dev.account.events.anonymized.v0"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/account-identity.dev.account.events.anonymized.v0/" }
+    filter { prefix = "kafka-backup/account-identity.dev.account.events.anonymized.v0/" }
   }
 
   rule {
     id     = "account-identity.from-prod.account.events.anonymized.v0"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/account-identity.from-prod.account.events.anonymized.v0/" }
+    filter { prefix = "kafka-backup/account-identity.from-prod.account.events.anonymized.v0/" }
   }
 
   rule {
     id     = "account-identity.legacy.account.eqdb.events"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/account-identity.legacy.account.eqdb.events/" }
+    filter { prefix = "kafka-backup/account-identity.legacy.account.eqdb.events/" }
   }
 
   rule {
     id     = "account-identity.to.anonymize"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/account-identity.to.anonymize/" }
+    filter { prefix = "kafka-backup/account-identity.to.anonymize/" }
   }
 
   rule {
     id     = "account-identity.verification.events.v1"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/account-identity.verification.events.v1/" }
+    filter { prefix = "kafka-backup/account-identity.verification.events.v1/" }
   }
 
   rule {
     id     = "auth-customer.iam-credentials-v1-public"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/auth-customer.iam-credentials-v1-public/" }
+    filter { prefix = "kafka-backup/auth-customer.iam-credentials-v1-public/" }
   }
 
   rule {
     id     = "auth-customer.iam-credentials-v1"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/auth-customer.iam-credentials-v1/" }
+    filter { prefix = "kafka-backup/auth-customer.iam-credentials-v1/" }
   }
 
   rule {
     id     = "auth-customer.iam-dpd-v1"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/auth-customer.iam-dpd-v1/" }
+    filter { prefix = "kafka-backup/auth-customer.iam-dpd-v1/" }
   }
 
   rule {
     id     = "auth.iam-cerbos-audit-v1"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/auth.iam-cerbos-audit-v1/" }
+    filter { prefix = "kafka-backup/auth.iam-cerbos-audit-v1/" }
   }
 
   rule {
     id     = "auth.iam-click-v2"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/auth.iam-click-v2/" }
+    filter { prefix = "kafka-backup/auth.iam-click-v2/" }
   }
 
   rule {
     id     = "auth.iam-identitydb-v1"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/auth.iam-identitydb-v1/" }
+    filter { prefix = "kafka-backup/auth.iam-identitydb-v1/" }
   }
 
   rule {
     id     = "auth.iam-revoked-v1"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/auth.iam-revoked-v1/" }
+    filter { prefix = "kafka-backup/auth.iam-revoked-v1/" }
   }
 
   rule {
     id     = "bex.internal.accountreadytobefulfilled_deadletter"
     status = "Enabled"
     expiration { days = 15 }
-    filter { prefix = "msk-backup-parquet/bex.internal.accountreadytobefulfilled_deadletter/" }
+    filter { prefix = "kafka-backup/bex.internal.accountreadytobefulfilled_deadletter/" }
   }
 
   rule {
     id     = "bex.internal.bill_fulfilled"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/bex.internal.bill_fulfilled/" }
+    filter { prefix = "kafka-backup/bex.internal.bill_fulfilled/" }
   }
 
   rule {
     id     = "bex.internal.bill_regeneration"
     status = "Enabled"
     expiration { days = 15 }
-    filter { prefix = "msk-backup-parquet/bex.internal.bill_regeneration/" }
+    filter { prefix = "kafka-backup/bex.internal.bill_regeneration/" }
   }
 
   rule {
     id     = "bex.internal.bill_regeneration_deadletter"
     status = "Enabled"
     expiration { days = 15 }
-    filter { prefix = "msk-backup-parquet/bex.internal.bill_regeneration_deadletter/" }
+    filter { prefix = "kafka-backup/bex.internal.bill_regeneration_deadletter/" }
   }
 
   rule {
     id     = "bex.internal.bill_regeneration_large_invoice"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/bex.internal.bill_regeneration_large_invoice/" }
+    filter { prefix = "kafka-backup/bex.internal.bill_regeneration_large_invoice/" }
   }
 
   rule {
     id     = "bex.internal.bill_regeneration_retry_1"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/bex.internal.bill_regeneration_retry_1/" }
+    filter { prefix = "kafka-backup/bex.internal.bill_regeneration_retry_1/" }
   }
 
   rule {
     id     = "bex.internal.bill_regeneration_retry_2"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/bex.internal.bill_regeneration_retry_2/" }
+    filter { prefix = "kafka-backup/bex.internal.bill_regeneration_retry_2/" }
   }
 
   rule {
     id     = "bex.internal.email_sender_deadletter"
     status = "Enabled"
     expiration { days = 15 }
-    filter { prefix = "msk-backup-parquet/bex.internal.email_sender_deadletter/" }
+    filter { prefix = "kafka-backup/bex.internal.email_sender_deadletter/" }
   }
 
   rule {
     id     = "bex.internal.exstream_invoice_produced"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/bex.internal.exstream_invoice_produced/" }
+    filter { prefix = "kafka-backup/bex.internal.exstream_invoice_produced/" }
   }
 
   rule {
     id     = "bex.internal.fulfilment_deadletter"
     status = "Enabled"
     expiration { days = 29 }
-    filter { prefix = "msk-backup-parquet/bex.internal.fulfilment_deadletter/" }
+    filter { prefix = "kafka-backup/bex.internal.fulfilment_deadletter/" }
   }
 
   rule {
     id     = "bex.internal.fulfilment_large_invoice"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/bex.internal.fulfilment_large_invoice/" }
+    filter { prefix = "kafka-backup/bex.internal.fulfilment_large_invoice/" }
   }
 
   rule {
     id     = "bex.internal.fulfilment_retry_1"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/bex.internal.fulfilment_retry_1/" }
+    filter { prefix = "kafka-backup/bex.internal.fulfilment_retry_1/" }
   }
 
   rule {
     id     = "bex.internal.fulfilment_retry_2"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/bex.internal.fulfilment_retry_2/" }
+    filter { prefix = "kafka-backup/bex.internal.fulfilment_retry_2/" }
   }
 
   rule {
     id     = "bex.internal.invoice_ready_notifier_deadletter"
     status = "Enabled"
     expiration { days = 15 }
-    filter { prefix = "msk-backup-parquet/bex.internal.invoice_ready_notifier_deadletter/" }
+    filter { prefix = "kafka-backup/bex.internal.invoice_ready_notifier_deadletter/" }
   }
 
   rule {
     id     = "bex.internal.mail_sender_deadletter"
     status = "Enabled"
     expiration { days = 15 }
-    filter { prefix = "msk-backup-parquet/bex.internal.mail_sender_deadletter/" }
+    filter { prefix = "kafka-backup/bex.internal.mail_sender_deadletter/" }
   }
 
   rule {
     id     = "bex.internal.mail_sender_reprint_deadletter"
     status = "Enabled"
     expiration { days = 15 }
-    filter { prefix = "msk-backup-parquet/bex.internal.mail_sender_reprint_deadletter/" }
+    filter { prefix = "kafka-backup/bex.internal.mail_sender_reprint_deadletter/" }
   }
 
   rule {
     id     = "bex.public.fulfilment_events"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/bex.public.fulfilment_events/" }
+    filter { prefix = "kafka-backup/bex.public.fulfilment_events/" }
   }
 
   rule {
     id     = "bex.transition.fulfilment_request"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/bex.transition.fulfilment_request/" }
+    filter { prefix = "kafka-backup/bex.transition.fulfilment_request/" }
   }
 
   rule {
     id     = "billing.DataStagedEventsFinance"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/billing.DataStagedEventsFinance/" }
+    filter { prefix = "kafka-backup/billing.DataStagedEventsFinance/" }
   }
 
   rule {
     id     = "billing.bill-reconciliation-error-events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/billing.bill-reconciliation-error-events/" }
+    filter { prefix = "kafka-backup/billing.bill-reconciliation-error-events/" }
   }
 
   rule {
     id     = "billing.billing-engine-events-bce-deadletter"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/billing.billing-engine-events-bce-deadletter/" }
+    filter { prefix = "kafka-backup/billing.billing-engine-events-bce-deadletter/" }
   }
 
   rule {
     id     = "billing.fixed-width-file-processing-events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/billing.fixed-width-file-processing-events/" }
+    filter { prefix = "kafka-backup/billing.fixed-width-file-processing-events/" }
   }
 
   rule {
     id     = "billing.historical-data-staged-events-finance"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/billing.historical-data-staged-events-finance/" }
+    filter { prefix = "kafka-backup/billing.historical-data-staged-events-finance/" }
   }
 
   rule {
     id     = "billing.transactions-auditor-diff.events"
     status = "Enabled"
     expiration { days = 61 }
-    filter { prefix = "msk-backup-parquet/billing.transactions-auditor-diff.events/" }
+    filter { prefix = "kafka-backup/billing.transactions-auditor-diff.events/" }
   }
 
   rule {
     id     = "billing.unified-bill-ready-events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/billing.unified-bill-ready-events/" }
+    filter { prefix = "kafka-backup/billing.unified-bill-ready-events/" }
   }
 
   rule {
     id     = "cbc.DataProductEvents"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/cbc.DataProductEvents/" }
+    filter { prefix = "kafka-backup/cbc.DataProductEvents/" }
   }
 
   rule {
     id     = "contact-channels.article_feedback_v1"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/contact-channels.article_feedback_v1/" }
+    filter { prefix = "kafka-backup/contact-channels.article_feedback_v1/" }
   }
 
   rule {
     id     = "contact-channels.dsar"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/contact-channels.dsar/" }
+    filter { prefix = "kafka-backup/contact-channels.dsar/" }
   }
 
   rule {
     id     = "contact-channels.dsar_conversation"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/contact-channels.dsar_conversation/" }
+    filter { prefix = "kafka-backup/contact-channels.dsar_conversation/" }
   }
 
   rule {
     id     = "contact-channels.dsar_job"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/contact-channels.dsar_job/" }
+    filter { prefix = "kafka-backup/contact-channels.dsar_job/" }
   }
 
   rule {
     id     = "contact-channels.finished_conversations"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/contact-channels.finished_conversations/" }
+    filter { prefix = "kafka-backup/contact-channels.finished_conversations/" }
   }
 
   rule {
     id     = "contact-channels.finished_segments"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/contact-channels.finished_segments/" }
+    filter { prefix = "kafka-backup/contact-channels.finished_segments/" }
   }
 
   rule {
     id     = "contact-channels.finished_transcriptions"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/contact-channels.finished_transcriptions/" }
+    filter { prefix = "kafka-backup/contact-channels.finished_transcriptions/" }
   }
 
   rule {
     id     = "contact-channels.genesys_eb_events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/contact-channels.genesys_eb_events/" }
+    filter { prefix = "kafka-backup/contact-channels.genesys_eb_events/" }
   }
 
   rule {
     id     = "contact-channels.intents_v2"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/contact-channels.intents_v2/" }
+    filter { prefix = "kafka-backup/contact-channels.intents_v2/" }
   }
 
   rule {
     id     = "contact-channels.interactions_state_events"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/contact-channels.interactions_state_events/" }
+    filter { prefix = "kafka-backup/contact-channels.interactions_state_events/" }
   }
 
   rule {
     id     = "contact-channels.messenger_transcript_events"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/contact-channels.messenger_transcript_events/" }
+    filter { prefix = "kafka-backup/contact-channels.messenger_transcript_events/" }
   }
 
   rule {
     id     = "contact-channels.messenger_transcript_events_dlq"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/contact-channels.messenger_transcript_events_dlq/" }
+    filter { prefix = "kafka-backup/contact-channels.messenger_transcript_events_dlq/" }
   }
 
   rule {
     id     = "contact-channels.sent_agent_states"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/contact-channels.sent_agent_states/" }
+    filter { prefix = "kafka-backup/contact-channels.sent_agent_states/" }
   }
 
   rule {
     id     = "contact-channels.tracking_events"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/contact-channels.tracking_events/" }
+    filter { prefix = "kafka-backup/contact-channels.tracking_events/" }
   }
 
   rule {
     id     = "contact-channels.validated_intents_v2"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/contact-channels.validated_intents_v2/" }
+    filter { prefix = "kafka-backup/contact-channels.validated_intents_v2/" }
   }
 
   rule {
     id     = "customer-support.account_history_eqdb_notifications_v1"
     status = "Enabled"
     expiration { days = 1 }
-    filter { prefix = "msk-backup-parquet/customer-support.account_history_eqdb_notifications_v1/" }
+    filter { prefix = "kafka-backup/customer-support.account_history_eqdb_notifications_v1/" }
   }
 
   rule {
     id     = "customer-support.coffee_account_history_v1"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/customer-support.coffee_account_history_v1/" }
+    filter { prefix = "kafka-backup/customer-support.coffee_account_history_v1/" }
   }
 
   rule {
     id     = "customer-support.coffee_services"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/customer-support.coffee_services/" }
+    filter { prefix = "kafka-backup/customer-support.coffee_services/" }
   }
 
   rule {
     id     = "customer-support.notes_v2"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/customer-support.notes_v2/" }
+    filter { prefix = "kafka-backup/customer-support.notes_v2/" }
   }
 
   rule {
     id     = "customer-support.payments_audit_log_v1"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/customer-support.payments_audit_log_v1/" }
+    filter { prefix = "kafka-backup/customer-support.payments_audit_log_v1/" }
   }
 
   rule {
     id     = "customer-support.reminders_notifications_v1"
     status = "Enabled"
     expiration { days = 1 }
-    filter { prefix = "msk-backup-parquet/customer-support.reminders_notifications_v1/" }
+    filter { prefix = "kafka-backup/customer-support.reminders_notifications_v1/" }
   }
 
   rule {
     id     = "customer-support.reminders_v1"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/customer-support.reminders_v1/" }
+    filter { prefix = "kafka-backup/customer-support.reminders_v1/" }
   }
 
   rule {
     id     = "customer-support.ticketing_v2"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/customer-support.ticketing_v2/" }
+    filter { prefix = "kafka-backup/customer-support.ticketing_v2/" }
   }
 
   rule {
     id     = "customer-support.vulnerability_v7"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/customer-support.vulnerability_v7/" }
+    filter { prefix = "kafka-backup/customer-support.vulnerability_v7/" }
   }
 
   rule {
     id     = "data-infra.bill-integration.bill-telemetry"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.bill-integration.bill-telemetry/" }
+    filter { prefix = "kafka-backup/data-infra.bill-integration.bill-telemetry/" }
   }
 
   rule {
     id     = "data-infra.bill-integration.bill-to-kubernetes"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.bill-integration.bill-to-kubernetes/" }
+    filter { prefix = "kafka-backup/data-infra.bill-integration.bill-to-kubernetes/" }
   }
 
   rule {
     id     = "data-infra.bill-integration.kubernetes-to-bill-energy-meter-reading"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.bill-integration.kubernetes-to-bill-energy-meter-reading/" }
+    filter { prefix = "kafka-backup/data-infra.bill-integration.kubernetes-to-bill-energy-meter-reading/" }
   }
 
   rule {
     id     = "data-infra.bill-integration.kubernetes-to-bill"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.bill-integration.kubernetes-to-bill/" }
+    filter { prefix = "kafka-backup/data-infra.bill-integration.kubernetes-to-bill/" }
   }
 
   rule {
     id     = "data-infra.bill_event_bridge.dlq"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.bill_event_bridge.dlq/" }
+    filter { prefix = "kafka-backup/data-infra.bill_event_bridge.dlq/" }
   }
 
   rule {
     id     = "data-infra.e2e.json"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/data-infra.e2e.json/" }
+    filter { prefix = "kafka-backup/data-infra.e2e.json/" }
   }
 
   rule {
     id     = "data-infra.e2e.multi-dpd"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/data-infra.e2e.multi-dpd/" }
+    filter { prefix = "kafka-backup/data-infra.e2e.multi-dpd/" }
   }
 
   rule {
     id     = "data-infra.e2e.multi"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/data-infra.e2e.multi/" }
+    filter { prefix = "kafka-backup/data-infra.e2e.multi/" }
   }
 
   rule {
     id     = "data-infra.e2e.multi_project"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/data-infra.e2e.multi_project/" }
+    filter { prefix = "kafka-backup/data-infra.e2e.multi_project/" }
   }
 
   rule {
     id     = "data-infra.e2e.non-std-envelope"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/data-infra.e2e.non-std-envelope/" }
+    filter { prefix = "kafka-backup/data-infra.e2e.non-std-envelope/" }
   }
 
   rule {
     id     = "data-infra.e2e.proto"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/data-infra.e2e.proto/" }
+    filter { prefix = "kafka-backup/data-infra.e2e.proto/" }
   }
 
   rule {
     id     = "data-infra.product.v1.events.dlq.alerts"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/data-infra.product.v1.events.dlq.alerts/" }
+    filter { prefix = "kafka-backup/data-infra.product.v1.events.dlq.alerts/" }
   }
 
   rule {
     id     = "data-infra.product.v1.events.dlq"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.product.v1.events.dlq/" }
+    filter { prefix = "kafka-backup/data-infra.product.v1.events.dlq/" }
   }
 
   rule {
     id     = "data-infra.product.v1.events.requeue"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/data-infra.product.v1.events.requeue/" }
+    filter { prefix = "kafka-backup/data-infra.product.v1.events.requeue/" }
   }
 
   rule {
     id     = "data-infra.uw.data-infra.pubsubbrige.snowplow"
     status = "Enabled"
     expiration { days = 6 }
-    filter { prefix = "msk-backup-parquet/data-infra.uw.data-infra.pubsubbrige.snowplow/" }
+    filter { prefix = "kafka-backup/data-infra.uw.data-infra.pubsubbrige.snowplow/" }
   }
 
   rule {
     id     = "data-infra.uw.data-infra.test.pla1275"
     status = "Enabled"
     expiration { days = 2 }
-    filter { prefix = "msk-backup-parquet/data-infra.uw.data-infra.test.pla1275/" }
+    filter { prefix = "kafka-backup/data-infra.uw.data-infra.test.pla1275/" }
   }
 
   rule {
     id     = "energy-billing.internal.billing-adapter-deadletter"
     status = "Enabled"
     expiration { days = 29 }
-    filter { prefix = "msk-backup-parquet/energy-billing.internal.billing-adapter-deadletter/" }
+    filter { prefix = "kafka-backup/energy-billing.internal.billing-adapter-deadletter/" }
   }
 
   rule {
     id     = "energy-billing.internal.billing-adapter-retry-1"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/energy-billing.internal.billing-adapter-retry-1/" }
+    filter { prefix = "kafka-backup/energy-billing.internal.billing-adapter-retry-1/" }
   }
 
   rule {
     id     = "energy-billing.internal.billing-adapter-retry-2"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/energy-billing.internal.billing-adapter-retry-2/" }
+    filter { prefix = "kafka-backup/energy-billing.internal.billing-adapter-retry-2/" }
   }
 
   rule {
     id     = "energy-platform.eqdb-loader.service"
     status = "Enabled"
     expiration { days = 1 }
-    filter { prefix = "msk-backup-parquet/energy-platform.eqdb-loader.service/" }
+    filter { prefix = "kafka-backup/energy-platform.eqdb-loader.service/" }
   }
 
   rule {
     id     = "energy-platform.gentrack.billing.events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/energy-platform.gentrack.billing.events/" }
+    filter { prefix = "kafka-backup/energy-platform.gentrack.billing.events/" }
   }
 
   rule {
     id     = "energy-platform.gentrack.market_interactions.events"
     status = "Enabled"
     expiration { days = 181 }
-    filter { prefix = "msk-backup-parquet/energy-platform.gentrack.market_interactions.events/" }
+    filter { prefix = "kafka-backup/energy-platform.gentrack.market_interactions.events/" }
   }
 
   rule {
     id     = "energy-platform.gentrack.meter.read.events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/energy-platform.gentrack.meter.read.events/" }
+    filter { prefix = "kafka-backup/energy-platform.gentrack.meter.read.events/" }
   }
 
   rule {
     id     = "energy-platform.gentrack.meterpoint.events"
     status = "Enabled"
     expiration { days = 181 }
-    filter { prefix = "msk-backup-parquet/energy-platform.gentrack.meterpoint.events/" }
+    filter { prefix = "kafka-backup/energy-platform.gentrack.meterpoint.events/" }
   }
 
   rule {
     id     = "energy-platform.gentrack.migration.events"
     status = "Enabled"
     expiration { days = 181 }
-    filter { prefix = "msk-backup-parquet/energy-platform.gentrack.migration.events/" }
+    filter { prefix = "kafka-backup/energy-platform.gentrack.migration.events/" }
   }
 
   rule {
     id     = "energy-platform.meter.read.events.v3"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/energy-platform.meter.read.events.v3/" }
+    filter { prefix = "kafka-backup/energy-platform.meter.read.events.v3/" }
+  }
+
+  rule {
+    id     = "energy-platform.property.migration.events"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/energy-platform.property.migration.events/" }
   }
 
   rule {
     id     = "help-and-support.self_serve_submissions"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/help-and-support.self_serve_submissions/" }
+    filter { prefix = "kafka-backup/help-and-support.self_serve_submissions/" }
   }
 
   rule {
     id     = "help-and-support.self_serve_submissions_dlq"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/help-and-support.self_serve_submissions_dlq/" }
+    filter { prefix = "kafka-backup/help-and-support.self_serve_submissions_dlq/" }
   }
 
   rule {
     id     = "iam-audit.ingest-v1"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/iam-audit.ingest-v1/" }
+    filter { prefix = "kafka-backup/iam-audit.ingest-v1/" }
   }
 
   rule {
     id     = "ledgers.account-balance.events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/ledgers.account-balance.events/" }
+    filter { prefix = "kafka-backup/ledgers.account-balance.events/" }
   }
 
   rule {
     id     = "ledgers.account.migrated.events"
     status = "Enabled"
     expiration { days = 1 }
-    filter { prefix = "msk-backup-parquet/ledgers.account.migrated.events/" }
+    filter { prefix = "kafka-backup/ledgers.account.migrated.events/" }
   }
 
   rule {
     id     = "ledgers.transaction.events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/ledgers.transaction.events/" }
+    filter { prefix = "kafka-backup/ledgers.transaction.events/" }
   }
 
   rule {
     id     = "payment-platform.card-deadletter.v1.internal.payment-methods"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.card-deadletter.v1.internal.payment-methods/" }
+    filter { prefix = "kafka-backup/payment-platform.card-deadletter.v1.internal.payment-methods/" }
   }
 
   rule {
     id     = "payment-platform.card-deadletter.v1.internal"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.card-deadletter.v1.internal/" }
+    filter { prefix = "kafka-backup/payment-platform.card-deadletter.v1.internal/" }
   }
 
   rule {
     id     = "payment-platform.card.v1.internal.notifications"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.card.v1.internal.notifications/" }
+    filter { prefix = "kafka-backup/payment-platform.card.v1.internal.notifications/" }
   }
 
   rule {
     id     = "payment-platform.card.v1.internal.payment-methods"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.card.v1.internal.payment-methods/" }
+    filter { prefix = "kafka-backup/payment-platform.card.v1.internal.payment-methods/" }
   }
 
   rule {
     id     = "payment-platform.card.v1.internal"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.card.v1.internal/" }
+    filter { prefix = "kafka-backup/payment-platform.card.v1.internal/" }
   }
 
   rule {
     id     = "payment-platform.notifications.stripe.raw"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.notifications.stripe.raw/" }
+    filter { prefix = "kafka-backup/payment-platform.notifications.stripe.raw/" }
   }
 
   rule {
     id     = "payment-platform.notifications.tx"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.notifications.tx/" }
+    filter { prefix = "kafka-backup/payment-platform.notifications.tx/" }
   }
 
   rule {
     id     = "payment-platform.notifications.worldpay.raw"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.notifications.worldpay.raw/" }
+    filter { prefix = "kafka-backup/payment-platform.notifications.worldpay.raw/" }
   }
 
   rule {
     id     = "payment-platform.openbanking-deadletter.v1.internal.payment-methods"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.openbanking-deadletter.v1.internal.payment-methods/" }
+    filter { prefix = "kafka-backup/payment-platform.openbanking-deadletter.v1.internal.payment-methods/" }
   }
 
   rule {
     id     = "payment-platform.openbanking-deadletter.v1.internal.payments"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.openbanking-deadletter.v1.internal.payments/" }
+    filter { prefix = "kafka-backup/payment-platform.openbanking-deadletter.v1.internal.payments/" }
   }
 
   rule {
     id     = "payment-platform.openbanking-deadletter.v1.internal.settlements"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.openbanking-deadletter.v1.internal.settlements/" }
+    filter { prefix = "kafka-backup/payment-platform.openbanking-deadletter.v1.internal.settlements/" }
   }
 
   rule {
     id     = "payment-platform.openbanking.v1.internal.payment-methods"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.openbanking.v1.internal.payment-methods/" }
+    filter { prefix = "kafka-backup/payment-platform.openbanking.v1.internal.payment-methods/" }
   }
 
   rule {
     id     = "payment-platform.openbanking.v1.internal.payments"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.openbanking.v1.internal.payments/" }
+    filter { prefix = "kafka-backup/payment-platform.openbanking.v1.internal.payments/" }
   }
 
   rule {
     id     = "payment-platform.openbanking.v1.internal.settlements"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.openbanking.v1.internal.settlements/" }
+    filter { prefix = "kafka-backup/payment-platform.openbanking.v1.internal.settlements/" }
   }
 
   rule {
     id     = "payment-platform.payment-analysis.payment-method"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment-analysis.payment-method/" }
+    filter { prefix = "kafka-backup/payment-platform.payment-analysis.payment-method/" }
   }
 
   rule {
     id     = "payment-platform.payment-deadletter.v1.events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment-deadletter.v1.events/" }
+    filter { prefix = "kafka-backup/payment-platform.payment-deadletter.v1.events/" }
   }
 
   rule {
     id     = "payment-platform.payment-method-deadletter.v1.events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment-method-deadletter.v1.events/" }
+    filter { prefix = "kafka-backup/payment-platform.payment-method-deadletter.v1.events/" }
   }
 
   rule {
     id     = "payment-platform.payment-method.v1.events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment-method.v1.events/" }
+    filter { prefix = "kafka-backup/payment-platform.payment-method.v1.events/" }
   }
 
   rule {
     id     = "payment-platform.payment-method.v1.public.events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment-method.v1.public.events/" }
+    filter { prefix = "kafka-backup/payment-platform.payment-method.v1.public.events/" }
   }
 
   rule {
     id     = "payment-platform.payment.data-staged"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.data-staged/" }
+    filter { prefix = "kafka-backup/payment-platform.payment.data-staged/" }
   }
 
   rule {
     id     = "payment-platform.payment.enriched-txs"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.enriched-txs/" }
+    filter { prefix = "kafka-backup/payment-platform.payment.enriched-txs/" }
   }
 
   rule {
     id     = "payment-platform.payment.gateway.reconciliation.status-changed"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.gateway.reconciliation.status-changed/" }
+    filter { prefix = "kafka-backup/payment-platform.payment.gateway.reconciliation.status-changed/" }
   }
 
   rule {
     id     = "payment-platform.payment.gateway.reconciliation"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.gateway.reconciliation/" }
+    filter { prefix = "kafka-backup/payment-platform.payment.gateway.reconciliation/" }
   }
 
   rule {
     id     = "payment-platform.payment.method-created"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.method-created/" }
+    filter { prefix = "kafka-backup/payment-platform.payment.method-created/" }
   }
 
   rule {
     id     = "payment-platform.payment.method-linked"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.method-linked/" }
+    filter { prefix = "kafka-backup/payment-platform.payment.method-linked/" }
   }
 
   rule {
     id     = "payment-platform.payment.method-verified"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.method-verified/" }
+    filter { prefix = "kafka-backup/payment-platform.payment.method-verified/" }
   }
 
   rule {
     id     = "payment-platform.payment.payment"
     status = "Enabled"
     expiration { days = 366 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.payment/" }
+    filter { prefix = "kafka-backup/payment-platform.payment.payment/" }
   }
 
   rule {
     id     = "payment-platform.payment.v1.events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.v1.events/" }
+    filter { prefix = "kafka-backup/payment-platform.payment.v1.events/" }
   }
 
   rule {
     id     = "payment-platform.payment.v1.public.events.cbc_topup_v3"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.v1.public.events.cbc_topup_v3/" }
+    filter { prefix = "kafka-backup/payment-platform.payment.v1.public.events.cbc_topup_v3/" }
   }
 
   rule {
     id     = "payment-platform.payment.v1.public.events.debt"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.v1.public.events.debt/" }
+    filter { prefix = "kafka-backup/payment-platform.payment.v1.public.events.debt/" }
   }
 
   rule {
     id     = "payment-platform.payment.v1.public.events.pp_test"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.v1.public.events.pp_test/" }
+    filter { prefix = "kafka-backup/payment-platform.payment.v1.public.events.pp_test/" }
   }
 
   rule {
     id     = "payment-platform.payment.v1.public.events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/payment-platform.payment.v1.public.events/" }
+    filter { prefix = "kafka-backup/payment-platform.payment.v1.public.events/" }
   }
 
   rule {
     id     = "pubsub.examples"
     status = "Enabled"
     expiration { days = 1 }
-    filter { prefix = "msk-backup-parquet/pubsub.examples/" }
+    filter { prefix = "kafka-backup/pubsub.examples/" }
   }
 
   rule {
     id     = "pubsub.plan-topic-restore"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "msk-backup-parquet/pubsub.plan-topic-restore/" }
+    filter { prefix = "kafka-backup/pubsub.plan-topic-restore/" }
   }
 
   rule {
     id     = "pubsub.proximo-example"
     status = "Enabled"
     expiration { days = 3 }
-    filter { prefix = "msk-backup-parquet/pubsub.proximo-example/" }
+    filter { prefix = "kafka-backup/pubsub.proximo-example/" }
   }
 
   rule {
     id     = "staging-ept.DataStagedEventsFinance"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/staging-ept.DataStagedEventsFinance/" }
+    filter { prefix = "kafka-backup/staging-ept.DataStagedEventsFinance/" }
   }
 
   rule {
     id     = "staging-ept.bill-reconciliation-error-events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/staging-ept.bill-reconciliation-error-events/" }
+    filter { prefix = "kafka-backup/staging-ept.bill-reconciliation-error-events/" }
   }
 
   rule {
     id     = "staging-ept.billing-engine-events-bce-deadletter"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/staging-ept.billing-engine-events-bce-deadletter/" }
+    filter { prefix = "kafka-backup/staging-ept.billing-engine-events-bce-deadletter/" }
   }
 
   rule {
     id     = "staging-ept.fixed-width-file-processing-events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/staging-ept.fixed-width-file-processing-events/" }
+    filter { prefix = "kafka-backup/staging-ept.fixed-width-file-processing-events/" }
   }
 
   rule {
     id     = "staging-ept.historical-data-staged-events-finance"
     status = "Enabled"
     expiration { days = 8 }
-    filter { prefix = "msk-backup-parquet/staging-ept.historical-data-staged-events-finance/" }
+    filter { prefix = "kafka-backup/staging-ept.historical-data-staged-events-finance/" }
   }
 
   rule {
     id     = "staging-ept.transactions-auditor-diff.events"
     status = "Enabled"
     expiration { days = 61 }
-    filter { prefix = "msk-backup-parquet/staging-ept.transactions-auditor-diff.events/" }
+    filter { prefix = "kafka-backup/staging-ept.transactions-auditor-diff.events/" }
   }
 
   rule {
     id     = "staging-ept.unified-bill-ready-events"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "msk-backup-parquet/staging-ept.unified-bill-ready-events/" }
+    filter { prefix = "kafka-backup/staging-ept.unified-bill-ready-events/" }
   }
 
   rule {
     id     = "unicom.bill-events"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.bill-events/" }
+    filter { prefix = "kafka-backup/unicom.bill-events/" }
   }
 
   rule {
     id     = "unicom.bill-failed"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.bill-failed/" }
+    filter { prefix = "kafka-backup/unicom.bill-failed/" }
   }
 
   rule {
     id     = "unicom.bounce.2019.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.bounce.2019.1/" }
+    filter { prefix = "kafka-backup/unicom.bounce.2019.1/" }
   }
 
   rule {
     id     = "unicom.braze_backfill"
     status = "Enabled"
     expiration { days = 181 }
-    filter { prefix = "msk-backup-parquet/unicom.braze_backfill/" }
+    filter { prefix = "kafka-backup/unicom.braze_backfill/" }
   }
 
   rule {
     id     = "unicom.cancel-status.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.cancel-status.1/" }
+    filter { prefix = "kafka-backup/unicom.cancel-status.1/" }
   }
 
   rule {
     id     = "unicom.cancellation.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.cancellation.1/" }
+    filter { prefix = "kafka-backup/unicom.cancellation.1/" }
   }
 
   rule {
     id     = "unicom.caps-consent"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.caps-consent/" }
+    filter { prefix = "kafka-backup/unicom.caps-consent/" }
   }
 
   rule {
     id     = "unicom.caps"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.caps/" }
+    filter { prefix = "kafka-backup/unicom.caps/" }
   }
 
   rule {
     id     = "unicom.clx-report"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.clx-report/" }
+    filter { prefix = "kafka-backup/unicom.clx-report/" }
   }
 
   rule {
     id     = "unicom.comms-api-requests"
     status = "Enabled"
     expiration { days = 181 }
-    filter { prefix = "msk-backup-parquet/unicom.comms-api-requests/" }
+    filter { prefix = "kafka-backup/unicom.comms-api-requests/" }
   }
 
   rule {
     id     = "unicom.comms-fallback.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.comms-fallback.1/" }
+    filter { prefix = "kafka-backup/unicom.comms-fallback.1/" }
   }
 
   rule {
     id     = "unicom.cost-calculated.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.cost-calculated.1/" }
+    filter { prefix = "kafka-backup/unicom.cost-calculated.1/" }
   }
 
   rule {
     id     = "unicom.email-batch.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.email-batch.1/" }
+    filter { prefix = "kafka-backup/unicom.email-batch.1/" }
   }
 
   rule {
     id     = "unicom.email-post-delivery.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.email-post-delivery.1/" }
+    filter { prefix = "kafka-backup/unicom.email-post-delivery.1/" }
   }
 
   rule {
     id     = "unicom.email-released-critical.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.email-released-critical.1/" }
+    filter { prefix = "kafka-backup/unicom.email-released-critical.1/" }
   }
 
   rule {
     id     = "unicom.email-released-important.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.email-released-important.1/" }
+    filter { prefix = "kafka-backup/unicom.email-released-important.1/" }
   }
 
   rule {
     id     = "unicom.email-released-mock-critical.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.email-released-mock-critical.1/" }
+    filter { prefix = "kafka-backup/unicom.email-released-mock-critical.1/" }
   }
 
   rule {
     id     = "unicom.email-released-mock-important.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.email-released-mock-important.1/" }
+    filter { prefix = "kafka-backup/unicom.email-released-mock-important.1/" }
   }
 
   rule {
     id     = "unicom.email-released-mock.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.email-released-mock.1/" }
+    filter { prefix = "kafka-backup/unicom.email-released-mock.1/" }
   }
 
   rule {
     id     = "unicom.email-released-ses-critical.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.email-released-ses-critical.1/" }
+    filter { prefix = "kafka-backup/unicom.email-released-ses-critical.1/" }
   }
 
   rule {
     id     = "unicom.email-released-ses-important.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.email-released-ses-important.1/" }
+    filter { prefix = "kafka-backup/unicom.email-released-ses-important.1/" }
   }
 
   rule {
     id     = "unicom.email-released-ses.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.email-released-ses.1/" }
+    filter { prefix = "kafka-backup/unicom.email-released-ses.1/" }
   }
 
   rule {
     id     = "unicom.email-released.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.email-released.1/" }
+    filter { prefix = "kafka-backup/unicom.email-released.1/" }
   }
 
   rule {
     id     = "unicom.email-status.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.email-status.1/" }
+    filter { prefix = "kafka-backup/unicom.email-status.1/" }
   }
 
   rule {
     id     = "unicom.failed"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.failed/" }
+    filter { prefix = "kafka-backup/unicom.failed/" }
   }
 
   rule {
     id     = "unicom.go-inspire-letter-status.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.go-inspire-letter-status.1/" }
+    filter { prefix = "kafka-backup/unicom.go-inspire-letter-status.1/" }
   }
 
   rule {
     id     = "unicom.letter-batch-critical.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.letter-batch-critical.1/" }
+    filter { prefix = "kafka-backup/unicom.letter-batch-critical.1/" }
   }
 
   rule {
     id     = "unicom.letter-batch-important.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.letter-batch-important.1/" }
+    filter { prefix = "kafka-backup/unicom.letter-batch-important.1/" }
   }
 
   rule {
     id     = "unicom.letter-batch.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.letter-batch.1/" }
+    filter { prefix = "kafka-backup/unicom.letter-batch.1/" }
   }
 
   rule {
     id     = "unicom.letter-released-critical.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.letter-released-critical.1/" }
+    filter { prefix = "kafka-backup/unicom.letter-released-critical.1/" }
   }
 
   rule {
     id     = "unicom.letter-released-important.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.letter-released-important.1/" }
+    filter { prefix = "kafka-backup/unicom.letter-released-important.1/" }
   }
 
   rule {
     id     = "unicom.letter-released-mock-critical.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.letter-released-mock-critical.1/" }
+    filter { prefix = "kafka-backup/unicom.letter-released-mock-critical.1/" }
   }
 
   rule {
     id     = "unicom.letter-released-mock-important.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.letter-released-mock-important.1/" }
+    filter { prefix = "kafka-backup/unicom.letter-released-mock-important.1/" }
   }
 
   rule {
     id     = "unicom.letter-released-mock.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.letter-released-mock.1/" }
+    filter { prefix = "kafka-backup/unicom.letter-released-mock.1/" }
   }
 
   rule {
     id     = "unicom.letter-released.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.letter-released.1/" }
+    filter { prefix = "kafka-backup/unicom.letter-released.1/" }
   }
 
   rule {
     id     = "unicom.letter-send-adare"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.letter-send-adare/" }
+    filter { prefix = "kafka-backup/unicom.letter-send-adare/" }
   }
 
   rule {
     id     = "unicom.letter-status.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.letter-status.1/" }
+    filter { prefix = "kafka-backup/unicom.letter-status.1/" }
   }
 
   rule {
     id     = "unicom.mparticle-output-integration"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.mparticle-output-integration/" }
+    filter { prefix = "kafka-backup/unicom.mparticle-output-integration/" }
   }
 
   rule {
     id     = "unicom.orchestration-entity.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.orchestration-entity.1/" }
+    filter { prefix = "kafka-backup/unicom.orchestration-entity.1/" }
   }
 
   rule {
     id     = "unicom.orchestration-rule-execution.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.orchestration-rule-execution.1/" }
+    filter { prefix = "kafka-backup/unicom.orchestration-rule-execution.1/" }
   }
 
   rule {
     id     = "unicom.outbound-call-request"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.outbound-call-request/" }
+    filter { prefix = "kafka-backup/unicom.outbound-call-request/" }
   }
 
   rule {
     id     = "unicom.push-notification-released.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.push-notification-released.1/" }
+    filter { prefix = "kafka-backup/unicom.push-notification-released.1/" }
   }
 
   rule {
     id     = "unicom.push-notification-status.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.push-notification-status.1/" }
+    filter { prefix = "kafka-backup/unicom.push-notification-status.1/" }
   }
 
   rule {
     id     = "unicom.rejected"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.rejected/" }
+    filter { prefix = "kafka-backup/unicom.rejected/" }
   }
 
   rule {
     id     = "unicom.rendered.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.rendered.1/" }
+    filter { prefix = "kafka-backup/unicom.rendered.1/" }
   }
 
   rule {
     id     = "unicom.requests"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.requests/" }
+    filter { prefix = "kafka-backup/unicom.requests/" }
   }
 
   rule {
     id     = "unicom.scheduled.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.scheduled.1/" }
+    filter { prefix = "kafka-backup/unicom.scheduled.1/" }
   }
 
   rule {
     id     = "unicom.send-notification.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.send-notification.1/" }
+    filter { prefix = "kafka-backup/unicom.send-notification.1/" }
   }
 
   rule {
     id     = "unicom.sftp-status"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.sftp-status/" }
+    filter { prefix = "kafka-backup/unicom.sftp-status/" }
   }
 
   rule {
     id     = "unicom.sms-batch.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.sms-batch.1/" }
+    filter { prefix = "kafka-backup/unicom.sms-batch.1/" }
   }
 
   rule {
     id     = "unicom.sms-released-critical.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.sms-released-critical.1/" }
+    filter { prefix = "kafka-backup/unicom.sms-released-critical.1/" }
   }
 
   rule {
     id     = "unicom.sms-released-important.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.sms-released-important.1/" }
+    filter { prefix = "kafka-backup/unicom.sms-released-important.1/" }
   }
 
   rule {
     id     = "unicom.sms-released.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.sms-released.1/" }
+    filter { prefix = "kafka-backup/unicom.sms-released.1/" }
   }
 
   rule {
     id     = "unicom.sms-status.1"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.sms-status.1/" }
+    filter { prefix = "kafka-backup/unicom.sms-status.1/" }
   }
 
   rule {
     id     = "unicom.status-bill-email-connector"
     status = "Enabled"
-    expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.status-bill-email-connector/" }
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/unicom.status-bill-email-connector/" }
   }
 
   rule {
     id     = "unicom.status-energy-smets1-notifier"
     status = "Enabled"
-    expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.status-energy-smets1-notifier/" }
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/unicom.status-energy-smets1-notifier/" }
   }
 
   rule {
     id     = "unicom.status-finance-email-delivery-engine"
     status = "Enabled"
-    expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.status-finance-email-delivery-engine/" }
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/unicom.status-finance-email-delivery-engine/" }
   }
 
   rule {
     id     = "unicom.status-v2"
     status = "Enabled"
-    expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.status-v2/" }
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/unicom.status-v2/" }
   }
 
   rule {
     id     = "unicom.status"
     status = "Enabled"
-    expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.status/" }
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/unicom.status/" }
   }
 
   rule {
     id     = "unicom.tests"
     status = "Enabled"
     expiration { days = 92 }
-    filter { prefix = "msk-backup-parquet/unicom.tests/" }
+    filter { prefix = "kafka-backup/unicom.tests/" }
   }
 
 }
