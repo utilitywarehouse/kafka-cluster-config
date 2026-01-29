@@ -653,6 +653,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "energy-platform.tariff.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/energy-platform.tariff.events/" }
+  }
+
+  rule {
     id     = "help-and-support.self_serve_submissions"
     status = "Enabled"
     expiration { days = 31 }
