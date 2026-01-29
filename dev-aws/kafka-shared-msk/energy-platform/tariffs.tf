@@ -16,10 +16,10 @@ resource "kafka_topic" "tariff_events" {
   }
 }
 
-module "energy_tariff_system_api" {
+module "energy_tariff_system_api_outbox_worker" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.tariff_events.name]
-  cert_common_name = "energy-platform/energy-tariff-system-api"
+  cert_common_name = "energy-platform/energy-tariff-system-api-outbox-worker"
 }
 
 module "energy_smart_tariffier" {
