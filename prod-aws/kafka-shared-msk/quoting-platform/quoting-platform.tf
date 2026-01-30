@@ -38,3 +38,14 @@ module "partner_planner" {
   ]
   cert_common_name = "partner-planner/crdb-indexer"
 }
+
+module "partner_planner_basket_mapper" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.basket_v1.name,
+  ]
+  consume_groups = [
+    "partner-planner.basket-mapper-consumer-group"
+  ]
+  cert_common_name = "partner-planner/basket-mapper"
+}

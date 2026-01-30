@@ -305,6 +305,34 @@ module "unicom_bq_connector" {
   cert_common_name = "unicom/bq_connector"
 }
 
+module "unicom_clone_bq_connector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    "unicom.scheduled.1",
+    "unicom.email-released-critical.1",
+    "unicom.email-released-important.1",
+    "unicom.email-released.1",
+    "unicom.email-status.1",
+    "unicom.sms-released-critical.1",
+    "unicom.sms-released-important.1",
+    "unicom.sms-released.1",
+    "unicom.sms-status.1",
+    "unicom.letter-released-critical.1",
+    "unicom.letter-released-important.1",
+    "unicom.letter-released.1",
+    "unicom.letter-status.1",
+    "unicom.bounce.2019.1",
+    "unicom.email-post-delivery.1",
+    "unicom.rendered.1",
+    "unicom.cost-calculated.1",
+    "unicom.push-notification-released.1",
+    "unicom.push-notification-status.1",
+    "unicom.sftp-status"
+  ]
+  consume_groups   = ["unicom.clone_bq-connector"]
+  cert_common_name = "unicom/clone_bq_connector"
+}
+
 module "unicom_otc_letter_cancellation" {
   source           = "../../../modules/tls-app"
   consume_topics   = ["unicom.cancel-status.1"]
@@ -484,6 +512,7 @@ module "unicom_external_comms_api" {
   produce_topics = [
     "unicom.status",
     "unicom.status-v2",
+    "unicom.braze_backfill"
   ]
   cert_common_name = "unicom/external_comms_api"
 }
@@ -543,4 +572,112 @@ module "unicom_customer_support_comms_projector" {
   cert_common_name = "crm/comms-projector"
   consume_topics   = [kafka_topic.unicom_status.name]
   consume_groups   = ["customer-support.comms-projector"]
+}
+
+module "unicom_comms_api" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = ["unicom.comms-api-requests"]
+  consume_groups   = ["unicom.comms-api"]
+  cert_common_name = "unicom/comms-api"
+}
+
+module "unicom_comms_api_requester" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = ["unicom.comms-api-requests"]
+  consume_groups   = ["unicom.comms-api-requester"]
+  cert_common_name = "unicom/comms-api-requester"
+}
+
+module "unit_sender_email" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.unicom_email_released_critical_1.name,
+    kafka_topic.unicom_email_released_important_1.name,
+    kafka_topic.unicom_email_released_1.name,
+  ]
+  produce_topics = [
+    kafka_topic.unicom_cost_calculated_1.name,
+    kafka_topic.unicom_tests.name,
+    kafka_topic.unicom_email_status_1.name,
+    kafka_topic.unicom_rendered_1.name,
+    kafka_topic.unicom_failed.name,
+    kafka_topic.unicom_comms_fallback_1.name,
+
+  ]
+  consume_groups   = ["unicom.unit-sender-email"]
+  cert_common_name = "unicom/unit-sender-email"
+}
+
+module "unit_sender_letter" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.unicom_letter_released_critical_1.name,
+    kafka_topic.unicom_letter_released_important_1.name,
+    kafka_topic.unicom_letter_released_1.name,
+  ]
+  produce_topics = [
+    kafka_topic.unicom_cost_calculated_1.name,
+    kafka_topic.unicom_tests.name,
+    kafka_topic.unicom_letter_status_1.name,
+    kafka_topic.unicom_rendered_1.name,
+    kafka_topic.unicom_failed.name,
+    kafka_topic.unicom_comms_fallback_1.name,
+
+  ]
+  consume_groups   = ["unicom.unit-sender-letter"]
+  cert_common_name = "unicom/unit-sender-letter"
+}
+
+module "batch_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.unicom_letter_released_critical_1.name,
+    kafka_topic.unicom_letter_released_important_1.name,
+    kafka_topic.unicom_letter_released_1.name,
+  ]
+
+  produce_topics = [
+    kafka_topic.unicom_letter_status_1.name,
+    kafka_topic.unicom_tests.name,
+    kafka_topic.unicom_cost_calculated_1.name,
+    kafka_topic.unicom_rendered_1.name,
+    kafka_topic.unicom_failed.name,
+    kafka_topic.unicom_comms_fallback_1.name,
+  ]
+  consume_groups   = ["unicom.batch-projector"]
+  cert_common_name = "unicom/batch-projector"
+}
+
+module "batch_releaser" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+  ]
+
+  produce_topics = [
+    kafka_topic.unicom_email_batch_1.name,
+    kafka_topic.unicom_sms_batch_1.name,
+    kafka_topic.unicom_letter_batch_1.name,
+  ]
+  consume_groups   = ["unicom.batch-releaser"]
+  cert_common_name = "unicom/batch-releaser"
+}
+
+module "batch_sender" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.unicom_letter_batch_critical_1.name,
+    kafka_topic.unicom_letter_batch_important_1.name,
+    kafka_topic.unicom_letter_batch_1.name,
+  ]
+
+  produce_topics = [
+    kafka_topic.unicom_letter_status_1.name,
+    kafka_topic.unicom_tests.name,
+    kafka_topic.unicom_cost_calculated_1.name,
+    kafka_topic.unicom_rendered_1.name,
+    kafka_topic.unicom_failed.name,
+    kafka_topic.unicom_comms_fallback_1.name,
+  ]
+  consume_groups   = ["unicom.batch-sender"]
+  cert_common_name = "unicom/batch-sender"
 }

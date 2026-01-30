@@ -7,6 +7,15 @@ module "meterpoint_gentrack_projector" {
   cert_common_name = "energy-platform/meterpoint-gentrack-projector"
 }
 
+module "meterpoint_energy_flows_mocker" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.gentrack_meterpoint_events.name,
+  ]
+  consume_groups   = ["energy-platform.energy-flows-mocker"]
+  cert_common_name = "energy-platform/energy-flows-mocker"
+}
+
 module "meterpoints_v2_gentrack_supply_loss_projector" {
   source = "../../../modules/tls-app"
   consume_topics = [

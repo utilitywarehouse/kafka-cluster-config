@@ -937,8 +937,8 @@ resource "kafka_topic" "unicom_status" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 7 days
+    "retention.ms" = "604800000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -956,8 +956,8 @@ resource "kafka_topic" "unicom_status_bill_email_connector" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 7 days
+    "retention.ms" = "604800000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -975,8 +975,8 @@ resource "kafka_topic" "unicom_status_energy_smets1_notifier" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 7 days
+    "retention.ms" = "604800000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -994,8 +994,8 @@ resource "kafka_topic" "unicom_status_finance_email_delivery_engine" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 7 days
+    "retention.ms" = "604800000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -1013,8 +1013,8 @@ resource "kafka_topic" "unicom_status_v2" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
+    # keep data for 7 days
+    "retention.ms" = "604800000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
@@ -1041,100 +1041,6 @@ resource "kafka_topic" "unicom_tests" {
     # allow for a batch of records maximum 512MiB
     "max.message.bytes" = "536870912"
   }
-}
-
-module "unit_sender_email" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
-    kafka_topic.unicom_email_released_critical_1.name,
-    kafka_topic.unicom_email_released_important_1.name,
-    kafka_topic.unicom_email_released_1.name,
-  ]
-  produce_topics = [
-    kafka_topic.unicom_cost_calculated_1.name,
-    kafka_topic.unicom_tests.name,
-    kafka_topic.unicom_email_status_1.name,
-    kafka_topic.unicom_rendered_1.name,
-    kafka_topic.unicom_failed.name,
-    kafka_topic.unicom_comms_fallback_1.name,
-
-  ]
-  consume_groups   = ["unicom.unit-sender-email"]
-  cert_common_name = "unicom/unit-sender-email"
-}
-
-module "unit_sender_letter" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
-    kafka_topic.unicom_letter_released_critical_1.name,
-    kafka_topic.unicom_letter_released_important_1.name,
-    kafka_topic.unicom_letter_released_1.name,
-  ]
-  produce_topics = [
-    kafka_topic.unicom_cost_calculated_1.name,
-    kafka_topic.unicom_tests.name,
-    kafka_topic.unicom_letter_status_1.name,
-    kafka_topic.unicom_rendered_1.name,
-    kafka_topic.unicom_failed.name,
-    kafka_topic.unicom_comms_fallback_1.name,
-
-  ]
-  consume_groups   = ["unicom.unit-sender-letter"]
-  cert_common_name = "unicom/unit-sender-letter"
-}
-
-module "batch_projector" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
-    kafka_topic.unicom_letter_released_critical_1.name,
-    kafka_topic.unicom_letter_released_important_1.name,
-    kafka_topic.unicom_letter_released_1.name,
-  ]
-
-  produce_topics = [
-    kafka_topic.unicom_letter_status_1.name,
-    kafka_topic.unicom_tests.name,
-    kafka_topic.unicom_cost_calculated_1.name,
-    kafka_topic.unicom_rendered_1.name,
-    kafka_topic.unicom_failed.name,
-    kafka_topic.unicom_comms_fallback_1.name,
-  ]
-  consume_groups   = ["unicom.batch-projector"]
-  cert_common_name = "unicom/batch-projector"
-}
-
-module "batch_releaser" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
-  ]
-
-  produce_topics = [
-    kafka_topic.unicom_email_batch_1.name,
-    kafka_topic.unicom_sms_batch_1.name,
-    kafka_topic.unicom_letter_batch_1.name,
-  ]
-  consume_groups   = ["unicom.batch-releaser"]
-  cert_common_name = "unicom/batch-releaser"
-}
-
-module "batch_sender" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
-    kafka_topic.unicom_letter_batch_critical_1.name,
-    kafka_topic.unicom_letter_batch_important_1.name,
-    kafka_topic.unicom_letter_batch_1.name,
-  ]
-
-  produce_topics = [
-    kafka_topic.unicom_letter_status_1.name,
-    kafka_topic.unicom_tests.name,
-    kafka_topic.unicom_cost_calculated_1.name,
-    kafka_topic.unicom_rendered_1.name,
-    kafka_topic.unicom_failed.name,
-    kafka_topic.unicom_comms_fallback_1.name,
-  ]
-  consume_groups   = ["unicom.batch-sender"]
-  cert_common_name = "unicom/batch-sender"
 }
 
 resource "kafka_topic" "unicom_push_notification_released_1" {
@@ -1189,5 +1095,43 @@ resource "kafka_topic" "unicom_sftp_status" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
+  }
+}
+
+resource "kafka_topic" "unicom_comms_api_requests" {
+  name               = "unicom.comms-api-requests"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data for 6 months
+    "retention.ms" = "15552000000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+    # allow for a batch of records maximum 512MiB
+    "max.message.bytes" = "536870912"
+  }
+}
+
+resource "kafka_topic" "unicom_braze_backfill" {
+  name               = "unicom.braze_backfill"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data for 6 months
+    "retention.ms" = "15552000000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+    # allow for a batch of records maximum 512MiB
+    "max.message.bytes" = "536870912"
   }
 }

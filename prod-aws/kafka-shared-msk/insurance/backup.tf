@@ -3,6 +3,7 @@ module "insurance_event_relay_backup" {
   source = "../../../modules/tls-app"
   produce_topics = [
     kafka_topic.private_accounts_v1.name,
+    kafka_topic.private_accounts_v2.name,
     kafka_topic.private_claims_v1.name,
     kafka_topic.private_comms_v1.name,
     kafka_topic.private_coverage_v1.name,
@@ -21,6 +22,24 @@ module "insurance_event_relay_backup" {
 # --- List of kafka insurance topics to be backed up ---
 resource "kafka_topic" "private_accounts_v1" {
   name = "insurance.private.accounts.v1"
+
+  replication_factor = 3
+  partitions         = 15
+
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1" # keep on each partition unlimited data
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms"       = "-1"      # keep data forever
+    "local.retention.ms" = "3600000" # keep data in primary storage for 1 hour
+    "max.message.bytes"  = "1048576" # allow for a batch of records maximum 1MiB
+    "compression.type"   = "zstd"
+    "cleanup.policy"     = "delete"
+  }
+}
+
+resource "kafka_topic" "private_accounts_v2" {
+  name = "insurance.private.accounts.v2"
 
   replication_factor = 3
   partitions         = 15
