@@ -1,4 +1,4 @@
-g proto events from energy-contracts
+# topic containing proto events from energy-contracts
 module "msk_topic_indexer" {
   source = "../../../modules/tls-app"
   consume_topics = [
