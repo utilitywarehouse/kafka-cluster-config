@@ -66,3 +66,13 @@ module "msk_data_keep_restore" {
 #   acl_operation       = "Write"
 #   acl_permission_type = "Allow"
 # }
+
+# Needed for determining the resume point
+# resource "kafka_acl" "msk_data_keep_restore_read_topic_all" {
+#   resource_name       = "*"
+#   resource_type       = "Topic"
+#   acl_principal       = "User:CN=pubsub/msk-data-keep-restore"
+#   acl_host            = "*"
+#   acl_operation       = "Read"
+#   acl_permission_type = "Allow"
+# }
