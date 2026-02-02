@@ -912,6 +912,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "payment-platform.payment.v1.public.events.debt_payment_plan"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/payment-platform.payment.v1.public.events.debt_payment_plan/" }
+  }
+
+  rule {
     id     = "payment-platform.payment.v1.public.events.pp_test"
     status = "Enabled"
     expiration { days = 31 }
