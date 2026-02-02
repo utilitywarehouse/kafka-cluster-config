@@ -64,7 +64,7 @@ module "msk_data_keep_plan_restore" {
 
 module "msk_data_keep_restore" {
   source         = "../../../modules/tls-app"
-  consume_groups = ["pubsub.msk-data-keep-restore"]
+  consume_groups = ["pubsub.msk-data-keep-restore.normal", "pubsub.msk-data-keep-restore.large"]
   consume_topics = [kafka_topic.plan_restore_normal.name, kafka_topic.plan_restore_large.name]
 
   cert_common_name = "pubsub/msk-data-keep-restore"
