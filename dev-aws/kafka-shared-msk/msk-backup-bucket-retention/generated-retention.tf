@@ -961,6 +961,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "pubsub.restore-test.billing.unified-bill-ready-events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.billing.unified-bill-ready-events/" }
+  }
+
+  rule {
     id     = "staging-ept.DataStagedEventsFinance"
     status = "Enabled"
     expiration { days = 8 }
