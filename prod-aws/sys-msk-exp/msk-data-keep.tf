@@ -1,7 +1,7 @@
 resource "kafka_topic" "plan_restore_normal" {
   name               = "pubsub.plan-topic-restore.normal"
   replication_factor = 3
-  partitions         = 15
+  partitions         = 40
   config = {
     "remote.storage.enable" = "true"
     "local.retention.ms"    = "86400000" # keep data in primary storage for 1 day
@@ -17,7 +17,7 @@ resource "kafka_topic" "plan_restore_normal" {
 resource "kafka_topic" "plan_restore_large" {
   name               = "pubsub.plan-topic-restore.large"
   replication_factor = 3
-  partitions         = 15
+  partitions         = 40
   config = {
     "remote.storage.enable" = "true"
     "local.retention.ms"    = "86400000" # keep data in primary storage for 1 day
