@@ -62,51 +62,11 @@ module "msk_data_keep_plan_restore" {
   cert_common_name = "pubsub/msk-data-keep-plan-restore"
 }
 
-resource "kafka_topic" "restore_test_charges_events_v1" {
-  name = "pubsub.restore-test.cbc.ChargesEvents"
-
-  replication_factor = 3
-  partitions         = 15
-
-  config = {
-    "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1" # keep on each partition unlimited data
-    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
-    "retention.ms"       = "-1"      # keep data forever
-    "local.retention.ms" = "3600000" # keep data in primary storage for 1 hour
-    "max.message.bytes"  = "2097152" # allow for a batch of records maximum 2MiB
-    "compression.type"   = "zstd"
-    "cleanup.policy"     = "delete"
-  }
-}
-
-resource "kafka_topic" "restore_test_basket_v1" {
-  name               = "pubsub.restore-test.quoting-platform.basket.events.v1"
-  replication_factor = 3
-  partitions         = 15
-
-  # infinte retention
-  config = {
-    "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1" # keep on each partition unlimited data
-    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
-    "retention.ms" = "-1" # keep data forever
-    # keep data in primary storage for 1 hour
-    "local.retention.ms" = "3600000"
-    # allow for a batch of records maximum 1MiB
-    "max.message.bytes" = "1048576"
-    "compression.type"  = "zstd"
-    "cleanup.policy"    = "delete"
-  }
-}
-
-
 module "msk_data_keep_restore" {
   source         = "../../../modules/tls-app"
   consume_groups = ["pubsub.msk-data-keep-restore.normal", "pubsub.msk-data-keep-restore.large"]
-  consume_topics = [kafka_topic.plan_restore_normal.name, kafka_topic.plan_restore_large.name,
-  kafka_topic.restore_test_charges_events_v1.name, kafka_topic.restore_test_basket_v1.name]
-  produce_topics   = [kafka_topic.restore_test_charges_events_v1.name, kafka_topic.restore_test_basket_v1.name]
+  consume_topics = [kafka_topic.plan_restore_normal.name, kafka_topic.plan_restore_large.name]
+
   cert_common_name = "pubsub/msk-data-keep-restore"
 }
 
