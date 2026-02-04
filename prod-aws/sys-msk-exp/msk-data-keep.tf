@@ -1,12 +1,28 @@
-resource "kafka_topic" "plan_restore" {
-  name               = "pubsub.plan-topic-restore"
+resource "kafka_topic" "plan_restore_normal" {
+  name               = "pubsub.plan-topic-restore.normal"
   replication_factor = 3
-  partitions         = 100
+  partitions         = 15
   config = {
     "remote.storage.enable" = "true"
     "local.retention.ms"    = "86400000" # keep data in primary storage for 1 day
-    # keep data for 7 days
-    "retention.ms" = "604800000"
+    # keep data for 3 days
+    "retention.ms" = "259200000"
+    # allow for a batch of records maximum 100MiB
+    "max.message.bytes" = "104857600"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
+resource "kafka_topic" "plan_restore_large" {
+  name               = "pubsub.plan-topic-restore.large"
+  replication_factor = 3
+  partitions         = 15
+  config = {
+    "remote.storage.enable" = "true"
+    "local.retention.ms"    = "86400000" # keep data in primary storage for 1 day
+    # keep data for 3 days
+    "retention.ms" = "259200000"
     # allow for a batch of records maximum 100MiB
     "max.message.bytes" = "104857600"
     "compression.type"  = "zstd"
@@ -16,22 +32,20 @@ resource "kafka_topic" "plan_restore" {
 
 module "msk_data_keep_plan_restore" {
   source         = "../../modules/tls-app"
-  produce_topics = [kafka_topic.plan_restore.name]
-  consume_topics = [kafka_topic.plan_restore.name]
+  produce_topics = [kafka_topic.plan_restore_normal.name, kafka_topic.plan_restore_large.name]
+  consume_topics = [kafka_topic.plan_restore_normal.name, kafka_topic.plan_restore_large.name]
 
   cert_common_name = "pubsub/msk-data-keep-plan-restore"
 }
 
 module "msk_data_keep_restore" {
   source         = "../../modules/tls-app"
-  consume_groups = ["pubsub.msk-data-keep-restore"]
-  consume_topics = [kafka_topic.plan_restore.name]
+  consume_groups = ["pubsub.msk-data-keep-restore.normal", "pubsub.msk-data-keep-restore.large"]
+  consume_topics = [kafka_topic.plan_restore_normal.name, kafka_topic.plan_restore_large.name]
 
   cert_common_name = "pubsub/msk-data-keep-restore"
 }
 
-# Enable only when we need to restore
-#
 resource "kafka_acl" "msk_data_keep_restore_write_topic_all" {
   resource_name       = "*"
   resource_type       = "Topic"
@@ -42,7 +56,7 @@ resource "kafka_acl" "msk_data_keep_restore_write_topic_all" {
 }
 
 # Needed for determining the resume point
-resource "kafka_acl" "msk_data_keep_backup_read_topic_all" {
+resource "kafka_acl" "msk_data_keep_restore_read_topic_all" {
   resource_name       = "*"
   resource_type       = "Topic"
   acl_principal       = "User:CN=pubsub/msk-data-keep-restore"
