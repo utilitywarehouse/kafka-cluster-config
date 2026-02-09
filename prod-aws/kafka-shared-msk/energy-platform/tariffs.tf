@@ -25,6 +25,6 @@ module "energy_tariff_system_api" {
 module "energy_smart_tariffier" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.tariff_events.name]
-  consume_groups   = ["energy-smart.energy-smart-tariffier"]
-  cert_common_name = "energy-smart/smart-tariffier"
+  consume_groups   = ["energy-platform.energy-smart-tariffier"]
+  cert_common_name = "energy-platform/smart-tariffier"
 }
