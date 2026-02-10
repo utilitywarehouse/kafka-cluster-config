@@ -34,6 +34,50 @@ resource "kafka_topic" "finserv_check_status_events" {
   replication_factor = 3
 }
 
+resource "kafka_topic" "public_pep_sanction_events_v2" {
+  name = "account-identity.public.pep-sanction.events.v2"
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data for 12 hours
+    "retention.ms" = "43200000"
+  }
+  partitions         = 15
+  replication_factor = 3
+}
+
+resource "kafka_topic" "private_pep_sanction_events_v2" {
+  name = "account-identity.private.pep-sanction.events.v2"
+  config = {
+    "cleanup.policy"   = "compact"
+    "compression.type" = "zstd"
+    # allow not compacted keys maximum for 7 days
+    "max.compaction.lag.ms" = "604800000"
+  }
+  partitions         = 15
+  replication_factor = 3
+}
+
+module "finserv_pep_sanction_listener" {
+  source         = "../../../modules/tls-app"
+  consume_topics = []
+  produce_topics = [
+    kafka_topic.private_pep_sanction_events_v2.name,
+  ]
+  cert_common_name = "finser/pep-sanction-listener"
+}
+
+module "finserv_pep_sanction_processor" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.private_pep_sanction_events_v2.name,
+  ]
+  produce_topics = [
+    kafka_topic.public_pep_sanction_events_v2.name,
+  ]
+  cert_common_name = "finser/pep-sanction-processor"
+}
+
 module "finserv_nats_to_msk_forwarder" {
   source         = "../../../modules/tls-app"
   consume_topics = []

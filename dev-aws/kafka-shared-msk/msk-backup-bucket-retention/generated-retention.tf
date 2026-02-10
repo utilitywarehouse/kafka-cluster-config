@@ -51,6 +51,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "account-identity.public.pep-sanction.events.v2"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/account-identity.public.pep-sanction.events.v2/" }
+  }
+
+  rule {
     id     = "account-identity.to.anonymize"
     status = "Enabled"
     expiration { days = 8 }
