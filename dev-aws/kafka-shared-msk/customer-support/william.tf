@@ -32,6 +32,21 @@ resource "kafka_topic" "ticketing_v2" {
   replication_factor = 3
 }
 
+resource "kafka_topic" "subscriptions_v1" {
+  config = {
+    "cleanup.policy" = "delete"
+    # Recommended by dev-ena
+    "compression.type" = "zstd"
+    # Don't need tiered storage
+    "remote.storage.enable" = "false"
+    # keep data for 1 day
+    "retention.ms" = "86400000"
+  }
+  name               = "customer-support.subscriptions_v1"
+  partitions         = 1
+  replication_factor = 3
+}
+
 module "notes_benthos" {
   source           = "../../../modules/tls-app"
   cert_common_name = "crm/notes-bq-v2"
@@ -51,6 +66,15 @@ module "william_outbox" {
   cert_common_name = "crm/william-outbox"
   produce_topics = [
     kafka_topic.notes_v2.name,
-    kafka_topic.ticketing_v2.name
+    kafka_topic.subscriptions_v1.name,
+    kafka_topic.ticketing_v2.name,
+  ]
+}
+
+module "william_service" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "crm/william-service"
+  consume_topics = [
+    kafka_topic.subscriptions_v1.name
   ]
 }
