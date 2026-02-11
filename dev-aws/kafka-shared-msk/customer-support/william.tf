@@ -75,6 +75,7 @@ module "william_service" {
   source           = "../../../modules/tls-app"
   cert_common_name = "crm/william-service"
   consume_topics = [
-    kafka_topic.subscriptions_v1.name
+    kafka_topic.subscriptions_v1.name,
+    kafka_topic.ticketing_v2.name,
   ]
 }
