@@ -140,5 +140,5 @@ module "invoice_api" {
 module "billing-preference-comment-code-creator" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/billing-preference-comment-code-creator"
-  produce_topics   = [kafka_topic.bill-integration.kubernetes-to-bill]
+  produce_topics   = [kafka_topic.bill_integration_kubernetes_to_bill.name]
 }
