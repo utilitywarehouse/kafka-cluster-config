@@ -261,6 +261,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "billing.energy-raw-data-reconciliation-diff"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/billing.energy-raw-data-reconciliation-diff/" }
+  }
+
+  rule {
     id     = "billing.fixed-width-file-processing-events"
     status = "Enabled"
     expiration { days = 31 }
