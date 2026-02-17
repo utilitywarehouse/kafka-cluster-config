@@ -136,3 +136,9 @@ module "invoice_api" {
   cert_common_name = "customer-billing/invoice-api"
   produce_topics   = [kafka_topic.bex_legacy_invoice_api.name]
 }
+
+module "billing-preference-comment-code-creator" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "customer-billing/billing-preference-comment-code-creator"
+  produce_topics = [data-infra.bill-integration.kubernetes-to-bill]
+}
