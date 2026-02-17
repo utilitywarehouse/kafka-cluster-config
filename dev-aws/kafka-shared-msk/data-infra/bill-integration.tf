@@ -164,3 +164,12 @@ module "di_proximo" {
 
   cert_common_name = "bill-integration/proximo"
 }
+
+module "billing_preference_comment_code_creator" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name
+  ]
+  cert_common_name = "customer-billing/billing-preference-comment-code-creator"
+}
