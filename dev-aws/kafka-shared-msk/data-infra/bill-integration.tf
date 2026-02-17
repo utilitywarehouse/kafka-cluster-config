@@ -165,7 +165,7 @@ module "di_proximo" {
   cert_common_name = "bill-integration/proximo"
 }
 
-module "billing-preference-comment-code-creator" {
+module "billing_preference_comment_code_creator" {
   source = "../../../modules/tls-app"
 
   produce_topics = [
