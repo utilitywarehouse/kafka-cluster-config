@@ -905,10 +905,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "pubsub.restore-test.energy-platform.gentrack.billing.events"
+    id     = "pubsub.restore-test.auth.iam-identitydb-v1"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "kafka-backup/pubsub.restore-test.energy-platform.gentrack.billing.events/" }
+    filter { prefix = "kafka-backup/pubsub.restore-test.auth.iam-identitydb-v1/" }
   }
 
   rule {
