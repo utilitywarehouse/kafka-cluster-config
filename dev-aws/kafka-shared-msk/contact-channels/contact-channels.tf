@@ -286,6 +286,50 @@ module "transcription_segment_projector" {
   consume_groups   = ["contact-channels.call-transcription-segment-projector"]
 }
 
+# Consume from contact-channels.genesys_eb_events and produce to contact-channels.finished_segments
+module "segment_gatherer-green" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/segment-gatherer-green"
+  consume_topics   = [kafka_topic.genesys_eb_events.name]
+  consume_groups   = ["contact-channels.eb-kafka-segment-gatherer-green"]
+  produce_topics   = [kafka_topic.finished_segments.name]
+}
+
+# Consume from contact-channels.genesys_eb_events and produce to contact-channels.finished_conversations
+module "transcription_gatherer-green" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/transcription-gatherer-green"
+  consume_topics   = [kafka_topic.genesys_eb_events.name]
+  consume_groups   = ["contact-channels.eb-kafka-transcription-gatherer-green"]
+  produce_topics   = [kafka_topic.finished_conversations.name]
+}
+
+# Consume from contact-channels.finished_segments and produce to contact-channels.finished_transcriptions
+module "segment_aggregator-green" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/segment-aggregator-green"
+  consume_topics   = [kafka_topic.finished_segments.name]
+  consume_groups   = ["contact-channels.eb-kafka-segment-aggregator-green"]
+  produce_topics   = [kafka_topic.finished_transcriptions.name]
+}
+
+# Consume from contact-channels.finished_conversations and produce to contact-channels.finished_transcriptions
+module "transcription_aggregator-green" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/transcription-aggregator-green"
+  consume_topics   = [kafka_topic.finished_conversations.name]
+  consume_groups   = ["contact-channels.eb-kafka-transcription-aggregator-green"]
+  produce_topics   = [kafka_topic.finished_transcriptions.name]
+}
+
+# Consume from contact-channels.finished_transcriptions.
+module "transcription_segment_projector-green" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/transcription-segment-projector-green"
+  consume_topics   = [kafka_topic.finished_transcriptions.name]
+  consume_groups   = ["contact-channels.call-transcription-segment-projector-green"]
+}
+
 # Consume from contact-channels.genesys_eb_events and produce to contact-channels.messenger_transcript_events
 module "missing_transcript_retriever" {
   source           = "../../../modules/tls-app"
