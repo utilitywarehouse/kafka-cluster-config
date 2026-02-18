@@ -58,16 +58,16 @@ resource "kafka_topic" "private_pep_sanction_events_v2" {
   replication_factor = 3
 }
 
-module "finserv_pep_sanction_listener" {
+module "finserv_pep_sanction_listener_v2" {
   source         = "../../../modules/tls-app"
   consume_topics = []
   produce_topics = [
     kafka_topic.private_pep_sanction_events_v2.name,
   ]
-  cert_common_name = "finser/pep-sanction-listener"
+  cert_common_name = "finserv/pep-sanction-listener-v2"
 }
 
-module "finserv_pep_sanction_processor" {
+module "finserv_pep_sanction_processor_v2" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.private_pep_sanction_events_v2.name,
@@ -75,7 +75,7 @@ module "finserv_pep_sanction_processor" {
   produce_topics = [
     kafka_topic.public_pep_sanction_events_v2.name,
   ]
-  cert_common_name = "finser/pep-sanction-processor"
+  cert_common_name = "finserv/pep-sanction-processor-v2"
 }
 
 module "finserv_nats_to_msk_forwarder" {
