@@ -65,21 +65,18 @@ module "msk_data_keep_plan_restore" {
 }
 
 resource "kafka_topic" "restore_test_topic" {
-  name               = "pubsub.restore-test.auth.iam-identitydb-v1"
+  name               = "pubsub.restore-test.energy-platform.gentrack.billing.events"
   replication_factor = 3
-  # MUST be 1 partition as identitydb assumes this to be true
-  partitions = 1
+  partitions         = 15
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep on each partition 100MiB
-    "retention.bytes" = "104857600"
     # keep data for 1 month
-    "retention.ms" = "2592000000"
+    "retention.ms" = "2628992000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow for a batch of records maximum 5MiB
-    "max.message.bytes" = "5242880"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
