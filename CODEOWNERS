@@ -4,27 +4,28 @@
 dev-aws/kafka-shared-msk/msk-backup-bucket-retention/generated-retention.tf
 prod-aws/kafka-shared-msk/msk-backup-bucket-retention/generated-retention.tf
 
-/**/account-platform/          @utilitywarehouse/account-identity
-/**/account-identity/          @utilitywarehouse/account-identity
-/**/billing/                   @utilitywarehouse/billing-maintainers
-/**/cbc/                       @utilitywarehouse/org-cashback
-/**/contact-channels/          @utilitywarehouse/org-help-experience
-/**/customer-billing/          @utilitywarehouse/org-billing-experience
-/**/customer-proposition/      @utilitywarehouse/org-multi-service-innovation
-/**/customer-support/          @utilitywarehouse/customer-support
-/**/data-infra/                @utilitywarehouse/data-infra-mono-maintainers
-/**/energy-platform/           @utilitywarehouse/org-energy
-/**/energy-billing/            @utilitywarehouse/org-energy
-/**/finance/                   @utilitywarehouse/finance-maintainers
-/**/help-and-support/          @utilitywarehouse/org-help-experience
-/**/iam/                       @utilitywarehouse/account-identity
-/**/iam-audit/                 @utilitywarehouse/account-identity
-/**/insurance/                 @utilitywarehouse/org-insurance
-/**/ledgers/                   @utilitywarehouse/ledgers
-/**/otel/                      @utilitywarehouse/system
-/**/partner-commission/        @utilitywarehouse/org-partner
-/**/payment-platform/          @utilitywarehouse/payments-maintainers
-/**/quoting-platform/          @utilitywarehouse/org-multi-service-innovation @utilitywarehouse/org-partner-acquisition
-/**/staging-ept/               @utilitywarehouse/staff-group @utilitywarehouse/quality-engineering
-/**/unicom/                    @utilitywarehouse/org-communications
-/**/workplace-infrastructure/  @utilitywarehouse/workplace-infrastructure
+/**/account-platform/                          @utilitywarehouse/account-identity
+/**/account-identity/                          @utilitywarehouse/account-identity
+/**/kafka-shared-msk/account-identity/finserv  @utilitywarehouse/org-cashback
+/**/billing/                                   @utilitywarehouse/billing-maintainers
+/**/cbc/                                       @utilitywarehouse/org-cashback
+/**/contact-channels/                          @utilitywarehouse/org-help-experience
+/**/customer-billing/                          @utilitywarehouse/org-billing-experience
+/**/customer-proposition/                      @utilitywarehouse/org-multi-service-innovation
+/**/customer-support/                          @utilitywarehouse/customer-support
+/**/data-infra/                                @utilitywarehouse/data-infra-mono-maintainers
+/**/energy-platform/                           @utilitywarehouse/org-energy
+/**/energy-billing/                            @utilitywarehouse/org-energy
+/**/finance/                                   @utilitywarehouse/finance-maintainers
+/**/help-and-support/                          @utilitywarehouse/org-help-experience
+/**/iam/                                       @utilitywarehouse/account-identity
+/**/iam-audit/                                 @utilitywarehouse/account-identity
+/**/insurance/                                 @utilitywarehouse/org-insurance
+/**/ledgers/                                   @utilitywarehouse/ledgers
+/**/otel/                                      @utilitywarehouse/system
+/**/partner-commission/                        @utilitywarehouse/org-partner
+/**/payment-platform/                          @utilitywarehouse/payments-maintainers
+/**/quoting-platform/                          @utilitywarehouse/org-multi-service-innovation @utilitywarehouse/org-partner-acquisition
+/**/staging-ept/                               @utilitywarehouse/staff-group @utilitywarehouse/quality-engineering
+/**/unicom/                                    @utilitywarehouse/org-communications
+/**/workplace-infrastructure/                  @utilitywarehouse/workplace-infrastructure
