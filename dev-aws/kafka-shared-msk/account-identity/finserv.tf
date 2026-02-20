@@ -75,7 +75,7 @@ module "finserv_pep_sanction_processor_v2" {
   produce_topics = [
     kafka_topic.public_pep_sanction_events_v2.name,
   ]
-  consume_groups   = ["finserv.finserv-pep-sanction-processor-v2"]
+  consume_groups   = ["finserv.pep-sanction-processor-v2"]
   cert_common_name = "finserv/pep-sanction-processor-v2"
 }
 
