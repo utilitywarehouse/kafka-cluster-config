@@ -24,5 +24,5 @@ module "finance_sledger_transaction_fabricator" {
   produce_topics = [
     kafka_topic.fabricator_sledger_entries_v1.name,
   ]
-  cert_common_name = "finance/finance-sledger-transaction-fabricator"
+  cert_common_name = "finance/sledger-transaction-fabricator"
 }
