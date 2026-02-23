@@ -15,7 +15,7 @@ resource "kafka_topic" "account_identity_account_events_v2" {
   replication_factor = 3
 }
 
-resource "kafka_topic" "account_identity_account_events_v4" {
+resource "kafka_topic" "account_identity_account_insights_events_v4" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
@@ -27,7 +27,7 @@ resource "kafka_topic" "account_identity_account_events_v4" {
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
   }
-  name               = "account-identity.account.events.v4"
+  name               = "account-identity.account.insights.events.v4"
   partitions         = 15
   replication_factor = 3
 }
@@ -255,7 +255,7 @@ module "account_identity_account_api_v2_dispatcher" {
 
 module "account_identity_home_moves_outcome_dispatcher" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.account_identity_account_events_v4.name]
+  produce_topics   = [kafka_topic.account_identity_account_insights_events_v4.name]
   cert_common_name = "account-platform/home_moves_outcome_dispatcher"
 }
 
