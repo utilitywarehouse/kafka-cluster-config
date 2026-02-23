@@ -457,6 +457,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "customer-support.subscriptions_v1"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "kafka-backup/customer-support.subscriptions_v1/" }
+  }
+
+  rule {
     id     = "customer-support.ticketing_v2"
     status = "Enabled"
     expiration { days = 1461 }

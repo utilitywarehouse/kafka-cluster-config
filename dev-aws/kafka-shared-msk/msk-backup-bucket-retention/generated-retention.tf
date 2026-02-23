@@ -681,6 +681,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "finance.fabricator.sledger.entries.v1"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/finance.fabricator.sledger.entries.v1/" }
+  }
+
+  rule {
     id     = "help-and-support.self_serve_submissions"
     status = "Enabled"
     expiration { days = 31 }
