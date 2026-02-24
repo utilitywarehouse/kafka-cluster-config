@@ -632,6 +632,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "energy-platform.gentrack.electronic_payment.events"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/energy-platform.gentrack.electronic_payment.events/" }
+  }
+
+  rule {
     id     = "energy-platform.gentrack.market_interactions.events"
     status = "Enabled"
     expiration { days = 181 }
