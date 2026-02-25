@@ -51,6 +51,6 @@ module "cbc_customer_information_consumer" {
 module "customer_proposition_insurance_loader" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.public_policies_v1.name]
-  consume_groups   = ["customer-proposition.insurance-loader-v4-01"]
+  consume_groups   = ["customer-proposition.insurance-loader-v4-02"]
   cert_common_name = "customer-proposition/insurance-loader-service"
 }
