@@ -104,6 +104,18 @@ module "msk_data_keep_plan_restore" {
 #   acl_permission_type = "Allow"
 # }
 
+# resource "kafka_acl" "msk_data_keep_restore_write_groups_all" {
+#   resource_name                = "*"
+#   resource_type                = "Group"
+#   acl_principal                = "User:CN=pubsub/msk-data-keep-restore"
+#   acl_host                     = "*"
+#   # this is non intuitive... we need the Read permission to be able to commit offsets on groups
+#   acl_operation                = "Read"
+#   acl_permission_type          = "Allow"
+#   resource_pattern_type_filter = "Prefixed"
+# }
+
+
 ################################################################
 # End of the section for a FULL cluster restore.
 ################################################################
@@ -143,16 +155,6 @@ module "msk_data_keep_restore" {
   cert_common_name = "pubsub/msk-data-keep-restore"
 }
 
-resource "kafka_acl" "msk_data_keep_restore_write_restore_groups" {
-  resource_name                = "pubsub.restore-test."
-  resource_type                = "Group"
-  acl_principal                = "User:CN=pubsub/msk-data-keep-restore"
-  acl_host                     = "*"
-  acl_operation                = "Read"
-  acl_permission_type          = "Allow"
-  resource_pattern_type_filter = "Prefixed"
-}
-
 resource "kafka_acl" "msk_data_keep_restore_read_restore_topics" {
   resource_name                = "pubsub.restore-test."
   resource_type                = "Topic"
@@ -169,6 +171,17 @@ resource "kafka_acl" "msk_data_keep_restore_write_restore_topics" {
   acl_principal                = "User:CN=pubsub/msk-data-keep-restore"
   acl_host                     = "*"
   acl_operation                = "Write"
+  acl_permission_type          = "Allow"
+  resource_pattern_type_filter = "Prefixed"
+}
+
+resource "kafka_acl" "msk_data_keep_restore_write_restore_groups" {
+  resource_name = "pubsub.restore-test."
+  resource_type = "Group"
+  acl_principal = "User:CN=pubsub/msk-data-keep-restore"
+  acl_host      = "*"
+  # this is non intuitive... we need the Read permission to be able to commit offsets on groups
+  acl_operation                = "Read"
   acl_permission_type          = "Allow"
   resource_pattern_type_filter = "Prefixed"
 }
