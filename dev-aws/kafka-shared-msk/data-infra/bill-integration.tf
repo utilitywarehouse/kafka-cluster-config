@@ -173,3 +173,12 @@ module "billing_preference_comment_code_creator" {
   ]
   cert_common_name = "customer-billing/billing-preference-comment-code-creator"
 }
+
+module "unicom_bill_sms_connector" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  cert_common_name = "unicom/bill-sms-connector"
+}
