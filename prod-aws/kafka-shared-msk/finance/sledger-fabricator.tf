@@ -26,3 +26,12 @@ module "finance_sledger_transaction_fabricator" {
   ]
   cert_common_name = "finance/sledger-transaction-fabricator"
 }
+
+module "ledger_consumer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.fabricator_sledger_entries_v1.name,
+  ]
+  consume_groups   = ["ledgers.ledger-consumer"]
+  cert_common_name = "ledgers/ledger-consumer"
+}
