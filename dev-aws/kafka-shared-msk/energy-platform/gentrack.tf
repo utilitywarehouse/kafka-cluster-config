@@ -111,8 +111,8 @@ resource "kafka_topic" "gentrack_electronic_payment_events" {
   }
 }
 
-resource "kafka_topic" "gentrack_prepayment_pan_notifications" {
-  name               = "energy-platform.gentrack.prepayment.pan.notifications"
+resource "kafka_topic" "gentrack_prepayment_notifications_events" {
+  name               = "energy-platform.gentrack.prepayment.notifications.events"
   replication_factor = 3
   partitions         = 15
 
@@ -139,7 +139,7 @@ module "gentrack_adapter_webhook_processor" {
     kafka_topic.gentrack_market_interactions_events.name,
     kafka_topic.gentrack_meterpoint_events.name,
     kafka_topic.gentrack_electronic_payment_events.name,
-    kafka_topic.gentrack_prepayment_pan_notifications.name
+    kafka_topic.gentrack_prepayment_notifications_events.name
   ]
   cert_common_name = "energy-platform/gentrack-adapter-webhook-processor"
 }
@@ -171,7 +171,7 @@ module "billing_sqs_processor" {
 
 module "energy_service_pan_processor" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.gentrack_prepayment_pan_notifications.name]
+  consume_topics   = [kafka_topic.gentrack_prepayment_notifications_events.name]
   consume_groups   = ["energy-platform.energy-service-pan-processor"]
   cert_common_name = "energy-platform/energy-service-pan-processor"
 }
