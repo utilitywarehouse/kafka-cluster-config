@@ -576,6 +576,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "energy-billing.electronic_payment.events"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/energy-billing.electronic_payment.events/" }
+  }
+
+  rule {
     id     = "energy-billing.internal.billing-adapter-deadletter"
     status = "Enabled"
     expiration { days = 29 }
