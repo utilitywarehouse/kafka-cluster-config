@@ -85,5 +85,5 @@ module "help_and_support_william_ticket_genesys_queuer" {
   source           = "../../../modules/tls-app"
   cert_common_name = "help-and-support/william-ticket-genesys-queuer"
   consume_topics   = [kafka_topic.ticketing_v2.name]
-  consume_groups   = ["help-and-support.william-ticket-genesys-queuer"]
+  consume_groups   = ["help-and-support.william-ticket-genesys-queuer-2"]
 }
