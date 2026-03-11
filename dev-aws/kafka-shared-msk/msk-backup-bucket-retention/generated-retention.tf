@@ -1108,13 +1108,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "pubsub.restore-test.auth.iam-identitydb-v1"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "kafka-backup/pubsub.restore-test.auth.iam-identitydb-v1/" }
-  }
-
-  rule {
     id     = "pubsub.restore-test.auth.iam-revoked-v1"
     status = "Enabled"
     expiration { days = 8 }
