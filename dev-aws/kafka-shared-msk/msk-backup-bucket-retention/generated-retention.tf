@@ -1262,6 +1262,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "pubsub.restore-test.billing.billing-engine-events"
+    status = "Enabled"
+    expiration { days = 61 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.billing.billing-engine-events/" }
+  }
+
+  rule {
     id     = "pubsub.restore-test.billing.energy-raw-data-reconciliation-diff"
     status = "Enabled"
     expiration { days = 31 }
