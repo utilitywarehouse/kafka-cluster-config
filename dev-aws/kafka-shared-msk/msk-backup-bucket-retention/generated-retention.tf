@@ -1003,10 +1003,1438 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "pubsub.restore-test.account-identity.account-management-events"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.account-identity.account-management-events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.account-identity.address.lookup.analytics.v1"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.account-identity.address.lookup.analytics.v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.account-identity.dev.account.events.anonymized.v0"
+    status = "Enabled"
+    expiration { days = 4 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.account-identity.dev.account.events.anonymized.v0/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.account-identity.from-prod.account.events.anonymized.v0"
+    status = "Enabled"
+    expiration { days = 4 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.account-identity.from-prod.account.events.anonymized.v0/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.account-identity.legacy.account.eqdb.events"
+    status = "Enabled"
+    expiration { days = 4 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.account-identity.legacy.account.eqdb.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.account-identity.public.pep-sanction.events.v2"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.account-identity.public.pep-sanction.events.v2/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.account-identity.to.anonymize"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.account-identity.to.anonymize/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.account-identity.verification.events.v1"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.account-identity.verification.events.v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.auth-customer.iam-credentials-v1-public"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.auth-customer.iam-credentials-v1-public/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.auth-customer.iam-credentials-v1"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.auth-customer.iam-credentials-v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.auth-customer.iam-dpd-v1"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.auth-customer.iam-dpd-v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.auth.iam-cerbos-audit-v1"
+    status = "Enabled"
+    expiration { days = 3 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.auth.iam-cerbos-audit-v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.auth.iam-click-v2"
+    status = "Enabled"
+    expiration { days = 3 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.auth.iam-click-v2/" }
+  }
+
+  rule {
     id     = "pubsub.restore-test.auth.iam-identitydb-v1"
     status = "Enabled"
     expiration { days = 31 }
     filter { prefix = "kafka-backup/pubsub.restore-test.auth.iam-identitydb-v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.auth.iam-revoked-v1"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.auth.iam-revoked-v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.accountreadytobefulfilled_deadletter"
+    status = "Enabled"
+    expiration { days = 15 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.accountreadytobefulfilled_deadletter/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.bill_fulfilled"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.bill_fulfilled/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.bill_regeneration"
+    status = "Enabled"
+    expiration { days = 15 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.bill_regeneration/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.bill_regeneration_deadletter"
+    status = "Enabled"
+    expiration { days = 15 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.bill_regeneration_deadletter/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.bill_regeneration_large_invoice"
+    status = "Enabled"
+    expiration { days = 4 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.bill_regeneration_large_invoice/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.bill_regeneration_retry_1"
+    status = "Enabled"
+    expiration { days = 4 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.bill_regeneration_retry_1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.bill_regeneration_retry_2"
+    status = "Enabled"
+    expiration { days = 4 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.bill_regeneration_retry_2/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.email_sender_deadletter"
+    status = "Enabled"
+    expiration { days = 15 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.email_sender_deadletter/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.exstream_invoice_produced"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.exstream_invoice_produced/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.fulfilment_deadletter"
+    status = "Enabled"
+    expiration { days = 29 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.fulfilment_deadletter/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.fulfilment_large_invoice"
+    status = "Enabled"
+    expiration { days = 4 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.fulfilment_large_invoice/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.fulfilment_retry_1"
+    status = "Enabled"
+    expiration { days = 4 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.fulfilment_retry_1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.fulfilment_retry_2"
+    status = "Enabled"
+    expiration { days = 4 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.fulfilment_retry_2/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.invoice_ready_notifier_deadletter"
+    status = "Enabled"
+    expiration { days = 15 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.invoice_ready_notifier_deadletter/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.mail_sender_deadletter"
+    status = "Enabled"
+    expiration { days = 15 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.mail_sender_deadletter/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.internal.mail_sender_reprint_deadletter"
+    status = "Enabled"
+    expiration { days = 15 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.internal.mail_sender_reprint_deadletter/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.public.fulfilment_events"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.public.fulfilment_events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.bex.transition.fulfilment_request"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.bex.transition.fulfilment_request/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.billing.DataStagedEventsFinance"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.billing.DataStagedEventsFinance/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.billing.bill-reconciliation-error-events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.billing.bill-reconciliation-error-events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.billing.billing-engine-events-bce-deadletter"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.billing.billing-engine-events-bce-deadletter/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.billing.energy-raw-data-reconciliation-diff"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.billing.energy-raw-data-reconciliation-diff/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.billing.fixed-width-file-processing-events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.billing.fixed-width-file-processing-events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.billing.historical-data-staged-events-finance"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.billing.historical-data-staged-events-finance/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.billing.transactions-auditor-diff.events"
+    status = "Enabled"
+    expiration { days = 61 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.billing.transactions-auditor-diff.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.billing.unified-bill-ready-events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.billing.unified-bill-ready-events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.cbc.DataProductEvents"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.cbc.DataProductEvents/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.contact-channels.article_feedback_v1"
+    status = "Enabled"
+    expiration { days = 3 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.article_feedback_v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.contact-channels.dsar"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.dsar/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.contact-channels.dsar_conversation"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.dsar_conversation/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.contact-channels.dsar_job"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.dsar_job/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.contact-channels.finished_conversations"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.finished_conversations/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.contact-channels.finished_segments"
+    status = "Enabled"
+    expiration { days = 3 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.finished_segments/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.contact-channels.finished_transcriptions"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.finished_transcriptions/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.contact-channels.genesys_eb_events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.genesys_eb_events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.contact-channels.intents_v2"
+    status = "Enabled"
+    expiration { days = 3 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.intents_v2/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.contact-channels.interactions_state_events"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.interactions_state_events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.contact-channels.messenger_transcript_events"
+    status = "Enabled"
+    expiration { days = 3 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.messenger_transcript_events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.contact-channels.messenger_transcript_events_dlq"
+    status = "Enabled"
+    expiration { days = 3 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.messenger_transcript_events_dlq/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.contact-channels.sent_agent_states"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.sent_agent_states/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.contact-channels.tracking_events"
+    status = "Enabled"
+    expiration { days = 3 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.tracking_events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.contact-channels.validated_intents_v2"
+    status = "Enabled"
+    expiration { days = 3 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.validated_intents_v2/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.customer-support.account_history_eqdb_notifications_v1"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.customer-support.account_history_eqdb_notifications_v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.customer-support.coffee_account_history_v1"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.customer-support.coffee_account_history_v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.customer-support.coffee_services"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.customer-support.coffee_services/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.customer-support.notes_v2"
+    status = "Enabled"
+    expiration { days = 366 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.customer-support.notes_v2/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.customer-support.payments_audit_log_v1"
+    status = "Enabled"
+    expiration { days = 366 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.customer-support.payments_audit_log_v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.customer-support.reminders_notifications_v1"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.customer-support.reminders_notifications_v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.customer-support.reminders_v1"
+    status = "Enabled"
+    expiration { days = 366 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.customer-support.reminders_v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.customer-support.subscriptions_v1"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.customer-support.subscriptions_v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.customer-support.ticketing_v2"
+    status = "Enabled"
+    expiration { days = 366 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.customer-support.ticketing_v2/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.customer-support.vulnerability_v7"
+    status = "Enabled"
+    expiration { days = 366 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.customer-support.vulnerability_v7/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.bill-integration.bill-telemetry"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.bill-integration.bill-telemetry/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.bill-integration.bill-to-kubernetes"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.bill-integration.bill-to-kubernetes/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.bill-integration.kubernetes-to-bill-energy-meter-reading"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.bill-integration.kubernetes-to-bill-energy-meter-reading/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.bill-integration.kubernetes-to-bill"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.bill-integration.kubernetes-to-bill/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.bill_event_bridge.dlq"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.bill_event_bridge.dlq/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.e2e.json"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.e2e.json/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.e2e.multi-dpd"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.e2e.multi-dpd/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.e2e.multi"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.e2e.multi/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.e2e.multi_project"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.e2e.multi_project/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.e2e.non-std-envelope"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.e2e.non-std-envelope/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.e2e.proto"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.e2e.proto/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.product.v1.events.dlq.alerts"
+    status = "Enabled"
+    expiration { days = 4 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.product.v1.events.dlq.alerts/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.product.v1.events.dlq"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.product.v1.events.dlq/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.product.v1.events.requeue"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.product.v1.events.requeue/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.uw.data-infra.pubsubbrige.snowplow"
+    status = "Enabled"
+    expiration { days = 6 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.uw.data-infra.pubsubbrige.snowplow/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.data-infra.uw.data-infra.test.pla1275"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.uw.data-infra.test.pla1275/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.energy-billing.electronic_payment.events"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.energy-billing.electronic_payment.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.energy-billing.internal.billing-adapter-deadletter"
+    status = "Enabled"
+    expiration { days = 29 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.energy-billing.internal.billing-adapter-deadletter/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.energy-billing.internal.billing-adapter-retry-1"
+    status = "Enabled"
+    expiration { days = 4 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.energy-billing.internal.billing-adapter-retry-1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.energy-billing.internal.billing-adapter-retry-2"
+    status = "Enabled"
+    expiration { days = 4 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.energy-billing.internal.billing-adapter-retry-2/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.energy-platform.eqdb-loader.service"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.energy-platform.eqdb-loader.service/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.energy-platform.gentrack.billing.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.energy-platform.gentrack.billing.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.energy-platform.gentrack.electronic_payment.events"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.energy-platform.gentrack.electronic_payment.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.energy-platform.gentrack.market_interactions.events"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.energy-platform.gentrack.market_interactions.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.energy-platform.gentrack.meter.read.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.energy-platform.gentrack.meter.read.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.energy-platform.gentrack.meterpoint.events"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.energy-platform.gentrack.meterpoint.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.energy-platform.gentrack.migration.events"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.energy-platform.gentrack.migration.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.energy-platform.gentrack.prepayment.notifications.events"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.energy-platform.gentrack.prepayment.notifications.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.energy-platform.meter.read.events.v3"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.energy-platform.meter.read.events.v3/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.energy-platform.property.migration.events"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.energy-platform.property.migration.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.energy-platform.tariff.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.energy-platform.tariff.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.finance.fabricator.sledger.entries.v1"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.finance.fabricator.sledger.entries.v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.help-and-support.self_serve_submissions"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.help-and-support.self_serve_submissions/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.help-and-support.self_serve_submissions_dlq"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.help-and-support.self_serve_submissions_dlq/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.iam-audit.ingest-v1"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.iam-audit.ingest-v1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.ledgers.account-balance.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.ledgers.account-balance.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.ledgers.account.migrated.events"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.ledgers.account.migrated.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.ledgers.transaction.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.ledgers.transaction.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.card-deadletter.v1.internal.payment-methods"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.card-deadletter.v1.internal.payment-methods/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.card-deadletter.v1.internal"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.card-deadletter.v1.internal/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.card.v1.internal.notifications"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.card.v1.internal.notifications/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.card.v1.internal.payment-methods"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.card.v1.internal.payment-methods/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.card.v1.internal"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.card.v1.internal/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.notifications.stripe.raw"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.notifications.stripe.raw/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.notifications.tx"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.notifications.tx/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.notifications.worldpay.raw"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.notifications.worldpay.raw/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.openbanking-deadletter.v1.internal.payment-methods"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.openbanking-deadletter.v1.internal.payment-methods/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.openbanking-deadletter.v1.internal.payments"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.openbanking-deadletter.v1.internal.payments/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.openbanking-deadletter.v1.internal.settlements"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.openbanking-deadletter.v1.internal.settlements/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.openbanking.v1.internal.payment-methods"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.openbanking.v1.internal.payment-methods/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.openbanking.v1.internal.payments"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.openbanking.v1.internal.payments/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.openbanking.v1.internal.settlements"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.openbanking.v1.internal.settlements/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment-analysis.payment-method"
+    status = "Enabled"
+    expiration { days = 366 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment-analysis.payment-method/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment-deadletter.v1.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment-deadletter.v1.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment-method-deadletter.v1.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment-method-deadletter.v1.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment-method.v1.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment-method.v1.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment-method.v1.public.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment-method.v1.public.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment.data-staged"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment.data-staged/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment.enriched-txs"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment.enriched-txs/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment.gateway.reconciliation.status-changed"
+    status = "Enabled"
+    expiration { days = 366 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment.gateway.reconciliation.status-changed/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment.gateway.reconciliation"
+    status = "Enabled"
+    expiration { days = 366 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment.gateway.reconciliation/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment.method-created"
+    status = "Enabled"
+    expiration { days = 366 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment.method-created/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment.method-linked"
+    status = "Enabled"
+    expiration { days = 366 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment.method-linked/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment.method-verified"
+    status = "Enabled"
+    expiration { days = 366 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment.method-verified/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment.payment"
+    status = "Enabled"
+    expiration { days = 366 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment.payment/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment.v1.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment.v1.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment.v1.public.events.cbc_topup_v3"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment.v1.public.events.cbc_topup_v3/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment.v1.public.events.debt"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment.v1.public.events.debt/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment.v1.public.events.debt_payment_plan"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment.v1.public.events.debt_payment_plan/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment.v1.public.events.pp_test"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment.v1.public.events.pp_test/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.payment-platform.payment.v1.public.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment.v1.public.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.staging-ept.DataStagedEventsFinance"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.staging-ept.DataStagedEventsFinance/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.staging-ept.bill-reconciliation-error-events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.staging-ept.bill-reconciliation-error-events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.staging-ept.billing-engine-events-bce-deadletter"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.staging-ept.billing-engine-events-bce-deadletter/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.staging-ept.fixed-width-file-processing-events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.staging-ept.fixed-width-file-processing-events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.staging-ept.historical-data-staged-events-finance"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.staging-ept.historical-data-staged-events-finance/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.staging-ept.transactions-auditor-diff.events"
+    status = "Enabled"
+    expiration { days = 61 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.staging-ept.transactions-auditor-diff.events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.staging-ept.unified-bill-ready-events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.staging-ept.unified-bill-ready-events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.bill-events"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.bill-events/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.bill-failed"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.bill-failed/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.bounce.2019.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.bounce.2019.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.braze_backfill"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.braze_backfill/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.cancel-status.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.cancel-status.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.cancellation.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.cancellation.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.caps-consent"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.caps-consent/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.caps"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.caps/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.clx-report"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.clx-report/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.comms-api-requests"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.comms-api-requests/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.comms-fallback.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.comms-fallback.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.cost-calculated.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.cost-calculated.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.email-batch.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.email-batch.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.email-post-delivery.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.email-post-delivery.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.email-released-critical.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.email-released-critical.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.email-released-important.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.email-released-important.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.email-released-mock-critical.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.email-released-mock-critical.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.email-released-mock-important.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.email-released-mock-important.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.email-released-mock.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.email-released-mock.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.email-released-ses-critical.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.email-released-ses-critical.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.email-released-ses-important.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.email-released-ses-important.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.email-released-ses.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.email-released-ses.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.email-released.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.email-released.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.email-status.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.email-status.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.failed"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.failed/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.go-inspire-letter-status.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.go-inspire-letter-status.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.letter-batch-critical.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.letter-batch-critical.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.letter-batch-important.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.letter-batch-important.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.letter-batch.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.letter-batch.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.letter-released-critical.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.letter-released-critical.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.letter-released-important.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.letter-released-important.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.letter-released-mock-critical.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.letter-released-mock-critical.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.letter-released-mock-important.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.letter-released-mock-important.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.letter-released-mock.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.letter-released-mock.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.letter-released.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.letter-released.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.letter-send-adare"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.letter-send-adare/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.letter-status.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.letter-status.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.mparticle-output-integration"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.mparticle-output-integration/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.orchestration-entity.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.orchestration-entity.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.orchestration-rule-execution.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.orchestration-rule-execution.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.outbound-call-request"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.outbound-call-request/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.push-notification-released.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.push-notification-released.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.push-notification-status.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.push-notification-status.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.rejected"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.rejected/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.rendered.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.rendered.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.requests"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.requests/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.scheduled.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.scheduled.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.send-notification.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.send-notification.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.sftp-status"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.sftp-status/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.sms-batch.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.sms-batch.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.sms-released-critical.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.sms-released-critical.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.sms-released-important.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.sms-released-important.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.sms-released.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.sms-released.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.sms-status.1"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.sms-status.1/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.status-bill-email-connector"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.status-bill-email-connector/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.status-energy-smets1-notifier"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.status-energy-smets1-notifier/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.status-finance-email-delivery-engine"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.status-finance-email-delivery-engine/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.status-v2"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.status-v2/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.status"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.status/" }
+  }
+
+  rule {
+    id     = "pubsub.restore-test.unicom.tests"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.tests/" }
   }
 
   rule {
