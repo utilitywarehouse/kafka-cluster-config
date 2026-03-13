@@ -74,9 +74,19 @@ module "finserv_pep_sanction_processor_v2" {
   ]
   produce_topics = [
     kafka_topic.public_pep_sanction_events_v2.name,
+    kafka_topic.private_pep_sanction_events_v2.name,
   ]
   consume_groups   = ["finserv.finserv-pep-sanction-processor-v2"]
   cert_common_name = "finserv/pep-sanction-processor-v2"
+}
+
+module "finserv_pep_sanction_api_v2" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.private_pep_sanction_events_v2.name,
+  ]
+  consume_groups   = ["finserv.finserv-pep-sanction-api-v2"]
+  cert_common_name = "finserv/pep-sanction-api-v2"
 }
 
 module "finserv_nats_to_msk_forwarder" {

@@ -3758,6 +3758,27 @@ resource "kafka_topic" "restore_test_staging_ept_billing_engine_events_bce_deadl
   }
 }
 
+resource "kafka_topic" "restore_test_billing_billing_engine_events" {
+  name               = "pubsub.restore-test.billing.billing-engine-events"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "compression.type" = "zstd"
+    # keep on each partition 750GiB
+    "retention.bytes" = "805306368000"
+    # allow for a batch of records maximum 100MiB
+    "max.message.bytes" = "104857600"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 2 days
+    "local.retention.ms" = "172800000"
+    # keep data for 2 months
+    "retention.ms"                        = "5184000000"
+    "cleanup.policy"                      = "delete"
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
+  }
+}
+
 resource "kafka_topic" "restore_test_unicom_unicom_bill_events" {
   name               = "pubsub.restore-test.unicom.bill-events"
   partitions         = 15
