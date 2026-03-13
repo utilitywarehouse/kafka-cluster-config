@@ -254,13 +254,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "billing.billing-engine-events-bce-deadletter"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "kafka-backup/billing.billing-engine-events-bce-deadletter/" }
-  }
-
-  rule {
     id     = "billing.energy-raw-data-reconciliation-diff"
     status = "Enabled"
     expiration { days = 31 }
