@@ -1080,13 +1080,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "pubsub.restore-test.auth.iam-cerbos-audit-v1"
-    status = "Enabled"
-    expiration { days = 3 }
-    filter { prefix = "kafka-backup/pubsub.restore-test.auth.iam-cerbos-audit-v1/" }
-  }
-
-  rule {
     id     = "pubsub.restore-test.auth.iam-click-v2"
     status = "Enabled"
     expiration { days = 3 }
@@ -1353,13 +1346,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "pubsub.restore-test.contact-channels.genesys_eb_events"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "kafka-backup/pubsub.restore-test.contact-channels.genesys_eb_events/" }
-  }
-
-  rule {
     id     = "pubsub.restore-test.contact-channels.intents_v2"
     status = "Enabled"
     expiration { days = 3 }
@@ -1574,13 +1560,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 31 }
     filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.product.v1.events.requeue/" }
-  }
-
-  rule {
-    id     = "pubsub.restore-test.data-infra.uw.data-infra.pubsubbrige.snowplow"
-    status = "Enabled"
-    expiration { days = 6 }
-    filter { prefix = "kafka-backup/pubsub.restore-test.data-infra.uw.data-infra.pubsubbrige.snowplow/" }
   }
 
   rule {
@@ -1973,55 +1952,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 31 }
     filter { prefix = "kafka-backup/pubsub.restore-test.payment-platform.payment.v1.public.events/" }
-  }
-
-  rule {
-    id     = "pubsub.restore-test.staging-ept.DataStagedEventsFinance"
-    status = "Enabled"
-    expiration { days = 8 }
-    filter { prefix = "kafka-backup/pubsub.restore-test.staging-ept.DataStagedEventsFinance/" }
-  }
-
-  rule {
-    id     = "pubsub.restore-test.staging-ept.bill-reconciliation-error-events"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "kafka-backup/pubsub.restore-test.staging-ept.bill-reconciliation-error-events/" }
-  }
-
-  rule {
-    id     = "pubsub.restore-test.staging-ept.billing-engine-events-bce-deadletter"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "kafka-backup/pubsub.restore-test.staging-ept.billing-engine-events-bce-deadletter/" }
-  }
-
-  rule {
-    id     = "pubsub.restore-test.staging-ept.fixed-width-file-processing-events"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "kafka-backup/pubsub.restore-test.staging-ept.fixed-width-file-processing-events/" }
-  }
-
-  rule {
-    id     = "pubsub.restore-test.staging-ept.historical-data-staged-events-finance"
-    status = "Enabled"
-    expiration { days = 8 }
-    filter { prefix = "kafka-backup/pubsub.restore-test.staging-ept.historical-data-staged-events-finance/" }
-  }
-
-  rule {
-    id     = "pubsub.restore-test.staging-ept.transactions-auditor-diff.events"
-    status = "Enabled"
-    expiration { days = 61 }
-    filter { prefix = "kafka-backup/pubsub.restore-test.staging-ept.transactions-auditor-diff.events/" }
-  }
-
-  rule {
-    id     = "pubsub.restore-test.staging-ept.unified-bill-ready-events"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "kafka-backup/pubsub.restore-test.staging-ept.unified-bill-ready-events/" }
   }
 
   rule {
@@ -2435,13 +2365,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 8 }
     filter { prefix = "kafka-backup/pubsub.restore-test.unicom.status/" }
-  }
-
-  rule {
-    id     = "pubsub.restore-test.unicom.tests"
-    status = "Enabled"
-    expiration { days = 92 }
-    filter { prefix = "kafka-backup/pubsub.restore-test.unicom.tests/" }
   }
 
   rule {
