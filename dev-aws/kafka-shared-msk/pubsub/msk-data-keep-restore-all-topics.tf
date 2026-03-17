@@ -1687,24 +1687,6 @@ resource "kafka_topic" "restore_test_data_infra_e2e_multi_project" {
   }
 }
 
-resource "kafka_topic" "restore_test_data_infra_snowplow" {
-  name               = "pubsub.restore-test.data-infra.uw.data-infra.pubsubbrige.snowplow"
-  replication_factor = 3
-  partitions         = 15
-  config = {
-    "remote.storage.enable" = "true"
-    # keep data for 5 days
-    "retention.ms" = "432000000"
-    # keep data in primary storage for 1 day
-    "local.retention.ms" = "86400000"
-    # allow for a batch of records maximum 1MiB
-    "max.message.bytes"                   = "1048576"
-    "compression.type"                    = "zstd"
-    "cleanup.policy"                      = "delete"
-    "message.timestamp.difference.max.ms" = "9223372036854775807"
-  }
-}
-
 resource "kafka_topic" "restore_test_data_infra_test_pla1275" {
   name               = "pubsub.restore-test.data-infra.uw.data-infra.test.pla1275"
   replication_factor = 3
@@ -2252,25 +2234,6 @@ resource "kafka_topic" "restore_test_cbc_service_events_v1" {
 
 resource "kafka_topic" "restore_test_cbc_crm_events_v1" {
   name = "pubsub.restore-test.cbc.CrmEvents"
-
-  replication_factor = 3
-  partitions         = 15
-
-  config = {
-    "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1" # keep on each partition unlimited data
-    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
-    "retention.ms"                        = "-1"      # keep data forever
-    "local.retention.ms"                  = "3600000" # keep data in primary storage for 1 hour
-    "max.message.bytes"                   = "2097152" # allow for a batch of records maximum 2MiB
-    "compression.type"                    = "zstd"
-    "cleanup.policy"                      = "delete"
-    "message.timestamp.difference.max.ms" = "9223372036854775807"
-  }
-}
-
-resource "kafka_topic" "restore_test_cbc_legacy_account_events_v2" {
-  name = "pubsub.restore-test.cbc.legacy.account.events.v2"
 
   replication_factor = 3
   partitions         = 15
@@ -2901,23 +2864,6 @@ resource "kafka_topic" "restore_test_payment_platform_notifications_tx" {
   }
 }
 
-resource "kafka_topic" "restore_test_iam_iam_cerbos_audit_v1" {
-  name               = "pubsub.restore-test.auth.iam-cerbos-audit-v1"
-  replication_factor = 3
-  partitions         = 10
-  config = {
-    # keep on each partition 100MiB
-    "retention.bytes" = "104857600"
-    # keep data for 2 days
-    "retention.ms" = "172800000"
-    # allow for a batch of records maximum 1MiB
-    "max.message.bytes"                   = "1048576"
-    "compression.type"                    = "zstd"
-    "cleanup.policy"                      = "delete"
-    "message.timestamp.difference.max.ms" = "9223372036854775807"
-  }
-}
-
 resource "kafka_topic" "restore_test_iam_iam_credentials_v1" {
   name               = "pubsub.restore-test.auth-customer.iam-credentials-v1"
   replication_factor = 3
@@ -3387,23 +3333,6 @@ resource "kafka_topic" "restore_test_partner_commission_es_demo_v1" {
   }
 }
 
-resource "kafka_topic" "restore_test_contact_channels_genesys_eb_events" {
-  name = "pubsub.restore-test.contact-channels.genesys_eb_events"
-
-  replication_factor = 3
-  partitions         = 9
-
-  config = {
-    "remote.storage.enable"               = "true"
-    "local.retention.ms"                  = "259200000"  # keep data in primary storage for 3 days
-    "retention.ms"                        = "2629800000" # keep data for 1 month
-    "max.message.bytes"                   = "104857600"  # allow for a batch of records maximum 100MiB
-    "compression.type"                    = "zstd"
-    "cleanup.policy"                      = "delete"
-    "message.timestamp.difference.max.ms" = "9223372036854775807"
-  }
-}
-
 resource "kafka_topic" "restore_test_contact_channels_finished_conversations" {
   name = "pubsub.restore-test.contact-channels.finished_conversations"
 
@@ -3615,144 +3544,6 @@ resource "kafka_topic" "restore_test_contact_channels_dsar_conversation" {
     "retention.ms"                        = "2629800000" # keep data for 1 month
     "max.message.bytes"                   = "104857600"  # allow for a batch of records maximum 100MiB
     "compression.type"                    = "zstd"
-    "cleanup.policy"                      = "delete"
-    "message.timestamp.difference.max.ms" = "9223372036854775807"
-  }
-}
-
-resource "kafka_topic" "restore_test_staging_ept_transactions_auditor_diff_events" {
-  name               = "pubsub.restore-test.staging-ept.transactions-auditor-diff.events"
-  replication_factor = 3
-  partitions         = 10
-  config = {
-    "compression.type" = "zstd"
-    # keep on each partition 750GiB
-    "retention.bytes" = "805306368000"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
-    # Use tiered storage
-    "remote.storage.enable" = "true"
-    # keep data in primary storage for 2 days
-    "local.retention.ms" = "172800000"
-    # keep data for 2 months
-    "retention.ms"                        = "5184000000"
-    "cleanup.policy"                      = "delete"
-    "message.timestamp.difference.max.ms" = "9223372036854775807"
-  }
-}
-
-resource "kafka_topic" "restore_test_staging_ept_data_staged_events_finance" {
-  name               = "pubsub.restore-test.staging-ept.DataStagedEventsFinance"
-  replication_factor = 3
-  partitions         = 10
-  config = {
-    "compression.type" = "zstd"
-    # keep on each partition 750GiB
-    "retention.bytes" = "805306368000"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
-    # Use tiered storage
-    "remote.storage.enable" = "true"
-    # keep data in primary storage for 2 days
-    "local.retention.ms"                  = "172800000"
-    "retention.ms"                        = "604800000" # keep data for 7 days
-    "cleanup.policy"                      = "delete"
-    "message.timestamp.difference.max.ms" = "9223372036854775807"
-  }
-}
-
-resource "kafka_topic" "restore_test_staging_ept_historical_data_staged_events_finance" {
-  name               = "pubsub.restore-test.staging-ept.historical-data-staged-events-finance"
-  replication_factor = 3
-  partitions         = 10
-  config = {
-    "compression.type" = "zstd"
-    # keep on each partition 750GiB
-    "retention.bytes" = "805306368000"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
-    # Use tiered storage
-    "remote.storage.enable" = "true"
-    # keep data in primary storage for 2 days
-    "local.retention.ms" = "172800000"
-    # keep data for 7 days
-    "retention.ms"                        = "604800000"
-    "cleanup.policy"                      = "delete"
-    "message.timestamp.difference.max.ms" = "9223372036854775807"
-  }
-}
-
-resource "kafka_topic" "restore_test_staging_ept_fixed_width_file_processing_events" {
-  name               = "pubsub.restore-test.staging-ept.fixed-width-file-processing-events"
-  replication_factor = 3
-  partitions         = 2
-  config = {
-    # store data zstd compressed
-    "compression.type" = "zstd"
-    # Use tiered storage
-    "remote.storage.enable" = "true"
-    # keep data in primary storage for 2 days
-    "local.retention.ms" = "172800000"
-    # keep data for 1 month
-    "retention.ms" = "2629800000"
-    # delete old data
-    "cleanup.policy"                      = "delete"
-    "message.timestamp.difference.max.ms" = "9223372036854775807"
-  }
-}
-
-resource "kafka_topic" "restore_test_staging_ept_bill_reconciliation_error_events" {
-  name               = "pubsub.restore-test.staging-ept.bill-reconciliation-error-events"
-  replication_factor = 3
-  partitions         = 2
-  config = {
-    # store data zstd compressed
-    "compression.type" = "zstd"
-    # Use tiered storage
-    "remote.storage.enable" = "true"
-    # keep data in primary storage for 2 days
-    "local.retention.ms" = "172800000"
-    # keep data for 1 month
-    "retention.ms" = "2629800000"
-    # delete old data
-    "cleanup.policy"                      = "delete"
-    "message.timestamp.difference.max.ms" = "9223372036854775807"
-  }
-}
-
-resource "kafka_topic" "restore_test_staging_ept_unified_bill_ready_events" {
-  name               = "pubsub.restore-test.staging-ept.unified-bill-ready-events"
-  replication_factor = 3
-  partitions         = 2
-  config = {
-    # store data zstd compressed
-    "compression.type" = "zstd"
-    # Use tiered storage
-    "remote.storage.enable" = "true"
-    # keep data in primary storage for 1 day
-    "local.retention.ms" = "86400000"
-    # keep data for 1 month
-    "retention.ms" = "2629800000"
-    # delete old data
-    "cleanup.policy"                      = "delete"
-    "message.timestamp.difference.max.ms" = "9223372036854775807"
-  }
-}
-
-resource "kafka_topic" "restore_test_staging_ept_billing_engine_events_bce_deadletter" {
-  name               = "pubsub.restore-test.staging-ept.billing-engine-events-bce-deadletter"
-  replication_factor = 3
-  partitions         = 2
-  config = {
-    # store data zstd compressed
-    "compression.type" = "zstd"
-    # Use tiered storage
-    "remote.storage.enable" = "true"
-    # keep data in primary storage for 2 days
-    "local.retention.ms" = "172800000"
-    # keep data for 1 month
-    "retention.ms" = "2629800000"
-    # delete old data
     "cleanup.policy"                      = "delete"
     "message.timestamp.difference.max.ms" = "9223372036854775807"
   }
@@ -4849,26 +4640,6 @@ resource "kafka_topic" "restore_test_unicom_unicom_status_v2" {
     "compression.type" = "zstd"
     # keep data for 7 days
     "retention.ms" = "604800000"
-    # enable remote storage
-    "remote.storage.enable" = "true"
-    # keep data in primary storage for 3 days
-    "local.retention.ms" = "259200000"
-    # allow for a batch of records maximum 512MiB
-    "max.message.bytes"                   = "536870912"
-    "message.timestamp.difference.max.ms" = "9223372036854775807"
-  }
-}
-
-resource "kafka_topic" "restore_test_unicom_unicom_tests" {
-  name               = "pubsub.restore-test.unicom.tests"
-  partitions         = 15
-  replication_factor = 3
-
-  config = {
-    "cleanup.policy"   = "delete"
-    "compression.type" = "zstd"
-    # keep data for 3 months
-    "retention.ms" = "7889400000"
     # enable remote storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 3 days
