@@ -303,6 +303,20 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "cbc.PaymentEventsDeadLetter"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/cbc.PaymentEventsDeadLetter/" }
+  }
+
+  rule {
+    id     = "cbc.TopUpEventsDeadLetter"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/cbc.TopUpEventsDeadLetter/" }
+  }
+
+  rule {
     id     = "contact-channels.article_feedback_v1"
     status = "Enabled"
     expiration { days = 3 }
