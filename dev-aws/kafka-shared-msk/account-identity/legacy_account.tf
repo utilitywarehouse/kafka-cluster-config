@@ -11,6 +11,19 @@ resource "kafka_topic" "account_identity_legacy_account_events_compacted" {
   replication_factor = 3
 }
 
+resource "kafka_topic" "account_identity_account_holders_events_compacted" {
+  config = {
+    "cleanup.policy"   = "compact"
+    "segment.ms"       = "604800000"
+    "compression.type" = "zstd"
+    # allow not compacted keys maximum for 7 days
+    "max.compaction.lag.ms" = "604800000"
+  }
+  name               = "account-identity.account.holders.events.compacted"
+  partitions         = 50
+  replication_factor = 3
+}
+
 resource "kafka_topic" "account_identity_legacy_account_changelog_events" {
   config = {
     "cleanup.policy"   = "compact"
@@ -197,6 +210,14 @@ module "account_identity_legacy_account_created_in_bill_relay" {
   consume_groups   = ["account-identity.created-in-bill-relay"]
   produce_topics   = [kafka_topic.account_identity_legacy_account_events.name]
   cert_common_name = "account-platform/legacy_account_created_in_bill_relay"
+}
+
+module "account_identity_account_holders_events_compaction_relay" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["account-identity.account-holders-events-compaction-relay"]
+  produce_topics   = [kafka_topic.account_identity_account_holders_events_compacted.name]
+  cert_common_name = "account-platform/account_holders_events_compaction_relay"
 }
 
 module "account_identity_legacy_to_anonymize_relay" {
