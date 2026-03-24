@@ -283,6 +283,6 @@ module "account_identity_legacy_account_event_rule_change_dispatcher" {
     kafka_topic.account_identity_legacy_account_events.name,
     kafka_topic.account_identity_legacy_account_events_compacted.name
   ]
-  consume_groups   = ["account-identity.bundle-tier-rule-change-dispatcher"]
+  consume_groups   = ["customer-proposition.bundle-tier-rule-change-dispatcher"]
   cert_common_name = "customer-proposition/bundle-tier-rule-change-dispatcher"
 }
