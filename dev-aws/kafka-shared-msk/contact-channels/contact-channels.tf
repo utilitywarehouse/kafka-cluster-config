@@ -503,7 +503,7 @@ module "survey_response_collector" {
 }
 
 # Consume from contact-channels.auto_email_drafts
-module "survey_responses_bq_projector" {
+module "auto_email_drafts_bq_projector" {
   source           = "../../../modules/tls-app"
   cert_common_name = "contact-channels/auto-email-drafts-bq-projector"
   consume_topics   = [kafka_topic.auto_email_drafts.name]
