@@ -502,6 +502,14 @@ module "survey_response_collector" {
   produce_topics   = [kafka_topic.tracking_events.name]
 }
 
+# Produce to contact-channels.auto_email_drafts
+module "auto_email_drafts_service" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/auto-email-drafts-service"
+  produce_topics   = [kafka_topic.auto_email_drafts.name]
+}
+
+
 # Consume from contact-channels.auto_email_drafts
 module "auto_email_drafts_bq_projector" {
   source           = "../../../modules/tls-app"
