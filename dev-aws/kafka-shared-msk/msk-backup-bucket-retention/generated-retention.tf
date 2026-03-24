@@ -324,6 +324,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "contact-channels.auto_email_drafts"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/contact-channels.auto_email_drafts/" }
+  }
+
+  rule {
     id     = "contact-channels.dsar"
     status = "Enabled"
     expiration { days = 31 }
