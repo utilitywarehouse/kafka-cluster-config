@@ -216,6 +216,24 @@ resource "kafka_topic" "dsar_conversation" {
   }
 }
 
+
+resource "kafka_topic" "auto_email_drafts" {
+  name = "contact-channels.auto_email_drafts"
+
+  replication_factor = 3
+  partitions         = 9
+
+  config = {
+    "remote.storage.enable" = "true"
+    "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
+    "retention.ms"          = "2629800000" # keep data for 1 month
+    "max.message.bytes"     = "104857600"  # allow for a batch of records maximum 100MiB
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
+
 ## TLS App
 
 # Consume from contact-channels.genesys_eb_events for Last Contact Digital Survey Projector
@@ -485,4 +503,12 @@ module "survey_response_collector" {
   source           = "../../../modules/tls-app"
   cert_common_name = "contact-channels/survey-response-collector"
   produce_topics   = [kafka_topic.tracking_events.name]
+}
+
+# Consume from contact-channels.auto_email_drafts
+module "auto_email_drafts_bq_projector" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/auto-email-drafts-bq-projector"
+  consume_topics   = [kafka_topic.auto_email_drafts.name]
+  consume_groups   = ["contact-channels.auto-email-drafts-bq-projector"]
 }
