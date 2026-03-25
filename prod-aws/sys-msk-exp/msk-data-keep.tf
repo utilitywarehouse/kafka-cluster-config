@@ -110,9 +110,8 @@ resource "kafka_acl" "msk_data_keep_restore_write_groups_all" {
   acl_principal = "User:CN=pubsub/msk-data-keep-restore"
   acl_host      = "*"
   # this is non intuitive... we need the Read permission to be able to commit offsets on groups
-  acl_operation                = "Read"
-  acl_permission_type          = "Allow"
-  resource_pattern_type_filter = "Prefixed"
+  acl_operation       = "Read"
+  acl_permission_type = "Allow"
 }
 
 ################################################################
