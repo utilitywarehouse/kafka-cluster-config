@@ -175,4 +175,3 @@ module "energy_prepayment_consumer" {
   consume_groups   = ["energy-platform.energy-prepayment-consumer"]
   cert_common_name = "energy-platform/energy-prepayment-consumer"
 }
-
