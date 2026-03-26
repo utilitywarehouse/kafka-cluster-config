@@ -112,7 +112,6 @@ module "msk_data_keep_backup" {
 #   # this is non intuitive... we need the Read permission to be able to commit offsets on groups
 #   acl_operation                = "Read"
 #   acl_permission_type          = "Allow"
-#   resource_pattern_type_filter = "Prefixed"
 # }
 
 
@@ -122,7 +121,7 @@ module "msk_data_keep_backup" {
 
 
 ################################################################
-# Enable this part when we need to test the restore app on the EXISTING DEV cluster.
+# Enable this part when we need to test the restore app on the EXISTING PROD cluster.
 # It gives permissions for the restore app only on a test topic that we use for restoring.
 # The auth.iam-identitydb-v1 has been chosen as it has a small amount of data both in dev and prod.
 ################################################################
