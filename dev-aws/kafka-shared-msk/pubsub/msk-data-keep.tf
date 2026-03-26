@@ -112,7 +112,6 @@ module "msk_data_keep_plan_restore" {
 #   # this is non intuitive... we need the Read permission to be able to commit offsets on groups
 #   acl_operation                = "Read"
 #   acl_permission_type          = "Allow"
-#   resource_pattern_type_filter = "Prefixed"
 # }
 
 
