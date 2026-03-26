@@ -176,9 +176,3 @@ module "energy_prepayment_consumer" {
   cert_common_name = "energy-platform/energy-prepayment-consumer"
 }
 
-module "budget_plan_events_consumer_electronic_payment" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.gentrack_electronic_payment_events.name]
-  consume_groups   = ["energy-billing.budget-plan-events-consumer"]
-  cert_common_name = "energy-billing/budget-plan-events-consumer"
-}
