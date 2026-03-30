@@ -512,6 +512,16 @@ module "auto_email_drafts_service" {
   produce_topics   = [kafka_topic.auto_email_drafts.name]
 }
 
+
+# Consume from contact-channels.auto_email_drafts
+module "auto_email_drafts_service" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/auto-email-drafts-consumer"
+  consume_topics   = [kafka_topic.auto_email_drafts.name]
+  consume_groups   = ["contact-channels/auto-email-drafts-consumer"]
+}
+
+
 # Consume from contact-channels.auto_email_drafts
 module "auto_email_drafts_bq_projector" {
   source           = "../../../modules/tls-app"
