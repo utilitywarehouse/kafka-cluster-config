@@ -1528,3 +1528,25 @@ module "cbc_customer_proposition" {
   consume_topics   = [kafka_topic.lifecycle_events_v2.name]
   cert_common_name = "customer-proposition/cbc-customer-proposition"
 }
+
+module "cbc_transaction_monitoring_processor" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.transaction_events_v3.name,
+    kafka_topic.paymentology_events_v1.name,
+    kafka_topic.legacy_account_events_v2.name,
+  ]
+  consume_groups   = ["cbc.cbc-transaction-monitoring-processor-v1"]
+  produce_topics   = []
+  cert_common_name = "cbc/cbc-transaction-monitoring-processor"
+}
+
+module "cbc_transaction_monitoring_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.lifecycle_events_v2.name,
+  ]
+  consume_groups   = ["cbc.cbc-transaction-monitoring-projector-v1"]
+  produce_topics   = []
+  cert_common_name = "cbc/cbc-transaction-monitoring-projector"
+}
