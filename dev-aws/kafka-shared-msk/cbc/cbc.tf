@@ -1559,6 +1559,7 @@ module "cbc_transaction_monitoring_projector" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.lifecycle_events_v2.name,
+    kafka_topic.legacy_account_events_v2.name,
   ]
   consume_groups   = ["cbc.cbc-transaction-monitoring-projector-v1"]
   produce_topics   = []
