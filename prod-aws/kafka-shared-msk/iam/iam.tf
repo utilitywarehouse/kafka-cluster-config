@@ -310,3 +310,15 @@ module "account_identity_login_service" {
   cert_common_name = "auth-customer/login-service"
   produce_topics   = [kafka_topic.iam_credentials_v1.name]
 }
+
+module "cbc_transaction_monitoring_processor" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.iam_credentials_v1_public.name]
+  cert_common_name = "cbc/cbc-transaction-monitoring-processor"
+}
+
+module "cbc_transaction_monitoring_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.iam_credentials_v1_public.name]
+  cert_common_name = "cbc/cbc-transaction-monitoring-projector"
+}
