@@ -34,6 +34,61 @@ resource "kafka_topic" "finserv_check_status_events" {
   replication_factor = 3
 }
 
+resource "kafka_topic" "public_pep_sanction_events_v2" {
+  name = "account-identity.public.pep-sanction.events.v2"
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data for 12 hours
+    "retention.ms" = "43200000"
+  }
+  partitions         = 15
+  replication_factor = 3
+}
+
+resource "kafka_topic" "private_pep_sanction_events_v2" {
+  name = "account-identity.private.pep-sanction.events.v2"
+  config = {
+    "cleanup.policy"   = "compact"
+    "compression.type" = "zstd"
+    # allow not compacted keys maximum for 7 days
+    "max.compaction.lag.ms" = "604800000"
+  }
+  partitions         = 15
+  replication_factor = 3
+}
+
+module "finserv_pep_sanction_listener_v2" {
+  source         = "../../../modules/tls-app"
+  consume_topics = []
+  produce_topics = [
+    kafka_topic.private_pep_sanction_events_v2.name,
+  ]
+  cert_common_name = "finserv/pep-sanction-listener-v2"
+}
+
+module "finserv_pep_sanction_processor_v2" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.private_pep_sanction_events_v2.name,
+  ]
+  produce_topics = [
+    kafka_topic.public_pep_sanction_events_v2.name,
+    kafka_topic.private_pep_sanction_events_v2.name,
+  ]
+  consume_groups   = ["finserv.finserv-pep-sanction-processor-v2"]
+  cert_common_name = "finserv/pep-sanction-processor-v2"
+}
+
+module "finserv_pep_sanction_api_v2" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.private_pep_sanction_events_v2.name,
+  ]
+  consume_groups   = ["finserv.finserv-pep-sanction-api-v2"]
+  cert_common_name = "finserv/pep-sanction-api-v2"
+}
+
 module "finserv_nats_to_msk_forwarder" {
   source         = "../../../modules/tls-app"
   consume_topics = []

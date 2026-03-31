@@ -196,7 +196,8 @@ module "di_cockroach_db_connector_energy_platform" {
     kafka_topic.events.name
   ]
   consume_groups = [
-    "data-infra.di-cockroach-db-connector-energy-platform"
+    "data-infra.di-cockroach-db-connector-energy-platform",
+    "data-infra.di-cockroach-db-connector-energy-platform-service-tariff"
   ]
   produce_topics = [
     kafka_topic.events_end.name

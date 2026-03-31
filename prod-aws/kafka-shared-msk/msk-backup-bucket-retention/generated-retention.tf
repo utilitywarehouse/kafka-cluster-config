@@ -254,10 +254,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "billing.billing-engine-events-bce-deadletter"
+    id     = "billing.energy-raw-data-reconciliation-diff"
     status = "Enabled"
     expiration { days = 31 }
-    filter { prefix = "kafka-backup/billing.billing-engine-events-bce-deadletter/" }
+    filter { prefix = "kafka-backup/billing.energy-raw-data-reconciliation-diff/" }
   }
 
   rule {
@@ -296,10 +296,31 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "cbc.PaymentEventsDeadLetter"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/cbc.PaymentEventsDeadLetter/" }
+  }
+
+  rule {
+    id     = "cbc.TopUpEventsDeadLetter"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/cbc.TopUpEventsDeadLetter/" }
+  }
+
+  rule {
     id     = "contact-channels.article_feedback_v1"
     status = "Enabled"
     expiration { days = 3 }
     filter { prefix = "kafka-backup/contact-channels.article_feedback_v1/" }
+  }
+
+  rule {
+    id     = "contact-channels.auto_email_drafts"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/contact-channels.auto_email_drafts/" }
   }
 
   rule {
@@ -450,6 +471,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "customer-support.subscriptions_v1"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "kafka-backup/customer-support.subscriptions_v1/" }
+  }
+
+  rule {
     id     = "customer-support.ticketing_v2"
     status = "Enabled"
     expiration { days = 1461 }
@@ -461,6 +489,34 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 1461 }
     filter { prefix = "kafka-backup/customer-support.vulnerability_v6/" }
+  }
+
+  rule {
+    id     = "data-infra.bill-integration.bill-telemetry"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/data-infra.bill-integration.bill-telemetry/" }
+  }
+
+  rule {
+    id     = "data-infra.bill-integration.bill-to-kubernetes"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/data-infra.bill-integration.bill-to-kubernetes/" }
+  }
+
+  rule {
+    id     = "data-infra.bill-integration.kubernetes-to-bill-energy-meter-reading"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/data-infra.bill-integration.kubernetes-to-bill-energy-meter-reading/" }
+  }
+
+  rule {
+    id     = "data-infra.bill-integration.kubernetes-to-bill"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/data-infra.bill-integration.kubernetes-to-bill/" }
   }
 
   rule {
@@ -534,6 +590,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "energy-billing.electronic_payment.events"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/energy-billing.electronic_payment.events/" }
+  }
+
+  rule {
     id     = "energy-billing.internal.billing-adapter-deadletter"
     status = "Enabled"
     expiration { days = 29 }
@@ -569,6 +632,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "energy-platform.gentrack.electronic_payment.events"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/energy-platform.gentrack.electronic_payment.events/" }
+  }
+
+  rule {
     id     = "energy-platform.gentrack.market_interactions.events"
     status = "Enabled"
     expiration { days = 181 }
@@ -597,6 +667,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "energy-platform.gentrack.prepayment.events"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/energy-platform.gentrack.prepayment.events/" }
+  }
+
+  rule {
     id     = "energy-platform.meter.read.events.v2"
     status = "Enabled"
     expiration { days = 92 }
@@ -608,6 +685,20 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 181 }
     filter { prefix = "kafka-backup/energy-platform.property.migration.events/" }
+  }
+
+  rule {
+    id     = "energy-platform.tariff.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/energy-platform.tariff.events/" }
+  }
+
+  rule {
+    id     = "finance.fabricator.sledger.entries.v1"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/finance.fabricator.sledger.entries.v1/" }
   }
 
   rule {
@@ -874,13 +965,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 3 }
     filter { prefix = "kafka-backup/pubsub.examples/" }
-  }
-
-  rule {
-    id     = "pubsub.plan-topic-restore"
-    status = "Enabled"
-    expiration { days = 8 }
-    filter { prefix = "kafka-backup/pubsub.plan-topic-restore/" }
   }
 
   rule {

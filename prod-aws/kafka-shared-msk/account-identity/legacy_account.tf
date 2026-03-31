@@ -291,3 +291,13 @@ module "cbc_account_events_relay" {
   consume_groups   = ["account-identity.cbc-account-events-relay-v2"]
   cert_common_name = "cbc/cbc-account-events-relay-v2"
 }
+
+module "account_identity_legacy_account_event_rule_change_dispatcher" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.account_identity_legacy_account_events.name,
+    kafka_topic.account_identity_legacy_account_events_compacted.name
+  ]
+  consume_groups   = ["customer-proposition.bundle-tier-rule-change-dispatcher"]
+  cert_common_name = "customer-proposition/bundle-tier-rule-change-dispatcher"
+}

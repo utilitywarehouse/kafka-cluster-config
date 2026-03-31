@@ -182,12 +182,3 @@ module "unicom_bill_sms_connector" {
   ]
   cert_common_name = "unicom/bill-sms-connector"
 }
-
-module "debt_payment_plan_api_connector" {
-  source = "../../../modules/tls-app"
-
-  produce_topics = [
-    kafka_topic.bill_integration_kubernetes_to_bill.name
-  ]
-  cert_common_name = "debt/debt-payment-plan-api"
-}
