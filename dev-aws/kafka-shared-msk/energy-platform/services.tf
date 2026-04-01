@@ -1,4 +1,4 @@
-module "services-provisioning-processor" {
+module "services_provisioning_processor" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.gentrack_market_interactions_events.name,
