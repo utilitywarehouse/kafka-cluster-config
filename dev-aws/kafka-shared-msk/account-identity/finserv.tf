@@ -113,7 +113,8 @@ module "cbc_bigquery_exporter" {
 module "cbc_pep_checker" {
   source = "../../../modules/tls-app"
   consume_topics = [
-    kafka_topic.finserv_check_status_events.name
+    kafka_topic.finserv_check_status_events.name,
+    kafka_topic.public_pep_sanction_events_v2.name
   ]
   consume_groups   = ["cbc.cbc-pep-checker-v8"]
   cert_common_name = "cbc/cbc-pep-checker"
