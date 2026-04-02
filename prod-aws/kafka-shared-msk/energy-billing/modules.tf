@@ -12,6 +12,12 @@ module "billing_adapter_retry_1" {
   consume_groups   = ["energy-billing.billing-adapter-retry-1"]
 }
 
+module "budget_plan_events_consumer" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "energy-billing/budget-plan-events-consumer"
+  produce_topics   = [kafka_topic.energy_billing_electronic_payment_events.name]
+}
+
 module "billing_adapter_retry_2" {
   source           = "../../../modules/tls-app"
   cert_common_name = "energy-billing/billing-adapter-retry-2"
