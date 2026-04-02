@@ -13,14 +13,9 @@ module "billing_adapter_retry_1" {
 }
 
 module "budget_plan_events_consumer" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
-    "energy-platform.property.migration.events",
-    "energy-platform.gentrack.electronic_payment.events",
-  ]
-  consume_groups   = ["energy-billing.budget-plan-events-consumer"]
-  produce_topics   = [kafka_topic.energy_billing_electronic_payment_events.name]
+  source           = "../../../modules/tls-app"
   cert_common_name = "energy-billing/budget-plan-events-consumer"
+  produce_topics   = [kafka_topic.energy_billing_electronic_payment_events.name]
 }
 
 module "billing_adapter_retry_2" {

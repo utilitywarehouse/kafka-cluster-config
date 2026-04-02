@@ -20,16 +20,6 @@ module "billing_adapter_retry_2" {
   consume_groups   = ["energy-billing.billing-adapter-retry-2"]
 }
 
-module "budget_plan_events_consumer" {
-  source         = "../../../modules/tls-app"
-  consume_topics = [
-    "energy-platform.property.migration.events",
-    "energy-platform.gentrack.electronic_payment.events",
-  ]
-  consume_groups   = ["energy-billing.budget-plan-events-consumer"]
-  cert_common_name = "energy-billing/budget-plan-events-consumer"
-}
-
 module "ledger_consumer" {
   source           = "../../../modules/tls-app"
   cert_common_name = "ledgers/ledger-consumer"
