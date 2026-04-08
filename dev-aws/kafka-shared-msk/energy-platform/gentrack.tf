@@ -175,3 +175,10 @@ module "energy_prepayment_consumer" {
   consume_groups   = ["energy-platform.energy-prepayment-consumer"]
   cert_common_name = "energy-platform/energy-prepayment-consumer"
 }
+
+module "energy_service_gentrack_registration_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.gentrack_market_interactions_events.name]
+  consume_groups   = ["energy-platform.services-gentrack-registration-consumer"]
+  cert_common_name = "energy-platform/energy-service-gentrack-registration-consumer"
+}
