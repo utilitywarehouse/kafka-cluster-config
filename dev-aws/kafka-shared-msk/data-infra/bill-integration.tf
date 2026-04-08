@@ -180,7 +180,10 @@ module "unicom_bill_sms_connector" {
   consume_topics = [
     kafka_topic.bill_integration_bill_to_kubernetes.name,
   ]
-  cert_common_name = "unicom/bill-sms-connector"
+  consume_groups = [
+    "unicom.bill-sms-connector"
+  ]
+  cert_common_name = "unicom/bill_sms_connector"
 }
 
 module "debt_payment_plan_api_connector" {
