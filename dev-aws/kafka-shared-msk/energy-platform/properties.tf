@@ -54,3 +54,12 @@ module "energy_billing_consumer" {
   cert_common_name = "energy-billing/budget-plan-events-consumer"
 }
 
+module "services_provisioning_processor_consumer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.gentrack_market_interactions_events.name,
+  ]
+  consume_groups   = ["energy-platform.services-provisioning-processor-consumer"]
+  cert_common_name = "energy-platform/services-provisioning-processor-consumer"
+}
+
