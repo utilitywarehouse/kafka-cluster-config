@@ -55,7 +55,8 @@ module "energy_billing_consumer" {
 }
 
 module "services_provisioning_processor_consumer" {
-  source = "../../../modules/tls-app"
+  source         = "../../../modules/tls-app"
+  produce_topics = [kafka_topic.property_events.name]
   consume_topics = [
     kafka_topic.gentrack_market_interactions_events.name,
   ]
