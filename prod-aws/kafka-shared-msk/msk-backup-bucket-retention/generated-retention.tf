@@ -37,6 +37,20 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "account-identity.private.pep-sanction.events.v2"
+    status = "Enabled"
+    expiration { days = 15 }
+    filter { prefix = "kafka-backup/account-identity.private.pep-sanction.events.v2/" }
+  }
+
+  rule {
+    id     = "account-identity.public.pep-sanction.events.v2"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/account-identity.public.pep-sanction.events.v2/" }
+  }
+
+  rule {
     id     = "account-identity.supply.address.debt.exception.check.events"
     status = "Enabled"
     expiration { days = 8 }
