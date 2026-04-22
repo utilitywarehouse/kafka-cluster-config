@@ -115,3 +115,10 @@ module "energy_platform_consumer_bundletier_events_compacted_v1" {
   consume_topics   = [kafka_topic.bundletier_events_compacted_v1.name]
   cert_common_name = "energy-platform/tariff-assignment-events-consumer"
 }
+
+module "bundletier_validator_consumer_bundletier_events" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["customer-proposition.bundletier-public-validator"]
+  consume_topics   = [kafka_topic.bundletier_events_v1.name, kafka_topic.bundletier_events_v2.name]
+  cert_common_name = "customer-proposition/bundletier-event-validator"
+}
