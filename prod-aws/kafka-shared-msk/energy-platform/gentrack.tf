@@ -170,8 +170,8 @@ module "billing_sqs_processor" {
 }
 
 module "energy_prepayment_projector" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [
+  source = "../../../modules/tls-app"
+  consume_topics = [
     kafka_topic.gentrack_prepayment_events.name,
     kafka_topic.gentrack_meterpoint_events.name
   ]
