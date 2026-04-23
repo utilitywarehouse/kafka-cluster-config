@@ -169,9 +169,12 @@ module "billing_sqs_processor" {
   cert_common_name = "energy-billing/billing-sqs-processor"
 }
 
-module "energy_prepayment_consumer" {
+module "energy_prepayment_projector" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.gentrack_prepayment_events.name]
-  consume_groups   = ["energy-platform.energy-prepayment-consumer"]
-  cert_common_name = "energy-platform/energy-prepayment-consumer"
+  consume_topics   = [
+    kafka_topic.gentrack_prepayment_events.name,
+    kafka_topic.gentrack_meterpoint_events.name,
+  ]
+  consume_groups   = ["energy-platform.prepayment-projector"]
+  cert_common_name = "energy-platform/prepayment-projector"
 }
