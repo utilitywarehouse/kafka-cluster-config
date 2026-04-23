@@ -173,7 +173,7 @@ module "energy_prepayment_projector" {
   source           = "../../../modules/tls-app"
   consume_topics   = [
     kafka_topic.gentrack_prepayment_events.name,
-    kafka_topic.gentrack_meterpoint_events.name,
+    kafka_topic.gentrack_meterpoint_events.name
   ]
   consume_groups   = ["energy-platform.prepayment-projector"]
   cert_common_name = "energy-platform/prepayment-projector"
