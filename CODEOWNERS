@@ -14,8 +14,8 @@ prod-aws/kafka-shared-msk/msk-backup-bucket-retention/generated-retention.tf
 /**/customer-proposition/                         @utilitywarehouse/org-multi-service-innovation
 /**/customer-support/                             @utilitywarehouse/customer-support
 /**/data-infra/                                   @utilitywarehouse/data-infra
-/**/energy-platform/                              @utilitywarehouse/org-energy
-/**/energy-billing/                               @utilitywarehouse/org-energy
+/**/energy-platform/                              @utilitywarehouse/energy
+/**/energy-billing/                               @utilitywarehouse/energy
 /**/finance/                                      @utilitywarehouse/finance-maintainers
 /**/help-and-support/                             @utilitywarehouse/org-help-experience
 /**/iam/                                          @utilitywarehouse/account-identity
