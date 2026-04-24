@@ -55,10 +55,24 @@ resource "kafka_topic" "bundletier_events_v2" {
   }
 }
 
+resource "kafka_topic" "bundletier_events_compacted_v2" {
+  name = "customer-proposition.public.bundletier.events.compacted.v2"
+
+  replication_factor = 3
+  partitions         = 15
+
+  config = {
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "compact"
+  }
+}
+
 
 module "bundletier_event_forwarder" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.bundletier_events_compacted_v1.name, kafka_topic.bundletier_events_v1.name]
+  produce_topics   = [kafka_topic.bundletier_events_compacted_v2.name, kafka_topic.bundletier_events_v2.name]
   consume_groups   = ["customer-proposition.bundletier-public-event-forwarder"]
   cert_common_name = "customer-proposition/bundletier-public-event-forwarder"
 }
