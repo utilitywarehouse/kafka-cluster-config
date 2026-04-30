@@ -37,6 +37,20 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "account-identity.private.pep-sanction.events.v2"
+    status = "Enabled"
+    expiration { days = 15 }
+    filter { prefix = "kafka-backup/account-identity.private.pep-sanction.events.v2/" }
+  }
+
+  rule {
+    id     = "account-identity.public.pep-sanction.events.v2"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/account-identity.public.pep-sanction.events.v2/" }
+  }
+
+  rule {
     id     = "account-identity.supply.address.debt.exception.check.events"
     status = "Enabled"
     expiration { days = 8 }
@@ -678,6 +692,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 92 }
     filter { prefix = "kafka-backup/energy-platform.meter.read.events.v2/" }
+  }
+
+  rule {
+    id     = "energy-platform.property.events"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/energy-platform.property.events/" }
   }
 
   rule {
