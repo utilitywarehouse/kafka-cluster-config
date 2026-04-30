@@ -196,6 +196,13 @@ module "account_identity_account_events_v2_indexer" {
   cert_common_name = "account-platform/account_events_v2_indexer"
 }
 
+module "account_identity_account_insights_events_v4_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_insights_events_v4.name]
+  consume_groups   = ["account-identity.account-insights-events-v4-aws"]
+  cert_common_name = "account-platform/account_insights_events_v4_indexer"
+}
+
 module "account_identity_account_api" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.account_identity_account_atomic_v1.name, kafka_topic.account_identity_account_events_v2.name]

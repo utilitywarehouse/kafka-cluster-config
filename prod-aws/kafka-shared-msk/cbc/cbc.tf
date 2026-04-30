@@ -123,6 +123,42 @@ resource "kafka_topic" "topup_events_v1" {
   }
 }
 
+
+resource "kafka_topic" "topup_events_v1_deadletter" {
+  name = "cbc.TopUpEventsDeadLetter"
+
+  replication_factor = 3
+  partitions         = 15
+
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1"         # keep on each partition unlimited data
+    "retention.ms"          = "2629800000" # keep data for 1 month
+    "local.retention.ms"    = "3600000"    # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152"    # allow for a batch of records maximum 2MiB
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
+resource "kafka_topic" "payment_events_v1_deadletter" {
+  name = "cbc.PaymentEventsDeadLetter"
+
+  replication_factor = 3
+  partitions         = 15
+
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.bytes"       = "-1"         # keep on each partition unlimited data
+    "retention.ms"          = "2629800000" # keep data for 1 month
+    "local.retention.ms"    = "3600000"    # keep data in primary storage for 1 hour
+    "max.message.bytes"     = "2097152"    # allow for a batch of records maximum 2MiB
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
+
 resource "kafka_topic" "transaction_events_v3" {
   name = "cbc.TransactionEvents_v3"
 
@@ -884,9 +920,24 @@ module "cbc_topup_processor" {
     kafka_topic.legacy_account_events_v2.name,
     kafka_topic.transaction_events_v3.name
   ]
-  produce_topics   = [kafka_topic.topup_events_v1.name]
+  produce_topics = [
+    kafka_topic.topup_events_v1.name,
+    kafka_topic.topup_events_v1_deadletter.name,
+    kafka_topic.payment_events_v1_deadletter.name,
+  ]
   consume_groups   = ["cbc.cbc-topup-processor-v1"]
   cert_common_name = "cbc/cbc-topup-processor"
+}
+
+module "cbc_topup_deadletter_processor" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.topup_events_v1_deadletter.name,
+    kafka_topic.payment_events_v1_deadletter.name,
+  ]
+  produce_topics   = []
+  consume_groups   = ["cbc.cbc-topup-deadletter-processor-v1"]
+  cert_common_name = "cbc/cbc-topup-deadletter-processor"
 }
 
 module "cbc_topup_api" {
@@ -1476,4 +1527,26 @@ module "cbc_customer_proposition" {
   ]
   consume_topics   = [kafka_topic.lifecycle_events_v2.name]
   cert_common_name = "customer-proposition/cbc-customer-proposition"
+}
+
+module "cbc_transaction_monitoring_processor" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.transaction_events_v3.name,
+    kafka_topic.paymentology_events_v1.name,
+    kafka_topic.legacy_account_events_v2.name,
+  ]
+  consume_groups   = ["cbc.cbc-transaction-monitoring-processor-v1"]
+  produce_topics   = []
+  cert_common_name = "cbc/cbc-transaction-monitoring-processor"
+}
+
+module "cbc_transaction_monitoring_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.lifecycle_events_v2.name,
+  ]
+  consume_groups   = ["cbc.cbc-transaction-monitoring-projector-v1"]
+  produce_topics   = []
+  cert_common_name = "cbc/cbc-transaction-monitoring-projector"
 }

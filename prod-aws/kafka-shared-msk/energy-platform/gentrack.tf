@@ -92,6 +92,44 @@ resource "kafka_topic" "gentrack_meterpoint_events" {
   }
 }
 
+resource "kafka_topic" "gentrack_electronic_payment_events" {
+  name               = "energy-platform.gentrack.electronic_payment.events"
+  replication_factor = 3
+  partitions         = 15
+
+  config = {
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data for 6 months
+    "retention.ms" = "15552000000"
+    # keep data in primary storage for 2 days
+    "local.retention.ms" = "172800000"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
+resource "kafka_topic" "gentrack_prepayment_events" {
+  name               = "energy-platform.gentrack.prepayment.events"
+  replication_factor = 3
+  partitions         = 15
+
+  config = {
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data for 6 months
+    "retention.ms" = "15552000000"
+    # keep data in primary storage for 2 days
+    "local.retention.ms" = "172800000"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 module "gentrack_adapter_webhook_processor" {
   source = "../../../modules/tls-app"
   produce_topics = [
@@ -99,7 +137,9 @@ module "gentrack_adapter_webhook_processor" {
     kafka_topic.gentrack_billing_events.name,
     kafka_topic.gentrack_migration_events.name,
     kafka_topic.gentrack_market_interactions_events.name,
-    kafka_topic.gentrack_meterpoint_events.name
+    kafka_topic.gentrack_meterpoint_events.name,
+    kafka_topic.gentrack_electronic_payment_events.name,
+    kafka_topic.gentrack_prepayment_events.name
   ]
   cert_common_name = "energy-platform/gentrack-adapter-webhook-processor"
 }
@@ -127,4 +167,21 @@ module "billing_sqs_processor" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.gentrack_billing_events.name]
   cert_common_name = "energy-billing/billing-sqs-processor"
+}
+
+module "energy_prepayment_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.gentrack_prepayment_events.name,
+    kafka_topic.gentrack_meterpoint_events.name
+  ]
+  consume_groups   = ["energy-platform.prepayment-projector"]
+  cert_common_name = "energy-platform/prepayment-projector"
+}
+
+module "energy_service_gentrack_registration_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.gentrack_market_interactions_events.name]
+  consume_groups   = ["energy-platform.services-gentrack-registration-consumer"]
+  cert_common_name = "energy-platform/services-gentrack-registration-consumer"
 }

@@ -16,6 +16,23 @@ resource "kafka_topic" "account_identity_account_events_v2" {
   replication_factor = 3
 }
 
+resource "kafka_topic" "account_identity_account_insights_events_v4" {
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+  }
+  name               = "account-identity.account.insights.events.v4"
+  partitions         = 15
+  replication_factor = 3
+}
+
 resource "kafka_topic" "account_identity_account_atomic_v1" {
   config = {
     "cleanup.policy"   = "delete"
@@ -242,6 +259,12 @@ module "account_identity_account_api_v2_dispatcher" {
   cert_common_name = "account-platform/account_api_v2_dispatcher"
 }
 
+module "account_identity_home_moves_outcome_dispatcher" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_account_insights_events_v4.name]
+  cert_common_name = "account-platform/home_moves_outcome_dispatcher"
+}
+
 module "account_identity_account_api_v2" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.account_identity_account_bill_writes_public.name]
@@ -289,6 +312,13 @@ module "account_identity_account_events_v2_indexer" {
   consume_topics   = [kafka_topic.account_identity_account_events_v2.name]
   consume_groups   = ["account-identity.account-events-v2-aws", "account-identity.account-events-v2-business-creation-events"]
   cert_common_name = "account-platform/account_events_v2_indexer"
+}
+
+module "account_identity_account_insights_events_v4_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_insights_events_v4.name]
+  consume_groups   = ["account-identity.account-insights-events-v4-aws"]
+  cert_common_name = "account-platform/account_insights_events_v4_indexer"
 }
 
 module "account_identity_account_events_v3_indexer" {
