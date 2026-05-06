@@ -1087,6 +1087,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "unicom.di-kafka-source-notification"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/unicom.di-kafka-source-notification/" }
+  }
+
+  rule {
     id     = "unicom.email-batch.1"
     status = "Enabled"
     expiration { days = 181 }

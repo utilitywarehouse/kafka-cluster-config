@@ -685,3 +685,21 @@ module "batch_sender" {
   consume_groups   = ["unicom.batch-sender"]
   cert_common_name = "unicom/batch-sender"
 }
+
+module "notification_emitter_api" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.unicom_di_kafka_source_notification.name,
+  ]
+  consume_groups   = ["unicom.notification-emitter-api"]
+  cert_common_name = "unicom/notification-emitter-api"
+}
+
+module "di_kafka_source_notification" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.unicom_di_kafka_source_notification.name,
+  ]
+  consume_groups   = ["unicom.di-kafka-source-notification"]
+  cert_common_name = "unicom/di-kafka-source-notification"
+}
