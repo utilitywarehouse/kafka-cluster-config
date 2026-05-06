@@ -649,3 +649,21 @@ module "di_kafka_source_notification" {
   consume_groups   = ["unicom.di-kafka-source-notification"]
   cert_common_name = "unicom/di-kafka-source-notification"
 }
+
+module "caps_consent_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.unicom_caps_consent.name,
+  ]
+  consume_groups   = ["unicom.caps-consent-projector"]
+  cert_common_name = "unicom/caps-consent-projector"
+}
+
+module "caps_dataguard_webhook" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.unicom_caps_consent.name,
+  ]
+  consume_groups   = ["unicom.caps-dataguard-webhook"]
+  cert_common_name = "unicom/caps-dataguard-webhook"
+}
