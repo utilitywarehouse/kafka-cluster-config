@@ -113,3 +113,14 @@ module "card_consumer" {
   consume_groups   = ["payment-platform.card-consumer"]
   cert_common_name = "payment-platform/card-consumer"
 }
+
+module "payment-methods-sync" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.payment_method_v1_events.name,
+  ]
+  consume_topics = [
+  ]
+  consume_groups   = ["payment-platform.payment-methods-sync"]
+  cert_common_name = "payment-platform/payment-methods-sync"
+}
