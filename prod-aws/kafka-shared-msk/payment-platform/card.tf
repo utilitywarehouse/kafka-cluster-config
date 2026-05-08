@@ -114,7 +114,7 @@ module "card_consumer" {
   cert_common_name = "payment-platform/card-consumer"
 }
 
-module "payment-methods-sync" {
+module "payment_methods_sync" {
   source = "../../../modules/tls-app"
   produce_topics = [
     kafka_topic.payment_method_v1_events.name,
