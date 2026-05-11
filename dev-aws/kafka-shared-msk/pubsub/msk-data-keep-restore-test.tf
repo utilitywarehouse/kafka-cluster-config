@@ -10,7 +10,7 @@
 #   partitions         = 15
 #   config = {
 #     "remote.storage.enable" = "true"
-#     "local.retention.ms"    = "86400000" # keep data
+#     "local.retention.ms"    = "86400000" # keep data in primary storage for 1 day
 #     # keep data for 3 days
 #     "retention.ms" = "259200000"
 #     # allow for a batch of records maximum 100MiB
