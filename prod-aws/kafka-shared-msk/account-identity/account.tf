@@ -465,6 +465,14 @@ module "cbc_fraud_detection_consumer" {
 }
 
 # Consume from account-identity.account.unified.events
+module "acquisition_account_projector" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "acquisition/account-projector"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["acquisition.account-projector"]
+}
+
+# Consume from account-identity.account.unified.events
 module "quoting_platform_account_projector" {
   source           = "../../../modules/tls-app"
   cert_common_name = "quoting-platform/account-projector"
