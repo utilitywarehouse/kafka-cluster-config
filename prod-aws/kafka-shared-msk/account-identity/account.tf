@@ -510,3 +510,17 @@ module "account_identity_atomic_to_braze" {
   produce_topics   = [kafka_topic.account_identity_legacy_account_braze_events_compacted.name]
   cert_common_name = "account-platform/atomic_to_braze"
 }
+
+module "cbc_transaction_monitoring_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_public_account_events.name]
+  consume_groups   = ["account-identity.cbc-transaction-monitoring-projector-v1"]
+  cert_common_name = "cbc/cbc-transaction-monitoring-projector"
+}
+
+module "cbc_transaction_monitoring_processor" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_public_account_events.name]
+  consume_groups   = ["account-identity.cbc-transaction-monitoring-processor-v1"]
+  cert_common_name = "cbc/cbc-transaction-monitoring-processor"
+}
