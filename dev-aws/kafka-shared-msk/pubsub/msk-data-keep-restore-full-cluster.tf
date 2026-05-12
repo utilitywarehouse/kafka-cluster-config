@@ -9,7 +9,7 @@ variable "enable_restore_full_cluster" {
   type = bool
 
   description = "Set to true to enable full cluster restore resources, false to disable them."
-  default     = false
+  default     = true
 }
 resource "kafka_topic" "plan_restore_full_normal" {
   count              = var.enable_restore_full_cluster ? 1 : 0
