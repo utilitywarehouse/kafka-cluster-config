@@ -74,7 +74,10 @@ extract_topic_retention_data() {
         # Valid retention with positive value
         d=int(retention_ms/86400000) + 1
         if(topic!="") {
-          print topic "=" d
+          if(!(topic in seen)) {
+            seen[topic]=1
+            print topic "=" d
+          }
         }
       }
       in_resource=0
