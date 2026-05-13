@@ -1010,20 +1010,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "pubsub.plan-topic-restore.large"
-    status = "Enabled"
-    expiration { days = 4 }
-    filter { prefix = "kafka-backup/pubsub.plan-topic-restore.large/" }
-  }
-
-  rule {
-    id     = "pubsub.plan-topic-restore.normal"
-    status = "Enabled"
-    expiration { days = 4 }
-    filter { prefix = "kafka-backup/pubsub.plan-topic-restore.normal/" }
-  }
-
-  rule {
     id     = "pubsub.plan-topic-restore.normal"
     status = "Enabled"
     expiration { days = 4 }
