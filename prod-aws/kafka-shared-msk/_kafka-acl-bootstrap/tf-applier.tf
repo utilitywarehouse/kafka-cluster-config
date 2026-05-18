@@ -25,3 +25,13 @@ resource "kafka_acl" "tf_applier_cluster" {
   acl_permission_type          = "Allow"
   resource_pattern_type_filter = "Literal"
 }
+
+# Deny topic delete to tf-applier to prevent data loss. Only tf-kafka-config-admin will be able to delete topics in prod manually.
+resource "kafka_acl" "tf_applier_topic_deny_delete" {
+  resource_name       = "*"
+  resource_type       = "Topic"
+  acl_principal       = "User:CN=pubsub/tf-applier"
+  acl_host            = "*"
+  acl_operation       = "Delete"
+  acl_permission_type = "Deny"
+}
