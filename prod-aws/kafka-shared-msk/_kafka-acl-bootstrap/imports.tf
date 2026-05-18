@@ -1,4 +1,3 @@
-# These are moved from dev-aws/kafka-shared-msk/pubsub/ so we don't need to recreate them. Just import them into the the state.
 import {
   to = kafka_acl.brokers_group
   id = "User:CN=*.devenablementpubsubmsk.mw71ue.c2.kafka.eu-west-1.amazonaws.com|*|Describe|Allow|Group|*|Literal"
@@ -18,4 +17,8 @@ import {
 import {
   to = kafka_acl.tf_applier_topic
   id = "User:CN=pubsub/tf-applier|*|All|Allow|Topic|*|Literal"
+}
+import {
+  to = kafka_acl.tf_applier_topic_deny_delete
+  id = "User:CN=pubsub/tf-applier|*|Delete|Deny|Topic|*|Literal"
 }
