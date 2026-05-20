@@ -111,6 +111,44 @@ resource "kafka_topic" "bill_integration_test" {
 }
 
 
+resource "kafka_topic" "bill_to_dex_comms_events" {
+  name               = "data-infra.bill-integration.bill-to-dex-comms-events"
+  replication_factor = 3
+  partitions         = 15
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data for 1 month
+    "retention.ms" = "2628000000"
+    # keep data in primary storage for 1 day
+    "local.retention.ms" = "86400000"
+    # allow for a batch of records maximum 1.9MiB
+    "max.message.bytes" = "2000012"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+    # Allow timestamps up to 10 years old
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
+  }
+}
+
+resource "kafka_topic" "bill_to_unicom_events" {
+  name               = "data-infra.bill-integration.bill-to-unicom-events"
+  replication_factor = 3
+  partitions         = 15
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data for 1 month
+    "retention.ms" = "2628000000"
+    # keep data in primary storage for 1 day
+    "local.retention.ms" = "86400000"
+    # allow for a batch of records maximum 1.9MiB
+    "max.message.bytes" = "2000012"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+    # Allow timestamps up to 10 years old
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
+  }
+}
+
 
 
 module "di_bill_event_bridge" {
@@ -171,6 +209,8 @@ module "di_proximo" {
     kafka_topic.bill_integration_bill_to_kubernetes.name,
     kafka_topic.bill_integration_bill_telemetry.name,
     kafka_topic.bill_integration_test.name,
+    kafka_topic.bill_to_dex_comms_events.name,
+    kafka_topic.bill_to_unicom_events.name,
   ]
 
   consume_groups = [
