@@ -84,20 +84,6 @@ resource "kafka_topic" "messenger_transcript_events_dlq" {
   }
 }
 
-resource "kafka_topic" "article_feedback_v1" {
-  name = "contact-channels.article_feedback_v1"
-
-  replication_factor = 3
-  partitions         = 3
-
-  config = {
-    "retention.ms"      = "172800000" # keep data for 2 days
-    "max.message.bytes" = "1048576"   # allow for a batch of records maximum 1MiB
-    "compression.type"  = "zstd"
-    "cleanup.policy"    = "delete"
-  }
-}
-
 resource "kafka_topic" "tracking_events" {
   name = "contact-channels.tracking_events"
 
@@ -361,14 +347,6 @@ module "message_transcriptions_kafka_bq" {
   cert_common_name = "contact-channels/message-transcriptions-kafka-bq"
   consume_topics   = [kafka_topic.messenger_transcript_events.name]
   consume_groups   = ["contact-channels.message-transcriptions-kafka-bq"]
-}
-
-# Consume from contact-channels.article_feedback_v1
-module "article_feedback_bq_projector" {
-  source           = "../../../modules/tls-app"
-  cert_common_name = "contact-channels/article-feedback-bq-projector"
-  consume_topics   = [kafka_topic.article_feedback_v1.name]
-  consume_groups   = ["contact-channels.article-feedback-bq-projector"]
 }
 
 # Genesys EB Events (SQS) produce to -> contact-channels.genesys_eb_events
