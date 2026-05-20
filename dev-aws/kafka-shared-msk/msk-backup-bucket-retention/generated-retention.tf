@@ -499,10 +499,24 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "data-infra.bill-integration.bill-to-dex-comms-events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/data-infra.bill-integration.bill-to-dex-comms-events/" }
+  }
+
+  rule {
     id     = "data-infra.bill-integration.bill-to-kubernetes"
     status = "Enabled"
     expiration { days = 31 }
     filter { prefix = "kafka-backup/data-infra.bill-integration.bill-to-kubernetes/" }
+  }
+
+  rule {
+    id     = "data-infra.bill-integration.bill-to-unicom-events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/data-infra.bill-integration.bill-to-unicom-events/" }
   }
 
   rule {
