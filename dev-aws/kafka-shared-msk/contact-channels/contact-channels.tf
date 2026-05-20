@@ -349,14 +349,6 @@ module "message_transcriptions_kafka_bq" {
   consume_groups   = ["contact-channels.message-transcriptions-kafka-bq"]
 }
 
-# Consume from contact-channels.article_feedback_v1
-module "article_feedback_bq_projector" {
-  source           = "../../../modules/tls-app"
-  cert_common_name = "contact-channels/article-feedback-bq-projector"
-  consume_topics   = [kafka_topic.article_feedback_v1.name]
-  consume_groups   = ["contact-channels.article-feedback-bq-projector"]
-}
-
 # Genesys EB Events (SQS) produce to -> contact-channels.genesys_eb_events
 module "sqs_kafka_broadcaster" {
   source           = "../../../modules/tls-app"
