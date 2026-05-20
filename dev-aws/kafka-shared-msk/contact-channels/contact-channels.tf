@@ -84,20 +84,6 @@ resource "kafka_topic" "messenger_transcript_events_dlq" {
   }
 }
 
-resource "kafka_topic" "article_feedback_v1" {
-  name = "contact-channels.article_feedback_v1"
-
-  replication_factor = 3
-  partitions         = 3
-
-  config = {
-    "retention.ms"      = "172800000" # keep data for 2 days
-    "max.message.bytes" = "1048576"   # allow for a batch of records maximum 1MiB
-    "compression.type"  = "zstd"
-    "cleanup.policy"    = "delete"
-  }
-}
-
 resource "kafka_topic" "tracking_events" {
   name = "contact-channels.tracking_events"
 
