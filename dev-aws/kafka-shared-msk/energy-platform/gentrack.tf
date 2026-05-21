@@ -149,6 +149,21 @@ resource "kafka_topic" "gentrack_agreement_events" {
   }
 }
 
+resource "kafka_topic" "gentrack_prepayment_change_of_mode_events" {
+  name               = "energy-platform.gentrack.prepayment.change_of_mode.events"
+  replication_factor = 3
+  partitions         = 15
+
+  config = {
+    "remote.storage.enable" = "true"
+    "retention.ms"          = "15552000000"
+    "local.retention.ms"    = "172800000"
+    "max.message.bytes"     = "1048576"
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
 module "gentrack_adapter_webhook_processor" {
   source = "../../../modules/tls-app"
   produce_topics = [
@@ -159,7 +174,8 @@ module "gentrack_adapter_webhook_processor" {
     kafka_topic.gentrack_meterpoint_events.name,
     kafka_topic.gentrack_electronic_payment_events.name,
     kafka_topic.gentrack_prepayment_events.name,
-    kafka_topic.gentrack_agreement_events.name
+    kafka_topic.gentrack_agreement_events.name,
+    kafka_topic.gentrack_prepayment_change_of_mode_events.name
   ]
   cert_common_name = "energy-platform/gentrack-adapter-webhook-processor"
 }
