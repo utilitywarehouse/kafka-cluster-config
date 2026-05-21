@@ -207,9 +207,9 @@ module "energy_service_gentrack_registration_consumer" {
 }
 
 
-module "energy_service_gentrack_agreements_consumer" {
+module "energy_service_gentrack_agreement_consumer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.gentrack_agreement_events.name]
-  consume_groups   = ["energy-platform.services-gentrack-agreements-consumer"]
-  cert_common_name = "energy-platform/services-gentrack-agreements-consumer"
+  consume_groups   = ["energy-platform.services-gentrack-agreement-consumer"]
+  cert_common_name = "energy-platform/services-gentrack-agreement-consumer"
 }
