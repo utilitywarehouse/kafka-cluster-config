@@ -281,3 +281,13 @@ module "unicom_bill_email_connector" {
   ]
   cert_common_name = "unicom/bill_email_connector"
 }
+
+module "cbc_bill_integration" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+
+  cert_common_name = "cbc/cbc-bill-integration-consumer"
+}
