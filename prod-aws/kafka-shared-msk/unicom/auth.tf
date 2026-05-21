@@ -667,3 +667,12 @@ module "caps_dataguard_webhook" {
   consume_groups   = ["unicom.caps-dataguard-webhook"]
   cert_common_name = "unicom/caps-dataguard-webhook"
 }
+
+module "status_indexer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.unicom_status.name,
+  ]
+  consume_groups   = ["unicom.status-indexer"]
+  cert_common_name = "unicom/status-indexer"
+}
