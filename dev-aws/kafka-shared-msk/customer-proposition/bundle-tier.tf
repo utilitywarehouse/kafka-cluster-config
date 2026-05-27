@@ -81,6 +81,12 @@ module "bundletier_csc_cron" {
   cert_common_name = "customer-proposition/bundle-tier-csc-cron"
 }
 
+module "bundletier_core_count_writer" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.bundletier_events_compacted_v1.name, kafka_topic.bundletier_events_v1.name]
+  cert_common_name = "customer-proposition/bundle-tier-core-count-writer"
+}
+
 module "es_indexer_bundletier_events_v1" {
   source           = "../../../modules/tls-app"
   consume_groups   = ["customer-proposition.es-indexer-bundletier.events.v1"]
