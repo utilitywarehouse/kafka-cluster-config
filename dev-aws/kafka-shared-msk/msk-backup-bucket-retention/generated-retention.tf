@@ -793,6 +793,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "onboarding.your-name"
+    status = "Enabled"
+    expiration { days = 3 }
+    filter { prefix = "kafka-backup/onboarding.your-name/" }
+  }
+
+  rule {
     id     = "payment-platform.card-deadletter.v1.internal.payment-methods"
     status = "Enabled"
     expiration { days = 31 }
