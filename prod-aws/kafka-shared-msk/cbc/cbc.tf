@@ -1534,6 +1534,7 @@ module "cbc_transaction_monitoring_processor" {
   consume_topics = [
     kafka_topic.transaction_events_v3.name,
     kafka_topic.paymentology_events_v1.name,
+    kafka_topic.topup_events_v1.name,
     kafka_topic.legacy_account_events_v2.name,
   ]
   consume_groups   = ["cbc.cbc-transaction-monitoring-processor-v1"]
