@@ -35,6 +35,7 @@ module "partner_planner" {
   ]
   consume_groups = [
     "partner-planner.basket-consumer-group-1"
+    "partner-planner.basket-consumer-group-test-1"
   ]
   cert_common_name = "partner-planner/crdb-indexer"
 }
