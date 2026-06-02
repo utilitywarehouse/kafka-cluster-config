@@ -47,6 +47,7 @@ module "energy_billing_consumer" {
   consume_topics = [
     kafka_topic.property_migration_events.name,
     kafka_topic.gentrack_electronic_payment_events.name,
+    kafka_topic.property_events.name,
   ]
   consume_groups   = ["energy-billing.budget-plan-events-consumer"]
   cert_common_name = "energy-billing/budget-plan-events-consumer"
