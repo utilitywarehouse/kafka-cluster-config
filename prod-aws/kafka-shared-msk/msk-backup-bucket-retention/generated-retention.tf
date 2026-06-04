@@ -765,6 +765,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "ledgers.reconciliation.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/ledgers.reconciliation.events/" }
+  }
+
+  rule {
     id     = "ledgers.transaction.events"
     status = "Enabled"
     expiration { days = 366 }
