@@ -4,8 +4,7 @@ resource "kafka_topic" "events" {
   partitions         = 15
   config = {
     "remote.storage.enable" = "true"
-    # keep data forever
-    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    # keep data for 7 years
     "retention.ms" = "220752000000"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
