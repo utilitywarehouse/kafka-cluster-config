@@ -25,5 +25,6 @@ module "onboarding_producer_sbuliarca" {
 module "onboarding_consumer_sbuliarca" {
   source           = "../../../modules/tls-app"
   consume_topics   = ["onboarding.sbuliarca"]
+  consume_groups   = ["onboarding.consumer-sbuliarca"]
   cert_common_name = "onboarding/consumer-sbuliarca"
 }

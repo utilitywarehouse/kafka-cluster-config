@@ -31,5 +31,6 @@ module "onboarding_consumer_your_name" {
 
   source           = "../../../modules/tls-app"
   consume_topics   = ["onboarding.your-name"]
+  consume_groups   = ["onboarding.consumer-your-name"]
   cert_common_name = "onboarding/consumer-your-name"
 }
