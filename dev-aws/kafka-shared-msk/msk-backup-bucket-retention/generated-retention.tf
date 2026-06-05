@@ -807,6 +807,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "onboarding.claudetest"
+    status = "Enabled"
+    expiration { days = 3 }
+    filter { prefix = "kafka-backup/onboarding.claudetest/" }
+  }
+
+  rule {
     id     = "onboarding.sbuliarca"
     status = "Enabled"
     expiration { days = 3 }
