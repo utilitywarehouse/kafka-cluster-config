@@ -490,6 +490,9 @@ module "unicom_bill_sms_connector" {
     "unicom.bill-failed"
   ]
   consume_groups   = ["unicom.bill-sms-connector"]
+  produce_topics = [
+    "unicom.bill-events"
+  ]
   cert_common_name = "unicom/bill_sms_connector"
 }
 
