@@ -186,6 +186,30 @@ module "unicom_bill_sms_connector" {
   cert_common_name = "unicom/bill_sms_connector"
 }
 
+module "unicom_bill_letter_connector" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "unicom.bill-letter-connector"
+  ]
+  cert_common_name = "unicom/bill_letter_connector"
+}
+
+module "unicom_bill_email_connector" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "unicom.bill-email-connector"
+  ]
+  cert_common_name = "unicom/bill_email_connector"
+}
+
 module "debt_payment_plan_api_connector" {
   source = "../../../modules/tls-app"
 
