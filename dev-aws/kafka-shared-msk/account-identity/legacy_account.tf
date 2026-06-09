@@ -276,3 +276,13 @@ module "create_account_projector_anonymized" {
   consume_groups   = ["account-identity.create-account-projector-anonymized"]
   cert_common_name = "account-platform/create_account_projector_anonymized"
 }
+
+module "account_identity_legacy_account_event_rule_change_dispatcher" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.account_identity_legacy_account_events.name,
+    kafka_topic.account_identity_legacy_account_events_compacted.name
+  ]
+  consume_groups   = ["customer-proposition.bundle-tier-rule-change-dispatcher"]
+  cert_common_name = "customer-proposition/bundle-tier-rule-change-dispatcher"
+}

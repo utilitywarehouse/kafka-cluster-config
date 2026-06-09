@@ -16,6 +16,23 @@ resource "kafka_topic" "account_identity_account_events_v2" {
   replication_factor = 3
 }
 
+resource "kafka_topic" "account_identity_account_insights_events_v4" {
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
+    "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+  }
+  name               = "account-identity.account.insights.events.v4"
+  partitions         = 15
+  replication_factor = 3
+}
+
 resource "kafka_topic" "account_identity_account_atomic_v1" {
   config = {
     "cleanup.policy"   = "delete"
@@ -242,6 +259,12 @@ module "account_identity_account_api_v2_dispatcher" {
   cert_common_name = "account-platform/account_api_v2_dispatcher"
 }
 
+module "account_identity_home_moves_outcome_dispatcher" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.account_identity_account_insights_events_v4.name]
+  cert_common_name = "account-platform/home_moves_outcome_dispatcher"
+}
+
 module "account_identity_account_api_v2" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.account_identity_account_bill_writes_public.name]
@@ -289,6 +312,13 @@ module "account_identity_account_events_v2_indexer" {
   consume_topics   = [kafka_topic.account_identity_account_events_v2.name]
   consume_groups   = ["account-identity.account-events-v2-aws", "account-identity.account-events-v2-business-creation-events"]
   cert_common_name = "account-platform/account_events_v2_indexer"
+}
+
+module "account_identity_account_insights_events_v4_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_account_insights_events_v4.name]
+  consume_groups   = ["account-identity.account-insights-events-v4-aws"]
+  cert_common_name = "account-platform/account_insights_events_v4_indexer"
 }
 
 module "account_identity_account_events_v3_indexer" {
@@ -435,6 +465,14 @@ module "cbc_fraud_detection_consumer" {
 }
 
 # Consume from account-identity.account.unified.events
+module "acquisition_account_projector" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "acquisition/account-projector"
+  consume_topics   = [kafka_topic.account_identity_account_unified_events.name]
+  consume_groups   = ["acquisition.account-projector"]
+}
+
+# Consume from account-identity.account.unified.events
 module "quoting_platform_account_projector" {
   source           = "../../../modules/tls-app"
   cert_common_name = "quoting-platform/account-projector"
@@ -471,4 +509,18 @@ module "account_identity_atomic_to_braze" {
   consume_groups   = ["account-identity.account-atomic-to-braze"]
   produce_topics   = [kafka_topic.account_identity_legacy_account_braze_events_compacted.name]
   cert_common_name = "account-platform/atomic_to_braze"
+}
+
+module "cbc_transaction_monitoring_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_public_account_events.name]
+  consume_groups   = ["account-identity.cbc-transaction-monitoring-projector-v1"]
+  cert_common_name = "cbc/cbc-transaction-monitoring-projector"
+}
+
+module "cbc_transaction_monitoring_processor" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_public_account_events.name]
+  consume_groups   = ["account-identity.cbc-transaction-monitoring-processor-v1"]
+  cert_common_name = "cbc/cbc-transaction-monitoring-processor"
 }

@@ -1,8 +1,11 @@
 terraform {
   required_version = ">= 1.5.0"
 
-  backend "s3" {}
-
+  backend "s3" {
+    bucket = "uw-dev-otel-tf-applier-state-exp"
+    key    = "exp-1-mert/otel-kafka"
+    region = "eu-west-1"
+  }
   required_providers {
     kafka = {
       source  = "Mongey/kafka"

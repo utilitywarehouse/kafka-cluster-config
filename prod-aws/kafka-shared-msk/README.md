@@ -41,6 +41,7 @@ for f in "${TEAM}"/*; do sed -i '' "s/_template_team_x/${TEAM}/g" $f; done
 #### Set up the terraform applier for this terraform team module
 In the kubernetes-manifests repository, under [dev](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/dev-aws/pubsub/msk) or [prod](https://github.com/utilitywarehouse/kubernetes-manifests/tree/master/prod-aws/pubsub/msk) 
 copy the file `tf-module-_template_team_x.yaml` into one with your team name and then replace `team_x` with your team name in the file.
+Add the new file to `kustomization.yaml`.
 Example commands:
 ```bash
 export TEAM=myteam

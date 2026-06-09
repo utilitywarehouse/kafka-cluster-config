@@ -530,7 +530,11 @@ module "unicom_bill_email_connector" {
   consume_topics = [
     "unicom.bill-failed"
   ]
-  consume_groups   = ["unicom.bill-email-connector"]
+  consume_groups = ["unicom.bill-email-connector"]
+  produce_topics = [
+    "unicom.bill-failed",
+    "unicom.bill-events"
+  ]
   cert_common_name = "unicom/bill_email_connector"
 }
 
@@ -539,7 +543,11 @@ module "unicom_bill_sms_connector" {
   consume_topics = [
     "unicom.bill-failed"
   ]
-  consume_groups   = ["unicom.bill-sms-connector"]
+  consume_groups = ["unicom.bill-sms-connector"]
+  produce_topics = [
+    "unicom.bill-failed",
+    "unicom.bill-events"
+  ]
   cert_common_name = "unicom/bill_sms_connector"
 }
 
@@ -548,7 +556,11 @@ module "unicom_bill_letter_connector" {
   consume_topics = [
     "unicom.bill-failed"
   ]
-  consume_groups   = ["unicom.bill-letter-connector"]
+  consume_groups = ["unicom.bill-letter-connector"]
+  produce_topics = [
+    "unicom.bill-failed",
+    "unicom.bill-events"
+  ]
   cert_common_name = "unicom/bill_letter_connector"
 }
 
@@ -680,4 +692,49 @@ module "batch_sender" {
   ]
   consume_groups   = ["unicom.batch-sender"]
   cert_common_name = "unicom/batch-sender"
+}
+
+module "notification_emitter_api" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.unicom_di_kafka_source_notification.name,
+  ]
+  consume_groups   = ["unicom.notification-emitter-api"]
+  cert_common_name = "unicom/notification-emitter-api"
+}
+
+module "di_kafka_source_notification" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.unicom_di_kafka_source_notification.name,
+  ]
+  consume_groups   = ["unicom.di-kafka-source-notification"]
+  cert_common_name = "unicom/di-kafka-source-notification"
+}
+
+module "caps_consent_projector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.unicom_caps_consent.name,
+  ]
+  consume_groups   = ["unicom.caps-consent-projector"]
+  cert_common_name = "unicom/caps-consent-projector"
+}
+
+module "caps_dataguard_webhook" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.unicom_caps_consent.name,
+  ]
+  consume_groups   = ["unicom.caps-dataguard-webhook"]
+  cert_common_name = "unicom/caps-dataguard-webhook"
+}
+
+module "status_indexer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.unicom_status.name,
+  ]
+  consume_groups   = ["unicom.status-indexer"]
+  cert_common_name = "unicom/status-indexer"
 }

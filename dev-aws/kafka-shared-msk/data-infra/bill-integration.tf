@@ -91,6 +91,64 @@ resource "kafka_topic" "bill_integration_kubernetes_to_bill_energy_meter_reading
   }
 }
 
+resource "kafka_topic" "bill_integration_test" {
+  name               = "data-infra.bill-integration.test"
+  replication_factor = 3
+  partitions         = 15
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data for 1 month
+    "retention.ms" = "2628000000"
+    # keep data in primary storage for 1 day
+    "local.retention.ms" = "86400000"
+    # allow for a batch of records maximum 1.9MiB
+    "max.message.bytes" = "2000012"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+    # Allow timestamps up to 10 years old
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
+  }
+}
+
+
+resource "kafka_topic" "bill_to_dex_comms_events" {
+  name               = "data-infra.bill-integration.bill-to-dex-comms-events"
+  replication_factor = 3
+  partitions         = 15
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data for 1 month
+    "retention.ms" = "2628000000"
+    # keep data in primary storage for 1 day
+    "local.retention.ms" = "86400000"
+    # allow for a batch of records maximum 1.9MiB
+    "max.message.bytes" = "2000012"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+    # Allow timestamps up to 10 years old
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
+  }
+}
+
+resource "kafka_topic" "bill_to_unicom_events" {
+  name               = "data-infra.bill-integration.bill-to-unicom-events"
+  replication_factor = 3
+  partitions         = 15
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data for 1 month
+    "retention.ms" = "2628000000"
+    # keep data in primary storage for 1 day
+    "local.retention.ms" = "86400000"
+    # allow for a batch of records maximum 1.9MiB
+    "max.message.bytes" = "2000012"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+    # Allow timestamps up to 10 years old
+    "message.timestamp.difference.max.ms" = "9223372036854775807"
+  }
+}
+
 
 
 module "di_bill_event_bridge" {
@@ -144,11 +202,15 @@ module "di_proximo" {
 
   produce_topics = [
     kafka_topic.bill_integration_kubernetes_to_bill.name,
+    kafka_topic.bill_integration_test.name,
   ]
 
   consume_topics = [
     kafka_topic.bill_integration_bill_to_kubernetes.name,
     kafka_topic.bill_integration_bill_telemetry.name,
+    kafka_topic.bill_integration_test.name,
+    kafka_topic.bill_to_dex_comms_events.name,
+    kafka_topic.bill_to_unicom_events.name,
   ]
 
   consume_groups = [
@@ -159,8 +221,73 @@ module "di_proximo" {
     "data-infra.bill-integration.bill-sms-connector",
     "data-infra.bill-integration.order-platform-bill-application-releaser",
     "data-infra.bill-integration.uw-bill-telemetry-bq-connector",
-    "data-infra.bill-integration.payment-bill-remove-card-service"
+    "data-infra.bill-integration.payment-bill-remove-card-service",
+    "data-infra.bill-integration.test"
   ]
 
   cert_common_name = "bill-integration/proximo"
+}
+
+module "billing_preference_comment_code_creator" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name
+  ]
+  cert_common_name = "customer-billing/billing-preference-comment-code-creator"
+}
+
+module "unicom_bill_sms_connector" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "unicom.bill-sms-connector"
+  ]
+  cert_common_name = "unicom/bill_sms_connector"
+}
+
+module "debt_payment_plan_api_connector" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name
+  ]
+  cert_common_name = "debt/debt-payment-plan-api"
+}
+
+module "unicom_bill_letter_connector" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "unicom.bill-letter-connector"
+  ]
+  cert_common_name = "unicom/bill_letter_connector"
+}
+
+module "unicom_bill_email_connector" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "unicom.bill-email-connector"
+  ]
+  cert_common_name = "unicom/bill_email_connector"
+}
+
+module "cbc_bill_integration" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+
+  cert_common_name = "cbc/cbc-bill-integration-consumer"
 }
