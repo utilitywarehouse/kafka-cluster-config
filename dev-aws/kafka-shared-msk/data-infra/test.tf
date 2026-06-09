@@ -4,7 +4,7 @@ resource "kafka_topic" "test" {
   partitions         = 15
   config = {
     "remote.storage.enable" = "true"
-    # keep data for 30 days
+    # keep data for 1 month
     "retention.ms" = "2592000000"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
