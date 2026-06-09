@@ -480,7 +480,11 @@ module "unicom_bill_email_connector" {
   consume_topics = [
     "unicom.bill-failed"
   ]
-  consume_groups   = ["unicom.bill-email-connector"]
+  consume_groups = ["unicom.bill-email-connector"]
+  produce_topics = [
+    "unicom.bill-failed",
+    "unicom.bill-events"
+  ]
   cert_common_name = "unicom/bill_email_connector"
 }
 
@@ -491,6 +495,7 @@ module "unicom_bill_sms_connector" {
   ]
   consume_groups = ["unicom.bill-sms-connector"]
   produce_topics = [
+    "unicom.bill-failed",
     "unicom.bill-events"
   ]
   cert_common_name = "unicom/bill_sms_connector"
@@ -501,7 +506,11 @@ module "unicom_bill_letter_connector" {
   consume_topics = [
     "unicom.bill-failed"
   ]
-  consume_groups   = ["unicom.bill-letter-connector"]
+  consume_groups = ["unicom.bill-letter-connector"]
+  produce_topics = [
+    "unicom.bill-failed",
+    "unicom.bill-events"
+  ]
   cert_common_name = "unicom/bill_letter_connector"
 }
 
