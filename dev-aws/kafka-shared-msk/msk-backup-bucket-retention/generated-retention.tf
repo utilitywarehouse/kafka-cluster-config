@@ -613,7 +613,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   rule {
     id     = "data-infra.test"
     status = "Enabled"
-    expiration { days = 4 }
+    expiration { days = 31 }
     filter { prefix = "kafka-backup/data-infra.test/" }
   }
 
