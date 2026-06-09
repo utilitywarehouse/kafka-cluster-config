@@ -19,6 +19,6 @@ module "test_client" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.test.name]
   produce_topics   = [kafka_topic.test.name]
-  consume_groups   = ["test"]
+  consume_groups   = ["data-infra.test"]
   cert_common_name = "data-infra/test_client"
 }
