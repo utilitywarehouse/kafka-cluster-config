@@ -5,7 +5,7 @@ resource "kafka_topic" "test" {
   config = {
     "remote.storage.enable" = "true"
     # keep data for 30 days
-    "retention.ms" = "259200000"
+    "retention.ms" = "2592000000"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
     # allow for a batch of records maximum 1MiB
@@ -16,9 +16,9 @@ resource "kafka_topic" "test" {
 }
 
 module "test_client" {
-  source = "../../../modules/tls-app"
-  consume_topics = [kafka_topic.test.name]
-  produce_topics = [kafka_topic.test.name]
-  consume_groups = ["test"]
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.test.name]
+  produce_topics   = [kafka_topic.test.name]
+  consume_groups   = ["test"]
   cert_common_name = "data-infra/test_client"
 }
