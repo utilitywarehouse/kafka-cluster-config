@@ -309,6 +309,5 @@ module "partner" {
     "data-infra.bill-integration.bill-event-reconciler-outbound"
   ]
 
-
   cert_common_name = "partner/partner"
 }
