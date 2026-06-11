@@ -299,5 +299,16 @@ module "partner" {
     kafka_topic.bill_integration_kubernetes_to_bill.name,
   ]
 
+  consume_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+
+  consume_groups = [
+    "data-infra.bill-integration.bill-event-reconciler-inbound",
+    "data-infra.bill-integration.bill-event-reconciler-outbound"
+  ]
+
+
   cert_common_name = "partner/partner"
 }
