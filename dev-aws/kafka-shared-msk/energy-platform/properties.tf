@@ -65,3 +65,9 @@ module "services_provisioning_processor_consumer" {
   cert_common_name = "energy-platform/services-provisioning-processor-consumer"
 }
 
+module "service_api_private" {
+  source         = "../../../modules/tls-app"
+  produce_topics = [kafka_topic.property_events.name]
+  consume_groups   = ["energy-platform.service-api-private"]
+  cert_common_name = "energy-platform/service-api-private"
+}
