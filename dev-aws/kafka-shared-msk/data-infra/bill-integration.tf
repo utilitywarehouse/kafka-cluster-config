@@ -173,6 +173,16 @@ module "di_bill_event_bridge" {
   cert_common_name = "bill-integration/bill-event-bridge"
 }
 
+module "di_bill_event_bridge_test" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+
+  cert_common_name = "bill-integration/bill-event-bridge-test"
+}
+
 module "customer_support_vulnerability_projector_bill" {
   source = "../../../modules/tls-app"
 
