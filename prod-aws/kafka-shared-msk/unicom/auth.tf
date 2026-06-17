@@ -703,6 +703,6 @@ module "unicom_es_bill_connector" {
   consume_topics = [
     "unicom.bill-events"
   ]
-  consume_groups = ["unicom.es-bill-connector"]
+  consume_groups   = ["unicom.es-bill-connector"]
   cert_common_name = "unicom/es_bill_connector"
 }
