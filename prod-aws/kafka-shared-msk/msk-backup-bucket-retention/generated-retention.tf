@@ -261,6 +261,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "billing.bill-core-model"
+    status = "Enabled"
+    expiration { days = 8 }
+    filter { prefix = "kafka-backup/billing.bill-core-model/" }
+  }
+
+  rule {
     id     = "billing.bill-reconciliation-error-events"
     status = "Enabled"
     expiration { days = 31 }
