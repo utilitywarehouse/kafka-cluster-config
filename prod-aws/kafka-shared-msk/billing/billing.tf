@@ -71,6 +71,24 @@ resource "kafka_topic" "billing_energy_raw_data_reconciliation_diff" {
   }
 }
 
+resource "kafka_topic" "billing_bill_core_model" {
+  name               = "billing.bill-core-model"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    # store data zstd compressed
+    "compression.type" = "zstd"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 2 days
+    "local.retention.ms" = "172800000"
+    # keep data for 7 days
+    "retention.ms" = "604800000"
+    # delete old data
+    "cleanup.policy" = "delete"
+  }
+}
+
 # ACLs
 module "bill_composition_engine" {
   source = "../../../modules/tls-app"
