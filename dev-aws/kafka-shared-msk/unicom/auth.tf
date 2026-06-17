@@ -747,3 +747,12 @@ module "render_indexer" {
   consume_groups   = ["unicom.render-indexer"]
   cert_common_name = "unicom/render-indexer"
 }
+
+module "unicom_es_bill_connector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    "unicom.bill-events"
+  ]
+  consume_groups   = ["unicom.es-bill-connector"]
+  cert_common_name = "unicom/es_bill_connector"
+}
