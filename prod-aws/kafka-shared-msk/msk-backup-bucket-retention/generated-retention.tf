@@ -329,7 +329,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     expiration { days = 31 }
     filter { prefix = "kafka-backup/cbc.TopUpEventsDeadLetter/" }
   }
-  
+
   rule {
     id     = "contact-channels.auto_email_drafts"
     status = "Enabled"
