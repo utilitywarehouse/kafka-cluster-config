@@ -321,3 +321,13 @@ module "partner" {
 
   cert_common_name = "partner/partner"
 }
+
+module "finance_bill_integration" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+
+  cert_common_name = "finance/account-in-debt-bill-writer"
+}
