@@ -86,6 +86,8 @@ resource "kafka_topic" "billing_bill_core_model" {
     "retention.ms" = "2592000000"
     # delete old data
     "cleanup.policy" = "delete"
+    # allow for a batch of records maximum 100MiB
+    "max.message.bytes" = "104857600"
   }
 }
 
@@ -142,4 +144,13 @@ module "billing_energy_raw_data_reconciliation_diff_indexer" {
   ]
   consume_groups   = ["billing.energy-raw-data-reconciliation-diff-indexer"]
   cert_common_name = "billing/energy-raw-data-reconciliation-diff-indexer"
+}
+
+module "ledgers_consumer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.billing_bill_core_model.name,
+  ]
+  consume_groups   = ["ledgers.ledger-consumer"]
+  cert_common_name = "ledgers/ledger-consumer"
 }
