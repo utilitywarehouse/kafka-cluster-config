@@ -33,6 +33,23 @@ resource "kafka_topic" "account_identity_account_insights_events_v4" {
   replication_factor = 3
 }
 
+resource "kafka_topic" "account_identity_home_move_lifecycle_events_v1" {
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data forever
+    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because this is a business event stream
+    "retention.ms" = "-1"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+  }
+  name               = "account-identity.home-move.lifecycle.events.v1"
+  partitions         = 15
+  replication_factor = 3
+}
+
 resource "kafka_topic" "account_identity_account_atomic_v1" {
   config = {
     "cleanup.policy"   = "delete"
@@ -261,7 +278,7 @@ module "account_identity_account_api_v2_dispatcher" {
 
 module "account_identity_home_moves_outcome_dispatcher" {
   source           = "../../../modules/tls-app"
-  produce_topics   = [kafka_topic.account_identity_account_insights_events_v4.name]
+  produce_topics   = [kafka_topic.account_identity_account_insights_events_v4.name, kafka_topic.account_identity_home_move_lifecycle_events_v1.name]
   cert_common_name = "account-platform/home_moves_outcome_dispatcher"
 }
 
