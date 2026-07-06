@@ -228,3 +228,14 @@ module "cbc_bill_integration" {
 
   cert_common_name = "cbc/cbc-bill-integration-consumer"
 }
+
+module "finance_bill_integration" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+
+  cert_common_name = "finance/account-in-debt-bill-writer"
+}
+
