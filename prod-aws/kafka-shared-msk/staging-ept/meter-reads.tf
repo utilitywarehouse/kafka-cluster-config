@@ -2,10 +2,11 @@ resource "kafka_topic" "meter_reads" {
   name               = "staging-ept.meter.read.events.v2"
   replication_factor = 3
   partitions         = 3
+  # Ephemeral staging topic: carries messages transiently, no tiered/cold storage.
   config = {
-    # Ephemeral staging topic: it only carries messages transiently, so keep
-    # data for 5 minutes, with no tiered/cold storage.
-    "retention.ms"      = "300000"
+    # keep data for 5 minutes
+    "retention.ms" = "300000"
+    # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
