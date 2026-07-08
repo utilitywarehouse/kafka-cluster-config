@@ -1045,6 +1045,27 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "staging-ept.gentrack.market_interactions.events"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/staging-ept.gentrack.market_interactions.events/" }
+  }
+
+  rule {
+    id     = "staging-ept.gentrack.meter.read.events"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/staging-ept.gentrack.meter.read.events/" }
+  }
+
+  rule {
+    id     = "staging-ept.meter.read.events.v2"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/staging-ept.meter.read.events.v2/" }
+  }
+
+  rule {
     id     = "unicom.bill-events"
     status = "Enabled"
     expiration { days = 181 }
