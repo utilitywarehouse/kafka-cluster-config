@@ -9,7 +9,7 @@
 variable "enable_restore_test" {
   type        = bool
   description = "Set to true to enable restore test resources, false to disable them."
-  default     = true
+  default     = false
 }
 resource "kafka_topic" "plan_restore_test" {
   count              = var.enable_restore_test ? 1 : 0
@@ -49,7 +49,7 @@ resource "kafka_topic" "restore_test_topic" {
     "cleanup.policy"    = "delete"
   }
 }
-module "msk_data_keep_plan_restore" {
+module "msk_data_keep_plan_restore_test" {
   count          = var.enable_restore_test ? 1 : 0
   source         = "../../../modules/tls-app"
   produce_topics = ["pubsub.plan-topic-restore"]
@@ -58,7 +58,7 @@ module "msk_data_keep_plan_restore" {
   cert_common_name = "pubsub/msk-data-keep-plan-restore"
 }
 
-module "msk_data_keep_restore" {
+module "msk_data_keep_restore_test" {
   count            = var.enable_restore_test ? 1 : 0
   source           = "../../../modules/tls-app"
   consume_groups   = ["pubsub.msk-data-keep-restore"]

@@ -11,9 +11,9 @@ variable "enable_restore_full_cluster" {
   description = "Set to true to enable full cluster restore resources, false to disable them."
   default     = false
 }
-resource "kafka_topic" "plan_restore_full_normal" {
+resource "kafka_topic" "plan_restore_full" {
   count              = var.enable_restore_full_cluster ? 1 : 0
-  name               = "pubsub.plan-topic-restore.normal"
+  name               = "pubsub.plan-topic-restore"
   replication_factor = 3
   partitions         = 30
   config = {
@@ -28,23 +28,14 @@ resource "kafka_topic" "plan_restore_full_normal" {
   }
 }
 
-resource "kafka_topic" "plan_restore_full_large" {
-  count              = var.enable_restore_full_cluster ? 1 : 0
-  name               = "pubsub.plan-topic-restore.large"
-  replication_factor = 3
-  partitions         = 30
-  config = {
-    "remote.storage.enable" = "true"
-    "local.retention.ms"    = "86400000" # keep data in primary storage for 1 day
-    # keep data for 3 days
-    "retention.ms" = "259200000"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
-    "compression.type"  = "zstd"
-    "cleanup.policy"    = "delete"
-  }
-}
+module "msk_data_keep_plan_restore_full" {
+  count          = var.enable_restore_full_cluster ? 1 : 0
+  source         = "../../../modules/tls-app"
+  produce_topics = ["pubsub.plan-topic-restore"]
+  consume_topics = ["pubsub.plan-topic-restore"]
 
+  cert_common_name = "pubsub/msk-data-keep-plan-restore"
+}
 
 resource "kafka_acl" "msk_data_keep_restore_write_topic_all" {
   count               = var.enable_restore_full_cluster ? 1 : 0
