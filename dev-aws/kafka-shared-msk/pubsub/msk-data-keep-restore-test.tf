@@ -49,11 +49,19 @@ resource "kafka_topic" "restore_test_topic" {
     "cleanup.policy"    = "delete"
   }
 }
+module "msk_data_keep_plan_restore" {
+  count          = var.enable_restore_test ? 1 : 0
+  source         = "../../../modules/tls-app"
+  produce_topics = ["pubsub.plan-topic-restore"]
+  consume_topics = ["pubsub.plan-topic-restore"]
+
+  cert_common_name = "pubsub/msk-data-keep-plan-restore"
+}
 
 module "msk_data_keep_restore" {
   count            = var.enable_restore_test ? 1 : 0
   source           = "../../../modules/tls-app"
-  consume_groups   = ["pubsub.msk-data-keep-restore.normal", "pubsub.msk-data-keep-restore.large"]
+  consume_groups   = ["pubsub.msk-data-keep-restore"]
   consume_topics   = ["pubsub.plan-topic-restore"]
   cert_common_name = "pubsub/msk-data-keep-restore"
 }
