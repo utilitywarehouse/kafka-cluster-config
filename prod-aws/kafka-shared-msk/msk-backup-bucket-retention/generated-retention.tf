@@ -996,6 +996,20 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "payment-platform.payment.v1.public.events.due_bill_payment"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/payment-platform.payment.v1.public.events.due_bill_payment/" }
+  }
+
+  rule {
+    id     = "payment-platform.payment.v1.public.events.overdue_debt_logged_in"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/payment-platform.payment.v1.public.events.overdue_debt_logged_in/" }
+  }
+
+  rule {
     id     = "payment-platform.payment.v1.public.events.pp_test"
     status = "Enabled"
     expiration { days = 31 }
@@ -1017,17 +1031,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "pubsub.plan-topic-restore.large"
+    id     = "pubsub.plan-topic-restore"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "kafka-backup/pubsub.plan-topic-restore.large/" }
-  }
-
-  rule {
-    id     = "pubsub.plan-topic-restore.normal"
-    status = "Enabled"
-    expiration { days = 4 }
-    filter { prefix = "kafka-backup/pubsub.plan-topic-restore.normal/" }
+    filter { prefix = "kafka-backup/pubsub.plan-topic-restore/" }
   }
 
   rule {

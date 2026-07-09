@@ -9,7 +9,7 @@
 variable "enable_restore_test" {
   type        = bool
   description = "Set to true to enable restore test resources, false to disable them."
-  default     = false
+  default     = true
 }
 resource "kafka_topic" "plan_restore_test" {
   count              = var.enable_restore_test ? 1 : 0
