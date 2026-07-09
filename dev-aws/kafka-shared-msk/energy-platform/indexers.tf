@@ -18,7 +18,6 @@ module "gentrack_topic_indexer" {
     kafka_topic.gentrack_meterpoint_events.name,
     kafka_topic.property_migration_events.name,
     kafka_topic.gentrack_prepayment_events.name,
-    kafka_topic.gentrack_agreement_events.name,
     kafka_topic.property_events.name
   ]
   consume_groups   = ["energy-platform.gentrack-topic-indexer"]
