@@ -91,6 +91,26 @@ resource "kafka_topic" "billing_bill_core_model" {
   }
 }
 
+resource "kafka_topic" "billing_unified_bill_report_events" {
+  name               = "billing.unified-bill-report-events"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    # store data zstd compressed
+    "compression.type" = "zstd"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 2 days
+    "local.retention.ms" = "172800000"
+    # keep data for 1 month
+    "retention.ms" = "2592000000"
+    # delete old data
+    "cleanup.policy" = "delete"
+    # allow for a batch of records maximum 100MiB
+    "max.message.bytes" = "104857600"
+  }
+}
+
 # ACLs
 module "bill_composition_engine" {
   source = "../../../modules/tls-app"
@@ -98,6 +118,7 @@ module "bill_composition_engine" {
     kafka_topic.bill_reconciliation_error_events.name,
     kafka_topic.unified_bill_ready_events.name,
     kafka_topic.billing_energy_raw_data_reconciliation_diff.name,
+    kafka_topic.billing_unified_bill_report_events,
   ]
   cert_common_name = "billing/bill-composition-engine"
 }
