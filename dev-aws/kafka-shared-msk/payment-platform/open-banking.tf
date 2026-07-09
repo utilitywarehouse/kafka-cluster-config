@@ -162,3 +162,27 @@ module "payment_deadletterd" {
   consume_groups   = ["payment-platform.payment-deadletterd"]
   cert_common_name = "payment-platform/payment-deadletterd"
 }
+
+module "payment_deadletterd_cron" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.payment_v1_events.name,
+    kafka_topic.payment_method_v1_events.name,
+    kafka_topic.openbanking_v1_internal_payments.name,
+    kafka_topic.openbanking_v1_internal_payment_methods.name,
+    kafka_topic.openbanking_v1_internal_settlements.name,
+    kafka_topic.card_v1_internal.name,
+    kafka_topic.card_deadletter_v1_internal_payment_methods.name,
+  ]
+  consume_topics = [
+    kafka_topic.payment_deadletter_v1_events.name,
+    kafka_topic.payment_method_deadletter_v1_events.name,
+    kafka_topic.openbanking_deadletter_v1_internal_payments.name,
+    kafka_topic.openbanking_deadletter_v1_internal_payment_methods.name,
+    kafka_topic.openbanking_deadletter_v1_internal_settlements.name,
+    kafka_topic.card_deadletter_v1_internal.name,
+    kafka_topic.card_deadletter_v1_internal_payment_methods.name,
+  ]
+  consume_groups   = ["payment-platform.payment-deadletterd-cron"]
+  cert_common_name = "payment-platform/payment-deadletterd-cron"
+}
