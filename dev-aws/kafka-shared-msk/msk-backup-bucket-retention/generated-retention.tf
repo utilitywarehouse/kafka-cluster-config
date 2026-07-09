@@ -303,6 +303,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "billing.unified-bill-report-events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/billing.unified-bill-report-events/" }
+  }
+
+  rule {
     id     = "cbc.DataProductEvents"
     status = "Enabled"
     expiration { days = 31 }
