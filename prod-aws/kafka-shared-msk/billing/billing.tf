@@ -71,6 +71,26 @@ resource "kafka_topic" "billing_energy_raw_data_reconciliation_diff" {
   }
 }
 
+resource "kafka_topic" "billing_bill_core_model" {
+  name               = "billing.bill-core-model"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    # store data zstd compressed
+    "compression.type" = "zstd"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 2 days
+    "local.retention.ms" = "172800000"
+    # keep data for 1 month
+    "retention.ms" = "2592000000"
+    # delete old data
+    "cleanup.policy" = "delete"
+    # allow for a batch of records maximum 100MiB
+    "max.message.bytes" = "104857600"
+  }
+}
+
 # ACLs
 module "bill_composition_engine" {
   source = "../../../modules/tls-app"
@@ -124,4 +144,13 @@ module "billing_energy_raw_data_reconciliation_diff_indexer" {
   ]
   consume_groups   = ["billing.energy-raw-data-reconciliation-diff-indexer"]
   cert_common_name = "billing/energy-raw-data-reconciliation-diff-indexer"
+}
+
+module "ledgers_consumer" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.billing_bill_core_model.name,
+  ]
+  consume_groups   = ["ledgers.ledger-consumer"]
+  cert_common_name = "ledgers/ledger-consumer"
 }

@@ -261,6 +261,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "billing.bill-core-model"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/billing.bill-core-model/" }
+  }
+
+  rule {
     id     = "billing.bill-reconciliation-error-events"
     status = "Enabled"
     expiration { days = 31 }
@@ -321,13 +328,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 31 }
     filter { prefix = "kafka-backup/cbc.TopUpEventsDeadLetter/" }
-  }
-
-  rule {
-    id     = "contact-channels.article_feedback_v1"
-    status = "Enabled"
-    expiration { days = 3 }
-    filter { prefix = "kafka-backup/contact-channels.article_feedback_v1/" }
   }
 
   rule {
@@ -996,6 +996,20 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "payment-platform.payment.v1.public.events.due_bill_payment"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/payment-platform.payment.v1.public.events.due_bill_payment/" }
+  }
+
+  rule {
+    id     = "payment-platform.payment.v1.public.events.overdue_debt_logged_in"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/payment-platform.payment.v1.public.events.overdue_debt_logged_in/" }
+  }
+
+  rule {
     id     = "payment-platform.payment.v1.public.events.pp_test"
     status = "Enabled"
     expiration { days = 31 }
@@ -1017,17 +1031,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "pubsub.plan-topic-restore.large"
+    id     = "pubsub.plan-topic-restore"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "kafka-backup/pubsub.plan-topic-restore.large/" }
-  }
-
-  rule {
-    id     = "pubsub.plan-topic-restore.normal"
-    status = "Enabled"
-    expiration { days = 4 }
-    filter { prefix = "kafka-backup/pubsub.plan-topic-restore.normal/" }
+    filter { prefix = "kafka-backup/pubsub.plan-topic-restore/" }
   }
 
   rule {
@@ -1042,6 +1049,27 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 31 }
     filter { prefix = "kafka-backup/pubsub.restore-test.auth.iam-identitydb-v1/" }
+  }
+
+  rule {
+    id     = "staging-ept.gentrack.market_interactions.events"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/staging-ept.gentrack.market_interactions.events/" }
+  }
+
+  rule {
+    id     = "staging-ept.gentrack.meter.read.events"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/staging-ept.gentrack.meter.read.events/" }
+  }
+
+  rule {
+    id     = "staging-ept.meter.read.events.v2"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/staging-ept.meter.read.events.v2/" }
   }
 
   rule {
