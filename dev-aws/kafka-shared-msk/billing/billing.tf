@@ -106,8 +106,6 @@ resource "kafka_topic" "billing_unified_bill_report_events" {
     "retention.ms" = "2592000000"
     # delete old data
     "cleanup.policy" = "delete"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
   }
 }
 
