@@ -338,6 +338,13 @@ module "account_identity_account_insights_events_v4_indexer" {
   cert_common_name = "account-platform/account_insights_events_v4_indexer"
 }
 
+module "account_identity_home_move_lifecycle_events_v1_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_home_move_lifecycle_events_v1.name]
+  consume_groups   = ["account-identity.home-move-lifecycle-events-v1-aws"]
+  cert_common_name = "account-platform/home_move_lifecycle_events_v1_indexer"
+}
+
 module "account_identity_account_events_v3_indexer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_account_events_v3.name]
