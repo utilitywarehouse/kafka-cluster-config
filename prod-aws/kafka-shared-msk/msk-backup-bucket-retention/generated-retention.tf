@@ -1017,17 +1017,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "pubsub.plan-topic-restore.large"
+    id     = "pubsub.plan-topic-restore"
     status = "Enabled"
     expiration { days = 4 }
-    filter { prefix = "kafka-backup/pubsub.plan-topic-restore.large/" }
-  }
-
-  rule {
-    id     = "pubsub.plan-topic-restore.normal"
-    status = "Enabled"
-    expiration { days = 4 }
-    filter { prefix = "kafka-backup/pubsub.plan-topic-restore.normal/" }
+    filter { prefix = "kafka-backup/pubsub.plan-topic-restore/" }
   }
 
   rule {
@@ -1042,6 +1035,27 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 31 }
     filter { prefix = "kafka-backup/pubsub.restore-test.auth.iam-identitydb-v1/" }
+  }
+
+  rule {
+    id     = "staging-ept.gentrack.market_interactions.events"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/staging-ept.gentrack.market_interactions.events/" }
+  }
+
+  rule {
+    id     = "staging-ept.gentrack.meter.read.events"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/staging-ept.gentrack.meter.read.events/" }
+  }
+
+  rule {
+    id     = "staging-ept.meter.read.events.v2"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/staging-ept.meter.read.events.v2/" }
   }
 
   rule {
