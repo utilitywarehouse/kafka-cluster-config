@@ -734,3 +734,12 @@ module "unicom_es_bill_connector" {
   consume_groups   = ["unicom.es-bill-connector"]
   cert_common_name = "unicom/es_bill_connector"
 }
+
+module "unicom_adare_report_processor" {
+  source         = "../../../modules/tls-app"
+  consume_groups = ["unicom.adare-report-processor"]
+  produce_topics = [
+    kafka_topic.unicom_cost_calculated_1.name,
+  ]
+  cert_common_name = "unicom/adare_report_processor"
+}
