@@ -3,12 +3,16 @@ resource "kafka_topic" "flow_files_events" {
   replication_factor = 3
   partitions         = 3
   config = {
+    # Use tiered storage
     "remote.storage.enable" = "true"
-    "retention.ms"          = "2592000000"
-    "local.retention.ms"    = "172800000"
-    "max.message.bytes"     = "1048576"
-    "compression.type"      = "zstd"
-    "cleanup.policy"        = "delete"
+    # keep data for 1 month
+    "retention.ms" = "2592000000"
+    # keep data in primary storage for 2 days
+    "local.retention.ms" = "172800000"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
   }
 }
 
