@@ -695,6 +695,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "energy-platform.flow-files.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/energy-platform.flow-files.events/" }
+  }
+
+  rule {
     id     = "energy-platform.gentrack.billing.events"
     status = "Enabled"
     expiration { days = 31 }
