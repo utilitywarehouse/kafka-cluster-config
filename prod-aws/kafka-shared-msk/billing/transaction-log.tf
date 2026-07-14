@@ -9,8 +9,8 @@ resource "kafka_topic" "billing_transaction_log_v3" {
     "compression.type" = "zstd"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # keep data for 1 month
-    "retention.ms" = "2629800000"
+    # keep data for 1.1 months
+    "retention.ms" = "2764800000"
     # making sure cleanup policy is not compaction 
     "cleanup.policy" = "delete"
     # allow for a batch of records maximum 100MiB

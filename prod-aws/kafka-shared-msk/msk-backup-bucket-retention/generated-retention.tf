@@ -298,7 +298,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   rule {
     id     = "billing.transaction-log-v3"
     status = "Enabled"
-    expiration { days = 31 }
+    expiration { days = 33 }
     filter { prefix = "kafka-backup/billing.transaction-log-v3/" }
   }
 
