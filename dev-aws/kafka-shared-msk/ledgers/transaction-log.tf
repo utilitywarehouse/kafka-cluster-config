@@ -1,5 +1,7 @@
-resource "kafka_topic" "billing_transaction_log_v3" {
-  name               = "billing.transaction-log-v3"
+# We're not fully mirroring the source yet. This is custom implementation dedicated to ledgers
+# Doing this gives us more options when the source topic will be decommissioned in the future. 
+resource "kafka_topic" "ledgers_transaction_log_v3" {
+  name               = "ledgers.transaction-log-v3"
   replication_factor = 3
   partitions         = 10
   config = {
@@ -11,7 +13,7 @@ resource "kafka_topic" "billing_transaction_log_v3" {
     "local.retention.ms" = "172800000"
     # keep data for 1.1 months
     "retention.ms" = "2764800000"
-    # making sure cleanup policy is not compaction 
+    # making sure cleanup policy is not compaction
     "cleanup.policy" = "delete"
     # allow for a batch of records maximum 100MiB
     "max.message.bytes" = "104857600"
