@@ -296,13 +296,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "billing.transaction-log-v3"
-    status = "Enabled"
-    expiration { days = 33 }
-    filter { prefix = "kafka-backup/billing.transaction-log-v3/" }
-  }
-
-  rule {
     id     = "billing.transactions-auditor-diff.events"
     status = "Enabled"
     expiration { days = 61 }
@@ -783,6 +776,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 31 }
     filter { prefix = "kafka-backup/ledgers.reconciliation.events/" }
+  }
+
+  rule {
+    id     = "ledgers.transaction-log-v3"
+    status = "Enabled"
+    expiration { days = 33 }
+    filter { prefix = "kafka-backup/ledgers.transaction-log-v3/" }
   }
 
   rule {
