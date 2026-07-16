@@ -50,3 +50,14 @@ module "partner_planner_basket_mapper" {
   ]
   cert_common_name = "partner-planner/basket-mapper"
 }
+
+module "partner_planner_activity_reader" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.basket_v1.name,
+  ]
+  consume_groups = [
+    "partner-planner.activity-reader-consumer-group"
+  ]
+  cert_common_name = "partner-planner/activity-reader"
+}
