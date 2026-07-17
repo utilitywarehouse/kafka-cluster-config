@@ -249,7 +249,9 @@ resource "kafka_topic" "legacy_account_eqdb_events" {
 
 # __generated__ by Terraform from "from-prod.account.events.anonymized.v0"
 resource "kafka_topic" "from_prod_account_events_anonymized_v0" {
-  config             = {}
+  config = {
+    "cleanup.policy" = "compact"
+  }
   name               = "from-prod.account.events.anonymized.v0"
   partitions         = 15
   replication_factor = 3
