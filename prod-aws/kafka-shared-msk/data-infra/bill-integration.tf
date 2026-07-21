@@ -115,6 +115,21 @@ module "di_bill_event_bridge" {
   cert_common_name = "bill-integration/bill-event-bridge"
 }
 
+module "di_bill_event_bridge_indexer" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+    kafka_topic.bill_integration_kubernetes_to_bill_energy_meter_reading.name,
+  ]
+
+  consume_groups = [
+    "data-infra.bill-integration.di-bill-event-bridge-indexer"
+  ]
+
+  cert_common_name = "bill-integration/bill-event-bridge-indexer"
+}
+
 module "customer_support_vulnerability_projector_bill" {
   source = "../../../modules/tls-app"
 
