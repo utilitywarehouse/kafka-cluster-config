@@ -821,6 +821,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "ledgers.data-migration.events"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/ledgers.data-migration.events/" }
+  }
+
+  rule {
     id     = "ledgers.reconciliation.events"
     status = "Enabled"
     expiration { days = 1 }
