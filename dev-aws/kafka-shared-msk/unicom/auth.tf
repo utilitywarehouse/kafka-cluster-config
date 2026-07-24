@@ -763,5 +763,5 @@ module "unicom_adare_report_processor" {
   produce_topics = [
     kafka_topic.unicom_cost_calculated_1.name,
   ]
-  cert_common_name = "unicom/adare_report_processor"
+  cert_common_name = "unicom/adare-report-processor"
 }
