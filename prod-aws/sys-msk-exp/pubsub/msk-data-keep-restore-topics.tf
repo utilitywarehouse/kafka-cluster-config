@@ -693,7 +693,7 @@ resource "kafka_topic" "restore_test_billing_unified_bill_report_events" {
   }
 }
 
-resource "kafka_topic" "restore_test_billing_DataStagedEventsFinance" {
+resource "kafka_topic" "restore_test_billing_data_staged_events_finance" {
   name               = "pubsub.restore-test.billing.DataStagedEventsFinance"
   replication_factor = 3
   partitions         = 10
@@ -772,7 +772,7 @@ resource "kafka_topic" "restore_test_billing_transaction_log_v3" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_FraudEvents" {
+resource "kafka_topic" "restore_test_cbc_fraud_events" {
   name = "pubsub.restore-test.cbc.FraudEvents"
 
   replication_factor = 3
@@ -790,7 +790,7 @@ resource "kafka_topic" "restore_test_cbc_FraudEvents" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_DataProductEvents" {
+resource "kafka_topic" "restore_test_cbc_data_product_events" {
   name = "pubsub.restore-test.cbc.DataProductEvents"
 
   replication_factor = 3
@@ -807,7 +807,7 @@ resource "kafka_topic" "restore_test_cbc_DataProductEvents" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_RatingEvents_v3" {
+resource "kafka_topic" "restore_test_cbc_rating_events_v3" {
   name = "pubsub.restore-test.cbc.RatingEvents_v3"
 
   replication_factor = 3
@@ -825,7 +825,7 @@ resource "kafka_topic" "restore_test_cbc_RatingEvents_v3" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_ChallengeEvents" {
+resource "kafka_topic" "restore_test_cbc_challenge_events" {
   name = "pubsub.restore-test.cbc.ChallengeEvents"
 
   replication_factor = 3
@@ -843,7 +843,7 @@ resource "kafka_topic" "restore_test_cbc_ChallengeEvents" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_ChargesEvents" {
+resource "kafka_topic" "restore_test_cbc_charges_events" {
   name = "pubsub.restore-test.cbc.ChargesEvents"
 
   replication_factor = 3
@@ -861,7 +861,7 @@ resource "kafka_topic" "restore_test_cbc_ChargesEvents" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_LifecycleEvents_v2" {
+resource "kafka_topic" "restore_test_cbc_lifecycle_events_v2" {
   name = "pubsub.restore-test.cbc.LifecycleEvents_v2"
 
   replication_factor = 3
@@ -879,7 +879,7 @@ resource "kafka_topic" "restore_test_cbc_LifecycleEvents_v2" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_TopUpEvents" {
+resource "kafka_topic" "restore_test_cbc_top_up_events" {
   name = "pubsub.restore-test.cbc.TopUpEvents"
 
   replication_factor = 3
@@ -897,7 +897,7 @@ resource "kafka_topic" "restore_test_cbc_TopUpEvents" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_TopUpEventsDeadLetter" {
+resource "kafka_topic" "restore_test_cbc_top_up_events_dead_letter" {
   name = "pubsub.restore-test.cbc.TopUpEventsDeadLetter"
 
   replication_factor = 3
@@ -914,7 +914,7 @@ resource "kafka_topic" "restore_test_cbc_TopUpEventsDeadLetter" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_PaymentEventsDeadLetter" {
+resource "kafka_topic" "restore_test_cbc_payment_events_dead_letter" {
   name = "pubsub.restore-test.cbc.PaymentEventsDeadLetter"
 
   replication_factor = 3
@@ -931,7 +931,7 @@ resource "kafka_topic" "restore_test_cbc_PaymentEventsDeadLetter" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_TransactionEvents_v3" {
+resource "kafka_topic" "restore_test_cbc_transaction_events_v3" {
   name = "pubsub.restore-test.cbc.TransactionEvents_v3"
 
   replication_factor = 3
@@ -949,7 +949,7 @@ resource "kafka_topic" "restore_test_cbc_TransactionEvents_v3" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_OpenBankingEvents" {
+resource "kafka_topic" "restore_test_cbc_open_banking_events" {
   name = "pubsub.restore-test.cbc.OpenBankingEvents"
 
   replication_factor = 3
@@ -967,7 +967,7 @@ resource "kafka_topic" "restore_test_cbc_OpenBankingEvents" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_OrderEvents" {
+resource "kafka_topic" "restore_test_cbc_order_events" {
   name = "pubsub.restore-test.cbc.OrderEvents"
 
   replication_factor = 3
@@ -985,7 +985,7 @@ resource "kafka_topic" "restore_test_cbc_OrderEvents" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_PaymentologyNotificationEvents" {
+resource "kafka_topic" "restore_test_cbc_paymentology_notification_events" {
   name = "pubsub.restore-test.cbc.PaymentologyNotificationEvents"
 
   replication_factor = 3
@@ -1003,7 +1003,7 @@ resource "kafka_topic" "restore_test_cbc_PaymentologyNotificationEvents" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_SodexoEvents" {
+resource "kafka_topic" "restore_test_cbc_sodexo_events" {
   name = "pubsub.restore-test.cbc.SodexoEvents"
 
   replication_factor = 3
@@ -1021,7 +1021,7 @@ resource "kafka_topic" "restore_test_cbc_SodexoEvents" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_VerificationEvents" {
+resource "kafka_topic" "restore_test_cbc_verification_events" {
   name = "pubsub.restore-test.cbc.VerificationEvents"
 
   replication_factor = 3
@@ -1039,7 +1039,7 @@ resource "kafka_topic" "restore_test_cbc_VerificationEvents" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_CustomerEvents" {
+resource "kafka_topic" "restore_test_cbc_customer_events" {
   name = "pubsub.restore-test.cbc.CustomerEvents"
 
   replication_factor = 3
@@ -1057,7 +1057,7 @@ resource "kafka_topic" "restore_test_cbc_CustomerEvents" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_MigrationEvents" {
+resource "kafka_topic" "restore_test_cbc_migration_events" {
   name = "pubsub.restore-test.cbc.MigrationEvents"
 
   replication_factor = 3
@@ -1075,7 +1075,7 @@ resource "kafka_topic" "restore_test_cbc_MigrationEvents" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_NetworkEvents" {
+resource "kafka_topic" "restore_test_cbc_network_events" {
   name = "pubsub.restore-test.cbc.NetworkEvents"
 
   replication_factor = 3
@@ -1093,7 +1093,7 @@ resource "kafka_topic" "restore_test_cbc_NetworkEvents" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_MdesEvents" {
+resource "kafka_topic" "restore_test_cbc_mdes_events" {
   name = "pubsub.restore-test.cbc.MdesEvents"
 
   replication_factor = 3
@@ -1111,7 +1111,7 @@ resource "kafka_topic" "restore_test_cbc_MdesEvents" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_ServiceEvents" {
+resource "kafka_topic" "restore_test_cbc_service_events" {
   name = "pubsub.restore-test.cbc.ServiceEvents"
 
   replication_factor = 3
@@ -1129,7 +1129,7 @@ resource "kafka_topic" "restore_test_cbc_ServiceEvents" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_CrmEvents" {
+resource "kafka_topic" "restore_test_cbc_crm_events" {
   name = "pubsub.restore-test.cbc.CrmEvents"
 
   replication_factor = 3
@@ -1165,7 +1165,7 @@ resource "kafka_topic" "restore_test_cbc_legacy_account_events_v2" {
   }
 }
 
-resource "kafka_topic" "restore_test_cbc_EqdbLoaderEvents" {
+resource "kafka_topic" "restore_test_cbc_eqdb_loader_events" {
   name = "pubsub.restore-test.cbc.EqdbLoaderEvents"
 
   replication_factor = 3
