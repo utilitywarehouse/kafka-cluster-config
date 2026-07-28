@@ -1,2 +1,3 @@
 /dev-aws/kafka-shared-msk/msk-backup-bucket-retention/generated-retention.tf -merge linguist-generated=true
 /prod-aws/kafka-shared-msk/msk-backup-bucket-retention/generated-retention.tf -merge linguist-generated=true
+/prod-aws/sys-msk-exp/pubsub/gen-msk-data-keep-restore-topics.tf -merge linguist-generated=true
