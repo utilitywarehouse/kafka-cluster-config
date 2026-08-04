@@ -95,7 +95,7 @@ locals {
   } : {}
 }
 
-resource "kafka_topic" "restore_full" {
+resource "kafka_topic" "prod_restore_topics" {
   for_each = local.prod_restore_topics
 
   name               = "pubsub.restore-test.${each.value.topic_name}"
