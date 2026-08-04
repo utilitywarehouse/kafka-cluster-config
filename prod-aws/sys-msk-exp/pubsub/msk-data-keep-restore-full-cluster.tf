@@ -68,3 +68,38 @@ resource "kafka_acl" "msk_data_keep_restore_write_groups_all" {
   acl_operation       = "Read"
   acl_permission_type = "Allow"
 }
+
+# Reads the live topic list from the real production cluster (kafka-shared-msk)
+# and creates them in the sys-msk-exp cluster with the same configuration, so that we can restore data into them.
+provider "kafka" {
+  alias = "prod"
+  bootstrap_servers = [
+    "b-1.devenablementpubsubmsk.mw71ue.c2.kafka.eu-west-1.amazonaws.com:9094",
+    "b-2.devenablementpubsubmsk.mw71ue.c2.kafka.eu-west-1.amazonaws.com:9094",
+    "b-3.devenablementpubsubmsk.mw71ue.c2.kafka.eu-west-1.amazonaws.com:9094",
+  ]
+}
+
+data "kafka_topics" "prod" {
+  count    = var.enable_restore_full_cluster ? 1 : 0
+  provider = kafka.prod
+}
+
+locals {
+  # Exclude the "pubsub." prefixed topics, since those belong to the
+  # restore/backup tooling itself (kafka-shared-msk/pubsub/), not application
+  # data, and exclude internal "__" topics.
+  prod_restore_topics = var.enable_restore_full_cluster ? {
+    for t in data.kafka_topics.prod[0].list : t.topic_name => t
+    if !startswith(t.topic_name, "pubsub.") && !startswith(t.topic_name, "__")
+  } : {}
+}
+
+resource "kafka_topic" "restore_full" {
+  for_each = local.prod_restore_topics
+
+  name               = "pubsub.restore-test.${each.value.topic_name}"
+  partitions         = each.value.partitions
+  replication_factor = each.value.replication_factor
+  config             = each.value.config
+}
