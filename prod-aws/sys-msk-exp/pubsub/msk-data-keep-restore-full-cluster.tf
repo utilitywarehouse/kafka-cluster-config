@@ -87,11 +87,11 @@ data "kafka_topics" "prod" {
 
 locals {
   # Exclude the "pubsub." prefixed topics, since those belong to the
-  # restore/backup tooling itself (kafka-shared-msk/pubsub/), not application
-  # data, and exclude internal "__" topics.
+  # restore/backup tooling itself (kafka-shared-msk/pubsub/), not application data,
+  # Exclude internal "__" and mirror maker topics.
   prod_restore_topics = var.enable_restore_full_cluster ? {
     for t in data.kafka_topics.prod[0].list : t.topic_name => t
-    if !startswith(t.topic_name, "pubsub.") && !startswith(t.topic_name, "__")
+    if !startswith(t.topic_name, "pubsub.") && !startswith(t.topic_name, "__") && !startswith(t.topic_name, "mm2") && !strcontains(t.topic_name, "checkpoints.internal")
   } : {}
 }
 
