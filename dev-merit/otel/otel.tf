@@ -67,3 +67,31 @@ module "otel_tail_sampling_collector" {
   consume_groups   = ["otel.tail-sampling-collector"]
   cert_common_name = "otel/tail-sampling-collector"
 }
+
+resource "kafka_topic" "tempo_ingest" {
+  name               = "otel.tempo_ingest"
+  replication_factor = 3
+  # This needs to he in sync with the number of replicas in the tempo block builder
+  partitions = 3
+  config = {
+    # retain 100GB on each partition
+    "retention.bytes" = "107374182400"
+    # keep data for 12 hours
+    "retention.ms" = "43200000"
+    # allow max 128 MB for a message
+    "max.message.bytes" = "134217728"
+    # roll log at 3h max
+    "segment.ms" = "10800000"
+    # max log size of 250 MB
+    "segment.bytes"    = "262144000"
+    "compression.type" = "zstd"
+    "cleanup.policy"   = "delete"
+  }
+}
+
+module "tempo_ingest" {
+  source           = "../../modules/tls-app"
+  consume_topics   = [kafka_topic.tempo_ingest.name]
+  consume_groups   = ["otel.metrics-generator"]
+  cert_common_name = "otel/tempo-ingest"
+}
