@@ -127,8 +127,8 @@ resource "kafka_topic" "bex_legacy_invoice_api" {
     "local.retention.ms" = "86400000"
     # keep data for 7 days
     "retention.ms" = "604800000"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
+    # allow for a batch of records maximum 3MiB
+    "max.message.bytes" = "3145728"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
@@ -161,7 +161,7 @@ resource "kafka_topic" "transition_bex_fulfilment_request" {
     "remote.storage.enable" = "true"
     # keep data in primary storage for 1 day
     "local.retention.ms" = "86400000"
-    "max.message.bytes"  = "104857600" # allow for a batch of records maximum 100MiB
+    "max.message.bytes"  = "3145728" # allow for a batch of records maximum 3MiB
     "compression.type"   = "zstd"
     "cleanup.policy"     = "delete"
     # keep data for 7 days
