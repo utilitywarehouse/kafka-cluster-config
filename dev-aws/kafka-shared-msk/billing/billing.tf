@@ -169,7 +169,8 @@ module "ledgers_consumer" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.billing_bill_core_model.name,
-    kafka_topic.billing_transaction_log_v3.name
+    kafka_topic.billing_transaction_log_v3.name,
+    kafka_topic.unified_bill_ready_events.name
   ]
   consume_groups   = ["ledgers.ledger-consumer"]
   cert_common_name = "ledgers/ledger-consumer"
