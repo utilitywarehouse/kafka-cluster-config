@@ -36,6 +36,7 @@ module "tempo_distributor" {
     kafka_topic.otlp_spans.name,
     kafka_topic.otlp_sampled_spans.name,
   ]
+  produce_topics   = [kafka_topic.tempo_ingest.name]
   consume_groups   = ["processor-tempo"]
   cert_common_name = "otel/tempo-distributor"
 }
