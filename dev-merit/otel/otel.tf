@@ -89,9 +89,11 @@ resource "kafka_topic" "tempo_ingest" {
   }
 }
 
+# Used by alll services that need to ingest data into tempo: the block builder, the livestore and the metrics generator.
 module "tempo_ingest" {
-  source           = "../../modules/tls-app"
-  consume_topics   = [kafka_topic.tempo_ingest.name]
-  consume_groups   = ["otel.metrics-generator"]
+  source         = "../../modules/tls-app"
+  consume_topics = [kafka_topic.tempo_ingest.name]
+  # putting wildcard as the the blockbuilder and livestore don't have a common group name, but one per pod, until I figure out what it is.
+  consume_groups   = ["otel.metrics-generator", "*"]
   cert_common_name = "otel/tempo-ingest"
 }
