@@ -8,7 +8,7 @@ plugin "terraform" {
 plugin "uw-kafka-config" {
   enabled = true
 
-  version = "1.12.0"
+  version = "1.13.0"
   source  = "github.com/utilitywarehouse/tflint-ruleset-kafka-config"
 }
 
