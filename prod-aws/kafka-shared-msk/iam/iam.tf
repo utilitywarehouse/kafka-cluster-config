@@ -193,8 +193,8 @@ resource "kafka_topic" "iam_identitydb_v1" {
     "retention.ms" = "2592000000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow for a batch of records maximum 5MiB
-    "max.message.bytes" = "5242880"
+    # allow for a batch of records maximum 3MiB
+    "max.message.bytes" = "3145728"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
