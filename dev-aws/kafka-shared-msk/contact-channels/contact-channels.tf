@@ -229,7 +229,7 @@ resource "kafka_topic" "chat_state_events" {
     "remote.storage.enable" = "true"
     "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
     "retention.ms"          = "2629800000" # keep data for 1 month
-    "max.message.bytes"     = "104857600"  # allow for a batch of records maximum 100MiB
+    "max.message.bytes"     = "3145728"    # allow for a batch of records maximum 100MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
