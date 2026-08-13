@@ -21,8 +21,8 @@ resource "kafka_topic" "plan_restore_full" {
     "local.retention.ms"    = "86400000" # keep data in primary storage for 1 day
     # keep data for 3 days
     "retention.ms" = "259200000"
-    # allow for a batch of records maximum 3MiB
-    "max.message.bytes" = "3145728"
+    # allow for a batch of records maximum 100MiB
+    "max.message.bytes" = "104857600"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
@@ -67,4 +67,39 @@ resource "kafka_acl" "msk_data_keep_restore_write_groups_all" {
   # this is non intuitive... we need the Read permission to be able to commit offsets on groups
   acl_operation       = "Read"
   acl_permission_type = "Allow"
+}
+
+# Reads the live topic list from the real production cluster (kafka-shared-msk)
+# and creates them in the sys-msk-exp cluster with the same configuration, so that we can restore data into them.
+provider "kafka" {
+  alias = "prod"
+  bootstrap_servers = [
+    "b-1.devenablementpubsubmsk.mw71ue.c2.kafka.eu-west-1.amazonaws.com:9094",
+    "b-2.devenablementpubsubmsk.mw71ue.c2.kafka.eu-west-1.amazonaws.com:9094",
+    "b-3.devenablementpubsubmsk.mw71ue.c2.kafka.eu-west-1.amazonaws.com:9094",
+  ]
+}
+
+data "kafka_topics" "prod" {
+  count    = var.enable_restore_full_cluster ? 1 : 0
+  provider = kafka.prod
+}
+
+locals {
+  # Exclude the "pubsub." prefixed topics, since those belong to the
+  # restore/backup tooling itself (kafka-shared-msk/pubsub/), not application data,
+  # Exclude internal "__" and mirror maker topics.
+  prod_restore_topics = var.enable_restore_full_cluster ? {
+    for t in data.kafka_topics.prod[0].list : t.topic_name => t
+    if !startswith(t.topic_name, "pubsub.") && !startswith(t.topic_name, "__") && !startswith(t.topic_name, "mm2") && !strcontains(t.topic_name, "checkpoints.internal")
+  } : {}
+}
+
+resource "kafka_topic" "prod_restore_topics" {
+  for_each = local.prod_restore_topics
+
+  name               = "pubsub.restore-test.${each.value.topic_name}"
+  partitions         = each.value.partitions
+  replication_factor = each.value.replication_factor
+  config             = each.value.config
 }

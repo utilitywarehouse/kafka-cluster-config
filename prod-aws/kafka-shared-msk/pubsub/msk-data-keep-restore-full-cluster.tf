@@ -21,8 +21,8 @@ resource "kafka_topic" "plan_restore_full" {
     "local.retention.ms"    = "86400000" # keep data in primary storage for 1 day
     # keep data for 3 days
     "retention.ms" = "259200000"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
+    # allow for a batch of records maximum 3MiB
+    "max.message.bytes" = "3145728"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }

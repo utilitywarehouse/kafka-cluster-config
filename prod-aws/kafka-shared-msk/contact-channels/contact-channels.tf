@@ -8,7 +8,7 @@ resource "kafka_topic" "genesys_eb_events" {
     "remote.storage.enable" = "true"
     "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
     "retention.ms"          = "2629800000" # keep data for 1 month
-    "max.message.bytes"     = "104857600"  # allow for a batch of records maximum 100MiB
+    "max.message.bytes"     = "3145728"    # allow for a batch of records maximum 3MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -164,7 +164,7 @@ resource "kafka_topic" "dsar" {
     "remote.storage.enable" = "true"
     "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
     "retention.ms"          = "2629800000" # keep data for 1 month
-    "max.message.bytes"     = "104857600"  # allow for a batch of records maximum 100MiB
+    "max.message.bytes"     = "3145728"    # allow for a batch of records maximum 3MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -180,7 +180,7 @@ resource "kafka_topic" "dsar_job" {
     "remote.storage.enable" = "true"
     "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
     "retention.ms"          = "2629800000" # keep data for 1 month
-    "max.message.bytes"     = "104857600"  # allow for a batch of records maximum 100MiB
+    "max.message.bytes"     = "3145728"    # allow for a batch of records maximum 3MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -196,7 +196,7 @@ resource "kafka_topic" "dsar_conversation" {
     "remote.storage.enable" = "true"
     "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
     "retention.ms"          = "2629800000" # keep data for 1 month
-    "max.message.bytes"     = "104857600"  # allow for a batch of records maximum 100MiB
+    "max.message.bytes"     = "3145728"    # allow for a batch of records maximum 3MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -213,7 +213,7 @@ resource "kafka_topic" "auto_email_drafts" {
     "remote.storage.enable" = "true"
     "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
     "retention.ms"          = "2629800000" # keep data for 1 month
-    "max.message.bytes"     = "104857600"  # allow for a batch of records maximum 100MiB
+    "max.message.bytes"     = "3145728"    # allow for a batch of records maximum 3MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }

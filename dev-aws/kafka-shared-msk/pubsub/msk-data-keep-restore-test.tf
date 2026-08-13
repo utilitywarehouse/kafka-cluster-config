@@ -9,7 +9,7 @@
 variable "enable_restore_test" {
   type        = bool
   description = "Set to true to enable restore test resources, false to disable them."
-  default     = true
+  default     = false
 }
 resource "kafka_topic" "plan_restore_test" {
   count              = var.enable_restore_test ? 1 : 0
@@ -21,8 +21,8 @@ resource "kafka_topic" "plan_restore_test" {
     "local.retention.ms"    = "86400000" # keep data in primary storage for 1 day
     # keep data for 3 days
     "retention.ms" = "259200000"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
+    # allow for a batch of records maximum 3MiB
+    "max.message.bytes" = "3145728"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
@@ -43,49 +43,11 @@ resource "kafka_topic" "restore_test_topic" {
     "retention.ms" = "2592000000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow for a batch of records maximum 5MiB
-    "max.message.bytes" = "5242880"
+    # allow for a batch of records maximum 3MiB
+    "max.message.bytes" = "3145728"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
-}
-
-resource "kafka_topic" "cust_proposition_service_status_v3" {
-  name = "pubsub.restore-test.customer-proposition.service-status.events.v3"
-
-  replication_factor = 3
-  partitions         = 15
-
-  # infinte retention
-  config = {
-    "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1" # keep on each partition unlimited data
-    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
-    "retention.ms" = "-1" # keep data forever
-    # keep data in primary storage for 1 hour
-    "local.retention.ms" = "3600000"
-    # allow for a batch of records maximum 1MiB
-    "max.message.bytes" = "1048576"
-    "compression.type"  = "zstd"
-    "cleanup.policy"    = "delete"
-  }
-}
-
-resource "kafka_topic" "account_identity_account_exceptions_v1" {
-  config = {
-    "cleanup.policy"   = "delete"
-    "compression.type" = "zstd"
-    # enable remote storage
-    "remote.storage.enable" = "true"
-    # keep data in primary storage for 1 day
-    "local.retention.ms" = "86400000"
-    # keep data forever
-    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
-    "retention.ms" = "-1"
-  }
-  name               = "pubsub.restore-test.account-identity.account.exceptions.v1"
-  partitions         = 15
-  replication_factor = 3
 }
 module "msk_data_keep_plan_restore_test" {
   count          = var.enable_restore_test ? 1 : 0
