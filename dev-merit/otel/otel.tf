@@ -23,8 +23,8 @@ resource "kafka_topic" "otlp_spans_temp" {
   replication_factor = 3
   partitions         = 10
   config = {
-    # retain 5GB on each partition
-    "retention.bytes" = "5368709120"
+    # retain 100GB on each partition
+    "retention.bytes" = "107374182400"
     # keep data for 12 hours
     "retention.ms" = "43200000"
     # allow max 128 MB for a message
@@ -86,8 +86,8 @@ resource "kafka_topic" "otlp_sampled_spans_temp" {
   replication_factor = 3
   partitions         = 10
   config = {
-    # retain 5GB on each partition
-    "retention.bytes" = "5368709120"
+    # retain 50GB on each partition
+    "retention.bytes" = "53687091200"
     # keep data for 12 hours
     "retention.ms" = "43200000"
     # allow max 128 MB for a message
