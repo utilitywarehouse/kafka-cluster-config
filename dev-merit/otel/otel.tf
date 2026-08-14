@@ -1,10 +1,10 @@
 resource "kafka_topic" "otlp_spans" {
   name               = "otel.otlp_spans"
   replication_factor = 3
-  partitions         = 200
+  partitions         = 10
   config = {
-    # retain 5GB on each partition
-    "retention.bytes" = "5368709120"
+    # retain 100GB on each partition
+    "retention.bytes" = "107374182400"
     # keep data for 12 hours
     "retention.ms" = "43200000"
     # allow max 128 MB for a message
@@ -64,10 +64,10 @@ module "tempo_distributor" {
 resource "kafka_topic" "otlp_sampled_spans" {
   name               = "otel.otlp_sampled_spans"
   replication_factor = 3
-  partitions         = 200
+  partitions         = 10
   config = {
-    # retain 5GB on each partition
-    "retention.bytes" = "5368709120"
+    # retain 50GB on each partition
+    "retention.bytes" = "53687091200"
     # keep data for 12 hours
     "retention.ms" = "43200000"
     # allow max 128 MB for a message
