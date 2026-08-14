@@ -91,8 +91,8 @@ resource "kafka_topic" "billing_bill_core_model" {
   }
 }
 
-resource "kafka_topic" "billing_unified_bill_report_events" {
-  name               = "billing.unified-bill-report-events"
+resource "kafka_topic" "billing_bill_reporting_events" {
+  name               = "billing.bill-reporting-events"
   replication_factor = 3
   partitions         = 10
   config = {
@@ -116,7 +116,7 @@ module "bill_composition_engine" {
     kafka_topic.bill_reconciliation_error_events.name,
     kafka_topic.unified_bill_ready_events.name,
     kafka_topic.billing_energy_raw_data_reconciliation_diff.name,
-    kafka_topic.billing_unified_bill_report_events.name,
+    kafka_topic.billing_bill_reporting_events.name,
   ]
   cert_common_name = "billing/bill-composition-engine"
 }
