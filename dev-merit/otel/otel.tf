@@ -18,23 +18,43 @@ resource "kafka_topic" "otlp_spans" {
   }
 }
 
+resource "kafka_topic" "otlp_spans_temp" {
+  name               = "otel.otlp_spans_temp"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    # retain 100GB on each partition
+    "retention.bytes" = "107374182400"
+    # keep data for 12 hours
+    "retention.ms" = "43200000"
+    # allow max 128 MB for a message
+    "max.message.bytes" = "134217728"
+    # roll log at 3h max
+    "segment.ms" = "10800000"
+    # max log size of 250 MB
+    "segment.bytes"    = "262144000"
+    "compression.type" = "zstd"
+    "cleanup.policy"   = "delete"
+  }
+}
+
 module "otel_collector" {
   source           = "../../modules/tls-app"
-  produce_topics   = [kafka_topic.otlp_spans.name]
+  produce_topics   = [kafka_topic.otlp_spans.name, kafka_topic.otlp_spans_temp.name]
   cert_common_name = "otel/collector"
 }
 
 module "otel_collector_web" {
   source           = "../../modules/tls-app"
-  produce_topics   = [kafka_topic.otlp_spans.name]
+  produce_topics   = [kafka_topic.otlp_spans.name, kafka_topic.otlp_spans_temp.name]
   cert_common_name = "otel/collector-web"
 }
 
 module "tempo_distributor" {
   source = "../../modules/tls-app"
   consume_topics = [
-    kafka_topic.otlp_spans.name,
     kafka_topic.otlp_sampled_spans.name,
+    kafka_topic.otlp_sampled_spans_temp.name,
   ]
   produce_topics   = [kafka_topic.tempo_ingest.name]
   consume_groups   = ["processor-tempo"]
@@ -61,10 +81,30 @@ resource "kafka_topic" "otlp_sampled_spans" {
   }
 }
 
+resource "kafka_topic" "otlp_sampled_spans_temp" {
+  name               = "otel.otlp_sampled_spans_temp"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    # retain 50GB on each partition
+    "retention.bytes" = "53687091200"
+    # keep data for 12 hours
+    "retention.ms" = "43200000"
+    # allow max 128 MB for a message
+    "max.message.bytes" = "134217728"
+    # roll log at 3h max
+    "segment.ms" = "10800000"
+    # max log size of 250 MB
+    "segment.bytes"    = "262144000"
+    "compression.type" = "zstd"
+    "cleanup.policy"   = "delete"
+  }
+}
+
 module "otel_tail_sampling_collector" {
   source           = "../../modules/tls-app"
-  consume_topics   = [kafka_topic.otlp_spans.name]
-  produce_topics   = [kafka_topic.otlp_sampled_spans.name]
+  consume_topics   = [kafka_topic.otlp_spans.name, kafka_topic.otlp_spans_temp.name]
+  produce_topics   = [kafka_topic.otlp_sampled_spans.name, kafka_topic.otlp_sampled_spans_temp.name]
   consume_groups   = ["otel.tail-sampling-collector"]
   cert_common_name = "otel/tail-sampling-collector"
 }
