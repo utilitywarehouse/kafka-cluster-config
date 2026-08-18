@@ -175,3 +175,12 @@ module "ledgers_consumer" {
   consume_groups   = ["ledgers.ledger-consumer"]
   cert_common_name = "ledgers/ledger-consumer"
 }
+
+module "unified_bill_report_kafka_source" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.billing_unified_bill_report_events.name,
+  ]
+  consume_groups   = ["billing.unified-bill-report-kafka-source"]
+  cert_common_name = "billing/unified-bill-report-kafka-source"
+}
