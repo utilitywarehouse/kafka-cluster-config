@@ -205,3 +205,10 @@ module "energy_service_psr_consumer" {
   consume_groups   = ["energy-platform.service-psr-consumer"]
   cert_common_name = "energy-platform/service-psr-consumer"
 }
+
+module "energy_service_psr_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.gentrack_psr_events.name]
+  consume_groups   = ["energy-platform.service-psr-consumer"]
+  cert_common_name = "energy-platform/service-psr-consumer"
+}
