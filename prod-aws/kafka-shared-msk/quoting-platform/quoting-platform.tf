@@ -24,10 +24,11 @@ resource "kafka_topic" "basket_requests_v1" {
   replication_factor = 3
   partitions         = 3
 
+  # covers an out-of-hours outage without needing tiered storage; not intended to be replayed
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 71 hours - covering out-of-hours outages without requiring persistent storage, not intended to be replayed
+    # keep data for 71 hours
     "retention.ms" = "255600000"
   }
 }
