@@ -28,7 +28,7 @@ resource "kafka_topic" "basket_requests_v1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 71 hours
+    # keep data for 3 days
     "retention.ms" = "255600000"
   }
 }
