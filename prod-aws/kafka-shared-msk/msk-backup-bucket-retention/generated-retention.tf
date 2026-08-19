@@ -1082,7 +1082,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   rule {
     id     = "quoting-platform.basket-requests.events.v1"
     status = "Enabled"
-    expiration { days = 4 }
+    expiration { days = 3 }
     filter { prefix = "kafka-backup/quoting-platform.basket-requests.events.v1/" }
   }
 
