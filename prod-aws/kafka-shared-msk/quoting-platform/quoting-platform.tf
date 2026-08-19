@@ -27,8 +27,9 @@ resource "kafka_topic" "basket_requests_v1" {
   config = {
     "cleanup.policy"   = "delete"
     "compression.type" = "zstd"
-    # keep data for 72 hours - enough to cover an out-of-hours outage, not intended to be replayed
-    "retention.ms" = "259200000"
+    # keep data for 71 hours - enough to cover an out-of-hours outage without requiring persistent storage.
+    # not intended to be replayed
+    "retention.ms" = "255600000"
   }
 }
 
