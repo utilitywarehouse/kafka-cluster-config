@@ -91,8 +91,8 @@ resource "kafka_topic" "billing_bill_core_model" {
   }
 }
 
-resource "kafka_topic" "billing_unified_bill_report_events" {
-  name               = "billing.unified-bill-report-events"
+resource "kafka_topic" "billing_bill_reporting_events" {
+  name               = "billing.bill-reporting-events"
   replication_factor = 3
   partitions         = 10
   config = {
@@ -116,7 +116,7 @@ module "bill_composition_engine" {
     kafka_topic.bill_reconciliation_error_events.name,
     kafka_topic.unified_bill_ready_events.name,
     kafka_topic.billing_energy_raw_data_reconciliation_diff.name,
-    kafka_topic.billing_unified_bill_report_events.name,
+    kafka_topic.billing_bill_reporting_events.name,
   ]
   cert_common_name = "billing/bill-composition-engine"
 }
@@ -176,11 +176,11 @@ module "ledgers_consumer" {
   cert_common_name = "ledgers/ledger-consumer"
 }
 
-module "unified_bill_report_kafka_source" {
+module "bill_reporting_events_kafka_source" {
   source = "../../../modules/tls-app"
   consume_topics = [
-    kafka_topic.billing_unified_bill_report_events.name,
+    kafka_topic.billing_bill_reporting_events.name,
   ]
-  consume_groups   = ["billing.unified-bill-report-kafka-source"]
-  cert_common_name = "billing/unified-bill-report-kafka-source"
+  consume_groups   = ["billing.bill-reporting-events-kafka-source"]
+  cert_common_name = "billing/bill-reporting-events-kafka-source"
 }

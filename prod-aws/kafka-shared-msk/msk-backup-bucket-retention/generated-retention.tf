@@ -275,6 +275,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "billing.bill-reporting-events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/billing.bill-reporting-events/" }
+  }
+
+  rule {
     id     = "billing.energy-raw-data-reconciliation-diff"
     status = "Enabled"
     expiration { days = 31 }
@@ -314,13 +321,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 31 }
     filter { prefix = "kafka-backup/billing.unified-bill-ready-events/" }
-  }
-
-  rule {
-    id     = "billing.unified-bill-report-events"
-    status = "Enabled"
-    expiration { days = 31 }
-    filter { prefix = "kafka-backup/billing.unified-bill-report-events/" }
   }
 
   rule {
