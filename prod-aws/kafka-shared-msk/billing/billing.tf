@@ -121,12 +121,12 @@ module "bill_composition_engine" {
   cert_common_name = "billing/bill-composition-engine"
 }
 
-module "bill_engine" {
+module "billing_engine" {
   source = "../../../modules/tls-app"
   produce_topics = [
     kafka_topic.billing_bill_reporting_events.name,
   ]
-  cert_common_name = "billing/bill-engine"
+  cert_common_name = "billing/billing-engine"
 }
 
 module "bill_adapter" {
