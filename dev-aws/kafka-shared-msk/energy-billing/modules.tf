@@ -1,7 +1,10 @@
 module "billing_adapter" {
   source           = "../../../modules/tls-app"
   cert_common_name = "energy-billing/billing-adapter"
-  produce_topics   = [kafka_topic.internal_energy_billing_billing_adapter_retry_1.name]
+  produce_topics = [
+    kafka_topic.internal_energy_billing_billing_adapter_retry_1.name,
+    kafka_topic.energy_billing_energy_bill_processed_events.name,
+  ]
 }
 
 module "billing_adapter_retry_1" {
@@ -31,4 +34,13 @@ module "ledger_consumer" {
   cert_common_name = "ledgers/ledger-consumer"
   consume_topics   = [kafka_topic.energy_billing_electronic_payment_events.name]
   consume_groups   = ["ledgers.ledger-consumer"]
+}
+
+module "energy_bill_processed_events_kafka_source" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.energy_billing_energy_bill_processed_events.name,
+  ]
+  consume_groups   = ["energy-billing.energy-bill-processed-kafka-source"]
+  cert_common_name = "energy-billing/energy-bill-processed-kafka-source"
 }
