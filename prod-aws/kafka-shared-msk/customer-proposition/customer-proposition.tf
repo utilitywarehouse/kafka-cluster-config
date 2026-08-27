@@ -223,3 +223,10 @@ module "service_status_api_projector" {
   consume_topics   = [kafka_topic.service_status_v4.name]
   cert_common_name = "customer-proposition/service-status-api-projector"
 }
+
+module "cbc_incentives_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_groups   = ["cbc.cbc-incentives-consumer-v1"]
+  consume_topics   = [kafka_topic.service_status_v4.name]
+  cert_common_name = "cbc/cbc-incentives-consumer"
+}
