@@ -1087,6 +1087,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "quoting-platform.basket.events.v1"
+    status = "Enabled"
+    expiration { days = 4 }
+    filter { prefix = "kafka-backup/quoting-platform.basket.events.v1/" }
+  }
+
+  rule {
     id     = "staging-ept.gentrack.market_interactions.events"
     status = "Enabled"
     expiration { days = 1 }
