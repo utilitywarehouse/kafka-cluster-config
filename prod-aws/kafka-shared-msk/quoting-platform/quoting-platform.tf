@@ -4,14 +4,13 @@ resource "kafka_topic" "basket_v1" {
   replication_factor = 3
   partitions         = 15
 
-  # infinte retention
+  # finite retention - not intended to be replayed or projected into a source of truth
   config = {
     "remote.storage.enable" = "true"
-    "retention.bytes"       = "-1" # keep on each partition unlimited data
-    # tflint-ignore: msk_topic_no_infinite_retention, # infinite retention because ...
-    "retention.ms" = "-1" # keep data forever
     # keep data in primary storage for 1 hour
     "local.retention.ms" = "3600000"
+    # keep data for 3 days
+    "retention.ms" = "259200000"
     # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
@@ -59,4 +58,26 @@ module "partner_planner_activity_reader" {
     "partner-planner.activity-reader-consumer-group"
   ]
   cert_common_name = "partner-planner/activity-reader"
+}
+
+module "mailer_basket" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.basket_v1.name,
+  ]
+  consume_groups = [
+    "quoting-platform.mailer-basket-consumer-group"
+  ]
+  cert_common_name = "quoting-platform/mailer"
+}
+
+module "acquisition_mailer_basket" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.basket_v1.name,
+  ]
+  consume_groups = [
+    "acquisition.mailer-basket-consumer-group"
+  ]
+  cert_common_name = "acquisition/mailer"
 }
