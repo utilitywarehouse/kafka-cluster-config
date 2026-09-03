@@ -12,6 +12,8 @@ resource "kafka_topic" "pubsub_examples" {
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
+
+  depends_on = [terraform_data.acl_bootstrap]
 }
 
 module "example_producer" {
