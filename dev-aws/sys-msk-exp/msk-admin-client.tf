@@ -6,6 +6,8 @@ resource "kafka_acl" "msk_admin_client_topic" {
   acl_host            = "*"
   acl_operation       = "All"
   acl_permission_type = "Allow"
+
+  depends_on = [terraform_data.acl_bootstrap]
 }
 
 resource "kafka_acl" "msk_admin_client_group" {
@@ -15,6 +17,8 @@ resource "kafka_acl" "msk_admin_client_group" {
   acl_host            = "*"
   acl_operation       = "All"
   acl_permission_type = "Allow"
+
+  depends_on = [terraform_data.acl_bootstrap]
 }
 
 resource "kafka_acl" "msk_admin_client_cluster" {
@@ -25,4 +29,6 @@ resource "kafka_acl" "msk_admin_client_cluster" {
   acl_operation                = "All"
   acl_permission_type          = "Allow"
   resource_pattern_type_filter = "Literal"
+
+  depends_on = [terraform_data.acl_bootstrap]
 }
