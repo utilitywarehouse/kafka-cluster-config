@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+#
+# Runs the repo's terraform/tflint checks.
+#
+# Locally, as a git hook, checks only staged files.
+# In CI, GIT_CMD is overridden to diff against origin/main.
+
+# Redirect output to stderr.
+exec 1>&2
+
+cd "$(git rev-parse --show-toplevel)" || exit 1
+
+: "${GIT_CMD:=git diff --name-only --cached --diff-filter=d}"
+
+MSK_CONFIG="${PWD}/.tflint-msk.hcl"
+TEAM_CONFIG="${PWD}/.tflint-uw-team-hosted.hcl"
+
+exit_code=0
+
+for tool in terraform tflint; do
+  if ! command -v "${tool}" >/dev/null; then
+    echo "err: '${tool}' is required but not found on PATH. Please install it."
+    exit 1
+  fi
+done
+
+files=$(${GIT_CMD} | grep -E '\.tf$')
+[[ -z "${files}" ]] && exit 0
+
+before=$(git diff)
+
+# terraform fmt
+terraform fmt ${files}
+
+# tflint lints a whole directory at a time and takes only one --config, so
+# changed files are routed by directory to the config that applies to them:
+# kafka-shared-msk/<team>/* gets the MSK config, everything else gets the
+# generic one. A file directly under kafka-shared-msk/ (no team subdir) gets
+# neither, same as the old pre-commit exclude/files regexes.
+msk_dirs=$(for f in ${files}; do
+  [[ "${f}" =~ ^.*/kafka-shared-msk/.+/.*$ ]] && dirname "${f}"
+done | sort -u)
+
+team_dirs=$(for f in ${files}; do
+  [[ "${f}" =~ ^.*/kafka-shared-msk/.*$ ]] || dirname "${f}"
+done | sort -u)
+
+if [[ -n "${team_dirs}" ]]; then
+  tflint --init --config="${TEAM_CONFIG}" --chdir="$(echo "${team_dirs}" | head -1)" >/dev/null
+  for d in ${team_dirs}; do
+    tflint --chdir="${d}" --config="${TEAM_CONFIG}" --format=compact --fix
+    [[ $? -ne 0 ]] && exit_code=1
+  done
+fi
+
+if [[ -n "${msk_dirs}" ]]; then
+  tflint --init --config="${MSK_CONFIG}" --chdir="$(echo "${msk_dirs}" | head -1)" >/dev/null
+  for d in ${msk_dirs}; do
+    (cd "${d}" && tflint --config="${MSK_CONFIG}" --format=default --fix)
+    [[ $? -ne 0 ]] && exit_code=1
+  done
+fi
+
+if [[ "$(git diff)" != "${before}" ]]; then
+  echo "err: files were modified by the checks above (terraform fmt / tflint --fix) - review and re-stage them"
+  exit_code=1
+fi
+
+exit ${exit_code}
