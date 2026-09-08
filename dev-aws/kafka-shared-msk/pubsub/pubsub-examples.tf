@@ -15,6 +15,7 @@ resource "kafka_topic" "pubsub_examples" {
 }
 
 resource "kafka_topic" "pubsub_examples2" {
+  # tflint-ignore: msk_topic_name
   name               = "pub.examples"
   replication_factor = 3
   partitions         = 3
