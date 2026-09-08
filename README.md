@@ -8,7 +8,7 @@ Aggregates resources for different teams willing to migrate from the [kafka topi
 
 ### Linting
 Linting is handled by [scripts/pre-commit](scripts/pre-commit), a repo-owned script that runs
-`terraform fmt`, `tflint` and `semgrep` on changed `.tf` files.
+`terraform fmt` and `tflint` on changed `.tf` files.
 
 #### Gihub Actions
 Linting runs in Github Actions based on the same script (over all tracked files), so you can rely on it for validating the code.
@@ -16,7 +16,7 @@ Linting runs in Github Actions based on the same script (over all tracked files)
 You can shorten the feedback loop by installing it locally through the steps below.
 
 #### Local setup
-Install [Terraform](https://developer.hashicorp.com/terraform/install), [tflint](https://github.com/terraform-linters/tflint?tab=readme-ov-file#installation) and [semgrep](https://semgrep.dev/docs/getting-started/quickstart).
+Install [Terraform](https://developer.hashicorp.com/terraform/install) and [tflint](https://github.com/terraform-linters/tflint?tab=readme-ov-file#installation).
 Then run the checks to test:
 
 ``` console

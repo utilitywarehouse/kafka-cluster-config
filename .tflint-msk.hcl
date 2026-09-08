@@ -18,11 +18,27 @@ rule "terraform_standard_module_structure" {
 }
 
 rule "msk_topic_name" {
-  enabled = true
+  enabled   = true
+  ignorable = false
   team_aliases = {
     iam = ["auth", "auth-customer"]
     customer-billing = ["bex"]
   }
+}
+
+rule "msk_app_topics" {
+  enabled   = true
+  ignorable = false
+}
+
+rule "msk_topic_config" {
+  enabled   = true
+  ignorable = false
+}
+
+rule "msk_app_consume_groups" {
+  enabled   = true
+  ignorable = false
 }
 
 # Include module calls
