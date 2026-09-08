@@ -28,6 +28,21 @@ resource "kafka_topic" "pubsub_examples2" {
   }
 }
 
+
+resource "kafka_topic" "pubsub_examples3" {
+  # tflint-ignore: msk_topic_name
+  name               = "pub.examples2"
+  replication_factor = 2
+  partitions         = 3
+  config = {
+    "remote.storage.enable" = "true"
+    "local.retention.ms"    = "86400000"   # keep data in primary storage for 1 day
+    "retention.ms"          = "2100000000" # keep data for 24.3 days
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
 module "example_producer" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.pubsub_examples.name]
