@@ -32,7 +32,11 @@ before=$(git diff)
 # terraform fmt
 terraform fmt ${files}
 
-# tflint: split changed files into msk vs non-msk directories
+# tflint lints a whole directory at a time and takes only one --config, so
+# changed files are routed by directory to the config that applies to them:
+# kafka-shared-msk/<team>/* gets the MSK config, everything else gets the
+# generic one. A file directly under kafka-shared-msk/ (no team subdir) gets
+# neither, same as the old pre-commit exclude/files regexes.
 msk_dirs=$(for f in ${files}; do
   [[ "${f}" =~ ^.*/kafka-shared-msk/.+/.*$ ]] && dirname "${f}"
 done | sort -u)
@@ -57,9 +61,11 @@ if [[ -n "${msk_dirs}" ]]; then
   done
 fi
 
-# semgrep
-semgrep --config .semgrep/rules.yaml --error --skip-unknown-extensions ${files}
-[[ $? -ne 0 ]] && exit_code=1
+# semgrep (skip if tflint already failed)
+if [[ ${exit_code} -eq 0 ]]; then
+  semgrep --config .semgrep/rules.yaml --error --skip-unknown-extensions ${files}
+  [[ $? -ne 0 ]] && exit_code=1
+fi
 
 if [[ "$(git diff)" != "${before}" ]]; then
   echo "err: files were modified by the checks above (terraform fmt / tflint --fix) - review and re-stage them"
