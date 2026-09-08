@@ -7,26 +7,25 @@ Aggregates resources for different teams willing to migrate from the [kafka topi
 ## Contributing
 
 ### Linting
-Linting is handled via the [pre-commit framework](https://pre-commit.com/). 
-
-The configuration is in [.pre-commit-config.yaml](.pre-commit-config.yaml).
+Linting is handled by [scripts/pre-commit](scripts/pre-commit), a repo-owned script that runs
+`terraform fmt`, `tflint` and `semgrep` on changed `.tf` files.
 
 #### Gihub Actions
-Linting runs in Github Actions based on the same configuration, so you can rely on it for validating the code.
+Linting runs in Github Actions based on the same script (over all tracked files), so you can rely on it for validating the code.
 
 You can shorten the feedback loop by installing it locally through the steps below.
 
 #### Local setup
-Follow the [install instructions](https://pre-commit.com/#install), and additionally [install Terraform](https://developer.hashicorp.com/terraform/install) and [tflint](https://github.com/terraform-linters/tflint?tab=readme-ov-file#installation). 
-Then install and run the hooks to test:
+Install [Terraform](https://developer.hashicorp.com/terraform/install), [tflint](https://github.com/terraform-linters/tflint?tab=readme-ov-file#installation) and [semgrep](https://semgrep.dev/docs/getting-started/quickstart).
+Then run the checks to test:
 
 ``` console
-$ pre-commit run --all-files
+$ make lint
 ```
 #### Run as pre-commit git hook
 To run linting automatically, **before each git commit** you must install it as a hook:
 ``` console
-$ pre-commit install
+$ make hooks-install
 ```
 
 ### Synchronizing S3 Backup Retention with MSK Topics
