@@ -64,3 +64,9 @@ resource "kafka_acl" "kafka_connect_describe_group_all" {
   acl_operation       = "Describe"
   acl_permission_type = "Allow"
 }
+
+module "my_team_example_producer" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = ["pubsub.connect-configs"]
+  cert_common_name = "pubsub/example-producer"
+}
