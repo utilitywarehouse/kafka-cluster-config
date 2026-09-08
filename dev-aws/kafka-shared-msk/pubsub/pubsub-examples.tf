@@ -14,6 +14,19 @@ resource "kafka_topic" "pubsub_examples" {
   }
 }
 
+resource "kafka_topic" "pubsub_examples2" {
+  name               = "pub.examples"
+  replication_factor = 3
+  partitions         = 3
+  config = {
+    "remote.storage.enable" = "true"
+    "local.retention.ms"    = "86400000"   # keep data in primary storage for 1 day
+    "retention.ms"          = "2100000000" # keep data for 24.3 days
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
 module "example_producer" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.pubsub_examples.name]
