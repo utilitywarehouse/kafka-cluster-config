@@ -24,8 +24,22 @@ jobs:
         with:
           ref: ${{github.head_ref}}
           fetch-depth: 0
+      - name: Fetch Github Tokens
+        id: fetch-github-tokens
+        uses: hashicorp/vault-action@892a26828f195e65540a40b4768ae4571f51ebfc # v4.0.0
+        with:
+          url: ${{ vars.VAULT_URL }}
+          method: jwt
+          path: github-jwt
+          exportEnv: false
+          role: kafka_cluster_config_rw
+          secrets: |
+            /github/token/kafka_cluster_config_rw token | GITHUB_KCC_TOKEN ;
+
       - name: Check if we need to update generated files
         id: update-generated-file
+        env:
+          GITHUB_KCC_TOKEN: ${{ steps.fetch-github-tokens.outputs.GITHUB_KCC_TOKEN }}
         run: |
           make generate
           git add .
@@ -34,7 +48,7 @@ jobs:
             echo "Generated files are out of date on branch '${{ github.ref_name }}'. Committing and pushing changes."
             git config user.name "GITHUB ACTIONS AUTOMATED USER"
             git config user.email "noreply@uw.co.uk"
-            # The commit & push will not trigger a new workflow run as they're using the default GITHUB_TOKEN.
+            git remote set-url origin "https://x-access-token:${GITHUB_KCC_TOKEN}@github.com/${{ github.repository }}.git"
             git commit -m "[AUTOMATED]: generate files"
             git push
             echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
@@ -65,3 +79,9 @@ jobs:
             -f 'context=${{ github.job }}' \
             -f 'state=${{ steps.update-generated-file.outcome && 'success' || 'failure' }}' \
             -f 'description=${{ steps.update-generated-file.outcome }}'
+      - name: Revoke token
+        if: always() # always runs at the end regardless of the previous steps result
+        run: |
+          curl -sSL -H "Authorization: Bearer ${GITHUB_KCC_TOKEN}" -X DELETE https://api.github.com/installation/token
+        env:
+          GITHUB_KCC_TOKEN: ${{ steps.fetch-github-tokens.outputs.GITHUB_KCC_TOKEN }}
