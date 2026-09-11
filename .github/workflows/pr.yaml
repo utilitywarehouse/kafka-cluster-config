@@ -13,6 +13,7 @@ jobs:
     permissions:
       contents: write # Granting only the permission needed to commit and push
       statuses: write
+      id-token: write # Needed to request the OIDC token for vault-action's jwt auth
     runs-on: ubuntu-latest
     steps:
       - name: Harden the runner (Audit all outbound calls)
