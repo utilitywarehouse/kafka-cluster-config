@@ -1136,6 +1136,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "pubsub.examples4"
+    status = "Enabled"
+    expiration { days = 1 }
+    filter { prefix = "kafka-backup/pubsub.examples4/" }
+  }
+
+  rule {
     id     = "pubsub.examples"
     status = "Enabled"
     expiration { days = 1 }
