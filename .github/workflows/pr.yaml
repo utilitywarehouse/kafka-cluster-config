@@ -32,9 +32,20 @@ jobs:
           # Check if there are any staged changes
           if ! git diff --staged --exit-code; then
             echo "Generated files are out of date on branch '${{ github.ref_name }}'. Committing and pushing changes."
-            git config user.name "GITHUB ACTIONS AUTOMATED USER"
-            git config user.email "noreply@uw.co.uk"
-            # The commit & push will not trigger a new workflow run as they're using the default GITHUB_TOKEN.
+            # Commit as the official github-actions[bot] account. 41898282 is that
+            # account's GitHub user id; the <id>+<login>@users.noreply.github.com form
+            # is what GitHub matches on, so the commit shows as authored by the bot
+            # rather than as an unattributed author.
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            # This push moves the PR head, so it fires pull_request/synchronize and
+            # creates a second run of this workflow. Because the triggering actor is a
+            # bot, GitHub parks that run at "action_required" instead of scheduling it
+            # - that is the "1 workflow awaiting approval" notice on the PR. It is a
+            # no-op: approving it just re-runs these checks and regenerates no diff,
+            # and it can equally be left unapproved. The required "lint" check for this
+            # new SHA is posted by the "Create commit status" step below, since the
+            # parked run will never report one itself.
             git commit -m "[AUTOMATED]: generate files"
             git push
             echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
