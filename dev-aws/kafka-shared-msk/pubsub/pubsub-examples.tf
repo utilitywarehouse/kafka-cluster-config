@@ -10,7 +10,8 @@ resource "kafka_topic" "pubsub_examples" {
     # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
-    "cleanup.policy"    = "delete"  }
+    "cleanup.policy"    = "delete"
+  }
 }
 
 resource "kafka_topic" "pubsub_examples2" {
