@@ -184,6 +184,22 @@ module "di_postgres_connector" {
   cert_common_name = "data-infra/di-postgres-connector"
 }
 
+module "di_sftp_connector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.events.name,
+    kafka_topic.dlq_requeue.name
+  ]
+  consume_groups = [
+    "data-infra.di-sftp-connector"
+  ]
+  produce_topics = [
+    kafka_topic.events_end.name,
+    kafka_topic.dlq.name
+  ]
+  cert_common_name = "data-infra/di-sftp-connector"
+}
+
 module "di_cockroach_db_connector_help_and_support" {
   source = "../../../modules/tls-app"
   consume_topics = [
