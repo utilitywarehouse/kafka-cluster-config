@@ -765,3 +765,10 @@ module "unicom_adare_report_processor" {
   ]
   cert_common_name = "unicom/adare_report_processor"
 }
+
+module "insurance_comms_client" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "insurance/comms-client"
+  consume_topics   = [kafka_topic.unicom_status_v2.name]
+  consume_groups   = ["insurance.comms-client-consumer"]
+}
