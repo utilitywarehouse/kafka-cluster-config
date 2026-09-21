@@ -51,3 +51,10 @@ module "customer_proposition_insurance_loader" {
   consume_groups   = ["customer-proposition.insurance-loader-v4-01"]
   cert_common_name = "customer-proposition/insurance-loader-service"
 }
+
+module "insurance_comms_client" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = ["unicom.status-v2"]
+  consume_groups   = ["insurance.comms-client-consumer"]
+  cert_common_name = "insurance/comms-client"
+}
