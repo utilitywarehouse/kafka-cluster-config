@@ -339,7 +339,7 @@ module "debt_payment_plan_api" {
 
 module "ivr_payments_v2" {
   source           = "../../../modules/tls-app"
-  consume_groups   = ["ivr.ivr-payments-v2"]
+  consume_groups   = ["contact-channels.ivr-payments-v2"]
   consume_topics   = [kafka_topic.payment_v1_public_events_ivr_bill.name]
-  cert_common_name = "ivr/ivr-payments-v2"
+  cert_common_name = "contact-channels/ivr-payments-v2"
 }
