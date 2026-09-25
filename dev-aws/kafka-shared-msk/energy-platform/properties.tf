@@ -56,7 +56,7 @@ module "energy_billing_consumer" {
 }
 
 module "ledger_consumer" {
-   source = "../../../modules/tls-app"
+  source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.property_migration_events.name,
   ]
