@@ -55,6 +55,15 @@ module "energy_billing_consumer" {
   cert_common_name = "energy-billing/budget-plan-events-consumer"
 }
 
+module "ledger_consumer" {
+   source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.property_migration_events.name,
+  ]
+  consume_groups   = ["ledgers.ledger-consumer"]
+  cert_common_name = "ledgers/ledger-consumer"
+}
+
 module "services_provisioning_processor_consumer" {
   source         = "../../../modules/tls-app"
   produce_topics = [kafka_topic.property_events.name]
