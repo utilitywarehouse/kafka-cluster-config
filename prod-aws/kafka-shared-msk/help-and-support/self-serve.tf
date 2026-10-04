@@ -47,5 +47,5 @@ module "self_serve_submission_consumer" {
     "help-and-support.self-serve-submission-consumer",
     "help-and-support.self-serve-submission-consumer-dlq"
   ]
-  produce_topics = [kafka_topic.self_serve_submissions_dlq.name]
+  produce_topics = [kafka_topic.self_serve_submissions.name, kafka_topic.self_serve_submissions_dlq.name]
 }
