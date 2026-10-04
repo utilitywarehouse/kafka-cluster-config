@@ -11,8 +11,8 @@ terraform {
 
 provider "kafka" {
   bootstrap_servers = [
-    "b-1.sysmskexp.402ohe.c5.kafka.eu-west-1.amazonaws.com:9094",
-    "b-2.sysmskexp.402ohe.c5.kafka.eu-west-1.amazonaws.com:9094",
-    "b-3.sysmskexp.402ohe.c5.kafka.eu-west-1.amazonaws.com:9094",
+    "b-1.sysmskexp.0jaaq8.c11.kafka.eu-west-1.amazonaws.com:9094",
+    "b-2.sysmskexp.0jaaq8.c11.kafka.eu-west-1.amazonaws.com:9094",
+    "b-3.sysmskexp.0jaaq8.c11.kafka.eu-west-1.amazonaws.com:9094",
   ]
 }

@@ -67,6 +67,23 @@ resource "kafka_topic" "dlq_alerts" {
   }
 }
 
+resource "kafka_topic" "mhhs_events" {
+  name               = "data-infra.mhhs-webhook-source.v1.events"
+  replication_factor = 3
+  partitions         = 1
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data for 3 days
+    "retention.ms" = "259200001"
+    # keep data in primary storage for 1 day
+    "local.retention.ms" = "86400000"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
+
 module "di_bigquery_connector" {
   source = "../../../modules/tls-app"
   consume_topics = [
@@ -89,7 +106,6 @@ module "di_bigquery_connector" {
   ]
   cert_common_name = "data-infra/di-bigquery-connector"
 }
-
 
 module "di_braze_connector" {
   source         = "../../../modules/tls-app"
@@ -168,6 +184,22 @@ module "di_postgres_connector" {
   cert_common_name = "data-infra/di-postgres-connector"
 }
 
+module "di_sftp_connector" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.events.name,
+    kafka_topic.dlq_requeue.name
+  ]
+  consume_groups = [
+    "data-infra.di-sftp-connector"
+  ]
+  produce_topics = [
+    kafka_topic.events_end.name,
+    kafka_topic.dlq.name
+  ]
+  cert_common_name = "data-infra/di-sftp-connector"
+}
+
 module "di_cockroach_db_connector_help_and_support" {
   source = "../../../modules/tls-app"
   consume_topics = [
@@ -209,4 +241,13 @@ module "di_reprocessor" {
     kafka_topic.events.name
   ]
   cert_common_name = "data-infra/reprocessor"
+}
+
+module "di_mhhs_events_producer" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.mhhs_events.name
+  ]
+  cert_common_name = "data-infra/mhhs-events-producer"
 }

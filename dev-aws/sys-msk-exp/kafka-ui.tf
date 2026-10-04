@@ -5,6 +5,8 @@ resource "kafka_acl" "kafka_ui_topic" {
   acl_host            = "*"
   acl_operation       = "All"
   acl_permission_type = "Allow"
+
+  depends_on = [terraform_data.acl_bootstrap]
 }
 
 resource "kafka_acl" "kafka_ui_group" {
@@ -14,6 +16,8 @@ resource "kafka_acl" "kafka_ui_group" {
   acl_host            = "*"
   acl_operation       = "All"
   acl_permission_type = "Allow"
+
+  depends_on = [terraform_data.acl_bootstrap]
 }
 
 resource "kafka_acl" "kafka_ui_cluster" {
@@ -24,4 +28,6 @@ resource "kafka_acl" "kafka_ui_cluster" {
   acl_operation                = "All"
   acl_permission_type          = "Allow"
   resource_pattern_type_filter = "Literal"
+
+  depends_on = [terraform_data.acl_bootstrap]
 }

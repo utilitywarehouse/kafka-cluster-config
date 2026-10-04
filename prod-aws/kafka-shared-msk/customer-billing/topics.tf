@@ -110,8 +110,8 @@ resource "kafka_topic" "invoice_generator" {
     "local.retention.ms" = "86400000"
     # keep data for 7 days
     "retention.ms" = "604800000"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
+    # allow for a batch of records maximum 3MiB
+    "max.message.bytes" = "3145728"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
@@ -144,8 +144,8 @@ resource "kafka_topic" "bex_invoice_api" {
     "local.retention.ms" = "86400000"
     # keep data for 7 days
     "retention.ms" = "604800000"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
+    # allow for a batch of records maximum 3MiB
+    "max.message.bytes" = "3145728"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
@@ -161,8 +161,8 @@ resource "kafka_topic" "bex_legacy_invoice_api" {
     "local.retention.ms" = "86400000"
     # keep data for 7 days
     "retention.ms" = "604800000"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
+    # allow for a batch of records maximum 3MiB
+    "max.message.bytes" = "3145728"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
@@ -199,8 +199,8 @@ resource "kafka_topic" "transition_bex_fulfilment_request" {
     "local.retention.ms" = "86400000"
     "compression.type"   = "zstd"
     "retention.bytes"    = "8053063680" # keep on each partition 7.5GiB
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
+    # allow for a batch of records maximum 3MiB
+    "max.message.bytes" = "3145728"
     "cleanup.policy"    = "delete"
     # keep data for 14 days
     "retention.ms" = "1209600000"

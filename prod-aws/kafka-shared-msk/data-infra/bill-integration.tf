@@ -115,6 +115,21 @@ module "di_bill_event_bridge" {
   cert_common_name = "bill-integration/bill-event-bridge"
 }
 
+module "di_bill_event_bridge_indexer" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+    kafka_topic.bill_integration_kubernetes_to_bill_energy_meter_reading.name,
+  ]
+
+  consume_groups = [
+    "data-infra.bill-integration.di-bill-event-bridge-indexer"
+  ]
+
+  cert_common_name = "bill-integration/bill-event-bridge-indexer"
+}
+
 module "customer_support_vulnerability_projector_bill" {
   source = "../../../modules/tls-app"
 
@@ -227,4 +242,34 @@ module "cbc_bill_integration" {
   ]
 
   cert_common_name = "cbc/cbc-bill-integration-consumer"
+}
+
+module "partner" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+
+  consume_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+
+  consume_groups = [
+    "data-infra.bill-integration.bill-event-reconciler-inbound",
+    "data-infra.bill-integration.bill-event-reconciler-outbound"
+  ]
+
+  cert_common_name = "partner/partner"
+}
+
+module "finance_bill_integration" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+
+  cert_common_name = "finance/account-in-debt-bill-writer"
 }

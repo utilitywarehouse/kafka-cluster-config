@@ -8,7 +8,7 @@ resource "kafka_topic" "genesys_eb_events" {
     "remote.storage.enable" = "true"
     "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
     "retention.ms"          = "2629800000" # keep data for 1 month
-    "max.message.bytes"     = "104857600"  # allow for a batch of records maximum 100MiB
+    "max.message.bytes"     = "3145728"    # allow for a batch of records maximum 3MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -164,7 +164,7 @@ resource "kafka_topic" "dsar" {
     "remote.storage.enable" = "true"
     "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
     "retention.ms"          = "2629800000" # keep data for 1 month
-    "max.message.bytes"     = "104857600"  # allow for a batch of records maximum 100MiB
+    "max.message.bytes"     = "3145728"    # allow for a batch of records maximum 3MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -180,7 +180,7 @@ resource "kafka_topic" "dsar_job" {
     "remote.storage.enable" = "true"
     "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
     "retention.ms"          = "2629800000" # keep data for 1 month
-    "max.message.bytes"     = "104857600"  # allow for a batch of records maximum 100MiB
+    "max.message.bytes"     = "3145728"    # allow for a batch of records maximum 3MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -196,7 +196,7 @@ resource "kafka_topic" "dsar_conversation" {
     "remote.storage.enable" = "true"
     "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
     "retention.ms"          = "2629800000" # keep data for 1 month
-    "max.message.bytes"     = "104857600"  # allow for a batch of records maximum 100MiB
+    "max.message.bytes"     = "3145728"    # allow for a batch of records maximum 3MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
@@ -212,11 +212,29 @@ resource "kafka_topic" "auto_email_drafts" {
     "remote.storage.enable" = "true"
     "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
     "retention.ms"          = "2629800000" # keep data for 1 month
-    "max.message.bytes"     = "104857600"  # allow for a batch of records maximum 100MiB
+    "max.message.bytes"     = "3145728"    # allow for a batch of records maximum 3MiB
     "compression.type"      = "zstd"
     "cleanup.policy"        = "delete"
   }
 }
+
+
+resource "kafka_topic" "chat_state_events" {
+  name = "contact-channels.chat_state_events"
+
+  replication_factor = 3
+  partitions         = 9
+
+  config = {
+    "remote.storage.enable" = "true"
+    "local.retention.ms"    = "259200000"  # keep data in primary storage for 3 days
+    "retention.ms"          = "2629800000" # keep data for 1 month
+    "max.message.bytes"     = "3145728"    # allow for a batch of records maximum 3MiB
+    "compression.type"      = "zstd"
+    "cleanup.policy"        = "delete"
+  }
+}
+
 
 ## TLS App
 
@@ -494,4 +512,20 @@ module "auto_email_drafts_bq_projector" {
   cert_common_name = "contact-channels/auto-email-drafts-bq-projector"
   consume_topics   = [kafka_topic.auto_email_drafts.name]
   consume_groups   = ["contact-channels.auto-email-drafts-bq-projector"]
+}
+
+
+# Produce to contact-channels.chat_state_events
+module "chat_state_publisher" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/chat-state-publisher"
+  produce_topics   = [kafka_topic.chat_state_events.name]
+}
+
+# Consume from contact-channels.chat_state_events
+module "chat_state_api" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "contact-channels/chat-state-api"
+  consume_topics   = [kafka_topic.chat_state_events.name]
+  consume_groups   = ["contact-channels.chat-state-api"]
 }

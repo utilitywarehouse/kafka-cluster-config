@@ -6,8 +6,8 @@ resource "kafka_topic" "transactions_auditor_diff_events" {
     "compression.type" = "zstd"
     # keep on each partition 750GiB
     "retention.bytes" = "805306368000"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
+    # allow for a batch of records maximum 3MiB
+    "max.message.bytes" = "3145728"
     # Use tiered storage
     "remote.storage.enable" = "true"
     # keep data in primary storage for 2 days

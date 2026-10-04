@@ -384,6 +384,34 @@ module "unicom_tracking" {
   cert_common_name = "unicom/tracking"
 }
 
+module "unicom_tracking_william_fix" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    "unicom.scheduled.1",
+    "unicom.email-released-critical.1",
+    "unicom.email-released-important.1",
+    "unicom.email-released.1",
+    "unicom.email-status.1",
+    "unicom.sms-released-critical.1",
+    "unicom.sms-released-important.1",
+    "unicom.sms-released.1",
+    "unicom.sms-status.1",
+    "unicom.email-post-delivery.1",
+    "unicom.rendered.1",
+    "unicom.cost-calculated.1",
+    "unicom.letter-released-critical.1",
+    "unicom.letter-released-important.1",
+    "unicom.letter-released.1",
+    "unicom.letter-status.1",
+  ]
+  consume_groups = ["unicom.tracking.william.fix"]
+  produce_topics = [
+    "unicom.status-v2", # TODO
+    "unicom.status",
+  ]
+  cert_common_name = "unicom/tracking-william"
+}
+
 module "unicom_unit_sender_letter" {
   source = "../../../modules/tls-app"
   consume_topics = [
@@ -705,4 +733,20 @@ module "unicom_es_bill_connector" {
   ]
   consume_groups   = ["unicom.es-bill-connector"]
   cert_common_name = "unicom/es_bill_connector"
+}
+
+module "unicom_adare_report_processor" {
+  source         = "../../../modules/tls-app"
+  consume_groups = ["unicom.adare-report-processor"]
+  produce_topics = [
+    kafka_topic.unicom_cost_calculated_1.name,
+  ]
+  cert_common_name = "unicom/adare_report_processor"
+}
+
+module "insurance_comms_client" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "insurance/comms-client"
+  consume_topics   = [kafka_topic.unicom_status_v2.name]
+  consume_groups   = ["insurance.comms-client-consumer"]
 }

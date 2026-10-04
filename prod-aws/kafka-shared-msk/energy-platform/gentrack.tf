@@ -130,8 +130,8 @@ resource "kafka_topic" "gentrack_prepayment_events" {
   }
 }
 
-resource "kafka_topic" "gentrack_agreement_events" {
-  name               = "energy-platform.gentrack.agreement.events"
+resource "kafka_topic" "gentrack_psr_events" {
+  name               = "energy-platform.gentrack.psr.events"
   replication_factor = 3
   partitions         = 15
 
@@ -159,7 +159,7 @@ module "gentrack_adapter_webhook_processor" {
     kafka_topic.gentrack_meterpoint_events.name,
     kafka_topic.gentrack_electronic_payment_events.name,
     kafka_topic.gentrack_prepayment_events.name,
-    kafka_topic.gentrack_agreement_events.name
+    kafka_topic.gentrack_psr_events.name
   ]
   cert_common_name = "energy-platform/gentrack-adapter-webhook-processor"
 }
@@ -189,26 +189,19 @@ module "billing_sqs_processor" {
   cert_common_name = "energy-billing/billing-sqs-processor"
 }
 
-module "energy_prepayment_projector" {
+module "energy_prepayment_consumer" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.gentrack_prepayment_events.name,
     kafka_topic.gentrack_meterpoint_events.name
   ]
-  consume_groups   = ["energy-platform.prepayment-projector"]
-  cert_common_name = "energy-platform/prepayment-projector"
+  consume_groups   = ["energy-platform.prepayment-consumer"]
+  cert_common_name = "energy-platform/prepayment-consumer"
 }
 
-module "energy_service_gentrack_registration_consumer" {
+module "energy_service_psr_consumer" {
   source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.gentrack_market_interactions_events.name]
-  consume_groups   = ["energy-platform.services-gentrack-registration-consumer"]
-  cert_common_name = "energy-platform/services-gentrack-registration-consumer"
-}
-
-module "energy_service_gentrack_agreement_consumer" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.gentrack_agreement_events.name]
-  consume_groups   = ["energy-platform.services-gentrack-agreement-consumer"]
-  cert_common_name = "energy-platform/services-gentrack-agreement-consumer"
+  consume_topics   = [kafka_topic.gentrack_psr_events.name]
+  consume_groups   = ["energy-platform.service-psr-consumer"]
+  cert_common_name = "energy-platform/service-psr-consumer"
 }

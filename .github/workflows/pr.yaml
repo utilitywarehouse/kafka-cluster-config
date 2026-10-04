@@ -16,13 +16,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        uses: step-security/harden-runner@05e31511f85b41b11d1cf0ef85d0992719546e2c # v2.21.0
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{github.head_ref}}
+          fetch-depth: 0
       - name: Check if we need to update generated files
         id: update-generated-file
         run: |
@@ -31,9 +32,20 @@ jobs:
           # Check if there are any staged changes
           if ! git diff --staged --exit-code; then
             echo "Generated files are out of date on branch '${{ github.ref_name }}'. Committing and pushing changes."
-            git config user.name "GITHUB ACTIONS AUTOMATED USER"
-            git config user.email "noreply@uw.co.uk"
-            # The commit & push will not trigger a new workflow run as they're using the default GITHUB_TOKEN.
+            # Commit as the official github-actions[bot] account. 41898282 is that
+            # account's GitHub user id; the <id>+<login>@users.noreply.github.com form
+            # is what GitHub matches on, so the commit shows as authored by the bot
+            # rather than as an unattributed author.
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            # This push moves the PR head, so it fires pull_request/synchronize and
+            # creates a second run of this workflow. Because the triggering actor is a
+            # bot, GitHub parks that run at "action_required" instead of scheduling it
+            # - that is the "1 workflow awaiting approval" notice on the PR. It is a
+            # no-op: approving it just re-runs these checks and regenerates no diff,
+            # and it can equally be left unapproved. The required "lint" check for this
+            # new SHA is posted by the "Create commit status" step below, since the
+            # parked run will never report one itself.
             git commit -m "[AUTOMATED]: generate files"
             git push
             echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
@@ -42,9 +54,14 @@ jobs:
           fi
 
       - uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
-      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
-      - uses: terraform-linters/setup-tflint@b480b8fcdaa6f2c577f8e4fa799e89e756bb7c93 # v6.2.2
-      - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
+      - uses: terraform-linters/setup-tflint@6e1e0642c0289bd619021bf6b34e3c08ed1e005a # v6.3.0
+        with:
+          cache: true
+          tflint_config_path: '.tflint-*.hcl'
+      - name: Run pre-commit checks
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: make hooks-pre-commit-run
       - name: Create commit status
         if: steps.update-generated-file.outputs.sha != ''
         env:

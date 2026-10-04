@@ -11,9 +11,9 @@ variable "enable_restore_test" {
   description = "Set to true to enable restore test resources, false to disable them."
   default     = false
 }
-resource "kafka_topic" "plan_restore_test_normal" {
+resource "kafka_topic" "plan_restore_test" {
   count              = var.enable_restore_test ? 1 : 0
-  name               = "pubsub.plan-topic-restore.normal"
+  name               = "pubsub.plan-topic-restore"
   replication_factor = 3
   partitions         = 5
   config = {
@@ -21,29 +21,13 @@ resource "kafka_topic" "plan_restore_test_normal" {
     "local.retention.ms"    = "86400000" # keep data in primary storage for 1 day
     # keep data for 3 days
     "retention.ms" = "259200000"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
+    # allow for a batch of records maximum 3MiB
+    "max.message.bytes" = "3145728"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
 }
 
-resource "kafka_topic" "plan_restore_test_large" {
-  count              = var.enable_restore_test ? 1 : 0
-  name               = "pubsub.plan-topic-restore.large"
-  replication_factor = 3
-  partitions         = 5
-  config = {
-    "remote.storage.enable" = "true"
-    "local.retention.ms"    = "86400000" # keep data in primary storage for 1 day
-    # keep data for 3 days
-    "retention.ms" = "259200000"
-    # allow for a batch of records maximum 100MiB
-    "max.message.bytes" = "104857600"
-    "compression.type"  = "zstd"
-    "cleanup.policy"    = "delete"
-  }
-}
 resource "kafka_topic" "restore_test_topic" {
   count              = var.enable_restore_test ? 1 : 0
   name               = "pubsub.restore-test.auth.iam-identitydb-v1"
@@ -59,18 +43,26 @@ resource "kafka_topic" "restore_test_topic" {
     "retention.ms" = "2592000000"
     # keep data in primary storage for 2 days
     "local.retention.ms" = "172800000"
-    # allow for a batch of records maximum 5MiB
-    "max.message.bytes" = "5242880"
+    # allow for a batch of records maximum 3MiB
+    "max.message.bytes" = "3145728"
     "compression.type"  = "zstd"
     "cleanup.policy"    = "delete"
   }
 }
+module "msk_data_keep_plan_restore_test" {
+  count          = var.enable_restore_test ? 1 : 0
+  source         = "../../../modules/tls-app"
+  produce_topics = ["pubsub.plan-topic-restore"]
+  consume_topics = ["pubsub.plan-topic-restore"]
 
-module "msk_data_keep_restore" {
+  cert_common_name = "pubsub/msk-data-keep-plan-restore"
+}
+
+module "msk_data_keep_restore_test" {
   count            = var.enable_restore_test ? 1 : 0
   source           = "../../../modules/tls-app"
-  consume_groups   = ["pubsub.msk-data-keep-restore.normal", "pubsub.msk-data-keep-restore.large"]
-  consume_topics   = ["pubsub.plan-topic-restore.large", "pubsub.plan-topic-restore.normal"]
+  consume_groups   = ["pubsub.msk-data-keep-restore"]
+  consume_topics   = ["pubsub.plan-topic-restore"]
   cert_common_name = "pubsub/msk-data-keep-restore"
 }
 
