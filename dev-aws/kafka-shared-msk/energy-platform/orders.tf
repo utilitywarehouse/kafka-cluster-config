@@ -94,17 +94,3 @@ module "service_requests_fixer" {
   consume_groups   = ["energy-platform.service-requests-fixer"]
   cert_common_name = "energy-platform/service-requests-fixer"
 }
-
-module "unicom_adapter" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.order_events.name]
-  consume_groups   = ["energy-platform.unicom-adapter"]
-  cert_common_name = "energy-platform/unicom-adapter"
-}
-
-module "test" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.order_events.name]
-  consume_groups   = ["energy-platform.test"]
-  cert_common_name = "energy-platform/test"
-}
