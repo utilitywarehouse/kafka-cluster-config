@@ -82,28 +82,33 @@ resource "kafka_acl" "mirror_maker_cluster_describe" {
   resource_pattern_type_filter = "Literal"
 }
 
-# The checkpoint connector polls the target cluster for the state of every group in the
-# mirror-maker GROUPS list, to work out which ones are idle and safe to rewind. It asks for
-# them under their *source* names, unprefixed, because mirror-maker does not apply the
-# replication policy to group ids - see the note in
+# Mirror-maker does not apply the replication policy to group ids, so the checkpoint connector
+# syncs offsets to groups on this cluster named exactly as they are on the source: unprefixed.
+# That is intentional in the UW pattern rather than a quirk to work around -
+# kafka-consumer-group-mirror reads these source-named groups here and copies each one into
+# energy-platform.<group>, which is what the apps in orders.tf actually consume under. See
 # kubernetes-manifests/dev-merit/pubsub/msk-team-migrations/README.md.
 #
-# These groups do not exist on this cluster under these names, and we do not want them to:
-# the energy-platform.* groups in orders.tf are the real ones. Describe is therefore all that
-# is granted. With it the connector sees each group as DEAD, skips it, and stops logging
-# GroupAuthorizationException; without Read it can never commit offsets to an unprefixed
-# group here.
+# Read, not Describe. refreshIdleConsumerGroupOffset treats a group that is DEAD here - which is
+# every one of these on first run - as a new consumer group to seed, and syncGroupOffset then
+# calls alterConsumerGroupOffsets for it, which requires Read on the group. Describe alone gets
+# as far as the lookup and then fails the write. Read implies Describe, so it is not granted
+# separately, and Read on energy-platform.order.events comes from mirror_maker_mirrored_topics
+# above.
 #
-# One name below is not hypothetical: energy-billing.billing-projector is a real group on
-# this cluster (see orders.tf), because it belongs to energy-billing and so is not under the
-# energy-platform. prefix. For that one group the source and target names coincide, so if it
-# is ever EMPTY the connector will try to rewind it and log a GroupAuthorizationException for
-# the missing Read. Granting Read would let this mirror-maker rewrite another team's committed
-# offsets on MSK, so it is deliberately withheld.
+# The blast radius is bounded by mirror-maker itself: it only writes to a group that is EMPTY or
+# DEAD here, never one with active members, and for EMPTY it skips any partition where this
+# cluster is already ahead.
+#
+# energy-billing.billing-projector is the one entry that is already a live group here (see
+# orders.tf) rather than a name mirror-maker creates, because it belongs to energy-billing and so
+# keeps its own prefix. Source and target names coincide for it, so mirror-maker seeds it
+# directly and kafka-consumer-group-mirror must leave it out - prefixing it would produce
+# energy-platform.energy-billing.billing-projector, which nothing consumes.
 #
 # Keep this list in sync with GROUPS in
 # kubernetes-manifests/dev-merit/energy-platform/kafka/mirror-maker/deployment.yaml.
-resource "kafka_acl" "mirror_maker_source_group_describe" {
+resource "kafka_acl" "mirror_maker_source_group_sync" {
   for_each = toset([
     "bill-gas-record-producer",
     "bill-proximo-provisioning-adapter",
@@ -122,7 +127,7 @@ resource "kafka_acl" "mirror_maker_source_group_describe" {
   resource_type                = "Group"
   acl_principal                = local.mirror_maker_principal
   acl_host                     = "*"
-  acl_operation                = "Describe"
+  acl_operation                = "Read"
   acl_permission_type          = "Allow"
   resource_pattern_type_filter = "Literal"
 }
