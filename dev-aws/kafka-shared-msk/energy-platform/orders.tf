@@ -17,3 +17,87 @@ resource "kafka_topic" "order_events" {
     "cleanup.policy"    = "delete"
   }
 }
+
+module "bill_gas_record_producer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.order_events.name]
+  consume_groups   = ["energy-platform.bill-gas-record-producer"]
+  cert_common_name = "energy-platform/bill-gas-record-producer"
+}
+
+module "bill_proximo_provisioning_adapter" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.order_events.name]
+  consume_groups   = ["energy-platform.bill-proximo-provisioning-adapter"]
+  cert_common_name = "energy-platform/bill-proximo-provisioning-adapter"
+}
+
+module "comms_orchestrator" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.order_events.name]
+  consume_groups   = ["energy-platform.comms-orchestrator"]
+  cert_common_name = "energy-platform/comms-orchestrator"
+}
+
+module "crm_graphql_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.order_events.name]
+  consume_groups   = ["energy-platform.crm-graphql-projector"]
+  cert_common_name = "energy-platform/crm-graphql-projector"
+}
+
+module "billing_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.order_events.name]
+  consume_groups   = ["energy-billing.billing-projector"]
+  cert_common_name = "energy-billing/billing-projector"
+}
+
+module "energy_bq_connector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.order_events.name]
+  consume_groups   = ["energy-platform.energy-bq-connector"]
+  cert_common_name = "energy-platform/energy-bq-connector"
+}
+
+module "ensek_connector_projection" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.order_events.name]
+  consume_groups   = ["energy-platform.ensek-connector-projection"]
+  cert_common_name = "energy-platform/ensek-connector-projection"
+}
+
+module "ev_tariffs_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.order_events.name]
+  consume_groups   = ["energy-platform.ev-tariffs-projector"]
+  cert_common_name = "energy-platform/ev-tariffs-projector"
+}
+
+module "order_indexer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.order_events.name]
+  consume_groups   = ["energy-platform.order-indexer"]
+  cert_common_name = "energy-platform/order-indexer"
+}
+
+module "ordering_executor" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.order_events.name]
+  consume_groups   = ["energy-platform.ordering-executor"]
+  cert_common_name = "energy-platform/ordering-executor"
+}
+
+module "service_requests_fixer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.order_events.name]
+  consume_groups   = ["energy-platform.service-requests-fixer"]
+  cert_common_name = "energy-platform/service-requests-fixer"
+}
+
+module "unicom_adapter" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.order_events.name]
+  consume_groups   = ["energy-platform.unicom-adapter"]
+  cert_common_name = "energy-platform/unicom-adapter"
+}
