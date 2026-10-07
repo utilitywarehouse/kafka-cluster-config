@@ -101,10 +101,3 @@ module "unicom_adapter" {
   consume_groups   = ["energy-platform.unicom-adapter"]
   cert_common_name = "energy-platform/unicom-adapter"
 }
-
-module "test" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.order_events.name]
-  consume_groups   = ["energy-platform.test"]
-  cert_common_name = "energy-platform/test"
-}
