@@ -116,11 +116,11 @@ resource "kafka_acl" "mirror_maker_source_group_sync" {
     "crm-graphql-projector",
     "energy-billing.billing-projector",
     "energy-bq-connector",
-    "ensek-connector-projection",
+    "ensek-connector-projecion",
     "ev-tariffs-projector",
     "order-indexer",
     "ordering-executor",
-    "service-requests-fixer",
+    "service-request-fixer",
     "unicom-adapter",
   ])
   resource_name                = each.value

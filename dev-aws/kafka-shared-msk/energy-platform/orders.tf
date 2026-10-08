@@ -63,8 +63,8 @@ module "energy_bq_connector" {
 module "ensek_connector_projection" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.order_events.name]
-  consume_groups   = ["energy-platform.ensek-connector-projection"]
-  cert_common_name = "energy-platform/ensek-connector-projection"
+  consume_groups   = ["energy-platform.eensek-connector-projecion"]
+  cert_common_name = "energy-platform/ensek-connector-projecion"
 }
 
 module "ev_tariffs_projector" {
@@ -91,8 +91,8 @@ module "ordering_executor" {
 module "service_requests_fixer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.order_events.name]
-  consume_groups   = ["energy-platform.service-requests-fixer"]
-  cert_common_name = "energy-platform/service-requests-fixer"
+  consume_groups   = ["energy-platform.service-request-fixer"]
+  cert_common_name = "energy-platform/service-request-fixer"
 }
 
 module "unicom_adapter" {
