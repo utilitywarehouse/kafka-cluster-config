@@ -16,10 +16,10 @@ resource "kafka_topic" "data_migration_events" {
   }
 }
 
-module "cdc_feed_producer" {
+module "cdc_relay" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.data_migration_events.name]
-  cert_common_name = "energy-platform/cdc-feed-producer"
+  cert_common_name = "energy-platform/cdc-relay"
 }
 
 # TODO: replace with the real consumer(s) of energy-platform.data-migration.events
