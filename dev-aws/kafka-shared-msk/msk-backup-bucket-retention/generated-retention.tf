@@ -709,6 +709,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "energy-platform.cdc-feed-test.services-event-store"
+    status = "Enabled"
+    expiration { days = 2 }
+    filter { prefix = "kafka-backup/energy-platform.cdc-feed-test.services-event-store/" }
+  }
+
+  rule {
     id     = "energy-platform.eqdb-loader.service"
     status = "Enabled"
     expiration { days = 1 }
