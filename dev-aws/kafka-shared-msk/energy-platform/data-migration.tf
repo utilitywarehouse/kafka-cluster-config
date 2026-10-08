@@ -1,7 +1,7 @@
 resource "kafka_topic" "data_migration_events" {
   name               = "energy-platform.data-migration.events"
   replication_factor = 3
-  partitions         = 15
+  partitions         = 3
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
@@ -16,12 +16,11 @@ resource "kafka_topic" "data_migration_events" {
   }
 }
 
-# TODO: replace with the real producer(s) of energy-platform.data-migration.events
-# module "data_migration_producer" {
-#   source           = "../../../modules/tls-app"
-#   produce_topics   = [kafka_topic.data_migration_events.name]
-#   cert_common_name = "energy-platform/data-migration-producer"
-# }
+module "cdc_feed_producer" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.data_migration_events.name]
+  cert_common_name = "energy-platform/cdc-feed-producer"
+}
 
 # TODO: replace with the real consumer(s) of energy-platform.data-migration.events
 # module "data_migration_consumer" {
