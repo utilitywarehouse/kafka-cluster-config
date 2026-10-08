@@ -709,6 +709,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "energy-platform.data-migration.events"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/energy-platform.data-migration.events/" }
+  }
+
+  rule {
     id     = "energy-platform.eqdb-loader.service"
     status = "Enabled"
     expiration { days = 1 }
