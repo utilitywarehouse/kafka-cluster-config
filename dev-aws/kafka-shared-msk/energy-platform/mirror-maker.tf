@@ -38,7 +38,6 @@ locals {
       "crm-graphql-projector",
       "ev-tariffs-projector",
       "ensek-connector-projecion",
-      "bill-registration-updater",
       # consumer groups from other namespaces:
       "energy-billing.billing-projector",
     ]
