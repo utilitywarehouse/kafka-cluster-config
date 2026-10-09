@@ -63,7 +63,7 @@ module "energy_bq_connector" {
 module "ensek_connector_projection" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.order_events.name]
-  consume_groups   = ["energy-platform.eensek-connector-projecion"]
+  consume_groups   = ["energy-platform.ensek-connector-projecion"]
   cert_common_name = "energy-platform/ensek-connector-projecion"
 }
 
