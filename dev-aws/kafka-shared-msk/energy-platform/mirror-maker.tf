@@ -27,7 +27,7 @@ locals {
   # Read is the operation granted.
   mirror_maker_source_groups = {
     order_events = [
-      // consumer groups in energy-platform namespace:
+      # consumer groups in energy-platform namespace:
       "order-indexer",
       "ordering-executor",
       "bill-gas-record-producer",
@@ -39,7 +39,7 @@ locals {
       "ev-tariffs-projector",
       "ensek-connector-projecion",
       "bill-registration-updater",
-      // consumer groups from other namespaces:
+      # consumer groups from other namespaces:
       "energy-billing.billing-projector",
     ]
     # new topics and their consumer groups go here, keyed by the topic name, to keep the list organised.
