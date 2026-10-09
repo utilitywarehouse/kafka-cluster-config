@@ -5,6 +5,10 @@
 #
 # Note this is a team owned mirror-maker, separate from the pubsub one in
 # ../pubsub/mirror-maker.tf, so it needs its own ACLs.
+#
+# This file holds the per-flow config. The consumer groups whose offsets are synced are split
+# per mirrored topic into ./mirror-maker/<topic>.tf, applied through the module call at the
+# bottom.
 locals {
   mirror_maker_principal = "User:CN=energy-platform/mirror-maker"
 
@@ -46,6 +50,9 @@ resource "kafka_acl" "mirror_maker_worker_group" {
 # topics themselves plus energy-platform.checkpoints.internal and
 # energy-platform.heartbeats. It also reads the mirrored topics back when syncing consumer
 # group offsets, and creates the checkpoint and heartbeat topics itself.
+#
+# This is prefixed, so it already covers every mirrored topic and no per-topic file needs to
+# grant topic level access of its own.
 resource "kafka_acl" "mirror_maker_mirrored_topics" {
   resource_name                = "energy-platform."
   resource_type                = "Topic"
@@ -82,6 +89,9 @@ resource "kafka_acl" "mirror_maker_cluster_describe" {
   resource_pattern_type_filter = "Literal"
 }
 
+# Per-topic consumer group ACLs, one ./mirror-maker/<topic>.tf per mirrored topic. Shared
+# rationale for all of them:
+#
 # Mirror-maker does not apply the replication policy to group ids, so the checkpoint connector
 # syncs offsets to groups on this cluster named exactly as they are on the source: unprefixed.
 # That is intentional in the UW pattern rather than a quirk to work around -
@@ -93,41 +103,29 @@ resource "kafka_acl" "mirror_maker_cluster_describe" {
 # every one of these on first run - as a new consumer group to seed, and syncGroupOffset then
 # calls alterConsumerGroupOffsets for it, which requires Read on the group. Describe alone gets
 # as far as the lookup and then fails the write. Read implies Describe, so it is not granted
-# separately, and Read on energy-platform.order.events comes from mirror_maker_mirrored_topics
+# separately, and Read on the mirrored topic itself comes from mirror_maker_mirrored_topics
 # above.
 #
 # The blast radius is bounded by mirror-maker itself: it only writes to a group that is EMPTY or
 # DEAD here, never one with active members, and for EMPTY it skips any partition where this
 # cluster is already ahead.
 #
-# energy-billing.billing-projector is the one entry that is already a live group here (see
-# orders.tf) rather than a name mirror-maker creates, because it belongs to energy-billing and so
-# keeps its own prefix. Source and target names coincide for it, so mirror-maker seeds it
-# directly and kafka-consumer-group-mirror must leave it out - prefixing it would produce
-# energy-platform.energy-billing.billing-projector, which nothing consumes.
-#
-# Keep this list in sync with GROUPS in
+# Keep the union of those lists in sync with GROUPS in
 # kubernetes-manifests/dev-merit/energy-platform/kafka/mirror-maker/deployment.yaml.
-resource "kafka_acl" "mirror_maker_source_group_sync" {
-  for_each = toset([
-    "bill-gas-record-producer",
-    "bill-proximo-provisioning-adapter",
-    "comms-orchestrator",
-    "crm-graphql-projector",
-    "energy-billing.billing-projector",
-    "energy-bq-connector",
-    "ensek-connector-projecion",
-    "ev-tariffs-projector",
-    "order-indexer",
-    "ordering-executor",
-    "service-request-fixer",
-    "unicom-adapter",
-  ])
-  resource_name                = each.value
-  resource_type                = "Group"
-  acl_principal                = local.mirror_maker_principal
-  acl_host                     = "*"
-  acl_operation                = "Read"
-  acl_permission_type          = "Allow"
-  resource_pattern_type_filter = "Literal"
+#
+# Terraform does not read .tf files in subdirectories of a root module, so ./mirror-maker is a
+# child module and has to be called here to be applied. It inherits the kafka provider from this
+# module and takes the principal above, since a child module cannot read a parent's locals.
+module "mirror_maker" {
+  source                 = "./mirror-maker"
+  mirror_maker_principal = local.mirror_maker_principal
+}
+
+# The group ACLs used to be one flat list in this file. This keeps the existing state entries, so
+# the move does not briefly destroy and recreate them. Every group in that list is an
+# order.events consumer, so all of its instances move into the per-topic resource in
+# mirror-maker/order.events.tf under the same keys. Safe to delete once applied.
+moved {
+  from = kafka_acl.mirror_maker_source_group_sync
+  to   = module.mirror_maker.kafka_acl.order_events_group_sync
 }
