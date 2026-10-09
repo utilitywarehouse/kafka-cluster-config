@@ -22,10 +22,9 @@ module "cdc_relay" {
   cert_common_name = "energy-platform/cdc-relay"
 }
 
-# TODO: replace with the real consumer(s) of energy-platform.data-migration.events
-# module "data_migration_consumer" {
-#   source           = "../../../modules/tls-app"
-#   consume_topics   = [kafka_topic.data_migration_events.name]
-#   consume_groups   = ["energy-platform.data-migration-consumer"]
-#   cert_common_name = "energy-platform/data-migration-consumer"
-# }
+module "data_feed_projector" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.data_migration_events.name]
+  consume_groups   = ["energy-platform.data-feed-projector-observe"]
+  cert_common_name = "energy-platform/data-feed-projector"
+}
