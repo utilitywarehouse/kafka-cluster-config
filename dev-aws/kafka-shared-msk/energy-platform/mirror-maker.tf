@@ -39,7 +39,7 @@ locals {
       "ensek-connector-projecion",
       "bill-registration-updater",
     ]
-    // new topics and their consumer groups go here, keyed by the topic name, to keep the list organised.
+    # new topics and their consumer groups go here, keyed by the topic name, to keep the list organised.
   }
 }
 
