@@ -58,6 +58,14 @@ module "energy_bq_connector" {
   cert_common_name = "energy-platform/energy-bq-connector"
 }
 
+# energy-kafka-forwarder-order-events / kafka-forwarder/order-events
+module "energy_kafka_forwarder_order_events" {
+  source           = "../../../modules/tls-app"
+  produce_topics   = [kafka_topic.order_events.name]
+  consume_groups   = ["energy-platform.energy-kafka-forwarder-order-events"]
+  cert_common_name = "energy-platform/energy-kafka-forwarder-order-events"
+}
+
 # energy-ensek-connector / ensek-connector/registrations
 # NB: the "projecion" typo is the live client name and consumer group
 module "ensek_connector_projection" {
