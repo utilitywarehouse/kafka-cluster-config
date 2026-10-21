@@ -1,7 +1,7 @@
 resource "kafka_topic" "flow_files_events" {
   name               = "energy-platform.flow-files.events"
   replication_factor = 3
-  partitions         = 3
+  partitions         = 1
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"

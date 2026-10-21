@@ -72,6 +72,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "acquisition.basket.abandoned.v1"
+    status = "Enabled"
+    expiration { days = 4 }
+    filter { prefix = "kafka-backup/acquisition.basket.abandoned.v1/" }
+  }
+
+  rule {
     id     = "auth-customer.iam-credentials-v1-public"
     status = "Enabled"
     expiration { days = 8 }
@@ -709,6 +716,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "energy-platform.data-migration.events"
+    status = "Enabled"
+    expiration { days = 92 }
+    filter { prefix = "kafka-backup/energy-platform.data-migration.events/" }
+  }
+
+  rule {
     id     = "energy-platform.eqdb-loader.service"
     status = "Enabled"
     expiration { days = 1 }
@@ -783,6 +797,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 92 }
     filter { prefix = "kafka-backup/energy-platform.meter.read.events.v3/" }
+  }
+
+  rule {
+    id     = "energy-platform.order.events"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/energy-platform.order.events/" }
   }
 
   rule {
