@@ -6,6 +6,7 @@ prod-aws/kafka-shared-msk/msk-backup-bucket-retention/generated-retention.tf
 
 /**/account-platform/                             @utilitywarehouse/account-identity
 /**/account-identity/                             @utilitywarehouse/account-identity
+/**/acquisition/                                  @utilitywarehouse/org-partner-acquisition
 /**/kafka-shared-msk/account-identity/finserv.tf  @utilitywarehouse/org-cashback
 /**/billing/                                      @utilitywarehouse/billing-maintainers
 /**/cbc/                                          @utilitywarehouse/org-cashback
