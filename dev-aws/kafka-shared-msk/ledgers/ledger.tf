@@ -91,7 +91,6 @@ resource "kafka_topic" "ledger_tasks_events" {
   }
 }
 
-
 # ACLs
 module "ledger_api" {
   source = "../../../modules/tls-app"
