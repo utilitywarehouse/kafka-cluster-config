@@ -489,6 +489,13 @@ module "customer_support_crm_idv" {
   consume_groups   = ["customer-support.idv.projector-001"]
 }
 
+module "customer_support_crm_address_history" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "crm/address-history-projector"
+  consume_topics   = [kafka_topic.account_identity_legacy_account_events.name]
+  consume_groups   = ["customer-support.address-history-projector"]
+}
+
 module "cbc_fraud_detection_consumer" {
   source           = "../../../modules/tls-app"
   consume_topics   = [kafka_topic.account_identity_public_account_events.name]
