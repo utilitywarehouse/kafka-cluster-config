@@ -282,6 +282,14 @@ module "account_identity_home_moves_outcome_dispatcher" {
   cert_common_name = "account-platform/home_moves_outcome_dispatcher"
 }
 
+module "account_identity_home_moves_history" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.account_identity_home_move_lifecycle_events_v1.name]
+  consume_groups   = ["account-identity.home-moves-history"]
+  produce_topics   = [kafka_topic.account_identity_account_history_v1.name]
+  cert_common_name = "account-platform/home_moves_history"
+}
+
 module "account_identity_account_api_v2" {
   source           = "../../../modules/tls-app"
   produce_topics   = [kafka_topic.account_identity_account_bill_writes_public.name]
