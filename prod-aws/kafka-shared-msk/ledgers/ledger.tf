@@ -88,6 +88,23 @@ resource "kafka_topic" "ledger_data_migration_events" {
   }
 }
 
+resource "kafka_topic" "ledger_tasks_events" {
+  name               = "ledgers.tasks.events"
+  replication_factor = 3
+  partitions         = 10
+  config = {
+    "remote.storage.enable" = "true"
+    # store data zstd compressed
+    "compression.type" = "zstd"
+    # keep data in primary storage for 2 days
+    "local.retention.ms" = "172800000"
+    # keep data for 1 month
+    "retention.ms" = "2629800000"
+    # delete old data
+    "cleanup.policy" = "delete"
+  }
+}
+
 # ACLs
 module "ledger_api" {
   source = "../../../modules/tls-app"
@@ -97,6 +114,7 @@ module "ledger_api" {
     kafka_topic.account_migrated_events.name,
     kafka_topic.ledger_reconciliation_events.name,
     kafka_topic.ledger_data_migration_events.name,
+    kafka_topic.ledger_tasks_events.name,
   ]
   cert_common_name = "ledgers/ledger-api"
 }
@@ -110,6 +128,7 @@ module "ledger_consumer" {
     kafka_topic.account_migrated_events.name,
     kafka_topic.ledger_reconciliation_events.name,
     kafka_topic.ledger_data_migration_events.name,
+    kafka_topic.ledger_tasks_events.name,
   ]
   consume_groups   = ["ledgers.ledger-consumer"]
   cert_common_name = "ledgers/ledger-consumer"
