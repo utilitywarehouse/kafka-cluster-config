@@ -129,6 +129,14 @@ module "billing_engine" {
   cert_common_name = "billing/billing-engine"
 }
 
+module "billing_bill_extract_parser" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.billing_bill_reporting_events.name,
+  ]
+  cert_common_name = "billing/billing-bill-extract-parser"
+}
+
 module "bill_adapter" {
   source = "../../../modules/tls-app"
   produce_topics = [
