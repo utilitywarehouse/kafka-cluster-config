@@ -15,6 +15,7 @@ module "banking_consumer" {
   consume_topics = [
     kafka_topic.banking_v1_addacs_instructions.name,
   ]
+  consume_groups   = ["payment-platform.banking-consumer"]
   cert_common_name = "payment-platform/banking-consumer"
 }
 
