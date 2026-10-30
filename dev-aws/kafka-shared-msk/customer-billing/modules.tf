@@ -67,7 +67,8 @@ module "invoice_fulfillment" {
     kafka_topic.internal_bex_bill_regeneration_retry_1.name,
     kafka_topic.internal_bex_bill_regeneration_retry_2.name,
     kafka_topic.internal_bex_bill_regeneration_large_invoice.name,
-    kafka_topic.internal_bex_bill_regeneration_deadletter.name
+    kafka_topic.internal_bex_bill_regeneration_deadletter.name,
+    kafka_topic.pdf_generated_events.name,
   ]
   consume_topics = [
     kafka_topic.transition_bex_fulfilment_request.name,
@@ -135,4 +136,13 @@ module "invoice_api" {
   source           = "../../../modules/tls-app"
   cert_common_name = "customer-billing/invoice-api"
   produce_topics   = [kafka_topic.bex_legacy_invoice_api.name]
+}
+
+module "pdf_generated_events_kafka_source" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.pdf_generated_events.name,
+  ]
+  consume_groups   = ["bex.pdf-generated-kafka-source"]
+  cert_common_name = "customer-billing/pdf-generated-kafka-source"
 }

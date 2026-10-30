@@ -44,3 +44,20 @@ module "energy_bill_processed_events_kafka_source" {
   consume_groups   = ["energy-billing.energy-bill-processed-kafka-source"]
   cert_common_name = "energy-billing/energy-bill-processed-kafka-source"
 }
+
+module "blob_received_events_kafka_source" {
+  source = "../../../modules/tls-app"
+  consume_topics = [
+    kafka_topic.energy_billing_blob_received_events.name,
+  ]
+  consume_groups   = ["energy-billing.blob-received-kafka-source"]
+  cert_common_name = "energy-billing/blob-received-kafka-source"
+}
+
+# the module for this cert that consumes gentrack billing events lives in energy-platform;
+# this one only grants write access to the topic below
+module "blob_received_events_producer" {
+  source           = "../../../modules/tls-app"
+  cert_common_name = "energy-billing/billing-s3-event-consumer"
+  produce_topics   = [kafka_topic.energy_billing_blob_received_events.name]
+}
