@@ -331,7 +331,7 @@ resource "kafka_topic" "internal_bex_bill_regeneration_deadletter" {
 
 # this topic is used to send PDF generated events to BigQuery for reporting purposes
 resource "kafka_topic" "pdf_generated_events" {
-  name               = "energy-billing.pdf_generated.events"
+  name               = "bex.pdf_generated.events"
   replication_factor = 3
   partitions         = 1
   config = {

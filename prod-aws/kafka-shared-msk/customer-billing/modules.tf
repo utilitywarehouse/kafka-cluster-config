@@ -220,6 +220,6 @@ module "pdf_generated_events_kafka_source" {
   consume_topics = [
     kafka_topic.pdf_generated_events.name,
   ]
-  consume_groups   = ["energy-billing.pdf-generated-kafka-source"]
-  cert_common_name = "energy-billing/pdf-generated-kafka-source"
+  consume_groups   = ["bex.pdf-generated-kafka-source"]
+  cert_common_name = "customer-billing/pdf-generated-kafka-source"
 }
