@@ -254,6 +254,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "bex.pdf_generated.events"
+    status = "Enabled"
+    expiration { days = 29 }
+    filter { prefix = "kafka-backup/bex.pdf_generated.events/" }
+  }
+
+  rule {
     id     = "bex.transition.fulfilment_request"
     status = "Enabled"
     expiration { days = 15 }
@@ -685,13 +692,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 4 }
     filter { prefix = "kafka-backup/energy-billing.internal.billing-adapter-retry-2/" }
-  }
-
-  rule {
-    id     = "bex.pdf_generated.events"
-    status = "Enabled"
-    expiration { days = 29 }
-    filter { prefix = "kafka-backup/bex.pdf_generated.events/" }
   }
 
   rule {
