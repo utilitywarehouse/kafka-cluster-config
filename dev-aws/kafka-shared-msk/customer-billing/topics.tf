@@ -328,3 +328,21 @@ resource "kafka_topic" "internal_bex_bill_regeneration_deadletter" {
   }
 }
 
+
+# this topic is used to send PDF generated events to BigQuery for reporting purposes
+resource "kafka_topic" "pdf_generated_events" {
+  name               = "energy-billing.pdf_generated.events"
+  replication_factor = 3
+  partitions         = 1
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 1 day
+    "local.retention.ms" = "86400000"
+    # keep data for 28 days
+    "retention.ms" = "2419200000"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}

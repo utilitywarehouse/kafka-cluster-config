@@ -681,6 +681,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "energy-billing.blob_received.events"
+    status = "Enabled"
+    expiration { days = 29 }
+    filter { prefix = "kafka-backup/energy-billing.blob_received.events/" }
+  }
+
+  rule {
     id     = "energy-billing.electronic_payment.events"
     status = "Enabled"
     expiration { days = 181 }
@@ -713,6 +720,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 4 }
     filter { prefix = "kafka-backup/energy-billing.internal.billing-adapter-retry-2/" }
+  }
+
+  rule {
+    id     = "energy-billing.pdf_generated.events"
+    status = "Enabled"
+    expiration { days = 29 }
+    filter { prefix = "kafka-backup/energy-billing.pdf_generated.events/" }
   }
 
   rule {
