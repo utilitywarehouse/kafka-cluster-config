@@ -688,10 +688,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
-    id     = "energy-billing.pdf_generated.events"
+    id     = "bex.pdf_generated.events"
     status = "Enabled"
     expiration { days = 29 }
-    filter { prefix = "kafka-backup/energy-billing.pdf_generated.events/" }
+    filter { prefix = "kafka-backup/bex.pdf_generated.events/" }
   }
 
   rule {
