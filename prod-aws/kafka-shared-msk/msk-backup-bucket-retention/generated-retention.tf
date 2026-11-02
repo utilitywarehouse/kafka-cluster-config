@@ -254,6 +254,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "bex.pdf_generated.events"
+    status = "Enabled"
+    expiration { days = 29 }
+    filter { prefix = "kafka-backup/bex.pdf_generated.events/" }
+  }
+
+  rule {
     id     = "bex.transition.fulfilment_request"
     status = "Enabled"
     expiration { days = 15 }
@@ -643,6 +650,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
     status = "Enabled"
     expiration { days = 6 }
     filter { prefix = "kafka-backup/data-infra.uw.data-infra.pubsubbrige.snowplow/" }
+  }
+
+  rule {
+    id     = "energy-billing.blob_received.events"
+    status = "Enabled"
+    expiration { days = 29 }
+    filter { prefix = "kafka-backup/energy-billing.blob_received.events/" }
   }
 
   rule {
