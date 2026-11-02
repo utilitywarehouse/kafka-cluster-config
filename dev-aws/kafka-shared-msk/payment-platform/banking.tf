@@ -19,6 +19,14 @@ module "banking_consumer" {
   cert_common_name = "payment-platform/banking-consumer"
 }
 
+module "banking_cron" {
+  source = "../../../modules/tls-app"
+  produce_topics = [
+    kafka_topic.payment_method_v1_events.name,
+  ]
+  cert_common_name = "payment-platform/banking-cron"
+}
+
 resource "kafka_topic" "banking_v1_addacs_instructions" {
   name               = "payment-platform.banking.v1.addacs.instructions"
   replication_factor = 3
