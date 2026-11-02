@@ -26,6 +26,15 @@ module "ordering_executor" {
   cert_common_name = "energy-platform/ordering-executor"
 }
 
+# energy-ordering / ordering/event-log-consumer -- builds the order event log
+# from every order event, in its own consumer group
+module "ordering_event_log_consumer" {
+  source           = "../../../modules/tls-app"
+  consume_topics   = [kafka_topic.order_events.name]
+  consume_groups   = ["energy-platform.ordering-event-log-consumer"]
+  cert_common_name = "energy-platform/ordering-event-log-consumer"
+}
+
 # energy-bill-gas-record-producer / provisioning/bill-gas-record-producer
 module "bill_gas_record_producer" {
   source           = "../../../modules/tls-app"
