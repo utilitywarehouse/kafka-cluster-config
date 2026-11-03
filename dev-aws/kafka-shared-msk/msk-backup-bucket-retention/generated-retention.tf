@@ -79,6 +79,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "acquisition.basket.v1"
+    status = "Enabled"
+    expiration { days = 4 }
+    filter { prefix = "kafka-backup/acquisition.basket.v1/" }
+  }
+
+  rule {
     id     = "auth-customer.iam-credentials-v1-public"
     status = "Enabled"
     expiration { days = 8 }
