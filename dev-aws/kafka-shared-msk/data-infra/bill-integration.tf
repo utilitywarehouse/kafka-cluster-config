@@ -229,6 +229,7 @@ module "di_bill_event_bridge_test" {
 
   consume_groups = [
     "data-infra.bill-integration.e2e-to-bill",
+    "data-infra.bill-integration.e2e-from-bill",
   ]
 
   cert_common_name = "bill-integration/bill-event-bridge-test"
