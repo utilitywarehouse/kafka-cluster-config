@@ -555,6 +555,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "data-infra.bill-integration.e2e-to-bill"
+    status = "Enabled"
+    expiration { days = 31 }
+    filter { prefix = "kafka-backup/data-infra.bill-integration.e2e-to-bill/" }
+  }
+
+  rule {
     id     = "data-infra.bill-integration.kubernetes-to-bill-energy-meter-reading"
     status = "Enabled"
     expiration { days = 31 }
