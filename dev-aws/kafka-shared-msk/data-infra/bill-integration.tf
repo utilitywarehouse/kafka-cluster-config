@@ -229,8 +229,6 @@ module "di_bill_event_bridge_test" {
 
   consume_groups = [
     "data-infra.bill-integration.e2e-to-bill",
-    # hard-coded in bill-event-bridge e2e-from-bill (debug.go), cannot be set from the URL
-    "from-bill",
   ]
 
   cert_common_name = "bill-integration/bill-event-bridge-test"
