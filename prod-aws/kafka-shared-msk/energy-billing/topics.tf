@@ -92,3 +92,21 @@ resource "kafka_topic" "energy_billing_energy_bill_processed_events" {
     "cleanup.policy"    = "delete"
   }
 }
+
+# this topic is used to send blob received events to BigQuery for reporting purposes
+resource "kafka_topic" "energy_billing_blob_received_events" {
+  name               = "energy-billing.blob_received.events"
+  replication_factor = 3
+  partitions         = 1
+  config = {
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 1 day
+    "local.retention.ms" = "86400000"
+    # keep data for 28 days
+    "retention.ms" = "2419200000"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
+    "cleanup.policy"    = "delete"
+  }
+}
