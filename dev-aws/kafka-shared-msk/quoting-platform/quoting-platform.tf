@@ -83,13 +83,13 @@ module "acquisition_mailer_basket" {
   cert_common_name = "acquisition/mailer"
 }
 
-module "acquisition_basket_projector" {
+module "acquisition_feedback_survey_basket_projector" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.basket_v1.name,
   ]
   consume_groups = [
-    "acquisition.basket-projector-consumer-group"
+    "acquisition.feedback-survey-qp-basket-projector-consumer-group"
   ]
-  cert_common_name = "acquisition/basket-projector"
+  cert_common_name = "acquisition/feedback-survey-basket-projector"
 }
