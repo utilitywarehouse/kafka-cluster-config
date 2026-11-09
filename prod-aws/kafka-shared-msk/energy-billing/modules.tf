@@ -58,6 +58,6 @@ module "blob_received_events_kafka_source" {
 # this one only grants write access to the topic below
 module "blob_received_events_producer" {
   source           = "../../../modules/tls-app"
-  cert_common_name = "energy-billing/billing-s3-event-consumer"
+  cert_common_name = "energy-billing/billing-sqs-processor"
   produce_topics   = [kafka_topic.energy_billing_blob_received_events.name]
 }
