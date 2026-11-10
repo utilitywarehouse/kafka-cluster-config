@@ -78,7 +78,8 @@ module "acquisition_mailer_basket" {
     kafka_topic.basket_v1.name,
   ]
   consume_groups = [
-    "acquisition.mailer-basket-consumer-group"
+    "acquisition.mailer-basket-consumer-group",
+    "quoting-platform.mailer-basket-consumer-group",
   ]
   cert_common_name = "acquisition/mailer"
 }
