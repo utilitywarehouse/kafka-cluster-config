@@ -299,6 +299,8 @@ module "di_proximo" {
     "data-infra.bill-integration.order-platform-bill-application-releaser",
     "data-infra.bill-integration.uw-bill-telemetry-bq-connector",
     "data-infra.bill-integration.payment-bill-remove-card-service",
+    "data-infra.bill-integration.payment-query-service",
+    "data-infra.bill-integration.payment-ddm-bill-writer",
     "data-infra.bill-integration.test"
   ]
 
@@ -397,4 +399,54 @@ module "finance_bill_integration" {
   ]
 
   cert_common_name = "finance/account-in-debt-bill-writer"
+}
+
+# Direct (non-Proximo) consumers of bill-to-kubernetes moving off the in-cluster
+# bill-integration Kafka. Their groups are mirrored to MSK by the dev-merit MM2.
+module "customer_billing_bill_budget_plan_proximo_reader" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.bill-budget-plan-proximo-reader"
+  ]
+  cert_common_name = "customer-billing/bill-budget-plan-proximo-reader"
+}
+
+module "energy_platform_gentrack_migration_worker_bill" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.gentrack-migration-bill-consumer"
+  ]
+  cert_common_name = "energy-platform/gentrack-migration-worker"
+}
+
+module "telecom_bill_to_kubernetes_kafka2kafka" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.telecom-bill-to-kubernetes-kafka2kafka"
+  ]
+  cert_common_name = "telecom/bill-to-kubernetes-kafka2kafka"
+}
+
+module "telecom_mobile_bill_to_kubernetes_kafka2kafka" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.mobile-bill-to-kubernetes-kafka2kafka"
+  ]
+  cert_common_name = "telecom-mobile/bill-to-kubernetes-kafka2kafka"
 }
