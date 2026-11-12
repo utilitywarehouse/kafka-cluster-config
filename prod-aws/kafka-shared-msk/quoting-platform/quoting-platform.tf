@@ -60,24 +60,14 @@ module "partner_planner_activity_reader" {
   cert_common_name = "partner-planner/activity-reader"
 }
 
-module "mailer_basket" {
-  source = "../../../modules/tls-app"
-  consume_topics = [
-    kafka_topic.basket_v1.name,
-  ]
-  consume_groups = [
-    "quoting-platform.mailer-basket-consumer-group"
-  ]
-  cert_common_name = "quoting-platform/mailer"
-}
-
 module "acquisition_mailer_basket" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.basket_v1.name,
   ]
   consume_groups = [
-    "acquisition.mailer-basket-consumer-group"
+    "acquisition.mailer-basket-consumer-group",
+    "quoting-platform.mailer-basket-consumer-group",
   ]
   cert_common_name = "acquisition/mailer"
 }

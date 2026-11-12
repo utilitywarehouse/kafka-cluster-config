@@ -27,7 +27,7 @@ module "abandoned_basket_survey" {
   cert_common_name = "acquisition/abandoned-basket-survey"
 }
 
-module "mailer" {
+module "acquisition_mailer" {
   source = "../../../modules/tls-app"
   consume_topics = [
     kafka_topic.basket_abandoned_v1.name,
@@ -35,5 +35,5 @@ module "mailer" {
   consume_groups = [
     "quoting-platform.mailer-consumer-group"
   ]
-  cert_common_name = "quoting-platform/mailer"
+  cert_common_name = "acquisition/mailer"
 }
