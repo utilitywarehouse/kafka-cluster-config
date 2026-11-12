@@ -1154,3 +1154,22 @@ resource "kafka_topic" "unicom_di_kafka_source_notification" {
     "max.message.bytes" = "3145728"
   }
 }
+
+resource "kafka_topic" "unicom_knock_events" {
+  name               = "unicom.knock-events"
+  partitions         = 15
+  replication_factor = 3
+
+  config = {
+    "cleanup.policy"   = "delete"
+    "compression.type" = "zstd"
+    # keep data for 6 months
+    "retention.ms" = "15552000000"
+    # enable remote storage
+    "remote.storage.enable" = "true"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
+    # allow for a batch of records maximum 3MiB
+    "max.message.bytes" = "3145728"
+  }
+}

@@ -772,3 +772,11 @@ module "insurance_comms_client" {
   consume_topics   = [kafka_topic.unicom_status_v2.name]
   consume_groups   = ["insurance.comms-client-consumer"]
 }
+
+module "unicom_knock_webhooks" {
+  source         = "../../../modules/tls-app"
+  produce_topics = [
+    "unicom.knock-events",
+  ]
+  cert_common_name = "unicom/knock-webhooks"
+}
