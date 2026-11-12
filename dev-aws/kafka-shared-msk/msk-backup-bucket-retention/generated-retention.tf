@@ -1472,6 +1472,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   }
 
   rule {
+    id     = "unicom.knock-events"
+    status = "Enabled"
+    expiration { days = 181 }
+    filter { prefix = "kafka-backup/unicom.knock-events/" }
+  }
+
+  rule {
     id     = "unicom.letter-batch-critical.1"
     status = "Enabled"
     expiration { days = 92 }
