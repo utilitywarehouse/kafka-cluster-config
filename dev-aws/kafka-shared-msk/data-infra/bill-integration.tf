@@ -428,6 +428,29 @@ module "payment_platform_banking_payment_ddm_bill_writer" {
   cert_common_name = "payment-platform-banking/payment-ddm-bill-writer"
 }
 
+# Produce only: its input stays on the legacy cluster, so no group.
+module "payment_platform_banking_payment_bill_sync_service" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  cert_common_name = "payment-platform-banking/payment-bill-sync-service"
+}
+
+# The service's payment-platform ACLs live in payment-platform/payment.tf.
+module "payment_platform_payment_query_service_bill" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.payment-query-service"
+  ]
+  cert_common_name = "payment-platform/payment-query-service"
+}
+
 module "energy_platform_gentrack_migration_worker_bill" {
   source = "../../../modules/tls-app"
 
