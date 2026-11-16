@@ -398,3 +398,91 @@ module "finance_bill_integration" {
 
   cert_common_name = "finance/account-in-debt-bill-writer"
 }
+
+# Direct MSK clients of bill-to-kubernetes moving off the in-cluster
+# bill-integration Kafka and Proximo. Their groups are mirrored to MSK by the dev-merit MM2.
+module "customer_billing_bill_budget_plan_proximo_reader" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.bill-budget-plan-proximo-reader"
+  ]
+  cert_common_name = "customer-billing/bill-budget-plan-proximo-reader"
+}
+
+module "payment_platform_banking_payment_ddm_bill_writer" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.payment-ddm-bill-writer"
+  ]
+  cert_common_name = "payment-platform-banking/payment-ddm-bill-writer"
+}
+
+# Produce only: its input stays on the legacy cluster, so no group.
+module "payment_platform_banking_payment_bill_sync_service" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  cert_common_name = "payment-platform-banking/payment-bill-sync-service"
+}
+
+# The service's payment-platform ACLs live in payment-platform/payment.tf.
+module "payment_platform_payment_query_service_bill" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.payment-query-service"
+  ]
+  cert_common_name = "payment-platform/payment-query-service"
+}
+
+module "energy_platform_gentrack_migration_worker_bill" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.gentrack-migration-bill-consumer"
+  ]
+  cert_common_name = "energy-platform/gentrack-migration-worker"
+}
+
+module "telecom_bill_to_kubernetes_kafka2kafka" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.telecom-bill-to-kubernetes-kafka2kafka"
+  ]
+  cert_common_name = "telecom/bill-to-kubernetes-kafka2kafka"
+}
+
+module "telecom_mobile_bill_to_kubernetes_kafka2kafka" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.mobile-bill-to-kubernetes-kafka2kafka"
+  ]
+  cert_common_name = "telecom-mobile/bill-to-kubernetes-kafka2kafka"
+}

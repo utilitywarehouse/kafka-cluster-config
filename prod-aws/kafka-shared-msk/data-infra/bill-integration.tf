@@ -273,3 +273,44 @@ module "finance_bill_integration" {
 
   cert_common_name = "finance/account-in-debt-bill-writer"
 }
+
+# Payments services moving off the in-cluster bill-integration Kafka and
+# Proximo as direct MSK clients (DI-2149, DI-2150, DI-2155). Consumer groups
+# are mirrored to MSK by the prod-aws bill-integration MM2 + group mirror.
+module "payment_platform_banking_payment_ddm_bill_writer" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.payment-ddm-bill-writer"
+  ]
+  cert_common_name = "payment-platform-banking/payment-ddm-bill-writer"
+}
+
+# Produce only: its input stays on the legacy cluster, so no group.
+module "payment_platform_banking_payment_bill_sync_service" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  cert_common_name = "payment-platform-banking/payment-bill-sync-service"
+}
+
+# The service's payment-platform ACLs live in payment-platform/payment.tf.
+module "payment_platform_payment_query_service_bill" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.payment-query-service"
+  ]
+  cert_common_name = "payment-platform/payment-query-service"
+}
