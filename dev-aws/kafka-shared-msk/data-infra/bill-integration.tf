@@ -604,3 +604,29 @@ module "partner_commission_commission_statements_dispatcher" {
   ]
   cert_common_name = "partner-commission/commission-statements-dispatcher"
 }
+
+# bill-telemetry gateway and BigQuery connector (bill-integration, merit) moving
+# off the in-cluster Kafka as direct MSK clients. Both run in bill-integration;
+# certs come from the uw.systems/msk-kafka-client annotation.
+module "bill_integration_bill_telemetry_gw" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_bill_telemetry.name,
+  ]
+  cert_common_name = "bill-integration/bill-telemetry-gw"
+}
+
+# Group is mirrored from the in-cluster uw-bill-telemetry-bq-connector by the
+# dev-merit MM2 + group mirror (topic bill-telemetry is mirrored too).
+module "bill_integration_bill_telemetry_connector" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_telemetry.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.uw-bill-telemetry-bq-connector"
+  ]
+  cert_common_name = "bill-integration/bill-telemetry-connector"
+}
