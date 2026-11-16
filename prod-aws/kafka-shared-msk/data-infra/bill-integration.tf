@@ -412,3 +412,105 @@ module "payment_platform_payment_query_service_bill" {
   ]
   cert_common_name = "payment-platform/payment-query-service"
 }
+
+# bill-to-kubernetes listeners moving off the in-cluster bill-integration
+# Kafka/Proximo as direct MSK clients. Groups keep the in-cluster name with the
+# data-infra.bill-integration. prefix; the prod-aws MM2 + group mirror carries
+# the offsets over.
+module "clubhouse_comms_events_router" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.bill-sms-connector"
+  ]
+  cert_common_name = "clubhouse/comms-events-router"
+}
+
+module "customer_billing_bill_budget_plan_proximo_reader" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.bill-budget-plan-proximo-reader"
+  ]
+  cert_common_name = "customer-billing/bill-budget-plan-proximo-reader"
+}
+
+module "partner_commission_commission_statements_dispatcher" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.commission-statements"
+  ]
+  cert_common_name = "partner-commission/commission-statements-dispatcher"
+}
+
+module "energy_bill_to_kubernetes_proxy" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.bill-to-kubernetes-energy-proxy"
+  ]
+  cert_common_name = "energy/bill-to-kubernetes-proxy"
+}
+
+# Same CN as the energy-platform/gentrack.tf module; this one only adds the bill-integration ACLs.
+module "energy_platform_gentrack_migration_worker_bill" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.gentrack-migration-bill-consumer"
+  ]
+  cert_common_name = "energy-platform/gentrack-migration-worker"
+}
+
+module "customer_billing_invoice_redelivery_orchestrator" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.finance-redelivery-orchestrator"
+  ]
+  cert_common_name = "customer-billing/invoice-redelivery-orchestrator"
+}
+
+module "telecom_bill_to_kubernetes_kafka2kafka" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.telecom-bill-to-kubernetes-kafka2kafka"
+  ]
+  cert_common_name = "telecom/bill-to-kubernetes-kafka2kafka"
+}
+
+# Runs in prod-merit.
+module "ordering_platform_bill_application_releaser" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.order-platform-bill-application-releaser"
+  ]
+  cert_common_name = "ordering-platform/bill-application-releaser"
+}
