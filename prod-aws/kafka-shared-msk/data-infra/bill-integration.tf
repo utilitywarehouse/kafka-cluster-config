@@ -274,6 +274,104 @@ module "finance_bill_integration" {
   cert_common_name = "finance/account-in-debt-bill-writer"
 }
 
+# Producers moving off the in-cluster bill-integration Kafka/Proximo to
+# write kubernetes-to-bill(-energy-meter-reading) on MSK directly. Unmirrored
+# topics: bill-event-bridge already reads both sides.
+# Reuses the existing generated cert (annotation bill_writer).
+module "account_platform_bill_writer_bill" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  cert_common_name = "account-platform/bill_writer"
+}
+
+module "customer_billing_budget_plan_comment_code_creator" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  cert_common_name = "customer-billing/budget-plan-comment-code-creator"
+}
+
+module "energy_platform_tasking_projector_bill" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  cert_common_name = "energy-platform/tasking-projector-bill"
+}
+
+# Prod deployment is bill-writer-green; set the cert annotation to "bill-writer" so the CN matches dev.
+module "clubhouse_payments_bill_writer" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  cert_common_name = "clubhouse-payments/bill-writer"
+}
+
+module "billing_finance_one_liner_file_generator" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  cert_common_name = "billing/finance-one-liner-file-generator"
+}
+
+# Deployment energy-platform/kubernetes-to-bill-energy-meter-reading-forwarder.
+# Its full name is over the 64-char CN limit, so set the cert annotation to
+# "kubernetes-to-bill-meter-reading-forwarder".
+module "energy_platform_kubernetes_to_bill_meter_reading_forwarder" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill_energy_meter_reading.name,
+  ]
+  cert_common_name = "energy-platform/kubernetes-to-bill-meter-reading-forwarder"
+}
+
+module "energy_platform_kubernetes_to_bill_forwarder" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  cert_common_name = "energy-platform/kubernetes-to-bill-forwarder"
+}
+
+module "energy_smart_kubernetes_to_bill_forwarder" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  cert_common_name = "energy-smart/kubernetes-to-bill-forwarder"
+}
+
+module "telecom_kubernetes_to_bill_kafka2kafka" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  cert_common_name = "telecom/kubernetes-to-bill-kafka2kafka"
+}
+
+module "telecom_mobile_kubernetes_to_bill_kafka2kafka" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  cert_common_name = "telecom-mobile/kubernetes-to-bill-kafka2kafka"
+}
+
 # Payments services moving off the in-cluster bill-integration Kafka and
 # Proximo as direct MSK clients (DI-2149, DI-2150, DI-2155). Consumer groups
 # are mirrored to MSK by the prod-aws bill-integration MM2 + group mirror.
