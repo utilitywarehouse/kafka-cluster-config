@@ -579,3 +579,18 @@ module "ordering_platform_bill_application_releaser" {
   ]
   cert_common_name = "ordering-platform/bill-application-releaser"
 }
+
+# bill-to-kubernetes listener moving to MSK directly (direct tls-app module).
+# Listener. Was reading via partner/proximo-bill-integration; the group is not mirrored
+# (dev reads from the newest offset), so it starts fresh on MSK.
+module "partner_commission_commission_statements_dispatcher" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.commission-statements-002"
+  ]
+  cert_common_name = "partner-commission/commission-statements-dispatcher"
+}
