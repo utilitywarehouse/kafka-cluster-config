@@ -439,6 +439,16 @@ module "clubhouse_payments_bill_writer" {
   cert_common_name = "clubhouse-payments/bill-writer"
 }
 
+# Deployment billing/finance-one-liner-file-generator (dev-merit): bill notifications move to MSK.
+module "billing_finance_one_liner_file_generator" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  cert_common_name = "billing/finance-one-liner-file-generator"
+}
+
 # Deployment energy-platform/kubernetes-to-bill-energy-meter-reading-forwarder.
 # Its full name is over the 64-char CN limit, so set the cert annotation to
 # "kubernetes-to-bill-meter-reading-forwarder".
