@@ -713,6 +713,7 @@ module "cbc_push_notifications_projector" {
   consume_topics = [
     kafka_topic.lifecycle_events_v2.name,
     kafka_topic.transaction_events_v3.name,
+    kafka_topic.rating_events_v3.name,
     kafka_topic.customer_events_v1.name
   ]
   consume_groups   = ["cbc.cbc-push-notifications-projector-v0.1"]
