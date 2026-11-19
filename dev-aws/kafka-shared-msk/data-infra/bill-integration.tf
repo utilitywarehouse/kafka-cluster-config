@@ -617,8 +617,10 @@ module "bill_integration_bill_telemetry_gw" {
   cert_common_name = "bill-integration/bill-telemetry-gw"
 }
 
-# Group is mirrored from the in-cluster uw-bill-telemetry-bq-connector by the
-# dev-merit MM2 + group mirror (topic bill-telemetry is mirrored too).
+# The dev-merit MM2 + group mirror include bill-telemetry and
+# uw-bill-telemetry-bq-connector, but dev gets no telemetry traffic (the gateway
+# has served 0 requests since 2026-10-31), so the MSK topic and group are empty.
+# Same order as prod: gateway first, then the connector with offset=oldest.
 module "bill_integration_bill_telemetry_connector" {
   source = "../../../modules/tls-app"
 
