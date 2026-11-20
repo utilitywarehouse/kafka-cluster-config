@@ -25,11 +25,12 @@ resource "kafka_topic" "data_migration_cdc_checkpoint" {
   partitions         = 1
   config = {
     "cleanup.policy" = "compact"
-    # compact promptly: the relay writes a record every few seconds
+    # roll segments every hour (1h) so compaction runs promptly; the relay writes a record every few seconds
     "segment.ms"                = "3600000"
     "min.cleanable.dirty.ratio" = "0.1"
-    "max.message.bytes"         = "1048576"
-    "compression.type"          = "zstd"
+    # allow for a batch of records maximum 1MiB
+    "max.message.bytes" = "1048576"
+    "compression.type"  = "zstd"
   }
 }
 
