@@ -6,7 +6,7 @@ resource "kafka_topic" "eqdb_sync_notifications" {
   config = {
     # Use tiered storage
     "remote.storage.enable" = "true"
-    # keep data for 7 days in case we need to debug something
+    # keep data for 7 days
     "retention.ms" = "604800000"
     # keep data in primary storage for 3 days
     "local.retention.ms" = "259200000"
