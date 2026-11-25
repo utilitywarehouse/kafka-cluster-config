@@ -4,8 +4,12 @@ resource "kafka_topic" "eqdb_sync_notifications" {
   partitions         = 1
 
   config = {
-    # keep data for 2 days
-    "retention.ms" = "172800000"
+    # Use tiered storage
+    "remote.storage.enable" = "true"
+    # keep data for 7 days in case we need to debug something
+    "retention.ms" = "604800000"
+    # keep data in primary storage for 3 days
+    "local.retention.ms" = "259200000"
     # allow for a batch of records maximum 1MiB
     "max.message.bytes" = "1048576"
     "compression.type"  = "zstd"
