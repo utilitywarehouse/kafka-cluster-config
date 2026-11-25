@@ -1180,7 +1180,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "msk_topics_retention" {
   rule {
     id     = "sys-bill-backups.eqdb-sync.notifications"
     status = "Enabled"
-    expiration { days = 3 }
+    expiration { days = 8 }
     filter { prefix = "kafka-backup/sys-bill-backups.eqdb-sync.notifications/" }
   }
 
