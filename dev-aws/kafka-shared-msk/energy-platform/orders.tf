@@ -35,14 +35,6 @@ module "ordering_event_log_consumer" {
   cert_common_name = "energy-platform/ordering-event-log-consumer"
 }
 
-# energy-bill-gas-record-producer / provisioning/bill-gas-record-producer
-module "bill_gas_record_producer" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.order_events.name]
-  consume_groups   = ["energy-platform.bill-gas-record-producer"]
-  cert_common_name = "energy-platform/bill-gas-record-producer"
-}
-
 # energy-comms-orchestrator / comms/orchestrator
 module "comms_orchestrator" {
   source           = "../../../modules/tls-app"
@@ -73,15 +65,6 @@ module "energy_kafka_forwarder_order_events" {
   produce_topics   = [kafka_topic.order_events.name]
   consume_groups   = ["energy-platform.energy-kafka-forwarder-order-events"]
   cert_common_name = "energy-platform/energy-kafka-forwarder-order-events"
-}
-
-# energy-ensek-connector / ensek-connector/registrations
-# NB: the "projecion" typo is the live client name and consumer group
-module "ensek_connector_projection" {
-  source           = "../../../modules/tls-app"
-  consume_topics   = [kafka_topic.order_events.name]
-  consume_groups   = ["energy-platform.ensek-connector-projecion"]
-  cert_common_name = "energy-platform/ensek-connector-projecion"
 }
 
 # energy-ev-tariffs / ev-tariffs
