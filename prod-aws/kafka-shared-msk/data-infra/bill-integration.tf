@@ -540,3 +540,19 @@ module "bill_integration_bill_telemetry_connector" {
   ]
   cert_common_name = "bill-integration/bill-telemetry-connector"
 }
+
+# bill-to-kubernetes listener in bex-mail-sender (customer-billing) moving off the
+# in-cluster Kafka as a direct MSK client (DI-2164). Reuses the existing
+# customer-billing/mail-sender cert. The bill-integration MM2 already mirrors the
+# legacy `mail-sender` group into this prefixed group.
+module "customer_billing_mail_sender_bill" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.mail-sender"
+  ]
+  cert_common_name = "customer-billing/mail-sender"
+}

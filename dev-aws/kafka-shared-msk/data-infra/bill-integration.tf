@@ -439,6 +439,16 @@ module "clubhouse_payments_bill_writer" {
   cert_common_name = "clubhouse-payments/bill-writer"
 }
 
+# Deployment billing/finance-one-liner-file-generator (dev-merit): bill notifications move to MSK.
+module "billing_finance_one_liner_file_generator" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_kubernetes_to_bill.name,
+  ]
+  cert_common_name = "billing/finance-one-liner-file-generator"
+}
+
 # Deployment energy-platform/kubernetes-to-bill-energy-meter-reading-forwarder.
 # Its full name is over the 64-char CN limit, so set the cert annotation to
 # "kubernetes-to-bill-meter-reading-forwarder".
@@ -578,4 +588,63 @@ module "ordering_platform_bill_application_releaser" {
     "data-infra.bill-integration.order-platform-bill-application-releaser"
   ]
   cert_common_name = "ordering-platform/bill-application-releaser"
+}
+
+# bill-to-kubernetes listener moving to MSK directly (direct tls-app module).
+# Listener. Was reading via partner/proximo-bill-integration; the group is not mirrored
+# (dev reads from the newest offset), so it starts fresh on MSK.
+module "partner_commission_commission_statements_dispatcher" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.commission-statements-002"
+  ]
+  cert_common_name = "partner-commission/commission-statements-dispatcher"
+}
+
+# bill-telemetry gateway and BigQuery connector (bill-integration, merit) moving
+# off the in-cluster Kafka as direct MSK clients. Both run in bill-integration;
+# certs come from the uw.systems/msk-kafka-client annotation.
+module "bill_integration_bill_telemetry_gw" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_bill_telemetry.name,
+  ]
+  cert_common_name = "bill-integration/bill-telemetry-gw"
+}
+
+# The dev-merit MM2 + group mirror include bill-telemetry and
+# uw-bill-telemetry-bq-connector, but dev gets no telemetry traffic (the gateway
+# has served 0 requests since 2026-10-31), so the MSK topic and group are empty.
+# Same order as prod: gateway first, then the connector with offset=oldest.
+module "bill_integration_bill_telemetry_connector" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_telemetry.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.uw-bill-telemetry-bq-connector"
+  ]
+  cert_common_name = "bill-integration/bill-telemetry-connector"
+}
+
+# bill-to-kubernetes listener in bex-mail-sender (customer-billing) moving off the
+# in-cluster Kafka as a direct MSK client (DI-2164). Reuses the existing
+# customer-billing/mail-sender cert. Dev mail-sender has no bill-integration
+# traffic today, so the group starts fresh.
+module "customer_billing_mail_sender_bill" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_to_kubernetes.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.mail-sender"
+  ]
+  cert_common_name = "customer-billing/mail-sender"
 }
