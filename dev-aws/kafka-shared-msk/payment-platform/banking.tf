@@ -23,6 +23,7 @@ module "banking_cron" {
   source = "../../../modules/tls-app"
   produce_topics = [
     kafka_topic.payment_method_v1_events.name,
+    kafka_topic.banking_v1_addacs_instructions.name,
   ]
   cert_common_name = "payment-platform/banking-cron"
 }
