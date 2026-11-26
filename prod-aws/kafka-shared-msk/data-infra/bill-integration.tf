@@ -515,6 +515,32 @@ module "ordering_platform_bill_application_releaser" {
   cert_common_name = "ordering-platform/bill-application-releaser"
 }
 
+# bill-telemetry gateway and BigQuery connector (bill-integration, merit) moving
+# off the in-cluster Kafka as direct MSK clients. Both run in bill-integration;
+# certs come from the uw.systems/msk-kafka-client annotation.
+module "bill_integration_bill_telemetry_gw" {
+  source = "../../../modules/tls-app"
+
+  produce_topics = [
+    kafka_topic.bill_integration_bill_telemetry.name,
+  ]
+  cert_common_name = "bill-integration/bill-telemetry-gw"
+}
+
+# The in-cluster topic in prod-merit is not mirrored, so the connector starts a
+# fresh group with offset=oldest after the gateway has moved (MSK topic is empty today).
+module "bill_integration_bill_telemetry_connector" {
+  source = "../../../modules/tls-app"
+
+  consume_topics = [
+    kafka_topic.bill_integration_bill_telemetry.name,
+  ]
+  consume_groups = [
+    "data-infra.bill-integration.uw-bill-telemetry-bq-connector"
+  ]
+  cert_common_name = "bill-integration/bill-telemetry-connector"
+}
+
 # bill-to-kubernetes listener in bex-mail-sender (customer-billing) moving off the
 # in-cluster Kafka as a direct MSK client (DI-2164). Reuses the existing
 # customer-billing/mail-sender cert. The bill-integration MM2 already mirrors the
